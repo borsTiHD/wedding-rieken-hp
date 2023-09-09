@@ -40,6 +40,9 @@ module.exports = {
         'import/newline-after-import': 0,
         'no-underscore-dangle': 0,
 
+        // TypeScript specific rules
+        '@typescript-eslint/no-explicit-any': 'warn',
+
         // Vue specific rules
         'vue/multi-word-component-names': ['error', {
             ignores: ['default', 'index', '[name]', 'teamspeak', 'projects', 'impressum']
