@@ -39,6 +39,13 @@ const getData = async() => {
 
     const results = response.data.value as DataResults
 
+    // Check if results are good
+    if (!results) {
+        console.error('No results found')
+        return false
+    }
+
+    // Set the data to the results
     data.value = results.result
 }
 
@@ -88,5 +95,5 @@ const deleteData = async() => {
 }
 
 // Call the getData function on page load
-onMounted(getData)
+getData()
 </script>
