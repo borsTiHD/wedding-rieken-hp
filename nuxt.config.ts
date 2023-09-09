@@ -9,6 +9,10 @@ export default defineNuxtConfig({
         firebaseAppid: '',
         firebaseMeasurementid: ''
     },
+    modules: [
+        // ...
+        '@pinia/nuxt'
+    ],
     css: [
         '~/assets/css/tailwindcss.css', // tailwindcss
         'primevue/resources/themes/lara-light-blue/theme.css',

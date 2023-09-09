@@ -9,6 +9,9 @@
         "postinstall": "nuxt prepare",
         "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore ."
     },
+    "overrides": {
+        "vue": "latest"
+    },
     "devDependencies": {
         "@nuxt/devtools": "latest",
         "@typescript-eslint/eslint-plugin": "^6.6.0",
@@ -23,8 +26,10 @@
         "vite-plugin-eslint": "^1.8.1"
     },
     "dependencies": {
+        "@pinia/nuxt": "^0.4.11",
         "firebase": "^10.3.1",
         "moment": "^2.29.4",
+        "pinia": "^2.1.6",
         "primevue": "^3.34.1"
     }
 }
