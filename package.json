@@ -7,19 +7,23 @@
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
-            "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore ."
+        "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore ."
     },
     "devDependencies": {
         "@nuxt/devtools": "latest",
         "@typescript-eslint/eslint-plugin": "^6.6.0",
         "@typescript-eslint/parser": "^6.6.0",
+        "autoprefixer": "^10.4.15",
         "eslint": "^8.49.0",
         "eslint-plugin-nuxt": "^4.0.0",
         "eslint-plugin-vue": "^9.17.0",
         "nuxt": "^3.7.1",
+        "postcss": "^8.4.29",
+        "tailwindcss": "^3.3.3",
         "vite-plugin-eslint": "^1.8.1"
     },
     "dependencies": {
-        "firebase": "^10.3.1"
+        "firebase": "^10.3.1",
+        "primevue": "^3.34.1"
     }
 }

@@ -9,5 +9,19 @@ export default defineNuxtConfig({
         firebase_appId: '',
         firebase_measurementId: ''
     },
+    css: [
+        '~/assets/css/tailwindcss.css', // tailwindcss
+        'primevue/resources/themes/lara-light-blue/theme.css',
+        'primevue/resources/primevue.min.css'
+    ],
+    build: {
+        transpile: ['primevue']
+    },
+    postcss: {
+        plugins: {
+            tailwindcss: {},
+            autoprefixer: {}
+        }
+    },
     devtools: { enabled: true }
 })
