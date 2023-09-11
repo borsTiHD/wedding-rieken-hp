@@ -1,5 +1,6 @@
 <template>
     <div class="app-wrapper">
+        <Toast position="bottom-right" />
         <LoadingOverlay v-if="loading" :progress="progress" />
         <main v-else>
             <NuxtPage />
