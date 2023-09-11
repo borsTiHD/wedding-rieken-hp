@@ -29,6 +29,12 @@ export interface Pages {
     id: string
 }
 
+// Moment - create timestamp for specific date
+import moment from 'moment'
+const now = moment().add(1, 'months')
+const formatted = now.unix()
+console.log('Formatted:', formatted)
+
 const data = ref<Pages[]>([])
 
 const getData = async() => {
