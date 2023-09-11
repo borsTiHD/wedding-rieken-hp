@@ -14,9 +14,10 @@ export default defineNuxtConfig({
         '@pinia/nuxt'
     ],
     css: [
-        '~/assets/css/tailwindcss.css', // tailwindcss
+        '@/assets/css/tailwindcss.css', // tailwindcss
         'primevue/resources/themes/lara-light-blue/theme.css',
-        'primevue/resources/primevue.min.css'
+        'primevue/resources/primevue.min.css',
+        'primeicons/primeicons.css'
     ],
     build: {
         transpile: ['primevue']

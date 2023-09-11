@@ -7,7 +7,9 @@ module.exports = {
         './pages/**/*.vue',
         './plugins/**/*.{js,ts}',
         './nuxt.config.{js,ts}',
-        './app.vue'
+        './app.vue',
+        './index.html',
+        './node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}'
     ],
     important: true,
     theme: {
