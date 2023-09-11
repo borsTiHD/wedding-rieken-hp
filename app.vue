@@ -13,15 +13,16 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
 
 // Props for 'loading' and 'progress'
-const { loading, progress } = useLoadingSpinner(true)
+// Also starts loading spinner
+const { loading, progress, stoptLoading } = useLoadingSpinner(true)
 
-// Fetch app config
+// App store
 const appStore = useAppStore()
-await appStore.fetchConfig()
-const config = appStore.config
 
-console.log('App config:', config)
-console.log('Config - Wedding Date:', config?.weddingDate)
+onMounted(async() => {
+    await appStore.fetchConfig() // Fetch app config
+    stoptLoading() // Stop loading spinner
+})
 </script>
 
 <style>
