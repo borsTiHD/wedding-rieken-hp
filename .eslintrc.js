@@ -51,6 +51,7 @@ module.exports = {
         'vue/singleline-html-element-content-newline': 'off',
         'vue/multiline-html-element-content-newline': 'off',
         'vue/html-indent': ['error', 4],
-        'vue/no-v-html': 'off'
+        'vue/no-v-html': 'off',
+        'vue/attribute-hyphenation': 'off'
     }
 }
