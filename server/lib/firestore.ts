@@ -4,6 +4,7 @@ import {
     getDoc,
     addDoc,
     deleteDoc,
+    updateDoc,
     doc,
     // query,
     // where,
@@ -44,7 +45,16 @@ export const queryByCollectionAndId = async(col: string, id: string) => {
 
 // Set firestore document by collection
 export const set = async(col: string, document: any) => {
-    await setDoc(doc(collection(firestoreDb, col)), document, { merge: true })
+    return await setDoc(doc(collection(firestoreDb, col)), document, { merge: true })
+}
+
+// Update firestore document by collection and id
+export const update = async(col: string, id: string, key: string, value: any) => {
+    const docRef = doc(firestoreDb, col, id)
+    // Set the "key" field of the document
+    return await updateDoc(docRef, {
+        [key]: value
+    })
 }
 
 // Add firestore document by collection
