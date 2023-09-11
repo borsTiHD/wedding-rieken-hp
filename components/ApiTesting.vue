@@ -19,16 +19,17 @@
 
 <script setup lang="ts">
 export interface DataResults {
-    result: Result[]
+    result: Pages[],
+    error?: string
 }
-export interface Result {
+export interface Pages {
     title: string
     name: string
     description: string
     id: string
 }
 
-const data = ref<Result[]>([])
+const data = ref<Pages[]>([])
 
 const getData = async() => {
     const response = await useFetch('/api/query', {
@@ -43,6 +44,9 @@ const getData = async() => {
     if (!results) {
         console.error('No results found')
         return false
+    } else if (results.error) {
+        console.error('Error:', results.error)
+        return false
     }
 
     // Set the data to the results
@@ -51,11 +55,12 @@ const getData = async() => {
 
 const addData = async() => {
     // Generate a random string and push it to the database
+    const colName = 'pages'
     const randomString = Math.random().toString(36).substring(7)
-    await $fetch('/api/add', {
+    const response = await $fetch('/api/add', {
         method: 'POST',
         query: {
-            col: 'pages' // Collection name
+            col: colName // Collection name
         },
         body: {
             name: `randompage-${randomString}`,
@@ -63,6 +68,14 @@ const addData = async() => {
             description: 'This is a random page generated for testing purposes'
         }
     })
+
+    // Check if results are good
+    const results = response as DataResults
+    if (!results) {
+        console.error('No results found')
+    } else if (results.error) {
+        console.error('Error:', results.error)
+    }
 
     // Refresh the data
     getData()
@@ -76,19 +89,30 @@ const deleteData = async() => {
         }
     })
 
+    // Get the results
     const results = response.data.value as DataResults
     const pages = results.result
 
+    // Get a random document from the results
     const randomIndex = Math.floor(Math.random() * pages.length)
     const randomDoc = pages[randomIndex]
 
-    await $fetch('/api/delete', {
+    // Delete the document
+    const delResponse = await $fetch('/api/delete', {
         method: 'POST',
         query: {
             col: 'pages', // Collection name
             id: randomDoc.id // Document ID
         }
     })
+
+    // Check if results are good
+    const delResults = delResponse as DataResults
+    if (!delResults) {
+        console.error('No results found')
+    } else if (delResults.error) {
+        console.error('Error:', results.error)
+    }
 
     // Refresh the data
     getData()
