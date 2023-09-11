@@ -5,7 +5,7 @@ export interface ConfigResult {
 }
 
 export interface Config {
-    weddingDate: string
+    weddingDate: number
     id: string
 }
 
