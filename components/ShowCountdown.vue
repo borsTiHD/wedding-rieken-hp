@@ -27,12 +27,14 @@ const props = defineProps({
     }
 })
 
+// Countdown values
 const targetDate = ref(0)
 const days = ref(0)
 const hours = ref(0)
 const minutes = ref(0)
 const seconds = ref(0)
 
+// Update countdown values
 const updateCountdown = () => {
     const currentTime = Math.floor(Date.now() / 1000)
     const timeLeft = targetDate.value - currentTime
@@ -49,6 +51,11 @@ const updateCountdown = () => {
         seconds.value = timeLeft % 60
     }
 }
+
+// Watch for changes in timestamp
+watch(() => props.timestamp, () => {
+    targetDate.value = props.timestamp
+})
 
 onMounted(() => {
     // Hier setzt du deinen Unix-Zeitstempel in Sekunden
