@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col gap-4">
-        <h1 class="text-3xl font-bold underline text-sky-600">API Testing:</h1>
+    <div class="p-2 flex flex-col gap-4 border border-gray-400">
+        <h1 class="text-3xl font-bold underline text-sky-600">API Testing (Pages):</h1>
         <Button label="Get Data" severity="primary" icon="pi pi-check" @click="getData" />
         <Button label="Add random Data" severity="success" icon="pi pi-check" @click="addData" />
         <Button label="Delete random Data" severity="danger" icon="pi pi-check" @click="deleteData" />
@@ -18,16 +18,7 @@
 </template>
 
 <script setup lang="ts">
-export interface DataResults {
-    result: Pages[],
-    error?: string
-}
-export interface Pages {
-    title: string
-    name: string
-    description: string
-    id: string
-}
+import type { DataResults, Pages } from '@/types/pages'
 
 const data = ref<Pages[]>([])
 

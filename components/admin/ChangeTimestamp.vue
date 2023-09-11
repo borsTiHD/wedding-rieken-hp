@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import { useAppStore } from '@/stores/app'
+import type { DataResults } from '@/types/pages'
 
 // Composables
 const toast = useToast()
@@ -79,6 +80,11 @@ const submitBtn = async() => {
 }
 
 onMounted(() => {
+    if (!config?.weddingDate) {
+        console.error('No wedding date found')
+        return false
+    }
+
     // Set default date from timestamp
     date.value = new Date()
     date.value.setTime(config?.weddingDate * 1000)

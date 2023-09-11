@@ -1,13 +1,5 @@
 import { defineStore } from 'pinia'
-
-export interface ConfigResult {
-    result: Config[]
-}
-
-export interface Config {
-    weddingDate: number
-    id: string
-}
+import type { DataResults, Config } from '@/types/config'
 
 export const useAppStore = defineStore('app-store', () => {
     const config = ref<Config>()
@@ -25,7 +17,7 @@ export const useAppStore = defineStore('app-store', () => {
         }
 
         // Set config data
-        const data = response.data.value as ConfigResult
+        const data = response.data.value as DataResults
         config.value = data.result[0]
     }
 
