@@ -9,6 +9,7 @@ export default defineNuxtConfig({
         firebaseAppid: '',
         firebaseMeasurementid: ''
     },
+    srcDir: 'src/',
     modules: [
         // ...
         '@pinia/nuxt'

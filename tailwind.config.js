@@ -2,12 +2,8 @@
 
 module.exports = {
     content: [
-        './components/**/*.{js,vue,ts}',
-        './layouts/**/*.vue',
-        './pages/**/*.vue',
-        './plugins/**/*.{js,ts}',
+        './src/**/*.{vue,js,ts,jsx,tsx}',
         './nuxt.config.{js,ts}',
-        './app.vue',
         './index.html',
         './node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}'
     ],
