@@ -1,5 +1,6 @@
 <template>
     <div class="m-4 flex flex-col gap-4">
+        <LoginForm />
         <ShowCountdown :timestamp="config?.weddingDate" />
         <DateDisplay :timestamp="config?.weddingDate" />
         <ChangeTimestamp />
@@ -9,9 +10,10 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
+import LoginForm from '@/components/login/LoginForm.vue'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
-import ChangeTimestamp from '~/components/admin/ChangeTimestamp.vue'
+import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
 import ApiTesting from '@/components/ApiTesting.vue'
 
 // App config
