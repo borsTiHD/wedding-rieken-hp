@@ -1,7 +1,7 @@
 <template>
     <div class="p-2 flex flex-col gap-4 border border-gray-400">
         <h1 class="text-3xl font-bold underline text-sky-600">API Testing (Pages):</h1>
-        <Button label="Get Data" severity="primary" icon="pi pi-check" @click="getData" />
+        <Button label="Get Data" icon="pi pi-check" @click="getData" />
         <Button label="Add random Data" severity="success" icon="pi pi-check" @click="addData" />
         <Button label="Delete random Data" severity="danger" icon="pi pi-check" @click="deleteData" />
 
