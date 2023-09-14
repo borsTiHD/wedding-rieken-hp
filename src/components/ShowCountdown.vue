@@ -33,6 +33,7 @@ const days = ref(0)
 const hours = ref(0)
 const minutes = ref(0)
 const seconds = ref(0)
+const interval = ref<null | ReturnType<typeof setInterval>>(null)
 
 // Update countdown values
 const updateCountdown = () => {
@@ -58,10 +59,11 @@ watch(() => props.timestamp, () => {
 })
 
 onMounted(() => {
-    // Hier setzt du deinen Unix-Zeitstempel in Sekunden
+    // Set initial timestamp in seconds
     targetDate.value = props.timestamp
 
     updateCountdown()
-    setInterval(updateCountdown, 1000)
+    if (interval.value) { clearInterval(interval.value) }
+    interval.value = setInterval(updateCountdown, 1000)
 })
 </script>
