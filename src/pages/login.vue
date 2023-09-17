@@ -8,7 +8,9 @@
 <script setup lang="ts">
 import LoginForm from '@/components/user/LoginForm.vue'
 import LogoutButton from '@/components/user/LogoutButton.vue'
+import { useUserStore } from '@/stores/user'
 
-// User
-const { user } = useFirebaseAuth()
+// User store
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
 </script>
