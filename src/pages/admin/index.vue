@@ -5,10 +5,12 @@
             <LogoutButton v-if="user" />
         </div>
 
-        <ShowCountdown :timestamp="config?.weddingDate" />
-        <DateDisplay :timestamp="config?.weddingDate" />
-        <ChangeTimestamp />
-        <ApiTesting />
+        <div v-if="user" class="flex flex-col gap-4">
+            <ShowCountdown :timestamp="config?.weddingDate" />
+            <DateDisplay :timestamp="config?.weddingDate" />
+            <ChangeTimestamp />
+            <ApiTesting />
+        </div>
     </div>
 </template>
 
