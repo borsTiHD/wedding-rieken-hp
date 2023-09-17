@@ -1,27 +1,72 @@
 <template>
-    <form class="flex flex-column gap-2" @submit.prevent="onSubmit">
-        <div class="p-inputgroup flex-1">
-            <span class="p-inputgroup-addon">
-                <i class="pi pi-user" />
-            </span>
-            <InputText v-model="username" placeholder="Username" name="username" autocomplete="username" />
-        </div>
-        <div class="p-inputgroup flex-1">
-            <span class="p-inputgroup-addon">
-                <i class="pi pi-lock" />
-            </span>
-            <Password v-model="password" placeholder="Password" name="password" autocomplete="current-password" toggleMask />
-        </div>
+    <FormKit
+        v-slot="{ state: { valid } }"
+        type="form"
+        :actions="false"
+        @submit="handleSubmit"
+    >
+        <div class="flex flex-col gap-4">
+            <FormKit
+                type="email"
+                name="email"
+                label="Email"
+                prefix-icon="email"
+                placeholder="myname@website.com"
+                help="Bitte geben Sie Ihre E-Mail-Adresse ein."
+                validation="required|email"
+                autofocus
+            />
+            <FormKit
+                type="password"
+                name="password"
+                label="Password"
+                prefix-icon="password"
+                help="Bitte geben Sie Ihr Passwort ein."
+                validation="required"
+            />
 
-        <Button type="submit" severity="success" label="Sign In" />
-    </form>
+            <div class="flex gap-2">
+                <Button label="Einloggen" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+            </div>
+        </div>
+    </FormKit>
 </template>
 
 <script setup lang="ts">
-const username = ref('')
-const password = ref('')
+import { useToast } from 'primevue/usetoast'
+import { User} from 'firebase/auth'
 
-const onSubmit = () => {
-    console.log(username.value, password.value)
+// Composables
+const toast = useToast()
+const { loginUser } = useFirebaseAuth()
+
+// Data
+const user = useState<User | null>('user', () => null) // Create a reactive state for the user (nuxt)
+const loading = ref(false)
+
+// Submit button
+const handleSubmit = async(form: { email: string, password: string }) => {
+    loading.value = true
+    await loginUser(form.email, form.password)
+        .then(() => {
+            console.log('logged in', user.value)
+            toast.add({
+                severity: 'success',
+                summary: 'Erfolgreich eingeloggt',
+                detail: 'Sie wurden erfolgreich eingeloggt.',
+                life: 3000
+            })
+        })
+        .catch((error: { message: string }) => {
+            toast.add({
+                severity: 'error',
+                summary: 'Fehler beim Einloggen',
+                detail: error.message,
+                life: 3000
+            })
+        })
+        .finally(() => {
+            loading.value = false
+        })
 }
 </script>
