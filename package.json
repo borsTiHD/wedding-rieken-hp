@@ -26,6 +26,10 @@
         "vite-plugin-eslint": "^1.8.1"
     },
     "dependencies": {
+        "@formkit/addons": "^1.0.0",
+        "@formkit/i18n": "^1.0.0",
+        "@formkit/nuxt": "^1.0.0",
+        "@formkit/themes": "^1.0.0",
         "@pinia/nuxt": "^0.4.11",
         "firebase": "^10.3.1",
         "pinia": "^2.1.6",

@@ -25,7 +25,8 @@ export default defineNuxtConfig({
     srcDir: 'src/',
     modules: [
         // ...
-        '@pinia/nuxt'
+        '@pinia/nuxt',
+        '@formkit/nuxt'
     ],
     css: [
         '@/assets/css/tailwindcss.css', // tailwindcss
