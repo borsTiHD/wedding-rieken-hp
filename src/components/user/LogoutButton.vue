@@ -29,7 +29,7 @@ const logout = async() => {
                 severity: 'error',
                 summary: 'Fehler beim Ausloggen',
                 detail: error.message,
-                life: 3000
+                life: 10000
             })
         })
         .finally(() => {

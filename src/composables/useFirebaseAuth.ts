@@ -48,6 +48,8 @@ export default function() {
                 errorMessage = 'Die E-Mail-Adresse ist ungültig.'
             } else if (error.code === 'auth/too-many-requests') {
                 errorMessage = 'Zu viele Anfragen. Bitte versuche es später erneut.'
+            } else if (error.code === 'auth/user-disabled') {
+                errorMessage = 'Dieser Benutzer wurde deaktiviert.'
             }
 
             console.error(error)

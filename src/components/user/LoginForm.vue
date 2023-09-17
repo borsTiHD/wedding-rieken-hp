@@ -60,7 +60,7 @@ const handleSubmit = async(form: { email: string, password: string }) => {
                 severity: 'error',
                 summary: 'Fehler beim Einloggen',
                 detail: error.message,
-                life: 3000
+                life: 10000
             })
         })
         .finally(() => {
