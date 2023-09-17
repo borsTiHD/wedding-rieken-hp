@@ -34,14 +34,12 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import { User} from 'firebase/auth'
 
 // Composables
 const toast = useToast()
-const { loginUser } = useFirebaseAuth()
+const { user, loginUser } = useFirebaseAuth()
 
 // Data
-const user = useState<User | null>('user', () => null) // Create a reactive state for the user (nuxt)
 const loading = ref(false)
 
 // Submit button
