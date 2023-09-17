@@ -39,10 +39,22 @@ const createUser = async() => {
             role: 'user'
         }
     }).catch((error: { statusMessage: string }) => {
-        toast.add({ severity: 'error', summary: 'Error', detail: error.statusMessage, life: 5000 })
+        toast.add({ severity: 'error', summary: 'Error', detail: error.statusMessage, life: 10000 })
         throw error
     })
 
-    console.log(response)
+    // Check if response is ok
+    if (!response.result) {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Response not ok. User not created.', life: 10000 })
+        throw new Error('Response not ok. User not created.')
+    }
+
+    // Show toast
+    toast.add({
+        severity: 'success',
+        summary: 'User angelegt',
+        detail: 'Der User wurde erfolgreich angelegt.',
+        life: 3000
+    })
 }
 </script>
