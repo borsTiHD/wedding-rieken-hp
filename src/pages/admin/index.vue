@@ -5,7 +5,7 @@
             <LogoutButton v-if="user" />
         </div>
 
-        <div v-if="user" class="flex flex-col gap-4">
+        <div v-if="user && userProfile?.role === 'admin'" class="flex flex-col gap-4">
             <ShowCountdown :timestamp="config?.weddingDate" />
             <DateDisplay :timestamp="config?.weddingDate" />
             <ChangeTimestamp />
@@ -21,12 +21,15 @@ import LogoutButton from '@/components/user/LogoutButton.vue'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
+import { useUserStore } from '@/stores/user'
 import ApiTesting from '@/components/ApiTesting.vue'
 
 // App config
 const appStore = useAppStore()
 const config = computed(() => appStore.config)
 
-// User
-const { user } = useFirebaseAuth()
+// User store
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
+const userProfile = computed(() => userStore.userProfile)
 </script>

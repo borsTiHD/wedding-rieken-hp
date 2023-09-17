@@ -9,19 +9,22 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/app'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
+import { useAppStore } from '@/stores/app'
+import { useUserStore } from '@/stores/user'
 
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
 const { loading, progress, stoptLoading } = useLoadingSpinner(true)
 
-// App store
-const appStore = useAppStore()
+// Stores
+const appStore = useAppStore() // App store
+const userStore = useUserStore() // User store
 
 onMounted(async() => {
     await appStore.fetchConfig() // Fetch app config
+    await userStore.fetchUserData() // Fetch user data
     stoptLoading() // Stop loading spinner
 })
 </script>

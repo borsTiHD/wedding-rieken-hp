@@ -1,9 +1,15 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, User} from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
+import { useUserStore } from '@/stores/user'
+import type { UserProfile } from '@/types/UserProfile'
 
 export default function() {
-    const { $auth } = useNuxtApp() // From firebase.client.ts
-    const user = useState<User | null>('user', () => null) // Create a reactive state for the user (nuxt)
+    // From firebase.client.ts
+    const { $auth } = useNuxtApp()
+
+    // User store
+    const userStore = useUserStore()
+    const { user, userProfile, setUser, setUserProfile } = userStore
 
     // Register a new user
     const registerUser = async(email: string, password: string): Promise<boolean> => {
@@ -27,7 +33,7 @@ export default function() {
 
         // If the user is logged in, set the user state
         if (userCreds) {
-            user.value = userCreds.user
+            setUser(userCreds.user)
             return true
         }
 
@@ -58,7 +64,21 @@ export default function() {
 
         // If the user is logged in, set the user state
         if (userCreds) {
-            user.value = userCreds.user
+            // Set user state
+            setUser(userCreds.user)
+
+            // Firestore composable
+            const { queryByCollectionAndId } = useFirestore()
+
+            // Get additional userprofile data
+            const userData = await queryByCollectionAndId('users', userCreds.user.uid)
+            if (!userData) {
+                throw new Error('Benutzerprofil nicht gefunden.')
+            }
+
+            // Set user profile state
+            setUserProfile(userData as UserProfile)
+
             return true
         }
 
@@ -71,21 +91,12 @@ export default function() {
             console.error(error)
             throw new Error('Logout fehlgeschlagen - unbekannter Fehler.')
         })
-        user.value = null
+        setUser(null)
     }
-
-    // Listen to auth state changes
-    // This will update the user state when the user logs in or out
-    onAuthStateChanged($auth, (userCreds) => {
-        if (userCreds) {
-            user.value = userCreds
-        } else {
-            user.value = null
-        }
-    })
 
     return {
         user,
+        userProfile,
         registerUser,
         loginUser,
         logoutUser

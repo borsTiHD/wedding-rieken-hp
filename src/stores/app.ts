@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useFirestore } from '@/composables/useFirestore'
-import type { Config } from '@/types/config'
+import type { Config } from '@/types/Config'
 
 export const useAppStore = defineStore('app-store', () => {
     // Firestore composable
