@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { onAuthStateChanged, User} from 'firebase/auth'
+import { onAuthStateChanged, getIdToken, User} from 'firebase/auth'
 import { useFirestore } from '@/composables/useFirestore'
 import type { UserProfile } from '@/types/UserProfile'
 
@@ -13,6 +13,8 @@ export const useUserStore = defineStore('user-store', () => {
 
     // Fetch config data
     async function fetchUserData() {
+        const cookie = useCookie('user-id-token')
+
         // This will update the user state when the user logs in or out
         onAuthStateChanged($auth, async(response) => {
             if (response) {
@@ -21,8 +23,17 @@ export const useUserStore = defineStore('user-store', () => {
 
                 // Get additional userprofile data
                 await getUserProfile(user.value.uid)
+
+                // Get ID token
+                const idToken = await getIdToken(user.value).catch((error: { message: string }) => {
+                    throw new Error(error.message)
+                })
+
+                // Set cookie with ID token
+                cookie.value = idToken
             } else {
                 user.value = null
+                cookie.value = null
             }
         })
 
