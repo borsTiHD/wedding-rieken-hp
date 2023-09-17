@@ -1,13 +1,26 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     runtimeConfig: {
-        firebaseApikey: '', // can be overridden by NUXT_API_SECRET environment variable
+        // Server-side runtime config
+        firebaseApikey: '',
         firebaseAuthdomain: '',
         firebaseProjectid: '',
         firebaseStoragebucket: '',
         firebaseMessagingsenderid: '',
         firebaseAppid: '',
-        firebaseMeasurementid: ''
+        firebaseMeasurementid: '',
+        // Client-side runtime config
+        public: {
+            firebase: {
+                apiKey: process.env.NUXT_FIREBASE_APIKEY,
+                authDomain: process.env.NUXT_FIREBASE_AUTHDOMAIN,
+                projectId: process.env.NUXT_FIREBASE_PROJECTID,
+                storageBucket: process.env.NUXT_FIREBASE_STORAGEBUCKET,
+                messagingSenderId: process.env.NUXT_FIREBASE_MESSAGINGSENDERID,
+                appId: process.env.NUXT_FIREBASE_APPID,
+                measurementId: process.env.NUXT_FIREBASE_MEASUREMENTID
+            }
+        }
     },
     srcDir: 'src/',
     modules: [
