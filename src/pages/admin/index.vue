@@ -13,17 +13,19 @@
             <ShowCountdown :timestamp="config?.weddingDate" />
             <DateDisplay :timestamp="config?.weddingDate" />
             <ChangeTimestamp />
+            <CreateUser />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/app'
 import LoginForm from '@/components/user/LoginForm.vue'
 import LogoutButton from '@/components/user/LogoutButton.vue'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
+import CreateUser from '@/components/admin/CreateUser.vue'
+import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 
 // App config
