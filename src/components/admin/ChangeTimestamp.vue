@@ -8,17 +8,17 @@
             <i class="pi pi-clock" />
             <Calendar v-model="time" timeOnly />
         </span>
-        <Button type="submit" label="Submit" @click="submitBtn" />
+        <Button type="submit" label="Submit" @click="handleSubmit" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import { useAppStore } from '@/stores/app'
-import type { DataResults } from '@/types/pages'
 
 // Composables
 const toast = useToast()
+const { update } = useFirestore() // Firestore composable
 
 // App config
 const appStore = useAppStore()
@@ -30,16 +30,16 @@ const time = ref()
 const minDate = ref(new Date())
 
 // Submit button
-const submitBtn = async() => {
+const handleSubmit = async() => {
     // Check if date is selected
     if (!date.value) {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'No date selected', life: 5000 })
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Kein Datum ausgewählt.', life: 5000 })
         throw new Error('No date selected')
     }
 
     // Check if time is selected
     if (!time.value) {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'No time selected', life: 5000 })
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Keine Uhrzeit ausgewählt.', life: 5000 })
         throw new Error('No time selected')
     }
 
@@ -52,25 +52,11 @@ const submitBtn = async() => {
     // Get timestamp from date
     const timestamp = Math.floor(newDate.getTime() / 1000)
 
-    // Send request to API
-    const response = await $fetch('/api/weddingdate/update', {
-        method: 'POST',
-        query: {
-            value: timestamp
-        }
+    // Update wedding date
+    await update('app', 'config', 'weddingDate', timestamp).catch((error: { message: string }) => {
+        toast.add({ severity: 'error', summary: 'Error', detail: error.message, life: 5000 })
+        throw new Error(error.message)
     })
-
-    // Check if results are good
-    const results = response as DataResults
-    if (!results) {
-        const errorMsg = 'Could not update wedding date'
-        console.error('No response found')
-        toast.add({ severity: 'error', summary: 'Error', detail: errorMsg, life: 5000 })
-    } else if (results.error) {
-        const errorMsg = 'Could not update wedding date'
-        console.error('Error:', results.error)
-        toast.add({ severity: 'error', summary: 'Error', detail: errorMsg, life: 5000 })
-    }
 
     // Show success message
     toast.add({ severity: 'success', summary: 'Success', detail: 'Wedding date updated', life: 5000 })
