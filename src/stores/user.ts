@@ -20,13 +20,7 @@ export const useUserStore = defineStore('user-store', () => {
                 user.value = response
 
                 // Get additional userprofile data
-                const userData = await queryByCollectionAndId('users', user.value.uid)
-                if (!userData) {
-                    throw new Error('Benutzerprofil nicht gefunden.')
-                }
-
-                // Set user profile state
-                userProfile.value = userData as UserProfile
+                await getUserProfile(user.value.uid)
             } else {
                 user.value = null
             }
@@ -38,14 +32,25 @@ export const useUserStore = defineStore('user-store', () => {
             user.value = $auth.currentUser
 
             // Get additional userprofile data
-            const userData = await queryByCollectionAndId('users', user.value.uid)
-            if (!userData) {
-                throw new Error('Benutzerprofil nicht gefunden.')
-            }
-
-            // Set user profile state
-            userProfile.value = userData as UserProfile
+            await getUserProfile(user.value.uid)
         }
+    }
+
+    // Fetch user profile data
+    async function getUserProfile(uid: string) {
+        // Get additional userprofile data
+        const userData = await queryByCollectionAndId('users', uid).catch((error) => {
+            console.error(error)
+            throw new Error('Benutzerprofil konnte nicht geladen werden')
+        })
+
+        // Throw error if no response
+        if (!userData) {
+            throw new Error('Benutzerprofil nicht gefunden.')
+        }
+
+        // Set user profile state
+        userProfile.value = userData as UserProfile
     }
 
     // Set user state

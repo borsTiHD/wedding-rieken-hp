@@ -12,7 +12,10 @@ export const useAppStore = defineStore('app-store', () => {
     // Fetch config data
     async function fetchConfig() {
         // If collection and id is specified, return document from collection
-        const response = await queryByCollectionAndId('app', 'config') as Config
+        const response = await queryByCollectionAndId('app', 'config').catch((error) => {
+            console.error(error)
+            throw new Error('Error fetching app config')
+        })
 
         // Throw error if no response
         if (!response) {
@@ -20,7 +23,7 @@ export const useAppStore = defineStore('app-store', () => {
         }
 
         // Set config data
-        config.value = response
+        config.value = response as Config
     }
 
     return { config, fetchConfig }
