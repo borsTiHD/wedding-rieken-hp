@@ -13,7 +13,6 @@
             <ShowCountdown :timestamp="config?.weddingDate" />
             <DateDisplay :timestamp="config?.weddingDate" />
             <ChangeTimestamp />
-            <ApiTesting />
         </div>
     </div>
 </template>
@@ -26,7 +25,6 @@ import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
 import { useUserStore } from '@/stores/user'
-import ApiTesting from '@/components/ApiTesting.vue'
 
 // App config
 const appStore = useAppStore()
