@@ -1,15 +1,18 @@
 import { defineStore } from 'pinia'
-import type { DataResults, Config } from '@/types/config'
+import { useFirestore } from '@/composables/useFirestore'
+import type { Config } from '@/types/config'
 
 export const useAppStore = defineStore('app-store', () => {
+    // Firestore composable
+    const { queryByCollectionAndId } = useFirestore()
+
+    // Config data
     const config = ref<Config>()
 
+    // Fetch config data
     async function fetchConfig() {
-        const response = await useFetch('/api/query', {
-            query: {
-                col: 'app'
-            }
-        })
+        // If collection and id is specified, return document from collection
+        const response = await queryByCollectionAndId('app', 'config') as Config
 
         // Throw error if no response
         if (!response) {
@@ -17,8 +20,7 @@ export const useAppStore = defineStore('app-store', () => {
         }
 
         // Set config data
-        const data = response.data.value as DataResults
-        config.value = data.result[0]
+        config.value = response
     }
 
     return { config, fetchConfig }

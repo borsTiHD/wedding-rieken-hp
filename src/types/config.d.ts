@@ -1,9 +1,4 @@
-export interface DataResults {
-    result: Config[],
-    error?: string
-}
-
+// Config types
 export interface Config {
     weddingDate: number
-    id: string
 }
