@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, User} from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, User} from 'firebase/auth'
 
 export default function() {
     const { $auth } = useNuxtApp() // From firebase.client.ts
@@ -36,9 +36,30 @@ export default function() {
         throw new Error('Could not login user - unknown error')
     }
 
+    // Logout a user
+    const logoutUser = async(): Promise<void> => {
+        try {
+            await $auth.signOut()
+            user.value = null
+        } catch (error: unknown) {
+            throw error
+        }
+    }
+
+    // Listen to auth state changes
+    // This will update the user state when the user logs in or out
+    onAuthStateChanged($auth, (userCreds) => {
+        if (userCreds) {
+            user.value = userCreds
+        } else {
+            user.value = null
+        }
+    })
+
     return {
         user,
         registerUser,
-        loginUser
+        loginUser,
+        logoutUser
     }
 }
