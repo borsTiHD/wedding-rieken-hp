@@ -17,6 +17,7 @@ export function useFirestore() {
     // From firebase.client.ts
     const { $firestore } = useNuxtApp()
 
+    // Query a collection
     const queryByCollection = async(col: string) => {
         const colRef = collection($firestore, col)
         const snapshot = await getDocs(colRef)
@@ -31,6 +32,7 @@ export function useFirestore() {
         return docs
     }
 
+    // Query a document by collection and ID
     const queryByCollectionAndId = async(col: string, id: string) => {
         const docRef = doc($firestore, col, id)
         const docSnap = await getDoc(docRef)
@@ -41,10 +43,12 @@ export function useFirestore() {
         return docSnap.data()
     }
 
+    // Set a document by ID
     const set = async(col: string, document: any) => {
         return await setDoc(doc(collection($firestore, col)), document, { merge: true })
     }
 
+    // Updates a key of a document by ID
     const update = async(col: string, id: string, key: string, value: any) => {
         const docRef = doc($firestore, col, id)
         // Set the "key" field of the document
@@ -53,12 +57,21 @@ export function useFirestore() {
         })
     }
 
+    // Add a document with a specified ID
+    const addWithId = async(col: string, id: string, document: any) => {
+        const colRef = collection($firestore, col)
+        const docRef = await setDoc(doc(colRef, id), document)
+        return docRef
+    }
+
+    // Add a document with a random ID
     const add = async(col: string, document: any) => {
         const colRef = collection($firestore, col)
         const docRef = await addDoc(colRef, document)
         return docRef
     }
 
+    // Delete a document by ID
     const del = async(col: string, id: string) => {
         const docRef = doc($firestore, col, id)
         return await deleteDoc(docRef)
@@ -69,6 +82,7 @@ export function useFirestore() {
         queryByCollectionAndId,
         set,
         update,
+        addWithId,
         add,
         del
     }

@@ -5,7 +5,7 @@ import type { UserProfile } from '@/types/UserProfile'
 
 export const useUserStore = defineStore('user-store', () => {
     const { $auth } = useNuxtApp() // From firebase.client.ts
-    const { queryByCollectionAndId } = useFirestore() // Firestore composable
+    const { queryByCollectionAndId, addWithId } = useFirestore() // Firestore composable
 
     // Config data
     const user = ref<User | null>()
@@ -39,7 +39,16 @@ export const useUserStore = defineStore('user-store', () => {
     // Fetch user profile data
     async function getUserProfile(uid: string) {
         // Get additional userprofile data
-        const userData = await queryByCollectionAndId('users', uid).catch((error) => {
+        const userData = await queryByCollectionAndId('users', uid).catch(async(error) => {
+            // If the user profile does not exist, create it
+            if (error.message === 'Document does not exist') {
+                // Create default user profile
+                await createDefaultUserProfile(uid)
+                return await queryByCollectionAndId('users', uid).catch((error) => {
+                    console.error(error)
+                    throw new Error('Benutzerprofil konnte nicht geladen werden')
+                })
+            }
             console.error(error)
             throw new Error('Benutzerprofil konnte nicht geladen werden')
         })
@@ -51,6 +60,16 @@ export const useUserStore = defineStore('user-store', () => {
 
         // Set user profile state
         userProfile.value = userData as UserProfile
+    }
+
+    async function createDefaultUserProfile(uid: string) {
+        // Create default user profile
+        const defaultUserProfile = {
+            name: ''
+        }
+
+        // Add default user profile
+        await addWithId('users', uid, defaultUserProfile)
     }
 
     // Set user state
