@@ -37,7 +37,7 @@ import { useToast } from 'primevue/usetoast'
 
 // Composables
 const toast = useToast()
-const { user, loginUser } = useFirebaseAuth()
+const { loginUser } = useFirebaseAuth()
 
 // Data
 const loading = ref(false)
@@ -47,7 +47,6 @@ const handleSubmit = async(form: { email: string, password: string }) => {
     loading.value = true
     await loginUser(form.email, form.password)
         .then(() => {
-            console.log('logged in', user.value)
             toast.add({
                 severity: 'success',
                 summary: 'Erfolgreich eingeloggt',

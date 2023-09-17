@@ -9,7 +9,7 @@ export default function() {
 
     // User store
     const userStore = useUserStore()
-    const { user, userProfile, setUser, setUserProfile } = userStore
+    const { setUser, setUserProfile, fetchUserData } = userStore
 
     // Register a new user
     const registerUser = async(email: string, password: string): Promise<boolean> => {
@@ -34,6 +34,7 @@ export default function() {
         // If the user is logged in, set the user state
         if (userCreds) {
             setUser(userCreds.user)
+            fetchUserData()
             return true
         }
 
@@ -92,11 +93,10 @@ export default function() {
             throw new Error('Logout fehlgeschlagen - unbekannter Fehler.')
         })
         setUser(null)
+        setUserProfile(null)
     }
 
     return {
-        user,
-        userProfile,
         registerUser,
         loginUser,
         logoutUser

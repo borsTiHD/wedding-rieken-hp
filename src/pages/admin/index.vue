@@ -5,6 +5,10 @@
             <LogoutButton v-if="user" />
         </div>
 
+        <div class="flex flex-col gap-2">
+            <pre class="whitespace-pre-wrap">{{ userProfile }}</pre>
+        </div>
+
         <div v-if="user && userProfile?.role === 'admin'" class="flex flex-col gap-4">
             <ShowCountdown :timestamp="config?.weddingDate" />
             <DateDisplay :timestamp="config?.weddingDate" />
