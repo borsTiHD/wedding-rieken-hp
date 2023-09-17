@@ -23,8 +23,8 @@ const appStore = useAppStore() // App store
 const userStore = useUserStore() // User store
 
 onMounted(async() => {
-    await appStore.fetchConfig().catch(() => false) // Fetch app config, don't need to handle error
     await userStore.fetchUserData().catch(() => false) // Fetch user data, don't need to handle error
+    await appStore.fetchConfig().catch(() => false) // Fetch app config, don't need to handle error
     stoptLoading() // Stop loading spinner
 })
 </script>
