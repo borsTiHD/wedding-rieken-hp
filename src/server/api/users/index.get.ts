@@ -2,6 +2,12 @@ import { auth, db } from '@/server/lib/firebaseAdmin'
 import checkAdmin from '@/server/lib/checkAdmin'
 import type admin from 'firebase-admin'
 
+// Type definition for user
+type User = {
+    account: admin.auth.UserRecord;
+    profile: any;
+}
+
 export default defineEventHandler(async(event) => {
     await checkAdmin(event)
 
@@ -9,7 +15,7 @@ export default defineEventHandler(async(event) => {
     const listUsers = await auth.listUsers()
 
     // Create a map of users to combine user data and profiles
-    const userMap: Record<string, { user: admin.auth.UserRecord, profile: any }> = {}
+    const userMap: Record<string, User> = {}
 
     // Loop through all users and get their profiles
     const promises = []
@@ -18,7 +24,7 @@ export default defineEventHandler(async(event) => {
         promises.push(userProfilePromise)
 
         userMap[userRecord.uid] = {
-            user: userRecord,
+            account: userRecord,
             profile: null // This will be filled later
         }
     }
@@ -35,7 +41,7 @@ export default defineEventHandler(async(event) => {
     }
 
     // Konvertieren Sie das userMap-Objekt in ein Array von Benutzern mit Profilen
-    const usersWithProfiles: Array<{ user: admin.auth.UserRecord, profile: any }> = []
+    const usersWithProfiles: Array<User> = []
     for (const userId in userMap) {
         usersWithProfiles.push(userMap[userId])
     }
