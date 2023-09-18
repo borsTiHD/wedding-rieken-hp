@@ -6,6 +6,7 @@ import Calendar from 'primevue/calendar'
 import Toast from 'primevue/toast'
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
+import Skeleton from 'primevue/skeleton'
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true })
@@ -19,4 +20,5 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Toast', Toast)
     nuxtApp.vueApp.component('InputText', InputText)
     nuxtApp.vueApp.component('Password', Password)
+    nuxtApp.vueApp.component('Skeleton', Skeleton)
 })
