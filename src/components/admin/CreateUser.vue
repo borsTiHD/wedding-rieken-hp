@@ -1,6 +1,6 @@
 <template>
     <div class="p-2 flex flex-col gap-4 border border-gray-400">
-        <h1 class="text-3xl font-bold underline text-sky-600">API Testing (Users):</h1>
+        <h1 class="text-3xl font-bold underline text-sky-600">Create User:</h1>
         <Button label="Create New User" icon="pi pi-check" @click="createUser" />
     </div>
 </template>

@@ -14,6 +14,7 @@
             <DateDisplay :timestamp="config?.weddingDate" />
             <ChangeTimestamp />
             <CreateUser />
+            <ListUsers />
         </div>
     </div>
 </template>
@@ -25,6 +26,7 @@ import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
 import CreateUser from '@/components/admin/CreateUser.vue'
+import ListUsers from '@/components/admin/ListUsers.vue'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 
