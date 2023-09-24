@@ -5,7 +5,7 @@
         :actions="false"
         @submit="handleSubmit"
     >
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col">
             <FormKit
                 type="email"
                 name="email"
