@@ -23,7 +23,8 @@ export default defineNuxtConfig({
                 messagingSenderId: process.env.NUXT_FIREBASE_MESSAGINGSENDERID,
                 appId: process.env.NUXT_FIREBASE_APPID,
                 measurementId: process.env.NUXT_FIREBASE_MEASUREMENTID
-            }
+            },
+            firebaseAuthEmailSigninUrl: process.env.NUXT_FIREBASE_AUTH_EMAIL_SIGNIN_URL
         }
     },
     srcDir: 'src/',

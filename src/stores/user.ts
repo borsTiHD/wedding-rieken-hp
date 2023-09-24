@@ -93,5 +93,5 @@ export const useUserStore = defineStore('user-store', () => {
         userProfile.value = userProfileData
     }
 
-    return { user, userProfile, fetchUserData, setUser, setUserProfile }
+    return { user, userProfile, fetchUserData, setUser, setUserProfile, getUserProfile }
 })
