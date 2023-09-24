@@ -1,7 +1,47 @@
 <template>
     <div class="p-2 flex flex-col gap-4 border border-gray-400">
         <h1 class="text-3xl font-bold underline text-sky-600">Create User:</h1>
-        <Button label="Create New User" icon="pi pi-check" @click="createUser" />
+        <FormKit
+            v-slot="{ state: { valid } }"
+            type="form"
+            :actions="false"
+            @submit="handleSubmit"
+        >
+            <div class="flex flex-col gap-4">
+                <FormKit
+                    type="text"
+                    name="name"
+                    label="Name"
+                    prefix-icon="avatarMan"
+                    placeholder="Marcel Mustermann"
+                    help="Bitte geben Sie Vor-/Nachnahme ein."
+                    validation="required|length:5"
+                    autofocus
+                />
+                <FormKit
+                    type="email"
+                    name="email"
+                    label="Email"
+                    prefix-icon="email"
+                    placeholder="myname@website.com"
+                    help="Bitte geben Sie eine E-Mail-Adresse ein."
+                    validation="required|email"
+                    autofocus
+                />
+                <FormKit
+                    type="password"
+                    name="password"
+                    label="Password"
+                    prefix-icon="password"
+                    help="Bitte geben Sie ein Passwort ein."
+                    validation="required|length:8"
+                />
+
+                <div class="flex gap-2">
+                    <Button label="Erstelle User" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                </div>
+            </div>
+        </FormKit>
     </div>
 </template>
 
@@ -17,7 +57,17 @@ const userStore = useUserStore()
 const user = computed(() => userStore.user)
 const userProfile = computed(() => userStore.userProfile)
 
-const createUser = async() => {
+// Data
+const loading = ref(false)
+
+// Submit button
+const handleSubmit = async(form: { name: string, email: string, password: string }) => {
+    loading.value = true
+    await createUser(form).catch(() => { return false })
+    loading.value = false
+}
+
+const createUser = async(form: { name: string, email: string, password: string }) => {
     // Check if user is logged in
     if (!user.value) {
         throw new Error('User not logged in')
@@ -33,9 +83,9 @@ const createUser = async() => {
     const response = await $fetch('/api/users/add', {
         method: 'POST',
         body: {
-            name: 'Test User',
-            email: 'testUser@borstihd.de',
-            password: 'Ys!PbQ4mM@f8!zy4rdCBycq7@DZyrz',
+            name: form.name,
+            email: form.email,
+            password: form.password,
             role: 'user'
         }
     }).catch((error: { statusMessage: string }) => {
@@ -45,7 +95,7 @@ const createUser = async() => {
 
     // Check if response is ok
     if (!response.result) {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'Response not ok. User not created.', life: 10000 })
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Unbekannter Fehler in der Rückgabe. User konnte nicht angelegt werden.', life: 10000 })
         throw new Error('Response not ok. User not created.')
     }
 
