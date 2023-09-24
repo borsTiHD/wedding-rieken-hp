@@ -73,10 +73,16 @@ export const useUserStore = defineStore('user-store', () => {
         userProfile.value = userData as UserProfile
     }
 
+    // Create default user profile
     async function createDefaultUserProfile(uid: string) {
+        // Get current user email
+        const currentUser = $auth.currentUser
+        const email = currentUser?.email
+
         // Create default user profile
         const defaultUserProfile = {
-            name: ''
+            name: '',
+            email: email ? email : ''
         }
 
         // Add default user profile
