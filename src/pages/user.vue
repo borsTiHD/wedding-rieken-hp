@@ -9,7 +9,7 @@
         <!-- User Details -->
         <div v-else class="flex flex-col gap-4">
             <h1 class="text-2xl">Benutzer Infos:</h1>
-            <Avatar :image="user.photoURL ? user.photoURL : undefined" icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
+            <Avatar :image="userAvatar ? userAvatar : undefined" :icon="userAvatar ? undefined : 'pi pi-user'" class="mr-2" size="xlarge" shape="circle" />
             <div class="flex flex-col gap-2">
                 <span><b>UID:</b> {{ user.uid }}</span>
                 <span>
@@ -19,9 +19,12 @@
                 </span>
                 <span><b>Name:</b> {{ user.displayName }}</span>
                 <span><b>Telefon:</b> {{ user.phoneNumber }}</span>
-                <span><b>Erstellt:</b> {{ createReadableDate(user.metadata.creationTime) }}</span>
-                <span><b>Zuletzt eingeloggt:</b> {{ createReadableDate(user.metadata.lastSignInTime) }}</span>
+                <span><b>Erstellt:</b> {{ createReadableDate(user.metadata.creationTime as string) }}</span>
+                <span><b>Zuletzt eingeloggt:</b> {{ createReadableDate(user.metadata.lastSignInTime as string) }}</span>
             </div>
+
+            <!-- Upload profile picture -->
+            <UploadProfilePicture @uploaded="onAvatarChange" />
 
             <LogoutUser />
         </div>
@@ -30,6 +33,7 @@
 
 <script setup lang="ts">
 import LogoutUser from '@/components/user/LogoutUser.vue'
+import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
 import createReadableDate from '@/composables/dateHelper'
 import { useUserStore } from '@/stores/user'
 
@@ -37,6 +41,12 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 const user = computed(() => userStore.user)
 const userProfile = computed(() => userStore.userProfile)
+const userAvatar = ref<false | string>(user.value?.photoURL || false)
+
+// On avatar change - update userAvatar
+const onAvatarChange = () => {
+    userAvatar.value = user.value?.photoURL || false
+}
 
 console.log(user.value)
 console.log(userProfile.value)

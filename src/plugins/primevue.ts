@@ -13,6 +13,7 @@ import TabPanel from 'primevue/tabpanel'
 import ProgressSpinner from 'primevue/progressspinner'
 import InlineMessage from 'primevue/inlinemessage'
 import Avatar from 'primevue/avatar'
+import FileUpload from 'primevue/fileupload'
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true })
@@ -35,4 +36,5 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('ProgressSpinner', ProgressSpinner)
     nuxtApp.vueApp.component('InlineMessage', InlineMessage)
     nuxtApp.vueApp.component('Avatar', Avatar)
+    nuxtApp.vueApp.component('FileUpload', FileUpload)
 })

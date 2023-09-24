@@ -89,6 +89,18 @@ export const useUserStore = defineStore('user-store', () => {
         await addWithId('users', uid, defaultUserProfile)
     }
 
+    // Refresh user profile data
+    const refreshUserProfile = async() => {
+        // If the user is logged in, set the user state
+        if ($auth.currentUser) {
+            // Set user state
+            user.value = $auth.currentUser
+
+            // Get additional userprofile data
+            await getUserProfile(user.value.uid)
+        }
+    }
+
     // Set user state
     const setUser = (userCreds: User | null) => {
         user.value = userCreds
@@ -99,5 +111,5 @@ export const useUserStore = defineStore('user-store', () => {
         userProfile.value = userProfileData
     }
 
-    return { user, userProfile, fetchUserData, setUser, setUserProfile, getUserProfile }
+    return { user, userProfile, fetchUserData, setUser, setUserProfile, getUserProfile, refreshUserProfile }
 })
