@@ -45,25 +45,28 @@ const loading = ref(false)
 // Submit button
 const handleSubmit = async(form: { email: string, password: string }) => {
     loading.value = true
-    await loginUser(form.email, form.password)
-        .then(() => {
-            toast.add({
-                severity: 'success',
-                summary: 'Erfolgreich eingeloggt',
-                detail: 'Sie wurden erfolgreich eingeloggt.',
-                life: 3000
-            })
+    const response = await loginUser(form.email, form.password).catch((error: { message: string }) => {
+        console.error(error)
+        toast.add({
+            severity: 'error',
+            summary: 'Fehler beim Einloggen',
+            detail: error.message,
+            life: 10000
         })
-        .catch((error: { message: string }) => {
-            toast.add({
-                severity: 'error',
-                summary: 'Fehler beim Einloggen',
-                detail: error.message,
-                life: 10000
-            })
+        return false
+    })
+
+    // If response is true, user is logged in
+    if (response) {
+        toast.add({
+            severity: 'success',
+            summary: 'Erfolgreich eingeloggt',
+            detail: 'Sie wurden erfolgreich eingeloggt.',
+            life: 3000
         })
-        .finally(() => {
-            loading.value = false
-        })
+    }
+
+    // Stop loading
+    loading.value = false
 }
 </script>

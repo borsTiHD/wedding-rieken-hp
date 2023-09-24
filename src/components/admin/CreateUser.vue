@@ -67,6 +67,7 @@ const handleSubmit = async(form: { name: string, email: string, password: string
     loading.value = false
 }
 
+// Create user function
 const createUser = async(form: { name: string, email: string, password: string }) => {
     // Check if user is logged in
     if (!user.value) {
