@@ -1,6 +1,7 @@
 import { defineNuxtPlugin } from '#app'
 import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
+import Tooltip from 'primevue/tooltip'
 import Button from 'primevue/button'
 import Calendar from 'primevue/calendar'
 import Toast from 'primevue/toast'
@@ -11,12 +12,16 @@ import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import ProgressSpinner from 'primevue/progressspinner'
 import InlineMessage from 'primevue/inlinemessage'
+import Avatar from 'primevue/avatar'
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true })
 
     // Toast service
     nuxtApp.vueApp.use(ToastService)
+
+    // Tooltip directive
+    nuxtApp.vueApp.directive('tooltip', Tooltip)
 
     // PrimeVue components
     nuxtApp.vueApp.component('Button', Button)
@@ -29,4 +34,5 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('TabPanel', TabPanel)
     nuxtApp.vueApp.component('ProgressSpinner', ProgressSpinner)
     nuxtApp.vueApp.component('InlineMessage', InlineMessage)
+    nuxtApp.vueApp.component('Avatar', Avatar)
 })
