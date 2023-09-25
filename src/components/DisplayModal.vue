@@ -93,20 +93,10 @@ watch(() => visible.value, (value) => {
     if (!value) { emit('close', value) }
 })
 
-// Close method
-const close = () => {
-    visible.value = false
-}
-
-// Open method
-const open = () => {
-    visible.value = true
-}
-
-// Toggle method
-const toggle = () => {
-    visible.value = !visible.value
-}
+// Modal methods
+const close = () => { visible.value = false } // Close
+const open = () => { visible.value = true } // Open
+const toggle = () => { visible.value = !visible.value } // Toggle visibility
 
 // Expose methods
 defineExpose({
