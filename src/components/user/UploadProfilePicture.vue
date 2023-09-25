@@ -11,7 +11,7 @@ import { useFirebaseStorage } from '@/composables/useFirebaseStorage'
 import { useUserStore } from '@/stores/user'
 import type { FileUploadUploaderEvent } from 'primevue/fileupload'
 
-const emits = defineEmits(['uploaded'])
+const emit = defineEmits(['uploaded'])
 
 // Composables
 const toast = useToast()
@@ -79,7 +79,7 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
             toast.add({ severity: 'success', summary: 'Erfolgreich', detail: 'Foto hochgeladen', life: 3000 })
 
             // Emit event to parent
-            emits('uploaded')
+            emit('uploaded')
         }
     }
 
