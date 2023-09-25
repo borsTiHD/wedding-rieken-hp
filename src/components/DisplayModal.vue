@@ -19,7 +19,7 @@
             <slot name="footer" />
         </template>
     </Dialog>
-    <Button v-if="props.button" :label="props.buttonLabel" icon="pi pi-external-link" @click="visible = true" />
+    <Button v-if="props.button" :label="props.buttonLabel" :icon="props.buttonIcon" @click="visible = true" />
 </template>
 
 <script setup lang="ts">
@@ -39,6 +39,10 @@ const props = defineProps({
     buttonLabel: {
         type: String,
         default: 'Anzeigen'
+    },
+    buttonIcon: {
+        type: String,
+        default: 'pi pi-external-link'
     },
     draggable: {
         type: Boolean,
@@ -87,5 +91,27 @@ watch(() => props.showModal, (value) => {
 // Watch for changes in visible and emit close event
 watch(() => visible.value, (value) => {
     if (!value) { emit('close', value) }
+})
+
+// Close method
+const close = () => {
+    visible.value = false
+}
+
+// Open method
+const open = () => {
+    visible.value = true
+}
+
+// Toggle method
+const toggle = () => {
+    visible.value = !visible.value
+}
+
+// Expose methods
+defineExpose({
+    close,
+    open,
+    toggle
 })
 </script>
