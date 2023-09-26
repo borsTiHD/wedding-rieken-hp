@@ -1,6 +1,6 @@
 <template>
     <div class="m-4 flex flex-col gap-4 p-4 border border-gray-400">
-        <div v-if="!user" class="flex flex-col gap-4">
+        <div v-if="!user.uid" class="flex flex-col gap-4">
             <h1 class="text-2xl">Registrieren:</h1>
             <RegisterForm />
         </div>

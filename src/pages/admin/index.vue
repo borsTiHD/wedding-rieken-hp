@@ -1,15 +1,15 @@
 <template>
     <div class="m-4 flex flex-col gap-4">
         <div class="p-4 border border-gray-400">
-            <LoginForm v-if="!user" />
-            <LogoutUser v-if="user" />
+            <LoginForm v-if="!user.uid" />
+            <LogoutUser v-else />
         </div>
 
         <div class="flex flex-col gap-2">
             <pre class="whitespace-pre-wrap">{{ userProfile }}</pre>
         </div>
 
-        <div v-if="user && userProfile?.role === 'admin'" class="flex flex-col gap-4">
+        <div v-if="user.uid && userProfile?.role === 'admin'" class="flex flex-col gap-4">
             <ShowCountdown :timestamp="config?.weddingDate" />
             <DateDisplay :timestamp="config?.weddingDate" />
             <ChangeTimestamp />

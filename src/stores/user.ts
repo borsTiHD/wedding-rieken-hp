@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { onAuthStateChanged, getIdToken, User} from 'firebase/auth'
 import { useFirestore } from '@/composables/useFirestore'
+import clearNestedObject from '@/composables/clearNestedObject'
 import type { UserProfile } from '@/types/UserProfile'
 
 export const useUserStore = defineStore('user-store', () => {
@@ -8,8 +9,8 @@ export const useUserStore = defineStore('user-store', () => {
     const { queryByCollectionAndId, addWithId } = useFirestore() // Firestore composable
 
     // Config data
-    const user = ref<User | null>()
-    const userProfile = ref<UserProfile| null>()
+    const user = reactive<User | Record<string, never>>({})
+    const userProfile = reactive<UserProfile| Record<string, never>>({})
 
     // Fetch config data
     async function fetchUserData() {
@@ -19,20 +20,20 @@ export const useUserStore = defineStore('user-store', () => {
         onAuthStateChanged($auth, async(response) => {
             if (response) {
                 // Set user state
-                user.value = response
+                setUser(response)
 
                 // Get additional userprofile data
-                await getUserProfile(user.value.uid)
+                await getUserProfile(user.uid)
 
                 // Get ID token
-                const idToken = await getIdToken(user.value).catch((error: { message: string }) => {
+                const idToken = await getIdToken(response).catch((error: { message: string }) => {
                     throw new Error(error.message)
                 })
 
                 // Set cookie with ID token
                 cookie.value = idToken
             } else {
-                user.value = null
+                setUser(null)
                 cookie.value = null
             }
         })
@@ -40,10 +41,10 @@ export const useUserStore = defineStore('user-store', () => {
         // If the user is logged in, set the user state
         if ($auth.currentUser) {
             // Set user state
-            user.value = $auth.currentUser
+            setUser($auth.currentUser)
 
             // Get additional userprofile data
-            await getUserProfile(user.value.uid)
+            await getUserProfile(user.uid)
         }
     }
 
@@ -70,7 +71,7 @@ export const useUserStore = defineStore('user-store', () => {
         }
 
         // Set user profile state
-        userProfile.value = userData as UserProfile
+        setUserProfile(userData as UserProfile)
     }
 
     // Create default user profile
@@ -94,21 +95,39 @@ export const useUserStore = defineStore('user-store', () => {
         // If the user is logged in, set the user state
         if ($auth.currentUser) {
             // Set user state
-            user.value = $auth.currentUser
+            setUser($auth.currentUser)
 
             // Get additional userprofile data
-            await getUserProfile(user.value.uid)
+            await getUserProfile(user.uid)
         }
     }
 
     // Set user state
-    const setUser = (userCreds: User | null) => {
-        user.value = userCreds
+    const setUser = (newUser: User | null) => {
+        // Clear all user states, on every change
+        // That way we can be sure that no old data is left in the user state
+        clearNestedObject(user)
+
+        // Set new user state if newUser exists
+        // This will leave the user state empty if no new newUser are passed
+        if (newUser) {
+            // replace all user state properties with the new newUser
+            Object.assign(user, newUser)
+        }
     }
 
     // Set user profile state
-    const setUserProfile = (userProfileData: UserProfile | null) => {
-        userProfile.value = userProfileData
+    const setUserProfile = (newUserProfile: UserProfile | null) => {
+        // Clear all userProfile states, on every change
+        // That way we can be sure that no old data is left in the userProfile state
+        clearNestedObject(userProfile)
+
+        // Set new userProfile state if newUserProfile exists
+        // This will leave the userProfile state empty if no new newUserProfile are passed
+        if (newUserProfile) {
+            // replace all userProfile state properties with the new newUserProfile
+            Object.assign(userProfile, newUserProfile)
+        }
     }
 
     return { user, userProfile, fetchUserData, setUser, setUserProfile, getUserProfile, refreshUserProfile }

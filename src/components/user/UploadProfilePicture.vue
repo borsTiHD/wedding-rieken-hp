@@ -83,6 +83,9 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
         }
     }
 
+    // Update user
+    userStore.refreshUserProfile()
+
     loading.value = false
 }
 </script>

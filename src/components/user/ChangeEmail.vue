@@ -70,6 +70,9 @@ const handleSubmit = async(form: { email: string }) => {
         return false
     })
 
+    // Update user
+    userStore.refreshUserProfile()
+
     // Stop loading
     loading.value = false
 
