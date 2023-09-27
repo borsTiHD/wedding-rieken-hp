@@ -12,7 +12,7 @@ export function useFirebaseStorage() {
 
         // Upload file
         const snapshot = await uploadBytes(storageRef, file).catch((error: FirebaseError) => {
-            let errorMessage = error.message
+            let errorMessage = 'Die Datei konnte nicht hochgeladen werden.'
 
             // Handle specific errors
             if (error.code === 'storage/unauthorized') {

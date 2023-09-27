@@ -13,7 +13,7 @@ export default function() {
     // Register a new user
     const registerUser = async(email: string, password: string): Promise<boolean> => {
         const userCreds = await createUserWithEmailAndPassword($auth, email, password).catch((error: FirebaseError) => {
-            let errorMessage = error.message
+            let errorMessage = 'Registrierung fehlgeschlagen - unbekannter Fehler.'
 
             // Handle specific errors
             if (error.code === 'auth/email-already-in-use') {
@@ -43,7 +43,7 @@ export default function() {
     // Login a user
     const loginUser = async(email: string, password: string): Promise<boolean> => {
         const userCreds = await signInWithEmailAndPassword($auth, email, password).catch((error: FirebaseError) => {
-            let errorMessage = error.message
+            let errorMessage = 'Login fehlgeschlagen - unbekannter Fehler.'
 
             // Handle specific errors
             if (error.code ==='auth/wrong-password') {
@@ -93,7 +93,7 @@ export default function() {
 
         // Send sign in link to email
         await sendSignInLinkToEmail($auth, email, actionCodeSettings).catch((error: FirebaseError) => {
-            let errorMessage = error.message
+            let errorMessage = 'Login fehlgeschlagen - unbekannter Fehler.'
 
             // Handle specific errors
             if (error.code === 'auth/invalid-email') {
@@ -146,7 +146,7 @@ export default function() {
 
         // Login with link - The client SDK will parse the code from the link for you
         const userCreds = await signInWithEmailLink($auth, email, url).catch((error: FirebaseError) => {
-            let errorMessage = error.message
+            let errorMessage = 'Login fehlgeschlagen - unbekannter Fehler.'
 
             // Handle specific errors
             if (error.code === 'auth/expired-action-code') {
