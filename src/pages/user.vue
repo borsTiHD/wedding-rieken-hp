@@ -38,6 +38,15 @@
                 </DisplayModal>
             </div>
 
+            <!-- Change Password -->
+            <div class="flex gap-2">
+                <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
+                    <template #content>
+                        <ChangePassword @changed="passwordModal?.close()" />
+                    </template>
+                </DisplayModal>
+            </div>
+
             <!-- Logout -->
             <div class="flex gap-2">
                 <LogoutUser />
@@ -50,12 +59,14 @@
 import DisplayModal from '@/components/DisplayModal.vue'
 import LogoutUser from '@/components/user/LogoutUser.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
+import ChangePassword from '@/components/user/ChangePassword.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
 import createReadableDate from '@/composables/dateHelper'
 import { useUserStore } from '@/stores/user'
 
 // Refs
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
+const passwordModal = ref<InstanceType<typeof DisplayModal>>()
 
 // User store
 const userStore = useUserStore()
