@@ -29,6 +29,7 @@
 import { useToast } from 'primevue/usetoast'
 import { useUserStore } from '@/stores/user'
 
+// Emit event
 const emit = defineEmits(['changed'])
 
 // Composables
@@ -37,7 +38,7 @@ const { changeEmail } = useFirebaseUserProfile()
 
 // User store
 const userStore = useUserStore()
-const user = computed(() => userStore.user)
+const email = computed(() => userStore.email)
 
 // Data
 const loading = ref(false)
@@ -45,7 +46,7 @@ const defaultMail = ref('')
 
 // Submit button
 const handleSubmit = async(form: { email: string }) => {
-    if (user.value?.email === form.email) {
+    if (email.value === form.email) {
         toast.add({
             severity: 'info',
             summary: 'Email nicht geändert',
@@ -87,6 +88,6 @@ const handleSubmit = async(form: { email: string }) => {
 
 onMounted(() => {
     // Set default mail to current user email
-    defaultMail.value = user.value?.email || ''
+    defaultMail.value = email.value || ''
 })
 </script>
