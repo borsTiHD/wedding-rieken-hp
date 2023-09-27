@@ -87,7 +87,7 @@ const createUser = async(form: { name: string, email: string, password: string }
             name: form.name,
             email: form.email,
             password: form.password,
-            role: 'user'
+            role: 'invited'
         }
     }).catch((error: { statusMessage: string }) => {
         toast.add({ severity: 'error', summary: 'Error', detail: error.statusMessage, life: 10000 })

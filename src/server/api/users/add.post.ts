@@ -23,7 +23,7 @@ export default defineEventHandler(async(event) => {
     })
 
     // Add user profile
-    const newUserProfile = { role }
+    const newUserProfile = { role, email }
     await db.collection('users').doc(newUser.uid).set(newUserProfile).catch((error) => {
         throw createError({
             statusMessage: error.message

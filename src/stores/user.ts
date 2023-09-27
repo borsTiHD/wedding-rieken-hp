@@ -89,7 +89,7 @@ export const useUserStore = defineStore('user-store', () => {
 
         // Create default user profile
         const defaultUserProfile = {
-            name: '',
+            role: 'guest',
             email: email ? email : ''
         }
 
