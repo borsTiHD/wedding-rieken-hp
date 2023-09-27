@@ -8,9 +8,16 @@ export const useUserStore = defineStore('user-store', () => {
     const { $auth } = useNuxtApp() // From firebase.client.ts
     const { queryByCollectionAndId, addWithId } = useFirestore() // Firestore composable
 
-    // Config data
+    // User data
     const user = reactive<User | Record<string, never>>({})
     const userProfile = reactive<UserProfile| Record<string, never>>({})
+
+    // User data properties
+    const uid = ref<string | null>(null)
+    const displayName = ref<string | null>(null)
+    const email = ref<string | null>(null)
+    const emailVerified = ref<boolean | null>(null)
+    const photoURL = ref<string | null>(null)
 
     // Fetch config data
     async function fetchUserData() {
@@ -113,6 +120,20 @@ export const useUserStore = defineStore('user-store', () => {
         if (newUser) {
             // replace all user state properties with the new newUser
             Object.assign(user, newUser)
+
+            // Set user data properties
+            uid.value = user.uid
+            displayName.value = user.displayName
+            email.value = user.email
+            emailVerified.value = user.emailVerified
+            photoURL.value = user.photoURL
+        } else {
+            // Set user data properties to null
+            uid.value = null
+            displayName.value = null
+            email.value = null
+            emailVerified.value = null
+            photoURL.value = null
         }
     }
 
@@ -130,5 +151,5 @@ export const useUserStore = defineStore('user-store', () => {
         }
     }
 
-    return { user, userProfile, fetchUserData, setUser, setUserProfile, getUserProfile, refreshUserProfile }
+    return { user, userProfile, uid, displayName, email, emailVerified, photoURL, fetchUserData, setUser, setUserProfile, getUserProfile, refreshUserProfile }
 })
