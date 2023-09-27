@@ -1,8 +1,6 @@
 <template>
-    <div class="flex gap-2">
-        <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" severity="info" />
-        <FileUpload v-else mode="basic" :disabled="loading" name="photo" :chooseLabel="uploadLabel" accept="image/*" :maxFileSize="maxFileSize" :invalidFileSizeMessage="invalidFileSizeMessage" auto customUpload @uploader="onUpload" />
-    </div>
+    <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" severity="info" />
+    <FileUpload v-else class="w-full" mode="basic" :disabled="loading" name="photo" :chooseLabel="uploadLabel" accept="image/*" :maxFileSize="maxFileSize" :invalidFileSizeMessage="invalidFileSizeMessage" auto customUpload @uploader="onUpload" />
 </template>
 
 <script setup lang="ts">

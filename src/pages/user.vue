@@ -25,11 +25,13 @@
             </div>
 
             <!-- Upload profile picture -->
-            <UploadProfilePicture />
+            <div class="flex gap-2">
+                <UploadProfilePicture />
+            </div>
 
             <!-- Change Email -->
             <div class="flex gap-2">
-                <DisplayModal ref="emailModal" header="Email ändern" buttonLabel="Email ändern">
+                <DisplayModal ref="emailModal" header="Email ändern" buttonLabel="Email ändern" buttonIcon="pi pi-envelope">
                     <template #content>
                         <ChangeEmail @changed="emailModal?.close()" />
                     </template>
