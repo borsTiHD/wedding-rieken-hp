@@ -5,11 +5,11 @@ import type { UserProfile } from '@/types/UserProfile'
 
 export const useUserStore = defineStore('user-store', () => {
     const { $auth } = useNuxtApp() // From firebase.client.ts
-    const { getAdditionalUserProfile } = useFirebaseUserProfile() // FirebaseUserProfile composable
+    const { fetchAdditionalUserProfile } = useFirebaseUserProfile() // FirebaseUserProfile composable
 
     // User data
     const user = reactive<User | Record<string, never>>({})
-    const userProfile = reactive<UserProfile| Record<string, never>>({})
+    const userProfile = reactive<UserProfile | Record<string, never>>({})
 
     // User data properties
     const uid = ref<string | null>(null)
@@ -29,7 +29,7 @@ export const useUserStore = defineStore('user-store', () => {
                 setUser(response)
 
                 // Get additional userprofile data
-                await getUserProfile(user.uid)
+                await fetchUserProfile(user.uid)
 
                 // Get ID token
                 const idToken = await getIdToken(response).catch((error: { message: string }) => {
@@ -50,14 +50,14 @@ export const useUserStore = defineStore('user-store', () => {
             setUser($auth.currentUser)
 
             // Get additional userprofile data
-            await getUserProfile(user.uid)
+            await fetchUserProfile(user.uid)
         }
     }
 
     // Fetch user profile data
-    async function getUserProfile(uid: string) {
+    async function fetchUserProfile(uid: string) {
         // Get additional userprofile data
-        const userData = await getAdditionalUserProfile(uid).catch(async(error) => { throw error })
+        const userData = await fetchAdditionalUserProfile(uid).catch(async(error) => { throw error })
 
         // Throw error if no response
         if (!userData) {
@@ -65,7 +65,7 @@ export const useUserStore = defineStore('user-store', () => {
         }
 
         // Set user profile state
-        setUserProfile(userData as UserProfile)
+        setUserProfile(userData)
     }
 
     // Refresh user profile data
@@ -76,7 +76,7 @@ export const useUserStore = defineStore('user-store', () => {
             setUser($auth.currentUser)
 
             // Get additional userprofile data
-            await getUserProfile(user.uid)
+            await fetchUserProfile(user.uid)
         }
     }
 
@@ -122,5 +122,5 @@ export const useUserStore = defineStore('user-store', () => {
         }
     }
 
-    return { user, userProfile, uid, displayName, email, emailVerified, photoURL, fetchUserData, setUser, setUserProfile, getUserProfile, refreshUserProfile }
+    return { user, userProfile, uid, displayName, email, emailVerified, photoURL, fetchUserData, setUser, setUserProfile, fetchUserProfile, refreshUserProfile }
 })

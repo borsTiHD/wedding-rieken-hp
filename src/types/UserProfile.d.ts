@@ -1,5 +1,7 @@
 // Config types
 export interface UserProfile {
-    name: string
     role: string
+    email: string
+    confirmation: 'pending' | boolean
+    additionalGuests: number
 }

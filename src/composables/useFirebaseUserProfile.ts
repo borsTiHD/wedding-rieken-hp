@@ -1,5 +1,6 @@
 import { updateProfile, updateEmail, sendEmailVerification, updatePassword } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
+import type { UserProfile } from '@/types/UserProfile'
 
 export default function() {
     // From firebase.client.ts
@@ -101,7 +102,9 @@ export default function() {
         // Create default user profile
         const defaultUserProfile = {
             role: 'guest',
-            email: email ? email : ''
+            email: email ? email : '',
+            confirmation: 'pending',
+            additionalGuests: 0
         }
 
         // Add default user profile
@@ -109,7 +112,7 @@ export default function() {
     }
 
     // Get additional user profile data, stored in Firebase user collection
-    const getAdditionalUserProfile = async(uid: string) => {
+    const fetchAdditionalUserProfile = async(uid: string): Promise<UserProfile> => {
         // Get user profile
         return queryByCollectionAndId(usersPath, uid).catch(async(error) => {
             // If the user profile does not exist, create it
@@ -123,14 +126,24 @@ export default function() {
             }
             console.error(error)
             throw new Error('Benutzerprofil konnte nicht geladen werden')
-        })
+        }) as Promise<UserProfile>
     }
+
+    // TODO: Add function to update display name
+    // TODO: Add function to send email verification to user
+    // TODO: Add function to send password reset email to user
+    // TODO: Add function to update (one or more) additional user profile data
+    //          - Email
+    //          - Confirmation: (Zusage/Absage)
+    //          - Additional guests (numbers)
+    //          - Role (only admins can do this)
+    // TODO: Add function to delete user
 
     return {
         changePassword, // Firebase profile
         changeEmail, // Firebase profile
         setProfilePhotoUrl, // Firebase profile
-        getAdditionalUserProfile, // Additional user profile data
+        fetchAdditionalUserProfile, // Additional user profile data
         createDefaultUserProfile // Additional user profile data
     }
 }

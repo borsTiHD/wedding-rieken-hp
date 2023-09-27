@@ -8,7 +8,7 @@ export default function() {
 
     // User store
     const userStore = useUserStore()
-    const { setUser, setUserProfile, getUserProfile } = userStore
+    const { setUser, setUserProfile, fetchUserProfile } = userStore
 
     // Register a new user
     const registerUser = async(email: string, password: string): Promise<boolean> => {
@@ -33,7 +33,7 @@ export default function() {
         // If the user is logged in, set the user state
         if (userCreds) {
             setUser(userCreds.user)
-            getUserProfile(userCreds.user.uid) // Fetch user profile data or create default profile
+            await fetchUserProfile(userCreds.user.uid) // Fetch user profile data or create default profile
             return true
         }
 
@@ -66,7 +66,7 @@ export default function() {
         if (userCreds) {
             // Set user state
             setUser(userCreds.user)
-            getUserProfile(userCreds.user.uid) // Fetch user profile data or create default profile
+            await fetchUserProfile(userCreds.user.uid) // Fetch user profile data or create default profile
             return true
         }
 
@@ -170,7 +170,7 @@ export default function() {
 
             // Set user state
             setUser(userCreds.user)
-            getUserProfile(userCreds.user.uid) // Fetch user profile data or create default profile
+            await fetchUserProfile(userCreds.user.uid) // Fetch user profile data or create default profile
 
             return true
         }

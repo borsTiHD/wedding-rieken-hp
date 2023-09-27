@@ -1,5 +1,6 @@
 import { auth, db } from '@/server/lib/firebaseAdmin'
 import checkAdmin from '@/server/lib/checkAdmin'
+import type { UserProfile } from '@/types/UserProfile'
 
 export default defineEventHandler(async(event) => {
     await checkAdmin(event)
@@ -23,7 +24,14 @@ export default defineEventHandler(async(event) => {
     })
 
     // Add user profile
-    const newUserProfile = { role, email }
+    const newUserProfile: UserProfile = {
+        role,
+        email,
+        confirmation: 'pending',
+        additionalGuests: 0
+    }
+
+    // Add user profile to users collection
     await db.collection('users').doc(newUser.uid).set(newUserProfile).catch((error) => {
         throw createError({
             statusMessage: error.message
