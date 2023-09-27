@@ -1,12 +1,11 @@
 import { defineStore } from 'pinia'
 import { onAuthStateChanged, getIdToken, User} from 'firebase/auth'
-import { useFirestore } from '@/composables/useFirestore'
 import clearNestedObject from '@/composables/clearNestedObject'
 import type { UserProfile } from '@/types/UserProfile'
 
 export const useUserStore = defineStore('user-store', () => {
     const { $auth } = useNuxtApp() // From firebase.client.ts
-    const { queryByCollectionAndId, addWithId } = useFirestore() // Firestore composable
+    const { getAdditionalUserProfile } = useFirebaseUserProfile() // FirebaseUserProfile composable
 
     // User data
     const user = reactive<User | Record<string, never>>({})
@@ -58,19 +57,7 @@ export const useUserStore = defineStore('user-store', () => {
     // Fetch user profile data
     async function getUserProfile(uid: string) {
         // Get additional userprofile data
-        const userData = await queryByCollectionAndId('users', uid).catch(async(error) => {
-            // If the user profile does not exist, create it
-            if (error.message === 'Document does not exist') {
-                // Create default user profile
-                await createDefaultUserProfile(uid)
-                return await queryByCollectionAndId('users', uid).catch((error) => {
-                    console.error(error)
-                    throw new Error('Benutzerprofil konnte nicht geladen werden')
-                })
-            }
-            console.error(error)
-            throw new Error('Benutzerprofil konnte nicht geladen werden')
-        })
+        const userData = await getAdditionalUserProfile(uid).catch(async(error) => { throw error })
 
         // Throw error if no response
         if (!userData) {
@@ -79,22 +66,6 @@ export const useUserStore = defineStore('user-store', () => {
 
         // Set user profile state
         setUserProfile(userData as UserProfile)
-    }
-
-    // Create default user profile
-    async function createDefaultUserProfile(uid: string) {
-        // Get current user email
-        const currentUser = $auth.currentUser
-        const email = currentUser?.email
-
-        // Create default user profile
-        const defaultUserProfile = {
-            role: 'guest',
-            email: email ? email : ''
-        }
-
-        // Add default user profile
-        await addWithId('users', uid, defaultUserProfile)
     }
 
     // Refresh user profile data
