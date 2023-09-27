@@ -105,7 +105,7 @@ export default function() {
         }
 
         // Add default user profile
-        await addWithId('users', uid, defaultUserProfile)
+        return addWithId('users', uid, defaultUserProfile)
     }
 
     // Get additional user profile data, stored in Firebase user collection
