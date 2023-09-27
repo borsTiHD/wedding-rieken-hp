@@ -12,16 +12,16 @@
                 label="Email"
                 prefix-icon="email"
                 placeholder="myname@website.com"
-                help="Bitte geben Sie Ihre E-Mail-Adresse ein."
+                help="Bitte geben Sie Ihre E-Mail-Adresse ein"
                 validation="required|email"
                 autofocus
             />
             <FormKit
                 type="password"
                 name="password"
-                label="Password"
+                label="Passwort"
                 prefix-icon="password"
-                help="Bitte geben Sie Ihr Passwort ein."
+                help="Bitte geben Sie Ihr Passwort ein"
                 validation="required"
             />
 

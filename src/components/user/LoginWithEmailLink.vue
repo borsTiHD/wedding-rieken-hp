@@ -23,7 +23,7 @@
                 label="Email"
                 prefix-icon="email"
                 placeholder="myname@website.com"
-                help="Bitte geben Sie Ihre E-Mail-Adresse ein."
+                help="Bitte geben Sie Ihre E-Mail-Adresse ein"
                 validation="required|email"
                 autofocus
             />
