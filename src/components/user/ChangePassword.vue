@@ -35,13 +35,25 @@
             </div>
         </div>
     </FormKit>
+
+    <!-- Re-authenticate user -->
+    <DisplayModal ref="reauthenticateModal" header="Bestätige dein Passwort">
+        <template #content>
+            <ReauthenticateUser @loggedin="reauthenticateModal?.close()" />
+        </template>
+    </DisplayModal>
 </template>
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
+import DisplayModal from '@/components/DisplayModal.vue'
+import ReauthenticateUser from '@/components/user/ReauthenticateUser.vue'
 
 // Emit event
 const emit = defineEmits(['changed'])
+
+// Refs
+const reauthenticateModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Composables
 const toast = useToast()
@@ -75,6 +87,12 @@ const handleSubmit = async(form: { password: string, password_confirm: string })
 
     // Update users email
     const response = await changePassword(form.password).catch((error: Error) => {
+        // If error is reauthentication required, show modal
+        if (error.message === 'auth/requires-recent-login') {
+            reauthenticateModal.value?.open()
+            return false
+        }
+
         console.error(error)
         toast.add({
             severity: 'error',

@@ -23,7 +23,9 @@ export default function() {
             if (error.code === 'auth/weak-password') {
                 errorMessage = 'Das Passwort ist zu schwach.'
             } else if (error.code === 'auth/requires-recent-login') {
-                errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
+                // errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
+                console.error(error)
+                throw new Error(error.code)
             }
 
             console.error(error)
