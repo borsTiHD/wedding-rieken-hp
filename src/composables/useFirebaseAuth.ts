@@ -1,4 +1,12 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendSignInLinkToEmail, signInWithEmailLink, isSignInWithEmailLink } from 'firebase/auth'
+import {
+    createUserWithEmailAndPassword,
+    reauthenticateWithCredential,
+    signInWithEmailAndPassword,
+    sendSignInLinkToEmail,
+    signInWithEmailLink,
+    isSignInWithEmailLink,
+    EmailAuthProvider
+} from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import { useUserStore } from '@/stores/user'
 
@@ -71,6 +79,40 @@ export default function() {
         }
 
         throw new Error('Login fehlgeschlagen - unbekannter Fehler.')
+    }
+
+    // Re-authenticate a user
+    const reauthenticateUser = async(password: string): Promise<boolean> => {
+        const email = $auth.currentUser?.email
+        if (!email) {
+            throw new Error('Kein Benutzer angemeldet.')
+        }
+
+        // Create credential
+        const credential = EmailAuthProvider.credential(email, password)
+
+        // Re-authenticate user
+        const result = await reauthenticateWithCredential($auth.currentUser, credential).catch((error: FirebaseError) => {
+            let errorMessage = 'Die Authentifizierung ist fehlgeschlagen.'
+
+            // Handle specific errors
+            if (error.code === 'auth/invalid-email') {
+                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
+            } else if (error.code === 'auth/user-disabled') {
+                errorMessage = 'Dieser Benutzer wurde deaktiviert.'
+            } else if (error.code === 'auth/user-not-found') {
+                errorMessage = 'Es existiert kein Benutzer mit dieser E-Mail-Adresse.'
+            } else if (error.code === 'auth/wrong-password') {
+                errorMessage = 'Das Passwort ist falsch.'
+            }
+
+            console.error(error)
+            throw new Error(errorMessage)
+        })
+
+        console.log('result', result)
+
+        return true
     }
 
     // Send email link to login
@@ -191,6 +233,7 @@ export default function() {
     return {
         registerUser,
         loginUser,
+        reauthenticateUser,
         sendEmailLink,
         loginWithEmailLink,
         logoutUser
