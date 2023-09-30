@@ -34,7 +34,7 @@ const props = defineProps({
     },
     button: {
         type: Boolean,
-        default: true
+        default: false
     },
     buttonLabel: {
         type: String,

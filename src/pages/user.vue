@@ -31,7 +31,7 @@
 
             <!-- Change Email -->
             <div class="flex gap-2">
-                <DisplayModal ref="emailModal" header="Email ändern" buttonLabel="Email ändern" buttonIcon="pi pi-envelope">
+                <DisplayModal ref="emailModal" header="Email ändern" button buttonLabel="Email ändern" buttonIcon="pi pi-envelope">
                     <template #content>
                         <ChangeEmail @changed="emailModal?.close()" />
                     </template>
@@ -40,7 +40,7 @@
 
             <!-- Change Password -->
             <div class="flex gap-2">
-                <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
+                <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
                     <template #content>
                         <ChangePassword @changed="passwordModal?.close()" />
                     </template>
@@ -49,7 +49,7 @@
 
             <!-- Change Display Name -->
             <div class="flex gap-2">
-                <DisplayModal ref="displayNameModal" header="Ändere deinen Namen" buttonLabel="Name ändern" buttonIcon="pi pi-user">
+                <DisplayModal ref="displayNameModal" header="Ändere deinen Namen" button buttonLabel="Name ändern" buttonIcon="pi pi-user">
                     <template #content>
                         <ChangeDisplayName @changed="displayNameModal?.close()" />
                     </template>
