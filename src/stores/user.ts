@@ -57,7 +57,7 @@ export const useUserStore = defineStore('user-store', () => {
     // Fetch user profile data
     async function fetchUserProfile(uid: string) {
         // Get additional userprofile data
-        const userData = await fetchAdditionalUserProfile(uid).catch(async(error) => { throw error })
+        const userData = await fetchAdditionalUserProfile(uid)
 
         // Throw error if no response
         if (!userData) {

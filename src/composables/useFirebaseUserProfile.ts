@@ -1,4 +1,4 @@
-import { updateProfile, updateEmail, sendEmailVerification, updatePassword } from 'firebase/auth'
+import { updateProfile, updateEmail, updatePassword } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import type { UserProfile } from '@/types/UserProfile'
 
@@ -6,6 +6,7 @@ export default function() {
     // From firebase.client.ts
     const { $auth } = useNuxtApp()
     const { queryByCollectionAndId, addWithId } = useFirestore() // Firestore composable
+    const { sendUserEmailVerification } = useFirebaseAuth() // Firebase auth composable
 
     // Firebase paths
     const usersPath = 'users'
@@ -60,17 +61,7 @@ export default function() {
         })
 
         // Send verification email
-        await sendEmailVerification(user).catch((error: FirebaseError) => {
-            let errorMessage = 'Die verifizierungs E-Mail konnte nicht gesendet werden.'
-
-            // Handle specific errors
-            if (error.code === 'auth/too-many-requests') {
-                errorMessage = 'Du hast zu viele Anfragen gesendet. Bitte versuche es später erneut.'
-            }
-
-            console.error(error)
-            throw new Error(errorMessage)
-        })
+        await sendUserEmailVerification()
 
         // TODO: Need to change email in userprofile database as well
 

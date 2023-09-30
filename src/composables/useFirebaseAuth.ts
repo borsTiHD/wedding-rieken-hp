@@ -3,6 +3,7 @@ import {
     reauthenticateWithCredential,
     signInWithEmailAndPassword,
     sendSignInLinkToEmail,
+    sendEmailVerification,
     signInWithEmailLink,
     isSignInWithEmailLink,
     EmailAuthProvider
@@ -111,6 +112,27 @@ export default function() {
         })
 
         console.log('result', result)
+
+        return true
+    }
+
+    // Send email verification
+    const sendUserEmailVerification = async(): Promise<boolean> => {
+        const user = $auth.currentUser
+        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+
+        // Send verification email
+        await sendEmailVerification(user).catch((error: FirebaseError) => {
+            let errorMessage = 'Die verifizierungs E-Mail konnte nicht gesendet werden.'
+
+            // Handle specific errors
+            if (error.code === 'auth/too-many-requests') {
+                errorMessage = 'Du hast zu viele Anfragen gesendet. Bitte versuche es später erneut.'
+            }
+
+            console.error(error)
+            throw new Error(errorMessage)
+        })
 
         return true
     }
@@ -235,6 +257,7 @@ export default function() {
         loginUser,
         reauthenticateUser,
         sendEmailLink,
+        sendUserEmailVerification,
         loginWithEmailLink,
         logoutUser
     }
