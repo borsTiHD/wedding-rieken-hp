@@ -73,6 +73,27 @@ export default function() {
         return true
     }
 
+    // Change display name
+    const changeDisplayName = async(displayName: string): Promise<boolean> => {
+        const user = $auth.currentUser
+        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+
+        // Update display name
+        await updateProfile(user, { displayName }).catch((error: FirebaseError) => {
+            let errorMessage = 'Der Anzeigename konnte nicht geändert werden.'
+
+            // Handle specific errors
+            if (error.code === 'auth/requires-recent-login') {
+                errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
+            }
+
+            console.error(error)
+            throw new Error(errorMessage)
+        })
+
+        return true
+    }
+
     // Set profile photo
     const setProfilePhotoUrl = async(photoUrl: string): Promise<boolean> => {
         const user = $auth.currentUser
@@ -129,7 +150,7 @@ export default function() {
         }) as Promise<UserProfile>
     }
 
-    // TODO: Add function to update display name
+    // TODO: Add function to update phone number
     // TODO: Add function to send email verification to user
     // TODO: Add function to send password reset email to user
     // TODO: Add function to update (one or more) additional user profile data
@@ -142,6 +163,7 @@ export default function() {
     return {
         changePassword, // Firebase profile
         changeEmail, // Firebase profile
+        changeDisplayName, // Firebase profile
         setProfilePhotoUrl, // Firebase profile
         fetchAdditionalUserProfile, // Additional user profile data
         createDefaultUserProfile // Additional user profile data
