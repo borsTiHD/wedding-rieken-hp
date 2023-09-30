@@ -48,7 +48,9 @@ export default function() {
             } else if (error.code === 'auth/invalid-email') {
                 errorMessage = 'Die E-Mail-Adresse ist ungültig.'
             } else if (error.code === 'auth/requires-recent-login') {
-                errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
+                // errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
+                console.error(error)
+                throw new Error(error.code)
             }
 
             console.error(error)
@@ -150,7 +152,7 @@ export default function() {
         }) as Promise<UserProfile>
     }
 
-    // TODO: Add function to update phone number
+    // TODO: Re-authenticate user before changing email or password
     // TODO: Add function to send email verification to user
     // TODO: Add function to send password reset email to user
     // TODO: Add function to update (one or more) additional user profile data
