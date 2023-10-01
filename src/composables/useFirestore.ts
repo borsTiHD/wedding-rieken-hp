@@ -43,6 +43,12 @@ export function useFirestore() {
         return docSnap.data()
     }
 
+    // Delete a document by collection and ID
+    const deleteByCollectionAndId = async(col: string, id: string) => {
+        const docRef = doc($firestore, col, id)
+        return await deleteDoc(docRef)
+    }
+
     // Set a document by ID
     const set = async(col: string, document: any) => {
         return await setDoc(doc(collection($firestore, col)), document, { merge: true })
@@ -80,6 +86,7 @@ export function useFirestore() {
     return {
         queryByCollection,
         queryByCollectionAndId,
+        deleteByCollectionAndId,
         set,
         update,
         addWithId,

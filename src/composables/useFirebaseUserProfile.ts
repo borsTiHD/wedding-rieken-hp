@@ -3,9 +3,8 @@ import { FirebaseError } from '@firebase/util'
 import type { UserProfile } from '@/types/UserProfile'
 
 export default function() {
-    // From firebase.client.ts
-    const { $auth } = useNuxtApp()
-    const { queryByCollectionAndId, addWithId } = useFirestore() // Firestore composable
+    const { $auth } = useNuxtApp() // From firebase.client.ts
+    const { queryByCollectionAndId, deleteByCollectionAndId, addWithId } = useFirestore() // Firestore composable
     const { sendUserEmailVerification } = useFirebaseAuth() // Firebase auth composable
 
     // Firebase paths
@@ -127,6 +126,11 @@ export default function() {
         return addWithId('users', uid, defaultUserProfile)
     }
 
+    // Delete user profile
+    const deleteUserProfile = async(uid: string) => {
+        return deleteByCollectionAndId(usersPath, uid)
+    }
+
     // Get additional user profile data, stored in Firebase user collection
     const fetchAdditionalUserProfile = async(uid: string): Promise<UserProfile> => {
         // Get user profile
@@ -159,6 +163,7 @@ export default function() {
         changeDisplayName, // Firebase profile
         setProfilePhotoUrl, // Firebase profile
         fetchAdditionalUserProfile, // Additional user profile data
-        createDefaultUserProfile // Additional user profile data
+        createDefaultUserProfile, // Additional user profile data
+        deleteUserProfile // Additional user profile data
     }
 }

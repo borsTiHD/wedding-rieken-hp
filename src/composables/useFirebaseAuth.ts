@@ -6,14 +6,16 @@ import {
     sendEmailVerification,
     signInWithEmailLink,
     isSignInWithEmailLink,
+    deleteUser,
     EmailAuthProvider
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import { useUserStore } from '@/stores/user'
 
 export default function() {
-    // From firebase.client.ts
-    const { $auth } = useNuxtApp()
+    const { $auth } = useNuxtApp() // From firebase.client.ts
+    const { deleteUserProfile } = useFirebaseUserProfile() // FirebaseUserProfile composable
+    const { deleteUserFolder } = useFirebaseStorage() // FirebaseStorage composable
 
     // User store
     const userStore = useUserStore()
@@ -240,6 +242,46 @@ export default function() {
         throw new Error('Login fehlgeschlagen - unbekannter Fehler.')
     }
 
+    // Delete a user
+    const deleteUserAccount = async(): Promise<boolean> => {
+        const user = $auth.currentUser
+        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+
+        // Delete user profile
+        const uid = user.uid
+        await deleteUserProfile(uid).catch((error: FirebaseError) => {
+            console.error(error)
+            throw new Error('Das Benutzerprofil konnte nicht gelöscht werden.')
+        })
+
+        // Delete user files
+        await deleteUserFolder(uid).catch((error: FirebaseError) => {
+            console.error(error)
+            throw new Error('Die Benutzerdateien konnten nicht gelöscht werden.')
+        })
+
+        // Delete user
+        await deleteUser(user).catch((error: FirebaseError) => {
+            const errorMessage = 'Der Benutzer konnte nicht gelöscht werden.'
+
+            // Handle specific errors
+            if (error.code === 'auth/requires-recent-login') {
+                // errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
+                console.error(error)
+                throw new Error(error.code)
+            }
+
+            console.error(error)
+            throw new Error(errorMessage)
+        })
+
+        // Clear user state
+        setUser(null)
+        setUserProfile(null)
+
+        return true
+    }
+
     // Logout a user
     const logoutUser = async(): Promise<void> => {
         await $auth.signOut().catch((error: FirebaseError) => {
@@ -257,6 +299,7 @@ export default function() {
         sendEmailLink,
         sendUserEmailVerification,
         loginWithEmailLink,
-        logoutUser
+        logoutUser,
+        deleteUserAccount
     }
 }

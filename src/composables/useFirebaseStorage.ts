@@ -1,9 +1,12 @@
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL, listAll, deleteObject } from 'firebase/storage'
 import { FirebaseError } from '@firebase/util'
 
 export function useFirebaseStorage() {
     // From firebase.client.ts
     const { $storage } = useNuxtApp()
+
+    // Firebase paths
+    const usersPath = 'users'
 
     // Upload a file
     const uploadFile = async(path: string, file: File): Promise<string> => {
@@ -36,7 +39,44 @@ export function useFirebaseStorage() {
         return downloadURL
     }
 
+    // Delete a file
+    const deleteFile = async(path: string): Promise<boolean> => {
+        // Create a storage reference from our storage service
+        const storageRef = ref($storage, path)
+
+        // Delete the file
+        await deleteObject(storageRef).catch((error: FirebaseError) => {
+            console.error(error)
+            throw new Error('Die Datei konnte nicht gelöscht werden.')
+        })
+
+        return true
+    }
+
+    // Delete complete user folder
+    const deleteUserFolder = async(uid: string): Promise<boolean> => {
+        const path = `${usersPath}/${uid}`
+
+        // Create a storage reference from our storage service
+        const storageRef = ref($storage, path)
+
+        // List all items in the folder
+        const listResult = await listAll(storageRef)
+
+        // Delete all items in the folder
+        listResult.items.forEach(async(itemRef) => {
+            await deleteObject(itemRef).catch((error: FirebaseError) => {
+                console.error(error)
+                throw new Error('Die Datei konnte nicht gelöscht werden.')
+            })
+        })
+
+        return true
+    }
+
     return {
-        uploadFile
+        uploadFile,
+        deleteFile,
+        deleteUserFolder
     }
 }

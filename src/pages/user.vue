@@ -65,6 +65,15 @@
                 </DisplayModal>
             </div>
 
+            <!-- Delete User Account -->
+            <div class="flex gap-2">
+                <DisplayModal ref="deleteUserModal" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user" buttonSeverity="danger" buttonOutlined>
+                    <template #content>
+                        <DeleteUser @deleted="deleteUserModal?.close()" />
+                    </template>
+                </DisplayModal>
+            </div>
+
             <!-- Logout -->
             <div class="flex gap-2">
                 <LogoutUser />
@@ -81,6 +90,7 @@ import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePassword from '@/components/user/ChangePassword.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
+import DeleteUser from '@/components/user/DeleteUser.vue'
 import createReadableDate from '@/composables/dateHelper'
 import { useUserStore } from '@/stores/user'
 
@@ -92,6 +102,7 @@ const { sendUserEmailVerification } = useFirebaseAuth()
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
 const passwordModal = ref<InstanceType<typeof DisplayModal>>()
 const displayNameModal = ref<InstanceType<typeof DisplayModal>>()
+const deleteUserModal = ref<InstanceType<typeof DisplayModal>>()
 
 // User store
 const userStore = useUserStore()
