@@ -15,7 +15,16 @@
                 <span>
                     <b>Email:</b> {{ email }}
                     <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
-                    <i v-else v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'" class="pi pi-exclamation-circle text-blue-600" />
+                    <Button
+                        v-else
+                        v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'"
+                        aria-label="Email verifizieren"
+                        icon="pi pi-exclamation-circle"
+                        outlined
+                        class="p-0"
+                        :loading="loadingEmailVerify"
+                        @click="handleVerifyEmail"
+                    />
                 </span>
                 <span><b>Name:</b> {{ displayName }}</span>
                 <span><b>Telefon:</b> {{ user.phoneNumber }}</span>
@@ -65,6 +74,7 @@
 </template>
 
 <script setup lang="ts">
+import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
 import LogoutUser from '@/components/user/LogoutUser.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
@@ -73,6 +83,10 @@ import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
 import createReadableDate from '@/composables/dateHelper'
 import { useUserStore } from '@/stores/user'
+
+// Composables
+const toast = useToast()
+const { sendUserEmailVerification } = useFirebaseAuth()
 
 // Refs
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
@@ -90,4 +104,31 @@ const displayName = computed(() => userStore.displayName)
 const email = computed(() => userStore.email)
 const photoURL = computed(() => userStore.photoURL)
 const emailVerified = computed(() => userStore.emailVerified)
+
+// Email verification
+const loadingEmailVerify = ref(false)
+const handleVerifyEmail = async() => {
+    // Start loading
+    loadingEmailVerify.value = true
+
+    // Send email verification
+    const response = await sendUserEmailVerification().catch((error: Error) => {
+        console.error(error)
+        toast.add({
+            severity: 'error',
+            summary: 'Fehler beim Senden der Email',
+            detail: error.message,
+            life: 10000
+        })
+        return false
+    })
+
+    // Show success toast
+    if (response) {
+        toast.add({ severity: 'success', summary: 'Email gesendet', detail: 'Sie haben eine Email zur Verifizierung Ihrer Email Adresse erhalten.', life: 3000 })
+    }
+
+    // Stop loading
+    loadingEmailVerify.value = false
+}
 </script>

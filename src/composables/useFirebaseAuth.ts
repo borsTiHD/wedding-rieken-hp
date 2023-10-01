@@ -93,7 +93,7 @@ export default function() {
         const credential = EmailAuthProvider.credential(email, password)
 
         // Re-authenticate user
-        const result = await reauthenticateWithCredential($auth.currentUser, credential).catch((error: FirebaseError) => {
+        await reauthenticateWithCredential($auth.currentUser, credential).catch((error: FirebaseError) => {
             let errorMessage = 'Die Authentifizierung ist fehlgeschlagen.'
 
             // Handle specific errors
@@ -110,8 +110,6 @@ export default function() {
             console.error(error)
             throw new Error(errorMessage)
         })
-
-        console.log('result', result)
 
         return true
     }

@@ -145,7 +145,6 @@ export default function() {
         }) as Promise<UserProfile>
     }
 
-    // TODO: Add function to send email verification to user
     // TODO: Add function to send password reset email to user
     // TODO: Add function to update (one or more) additional user profile data
     //          - Email
