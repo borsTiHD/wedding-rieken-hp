@@ -19,7 +19,7 @@
             <slot name="footer" />
         </template>
     </Dialog>
-    <Button v-if="props.button" :label="props.buttonLabel" :icon="props.buttonIcon" @click="visible = true" />
+    <Button v-if="props.button" :severity="props.buttonSeverity" :label="props.buttonLabel" :outlined="props.buttonOutlined" :icon="props.buttonIcon" @click="visible = true" />
 </template>
 
 <script setup lang="ts">
@@ -43,6 +43,14 @@ const props = defineProps({
     buttonIcon: {
         type: String,
         default: 'pi pi-external-link'
+    },
+    buttonSeverity: {
+        type: String,
+        default: undefined
+    },
+    buttonOutlined: {
+        type: Boolean,
+        default: false
     },
     draggable: {
         type: Boolean,
