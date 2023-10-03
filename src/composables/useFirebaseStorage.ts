@@ -8,6 +8,8 @@ export function useFirebaseStorage() {
     // Firebase paths
     const usersPath = 'users'
 
+    // TODO: Define security rules for storage in firebase
+
     // Upload a file
     const uploadFile = async(path: string, file: File): Promise<string> => {
         // Create a storage reference from our storage service
