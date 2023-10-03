@@ -1,11 +1,17 @@
-import { updateProfile, updateEmail, updatePassword } from 'firebase/auth'
+import { updateProfile, updateEmail, updatePassword, deleteUser } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import type { UserProfile } from '@/types/UserProfile'
+import { useUserStore } from '@/stores/user'
 
 export default function() {
     const { $auth } = useNuxtApp() // From firebase.client.ts
     const { queryByCollectionAndId, deleteByCollectionAndId, addWithId } = useFirestore() // Firestore composable
     const { sendUserEmailVerification } = useFirebaseAuth() // Firebase auth composable
+    const { deleteUserFolder } = useFirebaseStorage() // FirebaseStorage composable
+
+    // User store
+    const userStore = useUserStore()
+    const { setUser, setUserProfile } = userStore
 
     // Firebase paths
     const usersPath = 'users'
@@ -128,7 +134,50 @@ export default function() {
         return addWithId('users', uid, defaultUserProfile)
     }
 
-    // Delete user profile
+    // Delete a user
+    // - deletes the user account
+    // - deletes the user profile
+    // - deletes the user files
+    const deleteUserAccount = async(): Promise<boolean> => {
+        const user = $auth.currentUser
+        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+
+        // Delete user profile
+        const uid = user.uid
+        await deleteUserProfile(uid).catch((error: FirebaseError) => {
+            console.error(error)
+            throw new Error('Das Benutzerprofil konnte nicht gelöscht werden.')
+        })
+
+        // Delete user files
+        await deleteUserFolder(uid).catch((error: FirebaseError) => {
+            console.error(error)
+            throw new Error('Die Benutzerdateien konnten nicht gelöscht werden.')
+        })
+
+        // Delete user
+        await deleteUser(user).catch((error: FirebaseError) => {
+            const errorMessage = 'Der Benutzer konnte nicht gelöscht werden.'
+
+            // Handle specific errors
+            if (error.code === 'auth/requires-recent-login') {
+                // errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
+                console.error(error)
+                throw new Error(error.code)
+            }
+
+            console.error(error)
+            throw new Error(errorMessage)
+        })
+
+        // Clear user state
+        setUser(null)
+        setUserProfile(null)
+
+        return true
+    }
+
+    // Delete user profile (additional user profile data)
     const deleteUserProfile = async(uid: string) => {
         return deleteByCollectionAndId(usersPath, uid)
     }
@@ -168,6 +217,6 @@ export default function() {
         setProfilePhotoUrl, // Firebase profile
         fetchAdditionalUserProfile, // Additional user profile data
         createDefaultUserProfile, // Additional user profile data
-        deleteUserProfile // Additional user profile data
+        deleteUserAccount // Delete user with all data
     }
 }

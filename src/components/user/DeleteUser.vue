@@ -42,7 +42,7 @@ const reauthenticateModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Composables
 const toast = useToast()
-const { deleteUserAccount } = useFirebaseAuth()
+const { deleteUserAccount } = useFirebaseUserProfile()
 
 // Data
 const loading = ref(false)
