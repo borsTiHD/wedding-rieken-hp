@@ -24,23 +24,18 @@ export const useUserStore = defineStore('user-store', () => {
 
         // This will update the user state when the user logs in or out
         onAuthStateChanged($auth, async(response) => {
-            if (response) {
-                // Set user state
-                setUser(response)
-
-                // Get additional userprofile data
-                await fetchUserProfile(response.uid)
-
-                // Get ID token
-                const idToken = await getIdToken(response).catch((error: { message: string }) => {
-                    throw new Error(error.message)
-                })
-
-                // Set cookie with ID token
-                cookie.value = idToken
-            } else {
-                setUser(null)
-                cookie.value = null
+            try {
+                if (response) {
+                    setUser(response) // Set user state
+                    fetchUserProfile(response.uid) // Get additional userprofile data
+                    const idToken = await getIdToken(response) // Get ID token
+                    cookie.value = idToken // Set cookie with ID token
+                } else {
+                    setUser(null)
+                    cookie.value = null
+                }
+            } catch (error) {
+                console.error(error)
             }
         })
 
@@ -50,7 +45,10 @@ export const useUserStore = defineStore('user-store', () => {
             setUser($auth.currentUser)
 
             // Get additional userprofile data
-            await fetchUserProfile($auth.currentUser.uid)
+            await fetchUserProfile($auth.currentUser.uid).catch((error) => {
+                console.error(error)
+                throw new Error(error.message)
+            })
         }
     }
 
@@ -59,7 +57,10 @@ export const useUserStore = defineStore('user-store', () => {
         if (!uid) { throw new Error('Keine Benutzer-ID angegeben') }
 
         // Get additional userprofile data
-        const userData = await fetchAdditionalUserProfile(uid)
+        const userData = await fetchAdditionalUserProfile(uid).catch((error) => {
+            console.error(error)
+            throw new Error(error.message)
+        })
 
         // Throw error if no response
         if (!userData) { throw new Error('Benutzerprofil nicht gefunden') }

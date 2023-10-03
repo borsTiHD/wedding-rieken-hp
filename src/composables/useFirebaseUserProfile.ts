@@ -188,6 +188,7 @@ export default function() {
 
         // Get user profile
         return queryByCollectionAndId(usersPath, uid).catch(async(error) => {
+            console.error(error)
             // If the user profile does not exist, create it
             if (error.message === 'Document does not exist') {
                 // Create default user profile
@@ -197,7 +198,6 @@ export default function() {
                     throw new Error('Benutzerprofil konnte nicht geladen werden')
                 })
             }
-            console.error(error)
             throw new Error('Benutzerprofil konnte nicht geladen werden')
         }) as Promise<UserProfile>
     }
@@ -208,7 +208,6 @@ export default function() {
     //          - Confirmation: (Zusage/Absage)
     //          - Additional guests (numbers)
     //          - Role (only admins can do this)
-    // TODO: Add function to delete user
 
     return {
         changePassword, // Firebase profile
