@@ -56,6 +56,11 @@
                 </DisplayModal>
             </div>
 
+            <!-- Password Reset -->
+            <div class="flex gap-2">
+                <ResetPassword />
+            </div>
+
             <!-- Change Display Name -->
             <div class="flex gap-2">
                 <DisplayModal ref="displayNameModal" header="Ändere deinen Namen" button buttonLabel="Name ändern" buttonIcon="pi pi-user">
@@ -90,6 +95,7 @@ import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePassword from '@/components/user/ChangePassword.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
+import ResetPassword from '@/components/user/ResetPassword.vue'
 import DeleteUser from '@/components/user/DeleteUser.vue'
 import createReadableDate from '@/composables/dateHelper'
 import { useUserStore } from '@/stores/user'

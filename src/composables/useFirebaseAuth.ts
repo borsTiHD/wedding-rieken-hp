@@ -4,6 +4,7 @@ import {
     signInWithEmailAndPassword,
     sendSignInLinkToEmail,
     sendEmailVerification,
+    sendPasswordResetEmail,
     signInWithEmailLink,
     isSignInWithEmailLink,
     EmailAuthProvider
@@ -79,6 +80,31 @@ export default function() {
         }
 
         throw new Error('Login fehlgeschlagen - unbekannter Fehler.')
+    }
+
+    // Send email for password reset
+    const sendUserPasswordResetEmail = async(): Promise<boolean> => {
+        const email = $auth.currentUser?.email
+        if (!email) { throw new Error('Kein Benutzer angemeldet.') }
+
+        // Send password reset email
+        await sendPasswordResetEmail($auth, email).catch((error: FirebaseError) => {
+            let errorMessage = 'Die Passwort-Zurücksetzen E-Mail konnte nicht gesendet werden.'
+
+            // Handle specific errors
+            if (error.code === 'auth/invalid-email') {
+                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
+            } else if (error.code === 'auth/user-not-found') {
+                errorMessage = 'Es existiert kein Benutzer mit dieser E-Mail-Adresse.'
+            } else if (error.code === 'auth/too-many-requests') {
+                errorMessage = 'Zu viele Anfragen. Bitte versuche es später erneut.'
+            }
+
+            console.error(error)
+            throw new Error(errorMessage)
+        })
+
+        return true
     }
 
     // Re-authenticate a user
@@ -253,6 +279,7 @@ export default function() {
         reauthenticateUser,
         sendEmailLink,
         sendUserEmailVerification,
+        sendUserPasswordResetEmail,
         loginWithEmailLink,
         logoutUser
     }
