@@ -1,5 +1,5 @@
 {
     "noName": "Kein Name",
-    "welcome": "Willkommen zurück, {name}!",
+    "welcome": "Willkommen {name}",
     "language": "Sprache"
 }
