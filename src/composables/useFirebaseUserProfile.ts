@@ -127,7 +127,7 @@ export default function() {
         const defaultUserProfile: UserProfile = {
             role: 'guest',
             email: email ? email : '',
-            phone: '',
+            phoneNumber: '',
             confirmation: 'pending',
             additionalGuests: 0
         }

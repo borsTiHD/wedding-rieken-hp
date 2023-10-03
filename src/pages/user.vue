@@ -158,7 +158,8 @@ const handleVerifyEmail = async() => {
 const testProfile = async() => {
     const response = await changeAdditionalUserProfileData({
         additionalGuests: 0,
-        confirmation: 'pending'
+        confirmation: 'pending',
+        phoneNumber: '+49123456789'
     }).catch((error: Error) => {
         console.error(error)
         toast.add({
