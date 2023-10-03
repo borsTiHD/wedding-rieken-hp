@@ -27,6 +27,7 @@ export default defineEventHandler(async(event) => {
     const newUserProfile: UserProfile = {
         role,
         email,
+        phone: '',
         confirmation: 'pending',
         additionalGuests: 0
     }
