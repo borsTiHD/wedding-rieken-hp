@@ -128,7 +128,7 @@ export default function() {
             role: 'guest',
             email: email ? email : '',
             phoneNumber: '',
-            confirmation: 'pending',
+            invitation: 'pending',
             additionalGuests: 0
         }
 

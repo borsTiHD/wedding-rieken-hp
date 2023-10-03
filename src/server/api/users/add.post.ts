@@ -28,7 +28,7 @@ export default defineEventHandler(async(event) => {
         role,
         email,
         phoneNumber: '',
-        confirmation: 'pending',
+        invitation: 'pending',
         additionalGuests: 0
     }
 
