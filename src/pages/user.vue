@@ -7,7 +7,7 @@
 
     <!-- User Details -->
     <div v-else class="bg-gray-100 py-4 flex flex-col gap-4">
-        <div class="max-w-screen-lg mx-auto">
+        <div class="w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto">
             <div class="bg-white p-4 shadow-md rounded-lg">
                 <div class="flex items-center space-x-4">
                     <!-- User avatar with edit icon on mouse hover -->
@@ -40,36 +40,12 @@
                     </div>
                     <div class="flex flex-col">
                         <!-- Display name -->
-                        <h1 v-tooltip.right="'Ändere deinen Namen'" class="text-2xl font-semibold cursor-pointer" @click="displayNameModal?.open()">{{ displayName }}</h1>
-                        <DisplayModal ref="displayNameModal" header="Ändere deinen Namen">
-                            <template #content>
-                                <ChangeDisplayName @changed="displayNameModal?.close()" />
-                            </template>
-                        </DisplayModal>
+                        <h1 class="text-2xl font-semibold">{{ displayName }}</h1>
 
                         <!-- Email Address -->
                         <div class="flex items-center gap-2">
-                            <p v-tooltip.right="'Ändere deine Email Adresse'" class="text-gray-600 cursor-pointer" @click="emailModal?.open()">{{ email }}</p>
+                            <p class="text-gray-600">{{ email }}</p>
                             <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
-
-                            <!-- Email verification button -->
-                            <Button
-                                v-else
-                                v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'"
-                                aria-label="Email verifizieren"
-                                icon="pi pi-exclamation-circle"
-                                outlined
-                                class="p-0"
-                                :loading="loadingEmailVerify"
-                                @click="handleVerifyEmail"
-                            />
-
-                            <!-- Email change modal -->
-                            <DisplayModal ref="emailModal" header="Email ändern">
-                                <template #content>
-                                    <ChangeEmail @changed="emailModal?.close()" />
-                                </template>
-                            </DisplayModal>
                         </div>
                     </div>
                 </div>
@@ -78,47 +54,87 @@
             <div class="bg-white mt-4 p-4 shadow-md rounded-lg">
                 <h2 class="text-2xl font-semibold mb-6">Benutzerinformationen</h2>
                 <ul class="flex flex-col gap-2">
-                    <li class="flex flex-col border-b-2 mb-2 pb-2">
-                        <h2 class="text-xl font-semibold">Name</h2>
-                        <div class="flex items-center gap-2">
-                            <span>{{ userStore.displayName }}</span>
-                            <i v-if="!userStore.displayName" v-tooltip.bottom="'Sie haben keinen Namen angegeben. Bitte tragen Sie Ihren Namen ein.'" class="pi pi-question-circle text-yellow-300" />
-                        </div>
-                    </li>
-                    <li class="flex flex-col border-b-2 mb-2 pb-2">
-                        <h2 class="text-xl font-semibold">E-Mail</h2>
-                        <div class="flex items-center gap-2">
-                            <span>{{ email }}</span>
-                            <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
-
-                            <!-- Email verification button -->
-                            <Button
-                                v-else
-                                v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'"
-                                aria-label="Email verifizieren"
-                                icon="pi pi-exclamation-circle"
-                                outlined
-                                class="p-0"
-                                :loading="loadingEmailVerify"
-                                @click="handleVerifyEmail"
-                            />
-                        </div>
-                    </li>
-                    <li class="flex items-center justify-between border-b-2 mb-2 pb-2">
+                    <!-- Display name -->
+                    <li v-tooltip.top="'Ändere deinen Namen'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="displayNameModal?.open()">
                         <div class="flex flex-col">
-                            <h2 class="text-xl font-semibold">Telefonnummer</h2>
-                            <span>{{ userProfile.phoneNumber }}</span>
+                            <h2 class="text-xl font-semibold">Name</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ userStore.displayName }}</span>
+                                <i v-if="!userStore.displayName" v-tooltip.bottom="'Sie haben keinen Namen angegeben. Bitte tragen Sie Ihren Namen ein.'" class="pi pi-question-circle text-yellow-300" />
+                            </div>
+
+                            <!-- Display name change modal -->
+                            <DisplayModal ref="displayNameModal" header="Ändere deinen Namen">
+                                <template #content>
+                                    <ChangeDisplayName @changed="displayNameModal?.close()" />
+                                </template>
+                            </DisplayModal>
                         </div>
                         <i class="pi pi-chevron-right" />
                     </li>
-                    <li class="flex flex-col border-b-2 mb-2 pb-2">
-                        <h2 class="text-xl font-semibold">Zusätzliche Gäste</h2>
-                        <span>{{ userProfile.additionalGuests }}</span>
+
+                    <!-- Email -->
+                    <li v-tooltip.top="'Ändere deine Email Adresse'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">E-Mail</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ email }}</span>
+                                <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
+
+                                <!-- Email verification button -->
+                                <Button
+                                    v-else
+                                    v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'"
+                                    aria-label="Email verifizieren"
+                                    icon="pi pi-exclamation-circle"
+                                    outlined
+                                    class="p-0"
+                                    :loading="loadingEmailVerify"
+                                    @click.prevent="handleVerifyEmail"
+                                />
+                            </div>
+
+                            <!-- Email change modal -->
+                            <DisplayModal ref="emailModal" header="Email ändern">
+                                <template #content>
+                                    <ChangeEmail @changed="emailModal?.close()" />
+                                </template>
+                            </DisplayModal>
+                        </div>
+                        <i class="pi pi-chevron-right" />
                     </li>
-                    <li class="flex flex-col border-b-2 mb-2 pb-2">
-                        <h2 class="text-xl font-semibold">Einladungsstatus</h2>
-                        <span>{{ invitationStatus }}</span>
+
+                    <!-- Phone -->
+                    <li v-tooltip.top="'Ändere deine Telefonnummer'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">Telefonnummer</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ userProfile.phoneNumber }}</span>
+                                <i v-if="!userProfile.phoneNumber" v-tooltip.bottom="'Bitte tragen Sie Ihre Handynummer ein, falls Sie über Änderungen frühstmöglich informiert werden möchten.'" class="pi pi-question-circle text-yellow-300" />
+                            </div>
+                        </div>
+                        <i class="pi pi-chevron-right" />
                     </li>
+
+                    <!-- Additional guests -->
+                    <li v-tooltip.top="'Mit wie vielen zusätzlichen Gästen möchten Sie erscheinen?'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">Zusätzliche Gäste</h2>
+                            <span>{{ userProfile.additionalGuests }}</span>
+                        </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
+
+                    <!-- Invitation status -->
+                    <li v-tooltip.top="'Hier können Sie die Einladung an- oder ablehnen.'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">Einladungsstatus</h2>
+                            <span>{{ invitationStatus }}</span>
+                        </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
+
+                    <!-- User role -->
                     <li class="flex items-center justify-between border-b-2 mb-2 pb-2">
                         <div class="flex flex-col">
                             <h2 class="text-xl font-semibold">Rolle</h2>
@@ -129,41 +145,34 @@
                             </div>
                         </div>
                     </li>
+
+                    <!-- User actions -->
+                    <li class="flex flex-col gap-4 mt-12">
+                        <!-- Change Password -->
+                        <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
+                            <template #content>
+                                <ChangePassword @changed="passwordModal?.close()" />
+                            </template>
+                        </DisplayModal>
+
+                        <!-- Password Reset -->
+                        <ResetPassword />
+
+                        <!-- Delete User Account -->
+                        <DisplayModal ref="deleteUserModal" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user" buttonSeverity="danger" buttonOutlined>
+                            <template #content>
+                                <DeleteUser @deleted="deleteUserModal?.close()" />
+                            </template>
+                        </DisplayModal>
+
+                        <!-- Logout -->
+                        <LogoutUser />
+
+                        <!-- PROFILE TEST -->
+                        <Button label="TESTE PROFILE DATA" severity="success" icon="pi pi-lock" @click="testProfile" />
+                    </li>
                 </ul>
             </div>
-        </div>
-
-        <!-- Change Password -->
-        <div class="flex gap-2">
-            <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
-                <template #content>
-                    <ChangePassword @changed="passwordModal?.close()" />
-                </template>
-            </DisplayModal>
-        </div>
-
-        <!-- Password Reset -->
-        <div class="flex gap-2">
-            <ResetPassword />
-        </div>
-
-        <!-- Delete User Account -->
-        <div class="flex gap-2">
-            <DisplayModal ref="deleteUserModal" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user" buttonSeverity="danger" buttonOutlined>
-                <template #content>
-                    <DeleteUser @deleted="deleteUserModal?.close()" />
-                </template>
-            </DisplayModal>
-        </div>
-
-        <!-- Logout -->
-        <div class="flex gap-2">
-            <LogoutUser />
-        </div>
-
-        <!-- PROFILE TEST -->
-        <div class="flex gap-2">
-            <Button label="TESTE PROFILE DATA" severity="success" icon="pi pi-lock" @click="testProfile" />
         </div>
     </div>
 </template>
