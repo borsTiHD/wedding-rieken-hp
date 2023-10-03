@@ -1,17 +1,17 @@
 import { updateProfile, updateEmail, updatePassword, deleteUser } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
-import type { UserProfile } from '@/types/UserProfile'
 import { useUserStore } from '@/stores/user'
+import type { UserProfile, PartialUserProfile } from '@/types/UserProfile'
 
 export default function() {
     const { $auth } = useNuxtApp() // From firebase.client.ts
-    const { queryByCollectionAndId, deleteByCollectionAndId, addWithId } = useFirestore() // Firestore composable
+    const { queryByCollectionAndId, deleteByCollectionAndId, updateByCollectionAndId, addByCollectionAndId } = useFirestore() // Firestore composable
     const { sendUserEmailVerification } = useFirebaseAuth() // Firebase auth composable
     const { deleteUserFolder } = useFirebaseStorage() // FirebaseStorage composable
 
     // User store
     const userStore = useUserStore()
-    const { setUser, setUserProfile } = userStore
+    const { setUser, setUserProfile, refreshUserProfile } = userStore
 
     // Firebase paths
     const usersPath = 'users'
@@ -68,7 +68,8 @@ export default function() {
         // Send verification email
         await sendUserEmailVerification()
 
-        // TODO: Need to change email in userprofile database as well
+        // Update email in additional user profile data
+        await changeAdditionalUserProfileData({ email })
 
         return true
     }
@@ -123,7 +124,7 @@ export default function() {
         const email = user?.email
 
         // Create default user profile
-        const defaultUserProfile = {
+        const defaultUserProfile: UserProfile = {
             role: 'guest',
             email: email ? email : '',
             confirmation: 'pending',
@@ -131,7 +132,27 @@ export default function() {
         }
 
         // Add default user profile
-        return addWithId('users', uid, defaultUserProfile)
+        return addByCollectionAndId('users', uid, defaultUserProfile)
+    }
+
+    // Change one, or more additional user profile data
+    const changeAdditionalUserProfileData = async(data: PartialUserProfile) => {
+        const user = $auth.currentUser
+        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+
+        // Get user id
+        const uid = user.uid
+
+        // Update user profile
+        await updateByCollectionAndId(usersPath, uid, data).catch((error) => {
+            console.error(error)
+            throw new Error('Benutzerprofil konnte nicht geändert werden')
+        })
+
+        // Refresh user profile
+        await refreshUserProfile()
+
+        return true
     }
 
     // Delete a user
@@ -202,12 +223,6 @@ export default function() {
         }) as Promise<UserProfile>
     }
 
-    // TODO: Add function to update (one or more) additional user profile data
-    //          - Email
-    //          - Confirmation: (Zusage/Absage)
-    //          - Additional guests (numbers)
-    //          - Role (only admins can do this)
-
     return {
         changePassword, // Firebase profile
         changeEmail, // Firebase profile
@@ -215,6 +230,7 @@ export default function() {
         setProfilePhotoUrl, // Firebase profile
         fetchAdditionalUserProfile, // Additional user profile data
         createDefaultUserProfile, // Additional user profile data
-        deleteUserAccount // Delete user with all data
+        changeAdditionalUserProfileData, // Additional user profile data
+        deleteUserAccount // Delete user with all data (firebase profile, additional user profile data, files)
     }
 }

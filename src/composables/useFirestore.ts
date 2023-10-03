@@ -49,6 +49,18 @@ export function useFirestore() {
         return await deleteDoc(docRef)
     }
 
+    // Update a document by collection and ID
+    const updateByCollectionAndId = async(col: string, id: string, document: any) => {
+        const docRef = doc($firestore, col, id)
+        return await updateDoc(docRef, document)
+    }
+
+    // Add a document with a specified collection and ID
+    const addByCollectionAndId = async(col: string, id: string, document: any) => {
+        const colRef = collection($firestore, col)
+        return await setDoc(doc(colRef, id), document)
+    }
+
     // Set a document by ID
     const set = async(col: string, document: any) => {
         return await setDoc(doc(collection($firestore, col)), document, { merge: true })
@@ -61,13 +73,6 @@ export function useFirestore() {
         return await updateDoc(docRef, {
             [key]: value
         })
-    }
-
-    // Add a document with a specified ID
-    const addWithId = async(col: string, id: string, document: any) => {
-        const colRef = collection($firestore, col)
-        const docRef = await setDoc(doc(colRef, id), document)
-        return docRef
     }
 
     // Add a document with a random ID
@@ -87,9 +92,10 @@ export function useFirestore() {
         queryByCollection,
         queryByCollectionAndId,
         deleteByCollectionAndId,
+        updateByCollectionAndId,
+        addByCollectionAndId,
         set,
         update,
-        addWithId,
         add,
         del
     }
