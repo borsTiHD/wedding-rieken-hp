@@ -22,6 +22,23 @@ const { loading, progress, stoptLoading } = useLoadingSpinner(true)
 const appStore = useAppStore() // App store
 const userStore = useUserStore() // User store
 
+// Language options for i18n
+// Also set language based on cookie or browser language
+const { getLocaleCookie, setLocaleCookie, getBrowserLocale, setLocale } = useI18n()
+const browserLocale = getBrowserLocale()
+const cookieLocale = getLocaleCookie()
+if (cookieLocale) {
+    setLocaleCookie(cookieLocale)
+    setLocale(cookieLocale)
+} else if (browserLocale) {
+    setLocaleCookie(browserLocale)
+    setLocale(browserLocale)
+} else {
+    setLocaleCookie('de')
+    setLocale('de')
+}
+
+// Fetch user data and app config
 onMounted(async() => {
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error

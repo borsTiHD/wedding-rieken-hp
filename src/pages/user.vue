@@ -150,13 +150,14 @@
 
                     <!-- User actions -->
                     <li class="flex flex-col gap-4 mt-12">
-                        <form>
-                            <label for="locale-select">{{ $t('language') }}: </label>
-                            <select id="locale-select" v-model="$i18n.locale">
-                                <option value="de">de</option>
-                                <option value="en">en</option>
-                            </select>
-                        </form>
+                        <FormKit
+                            v-model="locale"
+                            type="select"
+                            :label="$t('language')"
+                            name="language"
+                            :options="availableLocales"
+                            @change="onLanguageChange"
+                        />
 
                         <!-- Change Password -->
                         <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
@@ -203,6 +204,23 @@ import { useUserStore } from '@/stores/user'
 const toast = useToast()
 const { sendUserEmailVerification } = useFirebaseAuth()
 const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
+
+// Language options
+const { locale, locales, setLocale, setLocaleCookie } = useI18n()
+const availableLocales = computed(() => {
+    return locales.value.map((locale) => {
+        return {
+            value: typeof locale === 'string' ? locale : locale.code,
+            label: typeof locale === 'string' ? locale : locale.name
+        } as { value: string; label: string }
+    })
+})
+const onLanguageChange = (event: Event) => {
+    const target = event.target as HTMLSelectElement
+    const selectedLocale = target.value
+    setLocaleCookie(selectedLocale)
+    setLocale(selectedLocale)
+}
 
 // Refs
 const profilePictureModal = ref<InstanceType<typeof DisplayModal>>()

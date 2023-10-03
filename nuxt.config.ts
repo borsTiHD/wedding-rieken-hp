@@ -29,9 +29,9 @@ export default defineNuxtConfig({
     },
     srcDir: 'src/',
     modules: [
-        // ...
         '@pinia/nuxt',
-        '@formkit/nuxt'
+        '@formkit/nuxt',
+        '@nuxtjs/i18n'
     ],
     css: [
         '@/assets/css/tailwindcss.css', // tailwindcss
@@ -47,6 +47,19 @@ export default defineNuxtConfig({
             tailwindcss: {},
             autoprefixer: {}
         }
+    },
+    i18n: {
+        defaultLocale: 'de',
+        locales: [
+            { code: 'de', iso: 'de-DE', name: 'Deutsch' },
+            { code: 'en', iso: 'en-US', name: 'English' }
+        ],
+        detectBrowserLanguage: {
+            useCookie: true,
+            cookieKey: 'i18n_redirected',
+            redirectOn: 'root' // recommended
+        },
+        vueI18n: './i18n.config.ts'
     },
     devtools: { enabled: true } // TODO: Activate only in dev mode
 })
