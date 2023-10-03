@@ -1,93 +1,169 @@
 <template>
-    <div class="m-4 flex flex-col gap-4 p-4 border border-gray-400">
-        <!-- User not logged in -->
-        <div v-if="!uid" class="flex flex-col gap-4">
-            <h1 class="text-2xl">Sie sind nicht eingeloggt:</h1>
-            <span>Klicke <NuxtLink to="login" class="font-medium text-blue-600">hier</NuxtLink> um dich einloggen.</span>
+    <!-- User not logged in -->
+    <div v-if="!uid" class="flex flex-col gap-4">
+        <h1 class="text-2xl">Sie sind nicht eingeloggt:</h1>
+        <span>Klicke <NuxtLink to="login" class="font-medium text-blue-600">hier</NuxtLink> um dich einloggen.</span>
+    </div>
+
+    <!-- User Details -->
+    <div v-else class="bg-gray-100 py-4 flex flex-col gap-4">
+        <div class="max-w-screen-lg mx-auto">
+            <div class="bg-white p-4 shadow-md rounded-lg">
+                <div class="flex items-center space-x-4">
+                    <!-- User avatar with edit icon on mouse hover -->
+                    <div class="relative inline-block">
+                        <Avatar
+                            :image="photoURL ? photoURL : undefined"
+                            :icon="photoURL ? undefined : 'pi pi-user'"
+                            class="cursor-pointer"
+                            size="xlarge"
+                            shape="circle"
+                            @mouseover="showProfilePictureEditIcon = true"
+                        />
+
+                        <!-- Edit profile picture on mouse hover -->
+                        <div
+                            v-if="showProfilePictureEditIcon"
+                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 hover:opacity-100 cursor-pointer"
+                            @mouseleave="showProfilePictureEditIcon = false"
+                            @click="profilePictureModal?.open()"
+                        >
+                            <Button icon="pi pi-pencil" rounded aria-label="Profilbild editieren" @click="profilePictureModal?.open()" />
+                        </div>
+
+                        <!-- Profile picture edit modal -->
+                        <DisplayModal ref="profilePictureModal" header="Profilbild ändern">
+                            <template #content>
+                                <UploadProfilePicture @uploaded="profilePictureModal?.close()" />
+                            </template>
+                        </DisplayModal>
+                    </div>
+                    <div class="flex flex-col">
+                        <!-- Display name -->
+                        <h1 v-tooltip.right="'Ändere deinen Namen'" class="text-2xl font-semibold cursor-pointer" @click="displayNameModal?.open()">{{ displayName }}</h1>
+                        <DisplayModal ref="displayNameModal" header="Ändere deinen Namen">
+                            <template #content>
+                                <ChangeDisplayName @changed="displayNameModal?.close()" />
+                            </template>
+                        </DisplayModal>
+
+                        <!-- Email Address -->
+                        <div class="flex items-center gap-2">
+                            <p v-tooltip.right="'Ändere deine Email Adresse'" class="text-gray-600 cursor-pointer" @click="emailModal?.open()">{{ email }}</p>
+                            <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
+
+                            <!-- Email verification button -->
+                            <Button
+                                v-else
+                                v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'"
+                                aria-label="Email verifizieren"
+                                icon="pi pi-exclamation-circle"
+                                outlined
+                                class="p-0"
+                                :loading="loadingEmailVerify"
+                                @click="handleVerifyEmail"
+                            />
+
+                            <!-- Email change modal -->
+                            <DisplayModal ref="emailModal" header="Email ändern">
+                                <template #content>
+                                    <ChangeEmail @changed="emailModal?.close()" />
+                                </template>
+                            </DisplayModal>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white mt-4 p-4 shadow-md rounded-lg">
+                <h2 class="text-2xl font-semibold mb-6">Benutzerinformationen</h2>
+                <ul class="flex flex-col gap-2">
+                    <li class="flex flex-col border-b-2 mb-2 pb-2">
+                        <h2 class="text-xl font-semibold">Name</h2>
+                        <div class="flex items-center gap-2">
+                            <span>{{ userStore.displayName }}</span>
+                            <i v-if="!userStore.displayName" v-tooltip.bottom="'Sie haben keinen Namen angegeben. Bitte tragen Sie Ihren Namen ein.'" class="pi pi-question-circle text-yellow-300" />
+                        </div>
+                    </li>
+                    <li class="flex flex-col border-b-2 mb-2 pb-2">
+                        <h2 class="text-xl font-semibold">E-Mail</h2>
+                        <div class="flex items-center gap-2">
+                            <span>{{ email }}</span>
+                            <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
+
+                            <!-- Email verification button -->
+                            <Button
+                                v-else
+                                v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'"
+                                aria-label="Email verifizieren"
+                                icon="pi pi-exclamation-circle"
+                                outlined
+                                class="p-0"
+                                :loading="loadingEmailVerify"
+                                @click="handleVerifyEmail"
+                            />
+                        </div>
+                    </li>
+                    <li class="flex items-center justify-between border-b-2 mb-2 pb-2">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">Telefonnummer</h2>
+                            <span>{{ userProfile.phoneNumber }}</span>
+                        </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
+                    <li class="flex flex-col border-b-2 mb-2 pb-2">
+                        <h2 class="text-xl font-semibold">Zusätzliche Gäste</h2>
+                        <span>{{ userProfile.additionalGuests }}</span>
+                    </li>
+                    <li class="flex flex-col border-b-2 mb-2 pb-2">
+                        <h2 class="text-xl font-semibold">Einladungsstatus</h2>
+                        <span>{{ invitationStatus }}</span>
+                    </li>
+                    <li class="flex items-center justify-between border-b-2 mb-2 pb-2">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">Rolle</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ userRole }}</span>
+                                <i v-if="userProfile.role === 'guest'" v-tooltip.bottom="'Sie haben sich selbst registriert. Bitte warten Sie noch auf eine Bestätigung Ihrer Einladung.'" class="pi pi-exclamation-circle text-sky-600" />
+                                <i v-else-if="userProfile.role === 'invited'" v-tooltip.bottom="'Sie haben eine verifizierte Einladung'" class="pi pi-verified text-green-600" />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <!-- User Details -->
-        <div v-else class="flex flex-col gap-4">
-            <h1 class="text-2xl">Benutzer Infos:</h1>
-            <Avatar :image="photoURL ? photoURL : undefined" :icon="photoURL ? undefined : 'pi pi-user'" class="mr-2" size="xlarge" shape="circle" />
-            <div class="flex flex-col gap-2">
-                <span><b>UID:</b> {{ uid }}</span>
-                <span>
-                    <b>Email:</b> {{ email }}
-                    <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
-                    <Button
-                        v-else
-                        v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'"
-                        aria-label="Email verifizieren"
-                        icon="pi pi-exclamation-circle"
-                        outlined
-                        class="p-0"
-                        :loading="loadingEmailVerify"
-                        @click="handleVerifyEmail"
-                    />
-                </span>
-                <span><b>Name:</b> {{ displayName }}</span>
-                <span><b>Telefon:</b> {{ user.phoneNumber }}</span>
-                <span><b>Erstellt:</b> {{ createReadableDate(user.metadata.creationTime as string) }}</span>
-                <span><b>Zuletzt eingeloggt:</b> {{ createReadableDate(user.metadata.lastSignInTime as string) }}</span>
-                <pre>{{ userProfile }}</pre>
-            </div>
+        <!-- Change Password -->
+        <div class="flex gap-2">
+            <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
+                <template #content>
+                    <ChangePassword @changed="passwordModal?.close()" />
+                </template>
+            </DisplayModal>
+        </div>
 
-            <!-- Upload profile picture -->
-            <div class="flex gap-2">
-                <UploadProfilePicture />
-            </div>
+        <!-- Password Reset -->
+        <div class="flex gap-2">
+            <ResetPassword />
+        </div>
 
-            <!-- Change Email -->
-            <div class="flex gap-2">
-                <DisplayModal ref="emailModal" header="Email ändern" button buttonLabel="Email ändern" buttonIcon="pi pi-envelope">
-                    <template #content>
-                        <ChangeEmail @changed="emailModal?.close()" />
-                    </template>
-                </DisplayModal>
-            </div>
+        <!-- Delete User Account -->
+        <div class="flex gap-2">
+            <DisplayModal ref="deleteUserModal" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user" buttonSeverity="danger" buttonOutlined>
+                <template #content>
+                    <DeleteUser @deleted="deleteUserModal?.close()" />
+                </template>
+            </DisplayModal>
+        </div>
 
-            <!-- Change Password -->
-            <div class="flex gap-2">
-                <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
-                    <template #content>
-                        <ChangePassword @changed="passwordModal?.close()" />
-                    </template>
-                </DisplayModal>
-            </div>
+        <!-- Logout -->
+        <div class="flex gap-2">
+            <LogoutUser />
+        </div>
 
-            <!-- Password Reset -->
-            <div class="flex gap-2">
-                <ResetPassword />
-            </div>
-
-            <!-- Change Display Name -->
-            <div class="flex gap-2">
-                <DisplayModal ref="displayNameModal" header="Ändere deinen Namen" button buttonLabel="Name ändern" buttonIcon="pi pi-user">
-                    <template #content>
-                        <ChangeDisplayName @changed="displayNameModal?.close()" />
-                    </template>
-                </DisplayModal>
-            </div>
-
-            <!-- Delete User Account -->
-            <div class="flex gap-2">
-                <DisplayModal ref="deleteUserModal" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user" buttonSeverity="danger" buttonOutlined>
-                    <template #content>
-                        <DeleteUser @deleted="deleteUserModal?.close()" />
-                    </template>
-                </DisplayModal>
-            </div>
-
-            <!-- Logout -->
-            <div class="flex gap-2">
-                <LogoutUser />
-            </div>
-
-            <!-- PROFILE TEST -->
-            <div class="flex gap-2">
-                <Button label="TESTE PROFILE DATA" severity="success" icon="pi pi-lock" @click="testProfile" />
-            </div>
+        <!-- PROFILE TEST -->
+        <div class="flex gap-2">
+            <Button label="TESTE PROFILE DATA" severity="success" icon="pi pi-lock" @click="testProfile" />
         </div>
     </div>
 </template>
@@ -102,7 +178,6 @@ import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
 import DeleteUser from '@/components/user/DeleteUser.vue'
-import createReadableDate from '@/composables/dateHelper'
 import { useUserStore } from '@/stores/user'
 
 // Composables
@@ -111,6 +186,7 @@ const { sendUserEmailVerification } = useFirebaseAuth()
 const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
 
 // Refs
+const profilePictureModal = ref<InstanceType<typeof DisplayModal>>()
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
 const passwordModal = ref<InstanceType<typeof DisplayModal>>()
 const displayNameModal = ref<InstanceType<typeof DisplayModal>>()
@@ -118,15 +194,31 @@ const deleteUserModal = ref<InstanceType<typeof DisplayModal>>()
 
 // User store
 const userStore = useUserStore()
-const user = computed(() => userStore.user)
 const userProfile = computed(() => userStore.userProfile)
 
 // User data from store
 const uid = computed(() => userStore.uid)
-const displayName = computed(() => userStore.displayName)
+const displayName = computed(() => userStore.displayName ? userStore.displayName : 'Kein Name')
 const email = computed(() => userStore.email)
 const photoURL = computed(() => userStore.photoURL)
 const emailVerified = computed(() => userStore.emailVerified)
+const invitationStatus = computed(() => {
+    const invitation = userProfile.value?.invitation
+    if (invitation === 'pending') return 'Einladung ausstehend'
+    if (invitation === 'accepted') return 'Einladung angenommen'
+    if (invitation === 'declined') return 'Einladung abgelehnt'
+    return 'Keine Einladung'
+})
+const userRole = computed(() => {
+    const role = userProfile.value?.role
+    if (role === 'admin') return 'Administrator'
+    if (role === 'invited') return 'Eingeladener Gast'
+    if (role === 'guest') return 'Selbsregistrierter Gast'
+    return 'Keine Rolle'
+})
+
+// Refs
+const showProfilePictureEditIcon = ref(false)
 
 // Email verification
 const loadingEmailVerify = ref(false)
@@ -158,7 +250,7 @@ const handleVerifyEmail = async() => {
 const testProfile = async() => {
     const response = await changeAdditionalUserProfileData({
         additionalGuests: 0,
-        confirmation: 'pending',
+        invitation: 'pending',
         phoneNumber: '+49123456789'
     }).catch((error: Error) => {
         console.error(error)
