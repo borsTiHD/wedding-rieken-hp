@@ -110,9 +110,11 @@ export default function() {
 
     // Create default user profile
     const createDefaultUserProfile = async(uid: string) => {
+        const user = $auth.currentUser
+        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+
         // Get current user email
-        const currentUser = $auth.currentUser
-        const email = currentUser?.email
+        const email = user?.email
 
         // Create default user profile
         const defaultUserProfile = {
@@ -133,6 +135,8 @@ export default function() {
 
     // Get additional user profile data, stored in Firebase user collection
     const fetchAdditionalUserProfile = async(uid: string): Promise<UserProfile> => {
+        if (!uid) { throw new Error('Keine Benutzer-ID angegeben') }
+
         // Get user profile
         return queryByCollectionAndId(usersPath, uid).catch(async(error) => {
             // If the user profile does not exist, create it

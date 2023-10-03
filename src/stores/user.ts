@@ -29,7 +29,7 @@ export const useUserStore = defineStore('user-store', () => {
                 setUser(response)
 
                 // Get additional userprofile data
-                await fetchUserProfile(user.uid)
+                await fetchUserProfile(response.uid)
 
                 // Get ID token
                 const idToken = await getIdToken(response).catch((error: { message: string }) => {
@@ -50,19 +50,19 @@ export const useUserStore = defineStore('user-store', () => {
             setUser($auth.currentUser)
 
             // Get additional userprofile data
-            await fetchUserProfile(user.uid)
+            await fetchUserProfile($auth.currentUser.uid)
         }
     }
 
     // Fetch user profile data
     async function fetchUserProfile(uid: string) {
+        if (!uid) { throw new Error('Keine Benutzer-ID angegeben') }
+
         // Get additional userprofile data
         const userData = await fetchAdditionalUserProfile(uid)
 
         // Throw error if no response
-        if (!userData) {
-            throw new Error('Benutzerprofil nicht gefunden.')
-        }
+        if (!userData) { throw new Error('Benutzerprofil nicht gefunden') }
 
         // Set user profile state
         setUserProfile(userData)
@@ -76,7 +76,7 @@ export const useUserStore = defineStore('user-store', () => {
             setUser($auth.currentUser)
 
             // Get additional userprofile data
-            await fetchUserProfile(user.uid)
+            await fetchUserProfile($auth.currentUser.uid)
         }
     }
 
