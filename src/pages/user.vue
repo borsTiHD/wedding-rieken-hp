@@ -7,7 +7,8 @@
 
     <!-- User Details -->
     <div v-else class="bg-gray-100 py-4 flex flex-col gap-4">
-        <div class="w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto">
+        <div class="w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
+            <!-- User profile picture -->
             <div class="bg-white p-4 shadow-md rounded-lg">
                 <div class="flex items-center space-x-4">
                     <!-- User avatar with edit icon on mouse hover -->
@@ -40,7 +41,7 @@
                     </div>
                     <div class="flex flex-col">
                         <!-- Display name -->
-                        <h1 class="text-2xl font-semibold">{{ displayName }}</h1>
+                        <h1 class="text-2xl font-semibold">{{ displayName ? $t('welcome', { name: displayName }) : $t('noName') }}</h1>
 
                         <!-- Email Address -->
                         <div class="flex items-center gap-2">
@@ -51,7 +52,8 @@
                 </div>
             </div>
 
-            <div class="bg-white mt-4 p-4 shadow-md rounded-lg">
+            <!-- User information -->
+            <div class="bg-white p-4 shadow-md rounded-lg">
                 <h2 class="text-2xl font-semibold mb-6">Benutzerinformationen</h2>
                 <ul class="flex flex-col gap-2">
                     <!-- Display name -->
@@ -148,6 +150,14 @@
 
                     <!-- User actions -->
                     <li class="flex flex-col gap-4 mt-12">
+                        <form>
+                            <label for="locale-select">{{ $t('language') }}: </label>
+                            <select id="locale-select" v-model="$i18n.locale">
+                                <option value="de">de</option>
+                                <option value="en">en</option>
+                            </select>
+                        </form>
+
                         <!-- Change Password -->
                         <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
                             <template #content>
@@ -207,7 +217,7 @@ const userProfile = computed(() => userStore.userProfile)
 
 // User data from store
 const uid = computed(() => userStore.uid)
-const displayName = computed(() => userStore.displayName ? userStore.displayName : 'Kein Name')
+const displayName = computed(() => userStore.displayName)
 const email = computed(() => userStore.email)
 const photoURL = computed(() => userStore.photoURL)
 const emailVerified = computed(() => userStore.emailVerified)

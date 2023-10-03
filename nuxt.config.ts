@@ -40,7 +40,7 @@ export default defineNuxtConfig({
         'primeicons/primeicons.css'
     ],
     build: {
-        transpile: ['primevue']
+        transpile: ['primevue', 'vue-i18n']
     },
     postcss: {
         plugins: {
@@ -48,5 +48,5 @@ export default defineNuxtConfig({
             autoprefixer: {}
         }
     },
-    devtools: { enabled: true }
+    devtools: { enabled: true } // TODO: Activate only in dev mode
 })
