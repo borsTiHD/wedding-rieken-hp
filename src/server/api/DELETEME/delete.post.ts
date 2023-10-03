@@ -7,7 +7,7 @@ export default defineEventHandler(async(event) => {
         await del(col as string, id as string)
 
         return { result: id }
-    } catch (error: any) {
-        return { error: error.message }
+    } catch (error) {
+        return { error: (error as Error)?.message }
     }
 })

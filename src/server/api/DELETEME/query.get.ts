@@ -18,7 +18,7 @@ export default defineEventHandler(async(event) => {
         // If collection and id is specified, return document from collection
         const doc = await queryByCollectionAndId(query.col as string, query.id as string)
         return { result: doc }
-    } catch (error: any) {
-        return { error: error.message }
+    } catch (error) {
+        return { error: (error as Error)?.message }
     }
 })

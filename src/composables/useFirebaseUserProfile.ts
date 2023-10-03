@@ -221,7 +221,7 @@ export default function() {
                 })
             }
             throw new Error('Benutzerprofil konnte nicht geladen werden')
-        }) as Promise<UserProfile>
+        }) as unknown as Promise<UserProfile>
     }
 
     return {

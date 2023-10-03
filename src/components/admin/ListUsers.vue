@@ -38,11 +38,12 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import type admin from 'firebase-admin'
+import type { UserProfile } from '@/types/UserProfile'
 
 // Type definition for user
 type User = {
     account: admin.auth.UserRecord;
-    profile: any;
+    profile: UserProfile;
 }
 
 // Composables

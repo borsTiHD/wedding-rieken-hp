@@ -1,11 +1,12 @@
 import { auth, db } from '@/server/lib/firebaseAdmin'
 import checkAdmin from '@/server/lib/checkAdmin'
 import type admin from 'firebase-admin'
+import type { UserProfile } from '@/types/UserProfile'
 
 // Type definition for user
 type User = {
     account: admin.auth.UserRecord;
-    profile: any;
+    profile: null | UserProfile;
 }
 
 export default defineEventHandler(async(event) => {
@@ -36,7 +37,7 @@ export default defineEventHandler(async(event) => {
     for (const userDoc of userDocs) {
         if (userDoc.status === 'fulfilled') {
             const userId = userDoc.value.id
-            userMap[userId].profile = userDoc.value.data()
+            userMap[userId].profile = userDoc.value.data() as UserProfile
         }
     }
 

@@ -14,8 +14,14 @@ import {
 } from 'firebase/firestore'
 import { firestoreDb } from '@/server/lib/firebase'
 
+// Types for firestore documents
+type Value = string | number | boolean | null | undefined | Document | Array<string | number | boolean | null | undefined | Document>
+interface Document {
+    [key: string]: Value
+}
+
 // Get firestore documents by collection
-export const queryByCollection = async(col: string) => {
+export const queryByCollection = async(col: string): Promise<Document[]> => {
     const colRef = collection(firestoreDb, col)
     const snapshot = await getDocs(colRef)
 
@@ -30,7 +36,7 @@ export const queryByCollection = async(col: string) => {
 }
 
 // Get firestore documents by collection and id
-export const queryByCollectionAndId = async(col: string, id: string) => {
+export const queryByCollectionAndId = async(col: string, id: string): Promise<Document> => {
     const docRef = doc(firestoreDb, col, id)
     const docSnap = await getDoc(docRef)
     if (!docSnap.exists()) {
@@ -44,12 +50,12 @@ export const queryByCollectionAndId = async(col: string, id: string) => {
 }
 
 // Set firestore document by collection
-export const set = async(col: string, document: any) => {
+export const set = async(col: string, document: Document): Promise<void> => {
     return await setDoc(doc(collection(firestoreDb, col)), document, { merge: true })
 }
 
 // Update firestore document by collection and id
-export const update = async(col: string, id: string, key: string, value: any) => {
+export const update = async(col: string, id: string, key: string, value: Value) => {
     const docRef = doc(firestoreDb, col, id)
     // Set the "key" field of the document
     return await updateDoc(docRef, {
@@ -58,7 +64,7 @@ export const update = async(col: string, id: string, key: string, value: any) =>
 }
 
 // Add firestore document by collection
-export const add = async(col: string, document: any) => {
+export const add = async(col: string, document: Document) => {
     const colRef = collection(firestoreDb, col)
     const docRef = await addDoc(colRef, document)
     return docRef
