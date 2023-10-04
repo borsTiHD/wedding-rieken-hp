@@ -53,13 +53,20 @@
             </li>
 
             <!-- Phone -->
-            <li v-tooltip.top="'Ändere deine Telefonnummer'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+            <li v-tooltip.top="'Ändere deine Telefonnummer'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="phoneModal?.open()">
                 <div class="flex flex-col">
                     <h2 class="text-xl font-semibold">Telefonnummer</h2>
                     <div class="flex items-center gap-2">
                         <span>{{ userProfile.phoneNumber }}</span>
-                        <i v-if="!userProfile.phoneNumber" v-tooltip.bottom="'Bitte tragen Sie Ihre Handynummer ein, falls Sie über Änderungen frühstmöglich informiert werden möchten.'" class="pi pi-question-circle text-yellow-300" />
+                        <i v-if="!userProfile.phoneNumber" v-tooltip.right="'Bitte tragen Sie Ihre Handynummer ein, falls Sie über Änderungen frühstmöglich informiert werden möchten.'" class="pi pi-question-circle text-yellow-300" />
                     </div>
+
+                    <!-- Phone change modal -->
+                    <DisplayModal ref="phoneModal" header="Telefonnummer ändern">
+                        <template #content>
+                            <ChangePhone @changed="phoneModal?.close()" />
+                        </template>
+                    </DisplayModal>
                 </div>
                 <i class="pi pi-chevron-right" />
             </li>
@@ -131,6 +138,7 @@ import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
 import LogoutUser from '@/components/user/LogoutUser.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
+import ChangePhone from '@/components/user/ChangePhone.vue'
 import ChangePassword from '@/components/user/ChangePassword.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
@@ -145,6 +153,7 @@ const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
 
 // Refs
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
+const phoneModal = ref<InstanceType<typeof DisplayModal>>()
 const passwordModal = ref<InstanceType<typeof DisplayModal>>()
 const displayNameModal = ref<InstanceType<typeof DisplayModal>>()
 const deleteUserModal = ref<InstanceType<typeof DisplayModal>>()
