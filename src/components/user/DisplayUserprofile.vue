@@ -72,10 +72,17 @@
             </li>
 
             <!-- Additional guests -->
-            <li v-tooltip.top="'Mit wie vielen zusätzlichen Gästen möchten Sie erscheinen?'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+            <li v-tooltip.top="'Mit wie vielen zusätzlichen Gästen möchten Sie erscheinen?'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="additionalGuestsModal?.open()">
                 <div class="flex flex-col">
                     <h2 class="text-xl font-semibold">Zusätzliche Gäste</h2>
                     <span>{{ userProfile.additionalGuests }}</span>
+
+                    <!-- Additional Guests change modal -->
+                    <DisplayModal ref="additionalGuestsModal" header="Anzahl zusätzlicher Gäste ändern">
+                        <template #content>
+                            <ChangeAdditionalGuests @changed="additionalGuestsModal?.close()" />
+                        </template>
+                    </DisplayModal>
                 </div>
                 <i class="pi pi-chevron-right" />
             </li>
@@ -139,6 +146,7 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import LogoutUser from '@/components/user/LogoutUser.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePhone from '@/components/user/ChangePhone.vue'
+import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
 import ChangePassword from '@/components/user/ChangePassword.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
@@ -156,6 +164,7 @@ const emailModal = ref<InstanceType<typeof DisplayModal>>()
 const phoneModal = ref<InstanceType<typeof DisplayModal>>()
 const passwordModal = ref<InstanceType<typeof DisplayModal>>()
 const displayNameModal = ref<InstanceType<typeof DisplayModal>>()
+const additionalGuestsModal = ref<InstanceType<typeof DisplayModal>>()
 const deleteUserModal = ref<InstanceType<typeof DisplayModal>>()
 
 // User store
