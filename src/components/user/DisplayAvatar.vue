@@ -15,11 +15,12 @@
                 <!-- Edit profile picture on mouse hover -->
                 <div
                     v-if="showProfilePictureEditIcon"
-                    class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 hover:opacity-100 cursor-pointer"
+                    class="absolute inset-0 mb-1 flex items-center justify-center rounded-full bg-black bg-opacity-50 transition-opacity duration-300 hover:opacity-100 cursor-pointer"
                     @mouseleave="showProfilePictureEditIcon = false"
                     @click="profilePictureModal?.open()"
                 >
-                    <Button icon="pi pi-pencil" rounded aria-label="Profilbild editieren" @click="profilePictureModal?.open()" />
+                    <i class="pi pi-pencil text-white" />
+                    <!-- <Button icon="pi pi-pencil" rounded aria-label="Profilbild editieren" /> -->
                 </div>
 
                 <!-- Profile picture edit modal -->
