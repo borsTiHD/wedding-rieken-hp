@@ -125,25 +125,29 @@
                 <!-- Change Language -->
                 <ChangeLanguage />
 
-                <!-- Change Password -->
-                <DisplayModal ref="passwordModal" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
-                    <template #content>
-                        <ChangePassword @changed="passwordModal?.close()" />
-                    </template>
-                </DisplayModal>
+                <div class="flex gap-2 w-full">
+                    <!-- Change Password -->
+                    <DisplayModal ref="passwordModal" buttonClass="basis-1/2" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
+                        <template #content>
+                            <ChangePassword @changed="passwordModal?.close()" />
+                        </template>
+                    </DisplayModal>
 
-                <!-- Password Reset -->
-                <ResetPassword />
+                    <!-- Password Reset -->
+                    <ResetPassword class="basis-1/2" />
+                </div>
 
-                <!-- Delete User Account -->
-                <DisplayModal ref="deleteUserModal" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user" buttonSeverity="danger" buttonOutlined>
-                    <template #content>
-                        <DeleteUser @deleted="deleteUserModal?.close()" />
-                    </template>
-                </DisplayModal>
+                <div class="flex gap-2 w-full">
+                    <!-- Delete User Account -->
+                    <DisplayModal ref="deleteUserModal" buttonClass="basis-1/2" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user" buttonSeverity="danger" buttonOutlined>
+                        <template #content>
+                            <DeleteUser @deleted="deleteUserModal?.close()" />
+                        </template>
+                    </DisplayModal>
 
-                <!-- Logout -->
-                <LogoutUser />
+                    <!-- Logout -->
+                    <LogoutUser class="basis-1/2" />
+                </div>
 
                 <!-- PROFILE TEST -->
                 <Button label="TESTE PROFILE DATA" severity="success" icon="pi pi-lock" @click="testProfile" />
