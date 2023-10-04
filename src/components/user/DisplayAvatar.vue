@@ -1,5 +1,4 @@
 <template>
-    <!-- User profile picture -->
     <div class="bg-white p-4 shadow-md rounded-lg">
         <div class="flex items-center space-x-4">
             <!-- User avatar with edit icon on mouse hover -->
