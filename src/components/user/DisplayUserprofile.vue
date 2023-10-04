@@ -150,9 +150,6 @@
                     <!-- Logout -->
                     <LogoutUser class="basis-1/2" />
                 </div>
-
-                <!-- PROFILE TEST -->
-                <Button label="TESTE PROFILE DATA" severity="success" icon="pi pi-megaphone" @click="testProfile" />
             </li>
         </ul>
     </div>
@@ -176,7 +173,6 @@ import { useUserStore } from '@/stores/user'
 // Composables
 const toast = useToast()
 const { sendUserEmailVerification } = useFirebaseAuth()
-const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
 
 // Refs
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
@@ -234,27 +230,5 @@ const handleVerifyEmail = async() => {
 
     // Stop loading
     loadingEmailVerify.value = false
-}
-
-const testProfile = async() => {
-    const response = await changeAdditionalUserProfileData({
-        additionalGuests: 0,
-        invitation: 'pending',
-        phoneNumber: '+49123456789'
-    }).catch((error: Error) => {
-        console.error(error)
-        toast.add({
-            severity: 'error',
-            summary: 'Fehler beim Ändern der Daten',
-            detail: error.message,
-            life: 10000
-        })
-        return false
-    })
-
-    // Show success toast
-    if (response) {
-        toast.add({ severity: 'success', summary: 'Daten geändert', detail: 'Ihre Daten wurden angepasst', life: 3000 })
-    }
 }
 </script>
