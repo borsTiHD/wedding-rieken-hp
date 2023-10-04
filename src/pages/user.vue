@@ -9,48 +9,7 @@
     <div v-else class="bg-gray-100 py-4 flex flex-col gap-4">
         <div class="w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
             <!-- User profile picture -->
-            <div class="bg-white p-4 shadow-md rounded-lg">
-                <div class="flex items-center space-x-4">
-                    <!-- User avatar with edit icon on mouse hover -->
-                    <div class="relative inline-block">
-                        <Avatar
-                            :image="photoURL ? photoURL : undefined"
-                            :icon="photoURL ? undefined : 'pi pi-user'"
-                            class="cursor-pointer"
-                            size="xlarge"
-                            shape="circle"
-                            @mouseover="showProfilePictureEditIcon = true"
-                        />
-
-                        <!-- Edit profile picture on mouse hover -->
-                        <div
-                            v-if="showProfilePictureEditIcon"
-                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 hover:opacity-100 cursor-pointer"
-                            @mouseleave="showProfilePictureEditIcon = false"
-                            @click="profilePictureModal?.open()"
-                        >
-                            <Button icon="pi pi-pencil" rounded aria-label="Profilbild editieren" @click="profilePictureModal?.open()" />
-                        </div>
-
-                        <!-- Profile picture edit modal -->
-                        <DisplayModal ref="profilePictureModal" header="Profilbild ändern">
-                            <template #content>
-                                <UploadProfilePicture @uploaded="profilePictureModal?.close()" />
-                            </template>
-                        </DisplayModal>
-                    </div>
-                    <div class="flex flex-col">
-                        <!-- Display name -->
-                        <h1 class="text-2xl font-semibold">{{ displayName ? $t('welcome', { name: displayName }) : $t('noName') }}</h1>
-
-                        <!-- Email Address -->
-                        <div class="flex items-center gap-2">
-                            <p class="text-gray-600">{{ email }}</p>
-                            <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <DisplayAvatar />
 
             <!-- User information -->
             <div class="bg-white p-4 shadow-md rounded-lg">
@@ -153,7 +112,7 @@
                         <FormKit
                             v-model="locale"
                             type="select"
-                            :label="$t('language')"
+                            :label="$t('view.user.language')"
                             name="language"
                             :options="availableLocales"
                             @change="onLanguageChange"
@@ -191,11 +150,11 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
+import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
 import LogoutUser from '@/components/user/LogoutUser.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePassword from '@/components/user/ChangePassword.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
-import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
 import DeleteUser from '@/components/user/DeleteUser.vue'
 import { useUserStore } from '@/stores/user'
@@ -223,7 +182,6 @@ const onLanguageChange = (event: Event) => {
 }
 
 // Refs
-const profilePictureModal = ref<InstanceType<typeof DisplayModal>>()
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
 const passwordModal = ref<InstanceType<typeof DisplayModal>>()
 const displayNameModal = ref<InstanceType<typeof DisplayModal>>()
@@ -235,9 +193,7 @@ const userProfile = computed(() => userStore.userProfile)
 
 // User data from store
 const uid = computed(() => userStore.uid)
-const displayName = computed(() => userStore.displayName)
 const email = computed(() => userStore.email)
-const photoURL = computed(() => userStore.photoURL)
 const emailVerified = computed(() => userStore.emailVerified)
 const invitationStatus = computed(() => {
     const invitation = userProfile.value?.invitation
@@ -253,9 +209,6 @@ const userRole = computed(() => {
     if (role === 'guest') return 'Selbsregistrierter Gast'
     return 'Keine Rolle'
 })
-
-// Refs
-const showProfilePictureEditIcon = ref(false)
 
 // Email verification
 const loadingEmailVerify = ref(false)

@@ -1,5 +1,9 @@
 {
-    "noName": "Kein Name",
-    "welcome": "Willkommen {name}",
-    "language": "Sprache"
+    "view": {
+        "user": {
+            "noName": "Kein Name",
+            "welcome": "Willkommen {name}",
+            "language": "Sprache"
+        }
+    }
 }
