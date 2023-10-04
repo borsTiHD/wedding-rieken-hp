@@ -1,5 +1,5 @@
 <template>
-    <Button label="Passwort zurücksetzen" icon="pi pi-lock" :loading="loading" @click="handleSubmit" />
+    <Button label="Passwort zurücksetzen" icon="pi pi-lock-open" :loading="loading" @click="handleSubmit" />
 </template>
 
 <script setup lang="ts">

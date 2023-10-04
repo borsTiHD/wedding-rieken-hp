@@ -123,7 +123,9 @@
             <!-- User actions -->
             <li class="flex flex-col gap-4 mt-12">
                 <!-- Change Language -->
-                <ChangeLanguage />
+                <div class="mb-8">
+                    <ChangeLanguage />
+                </div>
 
                 <div class="flex gap-2 w-full">
                     <!-- Change Password -->
@@ -139,7 +141,7 @@
 
                 <div class="flex gap-2 w-full">
                     <!-- Delete User Account -->
-                    <DisplayModal ref="deleteUserModal" buttonClass="basis-1/2" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user" buttonSeverity="danger" buttonOutlined>
+                    <DisplayModal ref="deleteUserModal" buttonClass="basis-1/2" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user-minus" buttonSeverity="danger" buttonOutlined>
                         <template #content>
                             <DeleteUser @deleted="deleteUserModal?.close()" />
                         </template>
@@ -150,7 +152,7 @@
                 </div>
 
                 <!-- PROFILE TEST -->
-                <Button label="TESTE PROFILE DATA" severity="success" icon="pi pi-lock" @click="testProfile" />
+                <Button label="TESTE PROFILE DATA" severity="success" icon="pi pi-megaphone" @click="testProfile" />
             </li>
         </ul>
     </div>

@@ -16,7 +16,7 @@
             />
 
             <div class="flex gap-2">
-                <Button label="Account löschen" icon="pi pi-check" severity="danger" type="submit" :loading="loading" :disabled="!valid" />
+                <Button label="Account löschen" icon="pi pi-user-minus" severity="danger" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
