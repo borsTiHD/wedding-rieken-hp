@@ -88,10 +88,22 @@
             </li>
 
             <!-- Invitation status -->
-            <li v-tooltip.top="'Hier können Sie die Einladung an- oder ablehnen.'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+            <li v-tooltip.top="'Hier können Sie die Einladung an- oder ablehnen.'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="invitationModal?.open()">
                 <div class="flex flex-col">
                     <h2 class="text-xl font-semibold">Einladungsstatus</h2>
-                    <span>{{ invitationStatus }}</span>
+                    <div class="flex items-center gap-2">
+                        <span>{{ invitationStatus }}</span>
+                        <i v-if="userProfile?.invitation === 'accepted'" v-tooltip.right="'Sie haben die Einladung angenommen.'" class="pi pi-verified text-green-600" />
+                        <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.right="'Sie haben die Einladung abgelehnt.'" class="pi pi-exclamation-circle text-sky-600" />
+                        <i v-else-if="userProfile?.invitation === 'pending'" v-tooltip.right="'Sie haben die Einladung noch nicht bestätigt.'" class="pi pi-question-circle text-yellow-300" />
+                    </div>
+
+                    <!-- Additional Guests change modal -->
+                    <DisplayModal ref="invitationModal" header="Einladung Beantworten">
+                        <template #content>
+                            <ChangeInvitation @changed="invitationModal?.close()" />
+                        </template>
+                    </DisplayModal>
                 </div>
                 <i class="pi pi-chevron-right" />
             </li>
@@ -147,6 +159,7 @@ import LogoutUser from '@/components/user/LogoutUser.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePhone from '@/components/user/ChangePhone.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
+import ChangeInvitation from '@/components/user/ChangeInvitation.vue'
 import ChangePassword from '@/components/user/ChangePassword.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
@@ -163,6 +176,7 @@ const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
 const phoneModal = ref<InstanceType<typeof DisplayModal>>()
 const passwordModal = ref<InstanceType<typeof DisplayModal>>()
+const invitationModal = ref<InstanceType<typeof DisplayModal>>()
 const displayNameModal = ref<InstanceType<typeof DisplayModal>>()
 const additionalGuestsModal = ref<InstanceType<typeof DisplayModal>>()
 const deleteUserModal = ref<InstanceType<typeof DisplayModal>>()
