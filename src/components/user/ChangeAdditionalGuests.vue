@@ -7,6 +7,7 @@
     >
         <div class="flex flex-col">
             <FormKit
+                v-model="defaultAdditionalGuests"
                 type="number"
                 name="additionalGuests"
                 label="Zusätzliche Gäste"
@@ -43,6 +44,7 @@ const additionalGuests = computed(() => userProfile.value.additionalGuests)
 
 // Data
 const loading = ref(false)
+const defaultAdditionalGuests = ref(String(additionalGuests.value))
 
 // Submit button
 const handleSubmit = async(form: { additionalGuests: number }) => {

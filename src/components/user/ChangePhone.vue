@@ -7,6 +7,7 @@
     >
         <div class="flex flex-col">
             <FormKit
+                v-model="defaultPhone"
                 type="tel"
                 name="phone"
                 label="Telefonnummer"
@@ -43,6 +44,7 @@ const phoneNumber = computed(() => userProfile.value.phoneNumber)
 
 // Data
 const loading = ref(false)
+const defaultPhone = ref(phoneNumber.value)
 
 // Submit button
 const handleSubmit = async(form: { phone: string }) => {

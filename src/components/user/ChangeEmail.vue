@@ -53,7 +53,7 @@ const email = computed(() => userStore.email)
 
 // Data
 const loading = ref(false)
-const defaultMail = ref('')
+const defaultMail = ref(email.value || '')
 
 // Submit button
 const handleSubmit = async(form: { email: string }) => {
@@ -102,9 +102,4 @@ const handleSubmit = async(form: { email: string }) => {
         emit('changed')
     }
 }
-
-onMounted(() => {
-    // Set default mail to current user email
-    defaultMail.value = email.value || ''
-})
 </script>

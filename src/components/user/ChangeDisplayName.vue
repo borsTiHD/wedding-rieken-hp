@@ -40,7 +40,7 @@ const displayName = computed(() => userStore.displayName)
 
 // Data
 const loading = ref(false)
-const defaultDisplayName = ref('')
+const defaultDisplayName = ref(displayName.value || '')
 
 // Submit button
 const handleSubmit = async(form: { name: string }) => {
@@ -83,9 +83,4 @@ const handleSubmit = async(form: { name: string }) => {
         emit('changed')
     }
 }
-
-onMounted(() => {
-    // Set default mail to current user email
-    defaultDisplayName.value = displayName.value || ''
-})
 </script>
