@@ -10,16 +10,16 @@
                 v-model="defaultAdditionalGuests"
                 type="number"
                 name="additionalGuests"
-                label="Zusätzliche Gäste"
+                :label="t('user.additionalGuests.formkit.label')"
                 placeholder="0"
-                help="Bitte geben Sie eine Anzahl an zusätzlichen Gästen an, die Sie mitbringen würden."
+                :help="t('user.additionalGuests.formkit.help')"
                 validation="required|min:0|max:10"
                 validation-visibility="dirty"
                 autofocus
             />
 
             <div class="flex gap-2">
-                <Button label="Anzahl ändern" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('buttons.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
@@ -29,6 +29,9 @@
 import { useToast } from 'primevue/usetoast'
 import { useUserStore } from '@/stores/user'
 import type { PartialUserProfile } from '@/types/UserProfile'
+
+// Localisation
+const { t } = useI18n()
 
 // Emit event
 const emit = defineEmits(['changed'])
@@ -51,8 +54,8 @@ const handleSubmit = async(form: { additionalGuests: number }) => {
     if (additionalGuests.value === form.additionalGuests) {
         toast.add({
             severity: 'info',
-            summary: 'Anzahl nicht geändert',
-            detail: 'Sie haben die Anzahl nicht geändert.',
+            summary: t('user.additionalGuests.notChangedInfo'),
+            detail: t('user.additionalGuests.notChangedInfoDetail'),
             life: 3000
         })
         return false
@@ -69,7 +72,7 @@ const handleSubmit = async(form: { additionalGuests: number }) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Ändern der Anzahl zusätzlicher Gäste',
+            summary: t('user.additionalGuests.error'),
             detail: error.message,
             life: 10000
         })
@@ -84,7 +87,12 @@ const handleSubmit = async(form: { additionalGuests: number }) => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Anzahl geändert', detail: 'Sie haben die Anzahl zusätzlicher Gäste erfolgreich geändert.', life: 10000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.additionalGuests.success'),
+            detail: t('user.additionalGuests.successDetail'),
+            life: 10000
+        })
 
         // Emit event to parent
         emit('changed')
