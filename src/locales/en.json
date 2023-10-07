@@ -1,9 +1,20 @@
 {
-    "view": {
-        "user": {
-            "noName": "No name",
-            "welcome": "Welcome {name}",
-            "language": "Language"
-        }
+    "general": {
+    },
+    "settings": {
+        "language": "Language"
+    },
+    "login": {
+        "alreadyLoggedIn": "You are already logged in",
+        "notLoggedIn": "You are not logged in",
+        "loginLink": "Click {action} to login.",
+        "loginLinkTag": "here"
+    },
+    "logout": {
+        "submit": "Logout"
+    },
+    "user": {
+        "noName": "No name",
+        "welcome": "Welcome {name}"
     }
 }

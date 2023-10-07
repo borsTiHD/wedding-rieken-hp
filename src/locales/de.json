@@ -1,9 +1,258 @@
 {
-    "view": {
-        "user": {
-            "noName": "Kein Name",
-            "welcome": "Willkommen {name}",
-            "language": "Sprache"
+    "general": {
+        "inputDateFormat": "dd.mm.yy"
+    },
+    "buttons": {
+        "submit": "Speichern"
+    },
+    "settings": {
+        "language": "Sprache"
+    },
+    "login": {
+        "header": "Einloggen",
+        "wihtoutPassword": "Ohne Passwort",
+        "alreadyLoggedIn": "Sie sind bereits eingeloggt",
+        "notLoggedIn": "Sie sind nicht eingeloggt",
+        "tryingToLogin": "Versuche einzuloggen...",
+        "loginLink": "Klicke {action} um dich einloggen.",
+        "loginLinkTag": "hier",
+        "loginWithMailSend": "Sie haben eine E-Mail mit einem Login-Link erhalten",
+        "emailSend": "E-Mail gesendet",
+        "emailSendDetail": "Bitte überprüfen Sie Ihre E-Mails",
+        "submit": "Einloggen",
+        "success": "Erfolgreich eingeloggt",
+        "successDetail": "Sie wurden erfolgreich eingeloggt",
+        "error": "Fehler beim Einloggen",
+        "formkit": {
+            "labelEmail": "E-Mail",
+            "labelEmailHelp": "Bitte geben Sie Ihre E-Mail-Adresse ein",
+            "labelPassword": "Passwort",
+            "labelPasswordHelp": "Bitte geben Sie Ihr Passwort ein"
         }
+    },
+    "logout": {
+        "submit": "Ausloggen",
+        "success": "Erfolgreich ausgeloggt",
+        "successDetail": "Sie wurden erfolgreich ausgeloggt",
+        "error": "Fehler beim Ausloggen"
+    },
+    "register": {
+        "header": "Registrieren",
+        "submit": "Registrieren",
+        "success": "User erstellt",
+        "successDetail": "Der User wurde erfolgreich erstellt",
+        "error": "Fehler beim Registrieren",
+        "formkit": {
+            "labelEmail": "E-Mail",
+            "labelEmailHelp": "Bitte geben Sie Ihre E-Mail-Adresse ein",
+            "labelPassword": "Passwort",
+            "labelPasswordHelp": "Bitte geben Sie Ihr Passwort ein"
+        }
+    },
+    "user": {
+        "noName": "Kein Name",
+        "welcome": "Willkommen {name}",
+        "additionalGuests": {
+            "header": "Zusätzliche Gäste",
+            "headerModal": "Anzahl ändern",
+            "tooltip": "Klicken Sie hier, um die Anzahl zusätzlicher Gäste zu ändern",
+            "notChangedInfo": "Anzahl nicht geändert",
+            "notChangedInfoDetail": "Sie haben die Anzahl nicht geändert",
+            "success": "Anzahl geändert",
+            "successDetail": "Sie haben die Anzahl zusätzlicher Gäste erfolgreich geändert",
+            "error": "Fehler beim Ändern der Anzahl zusätzlicher Gäste",
+            "formkit": {
+                "label": "Anzahl zusätzlicher Gäste",
+                "help": "Bitte geben Sie eine Anzahl an zusätzlichen Gästen an, die Sie mitbringen würden"
+            }
+        },
+        "deleteUser": {
+            "headerModal": "Account löschen?",
+            "submit": "Account löschen",
+            "notChangedInfo": "Account nicht gelöscht",
+            "notChangedInfoDetail": "Sie haben den Bestätigungscode falsch eingegeben. Bitte versuchen Sie es erneut.",
+            "success": "Account gelöscht",
+            "successDetail": "Sie haben Ihren Account erfolgreich gelöscht",
+            "error": "Fehler beim Löschen Ihres Accounts",
+            "formkit": {
+                "label": "Löschen bestätigen",
+                "help": "Bitte geben Sie 'deleteme' ein"
+            }
+        },
+        "displayName": {
+            "header": "Name",
+            "headerModal": "Name ändern",
+            "tooltip": "Klicken Sie hier, um Ihren Namen zu ändern",
+            "tooltipNoName": "Sie haben keinen Namen angegeben. Bitte tragen Sie Ihren Namen ein.",
+            "notChangedInfo": "Name nicht geändert",
+            "notChangedInfoDetail": "Sie haben Ihren Namen nicht geändert",
+            "success": "Name geändert",
+            "successDetail": "Sie haben Ihren Namen erfolgreich geändert",
+            "error": "Fehler beim Ändern Ihres Namens",
+            "formkit": {
+                "label": "Name",
+                "help": "Bitte geben Sie Ihren Vor- und Nachnahmen ein"
+            }
+        },
+        "email": {
+            "header": "E-Mail",
+            "headerModal": "E-Mail ändern",
+            "tooltip": "Klicken Sie hier, um Ihre E-Mail-Adresse zu ändern",
+            "tooltipPlzVerifie": "Bitte verifizieren Sie Ihre E-Mail-Adresse",
+            "verifieAriaLabel": "E-Mail verifizieren",
+            "verified": "E-Mail verifiziert",
+            "verifiedError": "Fehler beim Senden der Verifizierungs-E-Mail",
+            "verifiedSuccess": "E-Mail zum Verifizieren versendet",
+            "verifiedSuccessDetail": "Sie haben eine E-Mail zum Verifizieren Ihrer E-Mail-Adresse erhalten. Bitte bestätigen Sie den Link in der E-Mail.",
+            "notChangedInfo": "E-Mail nicht geändert",
+            "notChangedInfoDetail": "Sie haben Ihre E-Mail-Adresse nicht geändert",
+            "success": "E-Mail geändert",
+            "successDetail": "Sie haben Ihre E-Mail-Adresse erfolgreich geändert. Bitte bestätigen Sie den Link in der verschickten Email.",
+            "error": "Fehler beim Ändern Ihrer E-Mail-Adresse",
+            "formkit": {
+                "label": "E-Mail",
+                "help": "Bitte geben Sie Ihre E-Mail-Adresse ein"
+            }
+        },
+        "invitation": {
+            "header": "Einladungsstatus",
+            "headerModal": "Einladung beantworten",
+            "tooltip": "Klicken Sie hier, um Ihre Einladung anzunehmen oder abzulehnen",
+            "tooltipAccepted": "Sie haben die Einladung angenommen",
+            "tooltipDeclined": "Sie haben die Einladung abgelehnt",
+            "tooltipNoResponse": "Sie haben noch nicht auf die Einladung geantwortet",
+            "stateAccepted": "Einladung angenommen",
+            "stateDeclined": "Einladung abgelehnt",
+            "stateNoReponse": "Einladung ausstehend",
+            "stateNoInvitation": "Keine Einladung",
+            "labelAccept": "Annehmen",
+            "labelDecline": "Ablehnen",
+            "error": "Fehler beim Ändern Ihrer Einladung",
+            "success": "Einladung geändert",
+            "successDetail": "Sie haben Ihre Einladung erfolgreich geändert"
+        },
+        "password": {
+            "notChangedInfo": "Passwort nicht geändert",
+            "notChangedInfoDetail": "Die Passwörter stimmen nicht überein",
+            "success": "Passwort geändert",
+            "successDetail": "Sie haben Ihr Passwort erfolgreich geändert",
+            "error": "Fehler beim Ändern Ihres Passworts",
+            "formkit": {
+                "labelNew": "Neues Passwort",
+                "labelNewHelp": "Bitte geben Sie Ihr neues Passwort ein",
+                "labelNewRepeat": "Neues Passwort wiederholen",
+                "labelNewRepeatHelp": "Bitte geben Sie Ihr neues Passwort erneut ein",
+                "labelNewRepeatValidation": "Passwort Bestätigung"
+            },
+            "changePassword": {
+                "modalHeader": "Erstelle ein neues Passwort",
+                "modalButton": "Passwort ändern"
+            },
+            "resetPassword": {
+                "submitButton": "Passwort zurücksetzen",
+                "error": "Fehler beim Zurücksetzen Ihres Passworts",
+                "success": "Passwort zurückgesetzt",
+                "successDetail": "Sie haben Ihr Passwort erfolgreich zurückgesetzt. Eine Email mit weiteren Schritten wurde an Ihr Postfach versendet."
+            }
+        },
+        "profilePicture": {
+            "modalHeader": "Profilbild ändern",
+            "submitButton": "Foto hochladen",
+            "invalidFileSizeMessage": "Die Datei ist zu groß. Bitte wählen Sie eine Datei mit maximal {maxFilesize} aus.",
+            "notLoggedInError": "Sie sind nicht eingeloggt",
+            "notLoggedInDetail": "Bitte loggen Sie sich ein, um Ihr Profilbild zu ändern",
+            "noPictureSelected": "Kein Bild ausgewählt",
+            "noPictureSelectedDetail": "Bitte wählen Sie ein Bild aus, um es hochzuladen",
+            "error": "Foto konnte nicht hochgeladen werden",
+            "success": "Foto hochgeladen",
+            "successDetail": "Sie haben Ihr Profilbild erfolgreich geändert"
+        },
+        "phone": {
+            "header": "Telefonnummer",
+            "headerModal": "Telefonnummer ändern",
+            "tootlip": "Klicken Sie hier, um Ihre Telefonnummer zu ändern",
+            "tooltipMissingPhone": "Bitte tragen Sie Ihre Handynummer ein, falls Sie über Änderungen frühstmöglich informiert werden möchten.",
+            "notChangedInfo": "Telefonnummer nicht geändert",
+            "notChangedInfoDetail": "Sie haben Ihre Telefonnummer nicht geändert",
+            "success": "Telefonnummer geändert",
+            "successDetail": "Sie haben Ihre Telefonnummer erfolgreich geändert",
+            "error": "Fehler beim Ändern Ihrer Telefonnummer",
+            "formkit": {
+                "label": "Telefonnummer",
+                "help": "Bitte geben Sie Ihre Handynummer ein"
+            }
+        },
+        "reauthenticate": {
+            "header": "Bitte Passwort bestätigen",
+            "submit": "Bestätigen",
+            "success": "Passwort bestätigt",
+            "successDetail": "Sie haben Ihr Passwort erfolgreich bestätigt",
+            "error": "Fehler beim Verifizieren Ihres Passworts",
+            "formkit": {
+                "labelPassword": "Passwort",
+                "labelPasswordHelp": "Bitte geben Sie Ihr Passwort ein"
+            }
+        },
+        "userRole": {
+            "header": "Rolle",
+            "tooltipGuest": "Sie haben sich selbst registriert. Bitte warten Sie noch auf eine Bestätigung Ihrer Einladung.",
+            "tooltipInvited": "Sie haben eine verifizierte Einladung. Bitte bestätigen Sie Ihre Einladung.",
+            "adminRole": "Administrator",
+            "invitedRole": "Eingeladener Gast",
+            "guestRole": "Selbsregistrierter Gast",
+            "noRole": "Keine Rolle",
+            "notAdmin": "Sie sollten nicht hier sein, Sie sind kein Administrator... 🤓✌️\nBooooooh! 👻"
+        }
+    },
+    "countdown":{
+        "days": "Tage",
+        "hours": "Stunden",
+        "minutes": "Minuten",
+        "seconds": "Sekunden"
+    },
+    "admin": {
+        "changeDate": {
+            "error": "Fehler",
+            "errorNoDate": "Kein Datum ausgewählt",
+            "errorNoTime": "Keine Zeit ausgewählt",
+            "errorNoDateFound": "Kein Datum gefunden",
+            "success": "Erfolgreich",
+            "successDetail": "Das Datum wurde erfolgreich geändert"
+        }
+    },
+    "firebase": {
+        "custom": {
+            "appConfigNotFound": "App-Konfiguration nicht gefunden",
+            "confirmMailAddress": "Bitte bestätigen Sie Ihre E-Mail-Adresse",
+            "noMailProvided": "Login fehlgeschlagen - Keine E-Mail-Adresse angegeben",
+            "noUserLoggedIn": "Sie sind nicht eingeloggt",
+            "noUserId": "Keine User-ID angegeben",
+            "userNotDeleted": "Benutzer konnte nicht gelöscht werden",
+            "registrationFailed": "Registrierung fehlgeschlagen - unbekannter Fehler",
+            "loginFailed": "Login fehlgeschlagen - unbekannter Fehler",
+            "loginFailedInvalidUrl": "Login fehlgeschlagen - ungültige URL",
+            "loginFailedInvalidLink": "Login fehlgeschlagen - ungültige Link",
+            "logoutFailed": "Logout fehlgeschlagen - unbekannter Fehler",
+            "passwordNotChanged": "Passwort konnte nicht geändert werden",
+            "emailNotChanged": "E-Mail-Adresse konnte nicht geändert werden",
+            "nameNotChanged": "Name konnte nicht geändert werden",
+            "avatarNotChanged": "Profilbild konnte nicht geändert werden",
+            "profileNotFound": "Profil nicht gefunden",
+            "profileNotChanged": "Profil konnte nicht geändert werden",
+            "profileNotDeleted": "Profil konnte nicht gelöscht werden",
+            "resetMailCouldNotSend": "E-Mail zum Zurücksetzen des Passworts konnte nicht gesendet werden",
+            "verifyMailCouldNotSend": "E-Mail zum Verifizieren der E-Mail-Adresse konnte nicht gesendet werden",
+            "authFailed": "Authentifizierung fehlgeschlagen",
+            "fileNotUploaded": "Datei konnte nicht hochgeladen werden",
+            "fileNotDeleted": "Datei konnte nicht gelöscht werden",
+            "filesNotDeleted": "Dateien konnten nicht gelöscht werden"
+        },
+        "email-already-in-use": "Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse",
+        "invalid-email": "Die E-Mail-Adresse ist ungültig",
+        "weak-password": "Das Passwort ist zu schwach",
+        "too-many-requests": "Zu viele Anfragen. Bitte versuchen Sie es später erneut.",
+        "wrong-password": "Das Passwort ist falsch",
+        "user-not-found": "Es existiert kein Benutzer mit dieser E-Mail-Adresse",
+        "user-disabled": "Der Benutzer wurde deaktiviert"
     }
 }
