@@ -247,12 +247,23 @@
             "fileNotDeleted": "Datei konnte nicht gelöscht werden",
             "filesNotDeleted": "Dateien konnten nicht gelöscht werden"
         },
+        "storage": {
+            "unauthorized": "Sie haben keine Berechtigung, diese Datei hochzuladen",
+            "canceled": "Upload abgebrochen",
+            "unknown": "Ein unbekannter Fehler ist aufgetreten"
+        },
         "email-already-in-use": "Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse",
         "invalid-email": "Die E-Mail-Adresse ist ungültig",
         "weak-password": "Das Passwort ist zu schwach",
         "too-many-requests": "Zu viele Anfragen. Bitte versuchen Sie es später erneut.",
         "wrong-password": "Das Passwort ist falsch",
         "user-not-found": "Es existiert kein Benutzer mit dieser E-Mail-Adresse",
-        "user-disabled": "Der Benutzer wurde deaktiviert"
+        "user-disabled": "Der Benutzer wurde deaktiviert",
+        "invalid-email-verified": "Die E-Mail-Adresse ist ungültig",
+        "invalid-action-code": "Der Bestätigungscode ist ungültig",
+        "operation-not-allowed": "Diese Aktion ist nicht erlaubt",
+        "quota-exceeded": "Das Limit wurde erreicht. Bitte versuche es später erneut.",
+        "expired-action-code": "Der Bestätigungscode ist abgelaufen",
+        "requires-recent-login": "Bitte loggen Sie sich erneut ein"
     }
 }

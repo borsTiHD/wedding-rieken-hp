@@ -11,9 +11,13 @@ import {
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import { useUserStore } from '@/stores/user'
+import handleFirebaseError from '@/composables/handleFirebaseError'
 
 export default function() {
     const { $auth } = useNuxtApp() // From firebase.client.ts
+
+    // Localisation
+    const { t } = useI18n()
 
     // User store
     const userStore = useUserStore()
@@ -22,20 +26,7 @@ export default function() {
     // Register a new user
     const registerUser = async(email: string, password: string): Promise<boolean> => {
         const userCreds = await createUserWithEmailAndPassword($auth, email, password).catch((error: FirebaseError) => {
-            let errorMessage = 'Registrierung fehlgeschlagen - unbekannter Fehler.'
-
-            // Handle specific errors
-            if (error.code === 'auth/email-already-in-use') {
-                errorMessage = 'Es existiert bereits ein Benutzer mit dieser E-Mail-Adresse.'
-            } else if (error.code === 'auth/invalid-email') {
-                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
-            } else if (error.code === 'auth/weak-password') {
-                errorMessage = 'Das Passwort ist zu schwach.'
-            } else if (error.code === 'auth/too-many-requests') {
-                errorMessage = 'Zu viele Anfragen. Bitte versuche es später erneut.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.registrationFailed')
             throw new Error(errorMessage)
         })
 
@@ -46,28 +37,13 @@ export default function() {
             return true
         }
 
-        throw new Error('Registrierung fehlgeschlagen - unbekannter Fehler.')
+        throw new Error(t('firebase.custom.registrationFailed'))
     }
 
     // Login a user
     const loginUser = async(email: string, password: string): Promise<boolean> => {
         const userCreds = await signInWithEmailAndPassword($auth, email, password).catch((error: FirebaseError) => {
-            let errorMessage = 'Login fehlgeschlagen - unbekannter Fehler.'
-
-            // Handle specific errors
-            if (error.code ==='auth/wrong-password') {
-                errorMessage = 'Das Passwort ist falsch.'
-            } else if (error.code === 'auth/user-not-found') {
-                errorMessage = 'Es existiert kein Benutzer mit dieser E-Mail-Adresse.'
-            } else if (error.code === 'auth/invalid-email') {
-                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
-            } else if (error.code === 'auth/too-many-requests') {
-                errorMessage = 'Zu viele Anfragen. Bitte versuche es später erneut.'
-            } else if (error.code === 'auth/user-disabled') {
-                errorMessage = 'Dieser Benutzer wurde deaktiviert.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.loginFailed')
             throw new Error(errorMessage)
         })
 
@@ -79,28 +55,17 @@ export default function() {
             return true
         }
 
-        throw new Error('Login fehlgeschlagen - unbekannter Fehler.')
+        throw new Error(t('firebase.custom.loginFailed'))
     }
 
     // Send email for password reset
     const sendUserPasswordResetEmail = async(): Promise<boolean> => {
         const email = $auth.currentUser?.email
-        if (!email) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!email) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Send password reset email
         await sendPasswordResetEmail($auth, email).catch((error: FirebaseError) => {
-            let errorMessage = 'Die Passwort-Zurücksetzen E-Mail konnte nicht gesendet werden.'
-
-            // Handle specific errors
-            if (error.code === 'auth/invalid-email') {
-                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
-            } else if (error.code === 'auth/user-not-found') {
-                errorMessage = 'Es existiert kein Benutzer mit dieser E-Mail-Adresse.'
-            } else if (error.code === 'auth/too-many-requests') {
-                errorMessage = 'Zu viele Anfragen. Bitte versuche es später erneut.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.resetMailCouldNotSend')
             throw new Error(errorMessage)
         })
 
@@ -110,27 +75,14 @@ export default function() {
     // Re-authenticate a user
     const reauthenticateUser = async(password: string): Promise<boolean> => {
         const email = $auth.currentUser?.email
-        if (!email) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!email) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Create credential
         const credential = EmailAuthProvider.credential(email, password)
 
         // Re-authenticate user
         await reauthenticateWithCredential($auth.currentUser, credential).catch((error: FirebaseError) => {
-            let errorMessage = 'Die Authentifizierung ist fehlgeschlagen.'
-
-            // Handle specific errors
-            if (error.code === 'auth/invalid-email') {
-                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
-            } else if (error.code === 'auth/user-disabled') {
-                errorMessage = 'Dieser Benutzer wurde deaktiviert.'
-            } else if (error.code === 'auth/user-not-found') {
-                errorMessage = 'Es existiert kein Benutzer mit dieser E-Mail-Adresse.'
-            } else if (error.code === 'auth/wrong-password') {
-                errorMessage = 'Das Passwort ist falsch.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.authFailed')
             throw new Error(errorMessage)
         })
 
@@ -140,18 +92,11 @@ export default function() {
     // Send email verification
     const sendUserEmailVerification = async(): Promise<boolean> => {
         const user = $auth.currentUser
-        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Send verification email
         await sendEmailVerification(user).catch((error: FirebaseError) => {
-            let errorMessage = 'Die verifizierungs E-Mail konnte nicht gesendet werden.'
-
-            // Handle specific errors
-            if (error.code === 'auth/too-many-requests') {
-                errorMessage = 'Du hast zu viele Anfragen gesendet. Bitte versuche es später erneut.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.resetMailCouldNotSend')
             throw new Error(errorMessage)
         })
 
@@ -173,31 +118,12 @@ export default function() {
 
         // Check if url is set
         if (actionCodeSettings.url === 'no-url-set') {
-            throw new Error('Login fehlgeschlagen - ungültige URL.')
+            throw new Error(t('firebase.custom.loginFailedInvalidUrl'))
         }
 
         // Send sign in link to email
         await sendSignInLinkToEmail($auth, email, actionCodeSettings).catch((error: FirebaseError) => {
-            let errorMessage = 'Login fehlgeschlagen - unbekannter Fehler.'
-
-            // Handle specific errors
-            if (error.code === 'auth/invalid-email') {
-                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
-            } else if (error.code === 'auth/invalid-email-verified') {
-                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
-            } else if (error.code === 'auth/invalid-action-code') {
-                errorMessage = 'Der Link ist ungültig. Bitte probiere es erneut.'
-            } else if (error.code === 'auth/user-disabled') {
-                errorMessage = 'Dieser Benutzer wurde deaktiviert.'
-            } else if (error.code === 'auth/operation-not-allowed') {
-                errorMessage = 'Diese Aktion ist nicht erlaubt.'
-            } else if (error.code === 'auth/too-many-requests') {
-                errorMessage = 'Zu viele Anfragen. Bitte versuche es später erneut.'
-            } else if (error.code === 'auth/quota-exceeded') {
-                errorMessage = 'Zu viele Anfragen. Bitte versuche es später erneut.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.loginFailed')
             throw new Error(errorMessage)
         })
 
@@ -213,7 +139,7 @@ export default function() {
     const loginWithEmailLink = async(): Promise<boolean> => {
         const url = window.location.href
         if (!isSignInWithEmailLink($auth, url)) {
-            throw new Error('Login fehlgeschlagen - ungültiger Link.')
+            throw new Error(t('firebase.custom.loginFailedInvalidLink'))
         }
 
         // Get the email if available. This should be available if the user completes
@@ -223,28 +149,15 @@ export default function() {
         if (!email) {
             // User opened the link on a different device. To prevent session fixation
             // attacks, ask the user to provide the associated email again.
-            email = window.prompt('Bitte geben Sie Ihre E-Mail-Adresse zur Bestätigung an')
+            email = window.prompt(t('firebase.custom.confirmMailAddress'))
             if (!email) {
-                throw new Error('Login fehlgeschlagen - E-Mail-Adresse nicht angegeben.')
+                throw new Error(t('firebase.custom.noMailProvided'))
             }
         }
 
         // Login with link - The client SDK will parse the code from the link for you
         const userCreds = await signInWithEmailLink($auth, email, url).catch((error: FirebaseError) => {
-            let errorMessage = 'Login fehlgeschlagen - unbekannter Fehler.'
-
-            // Handle specific errors
-            if (error.code === 'auth/expired-action-code') {
-                errorMessage = 'Der Link ist abgelaufen. Bitte probiere es erneut.'
-            } else if (error.code === 'auth/invalid-action-code') {
-                errorMessage = 'Der Link ist ungültig. Bitte probiere es erneut.'
-            } else if (error.code === 'auth/user-disabled') {
-                errorMessage = 'Dieser Benutzer wurde deaktiviert.'
-            } else if (error.code === 'auth/user-not-found') {
-                errorMessage = 'Es existiert kein Benutzer mit dieser E-Mail-Adresse.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.loginFailed')
             throw new Error(errorMessage)
         })
 
@@ -260,14 +173,14 @@ export default function() {
             return true
         }
 
-        throw new Error('Login fehlgeschlagen - unbekannter Fehler.')
+        throw new Error(t('firebase.custom.loginFailed'))
     }
 
     // Logout a user
     const logoutUser = async(): Promise<void> => {
         await $auth.signOut().catch((error: FirebaseError) => {
-            console.error(error)
-            throw new Error('Logout fehlgeschlagen - unbekannter Fehler.')
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.logoutFailed')
+            throw new Error(errorMessage)
         })
         setUser(null)
         setUserProfile(null)

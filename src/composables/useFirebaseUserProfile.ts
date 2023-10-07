@@ -1,6 +1,7 @@
 import { updateProfile, updateEmail, updatePassword, deleteUser } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import { useUserStore } from '@/stores/user'
+import handleFirebaseError from '@/composables/handleFirebaseError'
 import type { UserProfile, PartialUserProfile } from '@/types/UserProfile'
 
 export default function() {
@@ -13,28 +14,20 @@ export default function() {
     const userStore = useUserStore()
     const { setUser, setUserProfile, refreshUserProfile } = userStore
 
+    // Localisation
+    const { t } = useI18n()
+
     // Firebase paths
     const usersPath = 'users'
 
     // Change password
     const changePassword = async(password: string): Promise<boolean> => {
         const user = $auth.currentUser
-        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Update password
         await updatePassword(user, password).catch((error: FirebaseError) => {
-            let errorMessage = 'Das Passwort konnte nicht geändert werden.'
-
-            // Handle specific errors
-            if (error.code === 'auth/weak-password') {
-                errorMessage = 'Das Passwort ist zu schwach.'
-            } else if (error.code === 'auth/requires-recent-login') {
-                // errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
-                console.error(error)
-                throw new Error(error.code)
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.passwordNotChanged')
             throw new Error(errorMessage)
         })
 
@@ -44,24 +37,11 @@ export default function() {
     // Change email
     const changeEmail = async(email: string): Promise<boolean> => {
         const user = $auth.currentUser
-        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Update primary email
         await updateEmail(user, email).catch((error: FirebaseError) => {
-            let errorMessage = 'Die E-Mail-Adresse konnte nicht geändert werden.'
-
-            // Handle specific errors
-            if (error.code === 'auth/email-already-in-use') {
-                errorMessage = 'Diese E-Mail-Adresse wird bereits verwendet.'
-            } else if (error.code === 'auth/invalid-email') {
-                errorMessage = 'Die E-Mail-Adresse ist ungültig.'
-            } else if (error.code === 'auth/requires-recent-login') {
-                // errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
-                console.error(error)
-                throw new Error(error.code)
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.emailNotChanged')
             throw new Error(errorMessage)
         })
 
@@ -77,18 +57,11 @@ export default function() {
     // Change display name
     const changeDisplayName = async(displayName: string): Promise<boolean> => {
         const user = $auth.currentUser
-        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Update display name
         await updateProfile(user, { displayName }).catch((error: FirebaseError) => {
-            let errorMessage = 'Der Anzeigename konnte nicht geändert werden.'
-
-            // Handle specific errors
-            if (error.code === 'auth/requires-recent-login') {
-                errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.nameNotChanged')
             throw new Error(errorMessage)
         })
 
@@ -98,18 +71,11 @@ export default function() {
     // Set profile photo
     const setProfilePhotoUrl = async(photoUrl: string): Promise<boolean> => {
         const user = $auth.currentUser
-        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Update profile photo
         await updateProfile(user, { photoURL: photoUrl }).catch((error: FirebaseError) => {
-            let errorMessage = 'Das Profilfoto konnte nicht geändert werden.'
-
-            // Handle specific errors
-            if (error.code === 'auth/requires-recent-login') {
-                errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.avatarNotChanged')
             throw new Error(errorMessage)
         })
         return true
@@ -118,7 +84,7 @@ export default function() {
     // Create default user profile
     const createDefaultUserProfile = async(uid: string) => {
         const user = $auth.currentUser
-        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Get current user email
         const email = user?.email
@@ -139,7 +105,7 @@ export default function() {
     // Change one, or more additional user profile data
     const changeAdditionalUserProfileData = async(data: PartialUserProfile) => {
         const user = $auth.currentUser
-        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Get user id
         const uid = user.uid
@@ -147,7 +113,7 @@ export default function() {
         // Update user profile
         await updateByCollectionAndId(usersPath, uid, data).catch((error) => {
             console.error(error)
-            throw new Error('Benutzerprofil konnte nicht geändert werden')
+            throw new Error(t('firebase.custom.profileNotChanged'))
         })
 
         // Refresh user profile
@@ -162,33 +128,24 @@ export default function() {
     // - deletes the user files
     const deleteUserAccount = async(): Promise<boolean> => {
         const user = $auth.currentUser
-        if (!user) { throw new Error('Kein Benutzer angemeldet.') }
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Delete user profile
         const uid = user.uid
         await deleteUserProfile(uid).catch((error: FirebaseError) => {
-            console.error(error)
-            throw new Error('Das Benutzerprofil konnte nicht gelöscht werden.')
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.profileNotDeleted')
+            throw new Error(errorMessage)
         })
 
         // Delete user files
         await deleteUserFolder(uid).catch((error: FirebaseError) => {
-            console.error(error)
-            throw new Error('Die Benutzerdateien konnten nicht gelöscht werden.')
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.filesNotDeleted')
+            throw new Error(errorMessage)
         })
 
         // Delete user
         await deleteUser(user).catch((error: FirebaseError) => {
-            const errorMessage = 'Der Benutzer konnte nicht gelöscht werden.'
-
-            // Handle specific errors
-            if (error.code === 'auth/requires-recent-login') {
-                // errorMessage = 'Du musst dich erneut anmelden, um diese Aktion auszuführen.'
-                console.error(error)
-                throw new Error(error.code)
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.userNotDeleted')
             throw new Error(errorMessage)
         })
 
@@ -206,7 +163,7 @@ export default function() {
 
     // Get additional user profile data, stored in Firebase user collection
     const fetchAdditionalUserProfile = async(uid: string): Promise<UserProfile> => {
-        if (!uid) { throw new Error('Keine Benutzer-ID angegeben') }
+        if (!uid) { throw new Error(t('firebase.custom.noUserId')) }
 
         // Get user profile
         return queryByCollectionAndId(usersPath, uid).catch(async(error) => {
@@ -217,10 +174,10 @@ export default function() {
                 await createDefaultUserProfile(uid)
                 return queryByCollectionAndId(usersPath, uid).catch((error) => {
                     console.error(error)
-                    throw new Error('Benutzerprofil konnte nicht geladen werden')
+                    throw new Error(t('firebase.custom.profileNotFound'))
                 })
             }
-            throw new Error('Benutzerprofil konnte nicht geladen werden')
+            throw new Error(t('firebase.custom.profileNotFound'))
         }) as unknown as Promise<UserProfile>
     }
 

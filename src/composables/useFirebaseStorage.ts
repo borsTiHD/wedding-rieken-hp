@@ -1,9 +1,13 @@
 import { ref, uploadBytes, getDownloadURL, listAll, deleteObject } from 'firebase/storage'
 import { FirebaseError } from '@firebase/util'
+import handleFirebaseError from '@/composables/handleFirebaseError'
 
 export function useFirebaseStorage() {
     // From firebase.client.ts
     const { $storage } = useNuxtApp()
+
+    // Localisation
+    const { t } = useI18n()
 
     // Firebase paths
     const usersPath = 'users'
@@ -17,25 +21,14 @@ export function useFirebaseStorage() {
 
         // Upload file
         const snapshot = await uploadBytes(storageRef, file).catch((error: FirebaseError) => {
-            let errorMessage = 'Die Datei konnte nicht hochgeladen werden.'
-
-            // Handle specific errors
-            if (error.code === 'storage/unauthorized') {
-                errorMessage = 'Du hast keine Berechtigung, diese Datei hochzuladen.'
-            } else if (error.code === 'storage/canceled') {
-                errorMessage = 'Der Upload wurde abgebrochen.'
-            } else if (error.code === 'storage/unknown') {
-                errorMessage = 'Ein unbekannter Fehler ist aufgetreten.'
-            }
-
-            console.error(error)
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.fileNotUploaded')
             throw new Error(errorMessage)
         })
 
         // Get download URL
         const downloadURL = await getDownloadURL(snapshot.ref).catch((error: FirebaseError) => {
             console.error(error)
-            throw new Error('Die Datei konnte nicht hochgeladen werden.')
+            throw new Error(t('firebase.custom.fileNotUploaded'))
         })
 
         return downloadURL
@@ -48,8 +41,8 @@ export function useFirebaseStorage() {
 
         // Delete the file
         await deleteObject(storageRef).catch((error: FirebaseError) => {
-            console.error(error)
-            throw new Error('Die Datei konnte nicht gelöscht werden.')
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.fileNotDeleted')
+            throw new Error(errorMessage)
         })
 
         return true
@@ -68,8 +61,8 @@ export function useFirebaseStorage() {
         // Delete all items in the folder
         listResult.items.forEach(async(itemRef) => {
             await deleteObject(itemRef).catch((error: FirebaseError) => {
-                console.error(error)
-                throw new Error('Die Datei konnte nicht gelöscht werden.')
+                const errorMessage = handleFirebaseError(error, 'firebase.custom.fileNotDeleted')
+                throw new Error(errorMessage)
             })
         })
 
