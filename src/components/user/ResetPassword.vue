@@ -1,5 +1,5 @@
 <template>
-    <Button label="Passwort zurücksetzen" icon="pi pi-lock-open" :loading="loading" @click="handleSubmit" />
+    <Button :label="t('user.password.resetPassword.submitButton')" icon="pi pi-lock-open" :loading="loading" @click="handleSubmit" />
 </template>
 
 <script setup lang="ts">
@@ -10,6 +10,7 @@ const loading = ref(false)
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { sendUserPasswordResetEmail } = useFirebaseAuth()
 
 // Submit button
@@ -22,7 +23,7 @@ const handleSubmit = async() => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Zurücksetzen des Passworts',
+            summary: t('user.password.resetPassword.error'),
             detail: error.message,
             life: 10000
         })
@@ -34,7 +35,12 @@ const handleSubmit = async() => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Passwort zurückgesetzt', detail: 'Eine Email mit weiteren Schritten wurde an dein Postfach versendet.', life: 3000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.password.resetPassword.success'),
+            detail: t('user.password.resetPassword.successDetail'),
+            life: 3000
+        })
     }
 }
 </script>
