@@ -9,24 +9,24 @@
             <FormKit
                 type="email"
                 name="email"
-                label="Email"
+                :label="t('register.formkit.labelEmail')"
                 prefix-icon="email"
                 placeholder="myname@website.com"
-                help="Bitte geben Sie Ihre E-Mail-Adresse ein"
+                :help="t('register.formkit.labelEmailHelp')"
                 validation="required|email"
                 autofocus
             />
             <FormKit
                 type="password"
                 name="password"
-                label="Passwort"
+                :label="t('register.formkit.labelPassword')"
                 prefix-icon="password"
-                help="Bitte geben Sie Ihr Passwort ein"
+                :help="t('register.formkit.labelPasswordHelp')"
                 validation="required"
             />
 
             <div class="flex gap-2">
-                <Button label="Registrieren" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('register.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
@@ -34,6 +34,9 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
+
+// Localisation
+const { t } = useI18n()
 
 // Composables
 const toast = useToast()
@@ -50,7 +53,7 @@ const handleSubmit = async(form: { email: string, password: string }) => {
     const response = await registerUser(form.email, form.password).catch((error: { message: string }) => {
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Registrieren',
+            summary: t('register.error'),
             detail: error.message,
             life: 10000
         })
@@ -61,8 +64,8 @@ const handleSubmit = async(form: { email: string, password: string }) => {
     if (response) {
         toast.add({
             severity: 'success',
-            summary: 'User erstellt',
-            detail: 'Der User wurde erfolgreich erstellt.',
+            summary: t('register.success'),
+            detail: t('register.successDetail'),
             life: 10000
         })
     }
