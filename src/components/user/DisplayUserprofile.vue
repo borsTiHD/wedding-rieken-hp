@@ -8,7 +8,7 @@
                     <h2 class="text-xl font-semibold">{{ t('user.displayName.header') }}</h2>
                     <div class="flex items-center gap-2">
                         <span>{{ userStore.displayName }}</span>
-                        <i v-if="!userStore.displayName" v-tooltip.bottom="t('user.displayName.tooltipNoName')" class="pi pi-question-circle text-yellow-300" />
+                        <i v-if="!userStore.displayName" v-tooltip.right="t('user.displayName.tooltipNoName')" class="pi pi-question-circle text-yellow-300" />
                     </div>
 
                     <!-- Display name change modal -->
