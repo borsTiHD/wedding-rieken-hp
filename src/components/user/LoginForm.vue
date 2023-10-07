@@ -9,24 +9,24 @@
             <FormKit
                 type="email"
                 name="email"
-                label="Email"
+                :label="t('login.formkit.labelEmail')"
+                :help="t('login.formkit.labelEmailHelp')"
                 prefix-icon="email"
                 placeholder="myname@website.com"
-                help="Bitte geben Sie Ihre E-Mail-Adresse ein"
                 validation="required|email"
                 autofocus
             />
             <FormKit
                 type="password"
                 name="password"
-                label="Passwort"
+                :label="t('login.formkit.labelPassword')"
+                :help="t('login.formkit.labelPasswordHelp')"
                 prefix-icon="password"
-                help="Bitte geben Sie Ihr Passwort ein"
                 validation="required"
             />
 
             <div class="flex gap-2">
-                <Button label="Einloggen" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('login.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
@@ -37,6 +37,7 @@ import { useToast } from 'primevue/usetoast'
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { loginUser } = useFirebaseAuth()
 
 // Data
@@ -49,7 +50,7 @@ const handleSubmit = async(form: { email: string, password: string }) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Einloggen',
+            summary: t('login.error'),
             detail: error.message,
             life: 10000
         })
@@ -60,8 +61,8 @@ const handleSubmit = async(form: { email: string, password: string }) => {
     if (response) {
         toast.add({
             severity: 'success',
-            summary: 'Erfolgreich eingeloggt',
-            detail: 'Sie wurden erfolgreich eingeloggt.',
+            summary: t('login.success'),
+            detail: t('login.successDetail'),
             life: 3000
         })
     }
