@@ -1,7 +1,7 @@
 <template>
     <div class="flex gap-2 w-full">
-        <Button class="grow" label="Annehmen" icon="pi pi-thumbs-up" type="submit" :loading="loading" @click="handleSubmit(true)" />
-        <Button class="grow" label="Ablehnen" icon="pi pi-thumbs-down" type="submit" severity="danger" outlined :loading="loading" @click="handleSubmit(false)" />
+        <Button class="grow" :label="t('user.invitation.labelAccept')" icon="pi pi-thumbs-up" type="submit" :loading="loading" @click="handleSubmit(true)" />
+        <Button class="grow" :label="t('user.invitation.labelDecline')" icon="pi pi-thumbs-down" type="submit" severity="danger" outlined :loading="loading" @click="handleSubmit(false)" />
     </div>
 </template>
 
@@ -15,6 +15,7 @@ const emit = defineEmits(['changed'])
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
 
 // User store
@@ -37,7 +38,7 @@ const handleSubmit = async(value: boolean) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Ändern Ihres Einladungsstatus',
+            summary: t('user.invitation.error'),
             detail: error.message,
             life: 10000
         })
@@ -52,7 +53,12 @@ const handleSubmit = async(value: boolean) => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Einladung geändert', detail: 'Sie haben die Einladung erfolgreich bestätigt.', life: 10000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.invitation.success'),
+            detail: t('user.invitation.successDetail'),
+            life: 10000
+        })
 
         // Emit event to parent
         emit('changed')
