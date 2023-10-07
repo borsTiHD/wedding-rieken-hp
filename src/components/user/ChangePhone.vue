@@ -10,16 +10,16 @@
                 v-model="defaultPhone"
                 type="tel"
                 name="phone"
-                label="Telefonnummer"
+                :label="t('user.phone.formkit.label')"
+                :help="t('user.phone.formkit.help')"
                 placeholder="+49123456789"
-                help="Bitte geben Sie Ihre Handynummer ein."
                 :validation="[['required'],['matches', /^(?:\+[1-9]\d{0,2}|0)\d{4,}$/]]"
                 validation-visibility="dirty"
                 autofocus
             />
 
             <div class="flex gap-2">
-                <Button label="Telefonnummer ändern" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('buttons.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
@@ -35,6 +35,7 @@ const emit = defineEmits(['changed'])
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
 
 // User store
@@ -51,8 +52,8 @@ const handleSubmit = async(form: { phone: string }) => {
     if (phoneNumber.value === form.phone) {
         toast.add({
             severity: 'info',
-            summary: 'Telefonnummer nicht geändert',
-            detail: 'Sie haben keine neue Telefonnummer angegeben.',
+            summary: t('user.phone.notChangedInfo'),
+            detail: t('user.phone.notChangedInfoDetail'),
             life: 3000
         })
         return false
@@ -67,7 +68,7 @@ const handleSubmit = async(form: { phone: string }) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Ändern der Telefonnummer',
+            summary: t('user.phone.error'),
             detail: error.message,
             life: 10000
         })
@@ -82,7 +83,12 @@ const handleSubmit = async(form: { phone: string }) => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Telefonnummer geändert', detail: 'Sie haben Ihre Telefonnummer erfolgreich geändert.', life: 10000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.phone.success'),
+            detail: t('user.phone.successDetail'),
+            life: 10000
+        })
 
         // Emit event to parent
         emit('changed')
