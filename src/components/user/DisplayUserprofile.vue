@@ -3,16 +3,16 @@
         <h2 class="text-2xl font-semibold mb-6">Benutzerinformationen</h2>
         <ul class="flex flex-col gap-2">
             <!-- Display name -->
-            <li v-tooltip.top="'Ändere deinen Namen'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="displayNameModal?.open()">
+            <li v-tooltip.top="t('user.displayName.tooltip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="displayNameModal?.open()">
                 <div class="flex flex-col">
-                    <h2 class="text-xl font-semibold">Name</h2>
+                    <h2 class="text-xl font-semibold">{{ t('user.displayName.header') }}</h2>
                     <div class="flex items-center gap-2">
                         <span>{{ userStore.displayName }}</span>
-                        <i v-if="!userStore.displayName" v-tooltip.bottom="'Sie haben keinen Namen angegeben. Bitte tragen Sie Ihren Namen ein.'" class="pi pi-question-circle text-yellow-300" />
+                        <i v-if="!userStore.displayName" v-tooltip.bottom="t('user.displayName.tooltipNoName')" class="pi pi-question-circle text-yellow-300" />
                     </div>
 
                     <!-- Display name change modal -->
-                    <DisplayModal ref="displayNameModal" header="Ändere deinen Namen">
+                    <DisplayModal ref="displayNameModal" :header="t('user.displayName.headerModal')">
                         <template #content>
                             <ChangeDisplayName @changed="displayNameModal?.close()" />
                         </template>
@@ -22,18 +22,18 @@
             </li>
 
             <!-- Email -->
-            <li v-tooltip.top="'Ändere deine Email Adresse'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+            <li v-tooltip.top="t('user.email.tooltip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
                 <div class="flex flex-col">
-                    <h2 class="text-xl font-semibold">E-Mail</h2>
+                    <h2 class="text-xl font-semibold">{{ t('user.email.header') }}</h2>
                     <div class="flex items-center gap-2">
                         <span>{{ email }}</span>
-                        <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
+                        <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
 
                         <!-- Email verification button -->
                         <Button
                             v-else
-                            v-tooltip.bottom="'Bitte verifizieren Sie Ihre Email Adresse'"
-                            aria-label="Email verifizieren"
+                            v-tooltip.bottom="t('user.email.tooltipPlzVerifie')"
+                            :aria-label="t('user.email.verifieAriaLabel')"
                             icon="pi pi-exclamation-circle"
                             outlined
                             class="p-0"
@@ -43,7 +43,7 @@
                     </div>
 
                     <!-- Email change modal -->
-                    <DisplayModal ref="emailModal" header="Email ändern">
+                    <DisplayModal ref="emailModal" :header="t('user.email.headerModal')">
                         <template #content>
                             <ChangeEmail @changed="emailModal?.close()" />
                         </template>
@@ -53,16 +53,16 @@
             </li>
 
             <!-- Phone -->
-            <li v-tooltip.top="'Ändere deine Telefonnummer'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="phoneModal?.open()">
+            <li v-tooltip.top="t('user.phone.tootlip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="phoneModal?.open()">
                 <div class="flex flex-col">
-                    <h2 class="text-xl font-semibold">Telefonnummer</h2>
+                    <h2 class="text-xl font-semibold">{{ t('user.phone.header') }}</h2>
                     <div class="flex items-center gap-2">
                         <span>{{ userProfile.phoneNumber }}</span>
-                        <i v-if="!userProfile.phoneNumber" v-tooltip.right="'Bitte tragen Sie Ihre Handynummer ein, falls Sie über Änderungen frühstmöglich informiert werden möchten.'" class="pi pi-question-circle text-yellow-300" />
+                        <i v-if="!userProfile.phoneNumber" v-tooltip.right="t('user.phone.tooltipMissingPhone')" class="pi pi-question-circle text-yellow-300" />
                     </div>
 
                     <!-- Phone change modal -->
-                    <DisplayModal ref="phoneModal" header="Telefonnummer ändern">
+                    <DisplayModal ref="phoneModal" :header="t('user.phone.headerModal')">
                         <template #content>
                             <ChangePhone @changed="phoneModal?.close()" />
                         </template>
@@ -72,13 +72,13 @@
             </li>
 
             <!-- Additional guests -->
-            <li v-tooltip.top="'Mit wie vielen zusätzlichen Gästen möchten Sie erscheinen?'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="additionalGuestsModal?.open()">
+            <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="additionalGuestsModal?.open()">
                 <div class="flex flex-col">
-                    <h2 class="text-xl font-semibold">Zusätzliche Gäste</h2>
+                    <h2 class="text-xl font-semibold">{{ t('user.additionalGuests.header') }}</h2>
                     <span>{{ userProfile.additionalGuests }}</span>
 
                     <!-- Additional Guests change modal -->
-                    <DisplayModal ref="additionalGuestsModal" header="Anzahl zusätzlicher Gäste ändern">
+                    <DisplayModal ref="additionalGuestsModal" :header="t('user.additionalGuests.headerModal')">
                         <template #content>
                             <ChangeAdditionalGuests @changed="additionalGuestsModal?.close()" />
                         </template>
@@ -88,18 +88,18 @@
             </li>
 
             <!-- Invitation status -->
-            <li v-tooltip.top="'Hier können Sie die Einladung an- oder ablehnen.'" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="invitationModal?.open()">
+            <li v-tooltip.top="t('user.invitation.tooltip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="invitationModal?.open()">
                 <div class="flex flex-col">
-                    <h2 class="text-xl font-semibold">Einladungsstatus</h2>
+                    <h2 class="text-xl font-semibold">{{ t('user.invitation.header') }}</h2>
                     <div class="flex items-center gap-2">
                         <span>{{ invitationStatus }}</span>
-                        <i v-if="userProfile?.invitation === 'accepted'" v-tooltip.right="'Sie haben die Einladung angenommen.'" class="pi pi-verified text-green-600" />
-                        <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.right="'Sie haben die Einladung abgelehnt.'" class="pi pi-exclamation-circle text-sky-600" />
-                        <i v-else-if="userProfile?.invitation === 'pending'" v-tooltip.right="'Sie haben die Einladung noch nicht bestätigt.'" class="pi pi-question-circle text-yellow-300" />
+                        <i v-if="userProfile?.invitation === 'accepted'" v-tooltip.bottom="t('user.invitation.tooltipAccepted')" class="pi pi-verified text-green-600" />
+                        <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.bottom="t('user.invitation.tooltipDeclined')" class="pi pi-exclamation-circle text-sky-600" />
+                        <i v-else-if="userProfile?.invitation === 'pending'" v-tooltip.bottom="t('user.invitation.tooltipNoResponse')" class="pi pi-question-circle text-yellow-300" />
                     </div>
 
                     <!-- Additional Guests change modal -->
-                    <DisplayModal ref="invitationModal" header="Einladung Beantworten">
+                    <DisplayModal ref="invitationModal" :header="t('user.invitation.headerModal')">
                         <template #content>
                             <ChangeInvitation @changed="invitationModal?.close()" />
                         </template>
@@ -111,11 +111,11 @@
             <!-- User role -->
             <li class="flex items-center justify-between border-b-2 mb-2 pb-2">
                 <div class="flex flex-col">
-                    <h2 class="text-xl font-semibold">Rolle</h2>
+                    <h2 class="text-xl font-semibold">{{ t('user.userRole.header') }}</h2>
                     <div class="flex items-center gap-2">
                         <span>{{ userRole }}</span>
-                        <i v-if="userProfile.role === 'guest'" v-tooltip.bottom="'Sie haben sich selbst registriert. Bitte warten Sie noch auf eine Bestätigung Ihrer Einladung.'" class="pi pi-exclamation-circle text-sky-600" />
-                        <i v-else-if="userProfile.role === 'invited'" v-tooltip.bottom="'Sie haben eine verifizierte Einladung'" class="pi pi-verified text-green-600" />
+                        <i v-if="userProfile.role === 'guest'" v-tooltip.bottom="t('user.userRole.tooltipGuest')" class="pi pi-exclamation-circle text-sky-600" />
+                        <i v-else-if="userProfile.role === 'invited'" v-tooltip.bottom="t('user.userRole.tooltipInvited')" class="pi pi-verified text-green-600" />
                     </div>
                 </div>
             </li>
@@ -129,7 +129,7 @@
 
                 <div class="flex gap-2 w-full">
                     <!-- Change Password -->
-                    <DisplayModal ref="passwordModal" buttonClass="basis-1/2" header="Erstelle ein neues Passwort" button buttonLabel="Passwort ändern" buttonIcon="pi pi-lock">
+                    <DisplayModal ref="passwordModal" buttonClass="basis-1/2" :header="t('user.password.changePassword.modalHeader')" button :buttonLabel="t('user.password.changePassword.modalButton')" buttonIcon="pi pi-lock">
                         <template #content>
                             <ChangePassword @changed="passwordModal?.close()" />
                         </template>
@@ -141,7 +141,7 @@
 
                 <div class="flex gap-2 w-full">
                     <!-- Delete User Account -->
-                    <DisplayModal ref="deleteUserModal" buttonClass="basis-1/2" header="Account löschen?" button buttonLabel="Account löschen" buttonIcon="pi pi-user-minus" buttonSeverity="danger" buttonOutlined>
+                    <DisplayModal ref="deleteUserModal" buttonClass="basis-1/2" :header="t('user.deleteUser.headerModal')" button :buttonLabel="t('user.deleteUser.submit')" buttonIcon="pi pi-user-minus" buttonSeverity="danger" buttonOutlined>
                         <template #content>
                             <DeleteUser @deleted="deleteUserModal?.close()" />
                         </template>
@@ -172,7 +172,15 @@ import { useUserStore } from '@/stores/user'
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { sendUserEmailVerification } = useFirebaseAuth()
+
+// TODO: Create a tailwind alias for the list item class
+// TODO: Create a hover effect for the list items
+// TODO: Create a step by step guide for the user profile, with a progress bar at the top and a button to skip the guide
+//       The guide should be shown on the first login and when the user clicks on the button to show the guide
+//       Make sure to save the state of the guide in the user profile
+//       Should the guide show the invitation queston first? Also with a nice response to the answer?
 
 // Refs
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
@@ -192,17 +200,17 @@ const email = computed(() => userStore.email)
 const emailVerified = computed(() => userStore.emailVerified)
 const invitationStatus = computed(() => {
     const invitation = userProfile.value?.invitation
-    if (invitation === 'pending') return 'Einladung ausstehend'
-    if (invitation === 'accepted') return 'Einladung angenommen'
-    if (invitation === 'declined') return 'Einladung abgelehnt'
-    return 'Keine Einladung'
+    if (invitation === 'pending') return t('user.invitation.stateNoReponse')
+    if (invitation === 'accepted') return t('user.invitation.stateAccepted')
+    if (invitation === 'declined') return t('user.invitation.stateDeclined')
+    return t('user.invitation.stateNoInvitation')
 })
 const userRole = computed(() => {
     const role = userProfile.value?.role
-    if (role === 'admin') return 'Administrator'
-    if (role === 'invited') return 'Eingeladener Gast'
-    if (role === 'guest') return 'Selbsregistrierter Gast'
-    return 'Keine Rolle'
+    if (role === 'admin') return t('user.userRole.adminRole')
+    if (role === 'invited') return t('user.userRole.invitedRole')
+    if (role === 'guest') return t('user.userRole.guestRole')
+    return t('user.userRole.noRole')
 })
 
 // Email verification
@@ -216,7 +224,7 @@ const handleVerifyEmail = async() => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Senden der Email',
+            summary: t('user.email.verifiedError'),
             detail: error.message,
             life: 10000
         })
@@ -225,7 +233,12 @@ const handleVerifyEmail = async() => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Email gesendet', detail: 'Sie haben eine Email zur Verifizierung Ihrer Email Adresse erhalten.', life: 3000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.email.verifiedSuccess'),
+            detail: t('user.email.verifiedSuccessDetail'),
+            life: 10000
+        })
     }
 
     // Stop loading
