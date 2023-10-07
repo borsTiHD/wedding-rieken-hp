@@ -4,7 +4,7 @@
         <template #content>
             <ul class="flex flex-col gap-2">
                 <!-- Display name -->
-                <li v-tooltip.top="t('user.displayName.tooltip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="displayNameModal?.open()">
+                <li v-tooltip.top="t('user.displayName.tooltip')" class="list-item cursor-pointer" @click="displayNameModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.displayName.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -23,7 +23,7 @@
                 </li>
 
                 <!-- Email -->
-                <li v-tooltip.top="t('user.email.tooltip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="emailModal?.open()">
+                <li v-tooltip.top="t('user.email.tooltip')" class="list-item cursor-pointer" @click="emailModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.email.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -54,7 +54,7 @@
                 </li>
 
                 <!-- Phone -->
-                <li v-tooltip.top="t('user.phone.tootlip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="phoneModal?.open()">
+                <li v-tooltip.top="t('user.phone.tootlip')" class="list-item cursor-pointer" @click="phoneModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.phone.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -73,7 +73,7 @@
                 </li>
 
                 <!-- Additional guests -->
-                <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="additionalGuestsModal?.open()">
+                <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="list-item cursor-pointer" @click="additionalGuestsModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.additionalGuests.header') }}</h2>
                         <span>{{ userProfile.additionalGuests }}</span>
@@ -89,7 +89,7 @@
                 </li>
 
                 <!-- Invitation status -->
-                <li v-tooltip.top="t('user.invitation.tooltip')" class="flex items-center justify-between border-b-2 mb-2 pb-2 cursor-pointer" @click="invitationModal?.open()">
+                <li v-tooltip.top="t('user.invitation.tooltip')" class="list-item cursor-pointer" @click="invitationModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.invitation.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -110,7 +110,7 @@
                 </li>
 
                 <!-- User role -->
-                <li class="flex items-center justify-between border-b-2 mb-2 pb-2">
+                <li class="list-item">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.userRole.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -130,7 +130,14 @@
 
                     <div class="flex gap-2 w-full">
                         <!-- Change Password -->
-                        <DisplayModal ref="passwordModal" buttonClass="basis-1/2" :header="t('user.password.changePassword.modalHeader')" button :buttonLabel="t('user.password.changePassword.modalButton')" buttonIcon="pi pi-lock">
+                        <DisplayModal
+                            ref="passwordModal"
+                            buttonClass="basis-1/2"
+                            :header="t('user.password.changePassword.modalHeader')"
+                            :buttonLabel="t('user.password.changePassword.modalButton')"
+                            buttonIcon="pi pi-lock"
+                            button
+                        >
                             <template #content>
                                 <ChangePassword @changed="passwordModal?.close()" />
                             </template>
@@ -142,7 +149,16 @@
 
                     <div class="flex gap-2 w-full">
                         <!-- Delete User Account -->
-                        <DisplayModal ref="deleteUserModal" buttonClass="basis-1/2" :header="t('user.deleteUser.headerModal')" button :buttonLabel="t('user.deleteUser.submit')" buttonIcon="pi pi-user-minus" buttonSeverity="danger" buttonOutlined>
+                        <DisplayModal
+                            ref="deleteUserModal"
+                            buttonClass="basis-1/2"
+                            :header="t('user.deleteUser.headerModal')"
+                            :buttonLabel="t('user.deleteUser.submit')"
+                            buttonIcon="pi pi-user-minus"
+                            buttonSeverity="danger"
+                            buttonOutlined
+                            button
+                        >
                             <template #content>
                                 <DeleteUser @deleted="deleteUserModal?.close()" />
                             </template>
@@ -177,7 +193,6 @@ const toast = useToast()
 const { t } = useI18n()
 const { sendUserEmailVerification } = useFirebaseAuth()
 
-// TODO: Create a tailwind alias for the list item class
 // TODO: Create a hover effect for the list items
 // TODO: Create a step by step guide for the user profile, with a progress bar at the top and a button to skip the guide
 //       The guide should be shown on the first login and when the user clicks on the button to show the guide
@@ -247,3 +262,9 @@ const handleVerifyEmail = async() => {
     loadingEmailVerify.value = false
 }
 </script>
+
+<style scoped>
+.list-item {
+    @apply flex items-center justify-between border-b-2 mb-2 pb-2 !important;
+}
+</style>
