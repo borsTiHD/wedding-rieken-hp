@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia'
 import { useFirestore } from '@/composables/useFirestore'
+import handleFirebaseError from '@/composables/handleFirebaseError'
 import type { Config } from '@/types/Config'
 
 export const useAppStore = defineStore('app-store', () => {
     // Firestore composable
     const { queryByCollectionAndId } = useFirestore()
+
+    // Localisation
+    const { t } = useI18n()
 
     // Config data
     const config = ref<Config>()
@@ -13,17 +17,17 @@ export const useAppStore = defineStore('app-store', () => {
     async function fetchConfig() {
         // If collection and id is specified, return document from collection
         const response = await queryByCollectionAndId('app', 'config').catch((error) => {
-            console.error(error)
-            throw new Error('Error fetching app config')
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.appConfigNotFound')
+            throw new Error(errorMessage)
         })
 
         // Throw error if no response
         if (!response) {
-            throw new Error('No response for app config')
+            throw new Error(t('firebase.custom.appConfigNotFound'))
         }
 
         // Set config data
-        config.value = response as Config
+        config.value = response as unknown as Config
     }
 
     return { config, fetchConfig }

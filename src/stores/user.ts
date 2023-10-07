@@ -6,6 +6,7 @@ import type { UserProfile } from '@/types/UserProfile'
 export const useUserStore = defineStore('user-store', () => {
     const { $auth } = useNuxtApp() // From firebase.client.ts
     const { fetchAdditionalUserProfile } = useFirebaseUserProfile() // FirebaseUserProfile composable
+    const { t } = useI18n() // Localisation
 
     // User data
     const user = reactive<User | Record<string, never>>({})
@@ -54,7 +55,7 @@ export const useUserStore = defineStore('user-store', () => {
 
     // Fetch user profile data
     async function fetchUserProfile(uid: string) {
-        if (!uid) { throw new Error('Keine Benutzer-ID angegeben') }
+        if (!uid) { throw new Error(t('firebase.custom.noUserId')) }
 
         // Get additional userprofile data
         const userData = await fetchAdditionalUserProfile(uid).catch((error) => {
@@ -63,7 +64,7 @@ export const useUserStore = defineStore('user-store', () => {
         })
 
         // Throw error if no response
-        if (!userData) { throw new Error('Benutzerprofil nicht gefunden') }
+        if (!userData) { throw new Error(t('firebase.custom.profileNotFound')) }
 
         // Set user profile state
         setUserProfile(userData)
