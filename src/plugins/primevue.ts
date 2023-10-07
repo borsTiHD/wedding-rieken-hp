@@ -2,6 +2,7 @@ import { defineNuxtPlugin } from '#app'
 import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
 import Tooltip from 'primevue/tooltip'
+import Card from 'primevue/card'
 import Button from 'primevue/button'
 import Calendar from 'primevue/calendar'
 import Toast from 'primevue/toast'
@@ -26,6 +27,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.directive('tooltip', Tooltip)
 
     // PrimeVue components
+    nuxtApp.vueApp.component('Card', Card)
     nuxtApp.vueApp.component('Button', Button)
     nuxtApp.vueApp.component('Calendar', Calendar)
     nuxtApp.vueApp.component('Toast', Toast)
