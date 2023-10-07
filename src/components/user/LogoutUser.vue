@@ -1,5 +1,5 @@
 <template>
-    <Button label="Ausloggen" severity="danger" icon="pi pi-sign-out" :loading="loading" @click="logout" />
+    <Button :label="t('logout.submit')" severity="danger" icon="pi pi-sign-out" :loading="loading" @click="logout" />
 </template>
 
 <script setup lang="ts">
@@ -7,6 +7,7 @@ import { useToast } from 'primevue/usetoast'
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { logoutUser } = useFirebaseAuth()
 
 // Data
@@ -19,15 +20,15 @@ const logout = async() => {
         .then(() => {
             toast.add({
                 severity: 'success',
-                summary: 'Erfolgreich ausgeloggt',
-                detail: 'Sie wurden erfolgreich ausgeloggt.',
+                summary: t('logout.success'),
+                detail: t('logout.successDetail'),
                 life: 3000
             })
         })
         .catch((error: { message: string }) => {
             toast.add({
                 severity: 'error',
-                summary: 'Fehler beim Ausloggen',
+                summary: t('logout.error'),
                 detail: error.message,
                 life: 10000
             })
