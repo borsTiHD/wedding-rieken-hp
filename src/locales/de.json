@@ -52,6 +52,7 @@
     "user": {
         "noName": "Kein Name",
         "welcome": "Willkommen {name}",
+        "header": "Benutzerinformationen",
         "additionalGuests": {
             "header": "Zusätzliche Gäste",
             "headerModal": "Anzahl ändern",
