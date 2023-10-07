@@ -24,7 +24,7 @@
                 </div>
 
                 <!-- Profile picture edit modal -->
-                <DisplayModal ref="profilePictureModal" header="Profilbild ändern">
+                <DisplayModal ref="profilePictureModal" :header="t('user.profilePicture.modalHeader')">
                     <template #content>
                         <UploadProfilePicture @uploaded="profilePictureModal?.close()" />
                     </template>
@@ -32,12 +32,12 @@
             </div>
             <div class="flex flex-col">
                 <!-- Display name -->
-                <h1 class="text-2xl font-semibold">{{ displayName ? $t('view.user.welcome', { name: displayName }) : $t('view.user.noName') }}</h1>
+                <h1 class="text-2xl font-semibold">{{ displayName ? t('user.welcome', { name: displayName }) : t('user.noName') }}</h1>
 
                 <!-- Email Address -->
                 <div class="flex items-center gap-2">
                     <p class="text-gray-600">{{ email }}</p>
-                    <i v-if="emailVerified" v-tooltip.bottom="'Email Adresse verifiziert'" class="pi pi-verified text-green-600" />
+                    <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
                 </div>
             </div>
         </div>
@@ -48,6 +48,9 @@
 import DisplayModal from '@/components/DisplayModal.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
 import { useUserStore } from '@/stores/user'
+
+// Localisation
+const { t } = useI18n()
 
 // Refs
 const profilePictureModal = ref<InstanceType<typeof DisplayModal>>()
