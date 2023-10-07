@@ -2,7 +2,7 @@
     <FormKit
         v-model="locale"
         type="select"
-        :label="$t('view.user.language')"
+        :label="t('settings.language')"
         name="language"
         :options="availableLocales"
         @change="onLanguageChange"
@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 // Language options
-const { locale, locales, setLocale, setLocaleCookie } = useI18n()
+const { locale, locales, setLocale, setLocaleCookie, t } = useI18n()
 const availableLocales = computed(() => {
     return locales.value.map((locale) => {
         return {
