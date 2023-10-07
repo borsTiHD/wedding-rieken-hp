@@ -2,19 +2,19 @@
     <div class="flex justify-around text-xl">
         <div class="text-center">
             <div class="text-3xl font-bold">{{ days }}</div>
-            <div class="text-sm">Tage</div>
+            <div class="text-sm">{{ t('countdown.days') }}</div>
         </div>
         <div class="text-center">
             <div class="text-3xl font-bold">{{ hours }}</div>
-            <div class="text-sm">Stunden</div>
+            <div class="text-sm">{{ t('countdown.hours') }}</div>
         </div>
         <div class="text-center">
             <div class="text-3xl font-bold">{{ minutes }}</div>
-            <div class="text-sm">Minuten</div>
+            <div class="text-sm">{{ t('countdown.minutes') }}</div>
         </div>
         <div class="text-center">
             <div class="text-3xl font-bold">{{ seconds }}</div>
-            <div class="text-sm">Sekunden</div>
+            <div class="text-sm">{{ t('countdown.seconds') }}</div>
         </div>
     </div>
 </template>
@@ -26,6 +26,9 @@ const props = defineProps({
         default: 0
     }
 })
+
+// Localisation
+const { t } = useI18n()
 
 // Countdown values
 const targetDate = ref(0)
