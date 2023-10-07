@@ -18,21 +18,27 @@ const { setProfilePhotoUrl } = useFirebaseUserProfile()
 
 // User store
 const userStore = useUserStore()
+const { t } = useI18n()
 const user = computed(() => userStore.user)
 
 // Upload ref
 const loading = ref(false)
-const uploadLabel = 'Foto hochladen'
+const uploadLabel = t('user.profilePicture.submitButton')
 const maxFileSize = 5000000 // in bytes (5MB)
 const maxFileSizeInMB = maxFileSize / 1000000
-const invalidFileSizeMessage = `Maximale Dateigröße überschritten (erlaubt sind ${maxFileSizeInMB}MB), bitte wähle ein kleineres Foto aus.`
+const invalidFileSizeMessage = t('user.profilePicture.invalidFileSizeMessage', { maxFilesize: `${maxFileSizeInMB}MB` })
 
 const onUpload = async(event: FileUploadUploaderEvent) => {
     // Get user id
     // If user is not logged in, show error toast and return
     const uid = user.value?.uid
     if (!uid) {
-        toast.add({ severity: 'error', summary: 'Fehler', detail: 'Bitte loggen Sie sich ein', life: 3000 })
+        toast.add({
+            severity: 'error',
+            summary: t('user.profilePicture.notLoggedInError'),
+            detail: t('user.profilePicture.notLoggedInDetail'),
+            life: 10000
+        })
         return false
     }
 
@@ -41,7 +47,12 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
 
     // Check if file exists
     if (!file) {
-        toast.add({ severity: 'error', summary: 'Fehler', detail: 'Bitte wählen Sie ein Foto aus', life: 10000 })
+        toast.add({
+            severity: 'error',
+            summary: t('user.profilePicture.noPictureSelected'),
+            detail: t('user.profilePicture.noPictureSelectedDetail'),
+            life: 10000
+        })
         return false
     }
 
@@ -51,7 +62,7 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Foto konnte nicht hochgeladen werden',
+            summary: t('user.profilePicture.error'),
             detail: error.message,
             life: 10000
         })
@@ -65,7 +76,7 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
             console.error(error)
             toast.add({
                 severity: 'error',
-                summary: 'Foto konnte nicht hochgeladen werden',
+                summary: t('user.profilePicture.error'),
                 detail: error.message,
                 life: 10000
             })
@@ -74,7 +85,12 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
 
         // Show success toast
         if (response) {
-            toast.add({ severity: 'success', summary: 'Erfolgreich', detail: 'Foto hochgeladen', life: 3000 })
+            toast.add({
+                severity: 'success',
+                summary: t('user.profilePicture.success'),
+                detail: t('user.profilePicture.successDetail'),
+                life: 3000
+            })
 
             // Emit event to parent
             emit('uploaded')
