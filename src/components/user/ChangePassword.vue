@@ -9,10 +9,10 @@
             <FormKit
                 type="password"
                 name="password"
-                label="Passwort"
+                :label="t('user.password.formkit.labelNew')"
+                :help="t('user.password.formkit.labelNewHelp')"
                 prefix-icon="password"
                 suffix-icon="eyeClosed"
-                help="Bitte geben Sie ein neues Passwort ein"
                 validation="required"
                 validation-visibility="live"
                 @suffix-icon-click="handleShowPassword"
@@ -20,24 +20,24 @@
             <FormKit
                 type="password"
                 name="password_confirm"
-                label="Bestätige das Passwort"
+                :label="t('user.password.formkit.labelNewRepeat')"
+                :help="t('user.password.formkit.labelNewRepeatHelp')"
                 prefix-icon="password"
                 suffix-icon="eyeClosed"
-                help="Bestätigen Sie das neue Passwort"
                 validation="required|confirm"
                 validation-visibility="live"
-                validation-label="Passwort Bestätigung"
+                :validation-label="t('user.password.formkit.labelNewRepeatValidation')"
                 @suffix-icon-click="handleShowPassword"
             />
 
             <div class="flex gap-2">
-                <Button label="Passwort ändern" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('buttons.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
 
     <!-- Re-authenticate user -->
-    <DisplayModal ref="reauthenticateModal" header="Bestätige dein Passwort">
+    <DisplayModal ref="reauthenticateModal" :header="t('user.reauthenticate.header')">
         <template #content>
             <ReauthenticateUser @loggedin="reauthenticateModal?.close()" />
         </template>
@@ -57,6 +57,7 @@ const reauthenticateModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { changePassword } = useFirebaseUserProfile()
 
 // Data
@@ -75,8 +76,8 @@ const handleSubmit = async(form: { password: string, password_confirm: string })
     if (form.password !== form.password_confirm) {
         toast.add({
             severity: 'info',
-            summary: 'Passwort nicht geändert',
-            detail: 'Die Passwörter stimmen nicht überein',
+            summary: t('user.password.notChangedInfo'),
+            detail: t('user.password.notChangedInfoDetail'),
             life: 3000
         })
         return false
@@ -96,7 +97,7 @@ const handleSubmit = async(form: { password: string, password_confirm: string })
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Ändern des Passworts',
+            summary: t('user.password.error'),
             detail: error.message,
             life: 10000
         })
@@ -108,7 +109,12 @@ const handleSubmit = async(form: { password: string, password_confirm: string })
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Passwort geändert', detail: 'Sie haben Ihr Passwort erfolgreich geändert.', life: 3000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.password.success'),
+            detail: t('user.password.successDetail'),
+            life: 3000
+        })
 
         // Emit event to parent
         emit('changed')
