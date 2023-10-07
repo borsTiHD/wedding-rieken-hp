@@ -19,7 +19,15 @@
             <slot name="footer" />
         </template>
     </Dialog>
-    <Button v-if="props.button" :class="props.buttonClass" :severity="props.buttonSeverity" :label="props.buttonLabel" :outlined="props.buttonOutlined" :icon="props.buttonIcon" @click="visible = true" />
+    <Button
+        v-if="props.button"
+        :class="props.buttonClass"
+        :severity="props.buttonSeverity"
+        :label="props.buttonLabel"
+        :outlined="props.buttonOutlined"
+        :icon="props.buttonIcon"
+        @click="visible = true"
+    />
 </template>
 
 <script setup lang="ts">
