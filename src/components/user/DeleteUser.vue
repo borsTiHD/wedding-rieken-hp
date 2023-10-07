@@ -9,20 +9,20 @@
             <FormKit
                 type="text"
                 name="verificationCode"
-                label="Löschen bestätigen"
-                help="Bitte geben Sie 'löschen' ein"
-                validation="required|matches:löschen"
+                :label="t('user.deleteUser.formkit.label')"
+                :help="t('user.deleteUser.formkit.help')"
+                validation="required|matches:deleteme"
                 autofocus
             />
 
             <div class="flex gap-2">
-                <Button label="Account löschen" icon="pi pi-user-minus" severity="danger" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('user.deleteUser.submit')" icon="pi pi-user-minus" severity="danger" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
 
     <!-- Re-authenticate user -->
-    <DisplayModal ref="reauthenticateModal" header="Bestätige dein Passwort">
+    <DisplayModal ref="reauthenticateModal" :header="t('user.reauthenticate.header')">
         <template #content>
             <ReauthenticateUser @loggedin="reauthenticateModal?.close()" />
         </template>
@@ -42,19 +42,20 @@ const reauthenticateModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { deleteUserAccount } = useFirebaseUserProfile()
 
 // Data
 const loading = ref(false)
-const verificationCode = 'löschen'
+const verificationCode = 'deleteme'
 
 // Submit button
 const handleSubmit = async(form: { verificationCode: string }) => {
     if (verificationCode !== form.verificationCode) {
         toast.add({
             severity: 'info',
-            summary: 'Account nicht gelöscht',
-            detail: 'Sie haben den Bestätigungscode falsch eingegeben. Bitte versuchen Sie es erneut.',
+            summary: t('user.deleteUser.notChangedInfo'),
+            detail: t('user.deleteUser.notChangedInfoDetail'),
             life: 3000
         })
         return false
@@ -74,7 +75,7 @@ const handleSubmit = async(form: { verificationCode: string }) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Löschen des Accounts',
+            summary: t('user.deleteUser.error'),
             detail: error.message,
             life: 10000
         })
@@ -86,7 +87,12 @@ const handleSubmit = async(form: { verificationCode: string }) => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Account gelöscht', detail: 'Ihr Account wurde erfolgreich gelöscht.', life: 10000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.deleteUser.success'),
+            detail: t('user.deleteUser.successDetail'),
+            life: 10000
+        })
 
         // Emit event to parent
         emit('deleted')
