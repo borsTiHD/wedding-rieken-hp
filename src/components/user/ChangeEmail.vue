@@ -10,21 +10,21 @@
                 v-model="defaultMail"
                 type="email"
                 name="email"
-                label="Email"
+                :label="t('user.email.formkit.label')"
+                :help="t('user.email.formkit.help')"
                 placeholder="myname@website.com"
-                help="Bitte geben Sie Ihre E-Mail-Adresse ein."
                 validation="required|email"
                 autofocus
             />
 
             <div class="flex gap-2">
-                <Button label="Email ändern" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('buttons.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
 
     <!-- Re-authenticate user -->
-    <DisplayModal ref="reauthenticateModal" header="Bestätige dein Passwort">
+    <DisplayModal ref="reauthenticateModal" :header="t('user.reauthenticate.header')">
         <template #content>
             <ReauthenticateUser @loggedin="reauthenticateModal?.close()" />
         </template>
@@ -45,6 +45,7 @@ const reauthenticateModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { changeEmail } = useFirebaseUserProfile()
 
 // User store
@@ -60,8 +61,8 @@ const handleSubmit = async(form: { email: string }) => {
     if (email.value === form.email) {
         toast.add({
             severity: 'info',
-            summary: 'Email nicht geändert',
-            detail: 'Sie haben keine neue Email Adresse angegeben.',
+            summary: t('user.email.notChangedInfo'),
+            detail: t('user.email.notChangedInfoDetail'),
             life: 3000
         })
         return false
@@ -81,7 +82,7 @@ const handleSubmit = async(form: { email: string }) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Ändern der Email Adresse',
+            summary: t('user.email.error'),
             detail: error.message,
             life: 10000
         })
@@ -96,7 +97,12 @@ const handleSubmit = async(form: { email: string }) => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Email geändert', detail: 'Sie haben Ihre Email Adresse erfolgreich geändert. Bitte bestätigen Sie den Link in der verschickten Email.', life: 10000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.email.success'),
+            detail: t('user.email.successDetail'),
+            life: 10000
+        })
 
         // Emit event to parent
         emit('changed')
