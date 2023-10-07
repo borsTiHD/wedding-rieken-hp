@@ -9,14 +9,14 @@
             <FormKit
                 type="password"
                 name="password"
-                label="Passwort"
+                :label="t('user.reauthenticate.formkit.labelPassword')"
+                :help="t('user.reauthenticate.formkit.labelPasswordHelp')"
                 prefix-icon="password"
-                help="Bitte geben Sie Ihr Passwort ein"
                 validation="required"
             />
 
             <div class="flex gap-2">
-                <Button label="Passwort ändern" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('user.reauthenticate.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
@@ -30,6 +30,7 @@ const emit = defineEmits(['loggedin'])
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { reauthenticateUser } = useFirebaseAuth()
 
 // Data
@@ -45,7 +46,7 @@ const handleSubmit = async(form: { password: string }) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Einloggen',
+            summary: t('user.reauthenticate.error'),
             detail: error.message,
             life: 10000
         })
@@ -57,7 +58,12 @@ const handleSubmit = async(form: { password: string }) => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Erfolgreich eingeloggt', detail: 'Sie haben sich erfolgreich neu eingeloggt.', life: 3000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.reauthenticate.success'),
+            detail: t('user.reauthenticate.successDetail'),
+            life: 3000
+        })
 
         // Emit event to parent
         emit('loggedin')
