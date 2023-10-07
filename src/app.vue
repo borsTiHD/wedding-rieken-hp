@@ -47,8 +47,10 @@ onMounted(async() => {
 </script>
 
 <style>
-/* body {
-    background-color: #1F2937;
-    color: #fff;
-} */
+body {
+    /* background-color: #1F2937;
+    color: #fff; */
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity)) !important;
+}
 </style>
