@@ -10,14 +10,14 @@
                 v-model="defaultDisplayName"
                 type="text"
                 name="name"
-                label="Name"
-                help="Bitte geben Sie Ihren Vor- und Nachnahmen ein."
+                :label="t('user.displayName.formkit.label')"
+                :help="t('user.displayName.formkit.help')"
                 validation="required|length:5"
                 autofocus
             />
 
             <div class="flex gap-2">
-                <Button label="Name ändern" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('buttons.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
@@ -32,6 +32,7 @@ const emit = defineEmits(['changed'])
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { changeDisplayName } = useFirebaseUserProfile()
 
 // User store
@@ -47,8 +48,8 @@ const handleSubmit = async(form: { name: string }) => {
     if (displayName.value === form.name) {
         toast.add({
             severity: 'info',
-            summary: 'Name nicht geändert',
-            detail: 'Sie haben Ihren Namen nicht geändert.',
+            summary: t('user.displayName.notChangedInfo'),
+            detail: t('user.displayName.notChangedInfoDetail'),
             life: 3000
         })
         return false
@@ -62,7 +63,7 @@ const handleSubmit = async(form: { name: string }) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Ändern',
+            summary: t('user.displayName.error'),
             detail: error.message,
             life: 10000
         })
@@ -77,7 +78,12 @@ const handleSubmit = async(form: { name: string }) => {
 
     // Show success toast
     if (response) {
-        toast.add({ severity: 'success', summary: 'Name geändert', detail: 'Sie haben Ihren Namen erfolgreich geändert.', life: 3000 })
+        toast.add({
+            severity: 'success',
+            summary: t('user.displayName.success'),
+            detail: t('user.displayName.successDetail'),
+            life: 3000
+        })
 
         // Emit event to parent
         emit('changed')
