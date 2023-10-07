@@ -1,8 +1,10 @@
 <template>
-    <span class="text-2xl">{{ formattedDate }}</span>
+    <span class="text-2xl">{{ d(computedDate, 'long') }}</span>
 </template>
 
 <script setup lang="ts">
+const { d } = useI18n()
+
 const props = defineProps({
     timestamp: {
         type: Number,
@@ -11,20 +13,8 @@ const props = defineProps({
 })
 
 // Format date based on timestamp
-const formattedDate = computed(() => {
+const computedDate = computed(() => {
     if (!props.timestamp) return ''
-
-    const date = new Date(props.timestamp * 1000) // Konvertiere Unix-Zeitstempel in Millisekunden
-    const options: Intl.DateTimeFormatOptions = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        timeZoneName: 'short'
-    }
-
-    return date.toLocaleString(undefined, options)
+    return new Date(props.timestamp * 1000) // Konvertiere Unix-Zeitstempel in Millisekunden
 })
 </script>
