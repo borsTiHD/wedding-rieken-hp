@@ -2,11 +2,11 @@
     <!-- User clicked Email link to login -->
     <div v-if="signInLoading" class="flex flex-col gap-4 items-center">
         <ProgressSpinner />
-        <p>Versuche einzuloggen...</p>
+        <p>{{ t('login.tryingToLogin') }}</p>
     </div>
 
     <!-- Hint: Email sent to the user -->
-    <InlineMessage v-else-if="checkEmail" severity="success">Email verschickt. Bitte überprüfen Sie Ihre E-Mails.</InlineMessage>
+    <InlineMessage v-else-if="checkEmail" severity="success">{{ t('login.loginWithMailSend') }}</InlineMessage>
 
     <!-- Form for sending a email to the user -->
     <FormKit
@@ -20,16 +20,16 @@
             <FormKit
                 type="email"
                 name="email"
-                label="Email"
+                :label="t('login.formkit.labelEmail')"
+                :help="t('login.formkit.labelEmailHelp')"
                 prefix-icon="email"
                 placeholder="myname@website.com"
-                help="Bitte geben Sie Ihre E-Mail-Adresse ein"
                 validation="required|email"
                 autofocus
             />
 
             <div class="flex gap-2">
-                <Button label="Einloggen" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('login.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
@@ -40,6 +40,7 @@ import { useToast } from 'primevue/usetoast'
 
 // Composables
 const toast = useToast()
+const { t } = useI18n()
 const { sendEmailLink, loginWithEmailLink } = useFirebaseAuth()
 
 // Data
@@ -51,23 +52,12 @@ const checkEmail = ref(false) // Hint: Email sent to the user
 const handleSubmit = async(form: { email: string }) => {
     loading.value = true
 
-    //Check if email is valid
-    if (!form.email) {
-        toast.add({
-            severity: 'error',
-            summary: 'Fehler beim Einloggen',
-            detail: 'Bitte geben Sie eine E-Mail-Adresse ein.',
-            life: 10000
-        })
-        return false
-    }
-
     // Login user with email link
     const response = await sendEmailLink(form.email).catch((error: { message: string }) => {
         console.error(error)
         toast.add({
             severity: 'error',
-            summary: 'Fehler beim Einloggen',
+            summary: t('login.error'),
             detail: error.message,
             life: 10000
         })
@@ -79,8 +69,8 @@ const handleSubmit = async(form: { email: string }) => {
         checkEmail.value = true
         toast.add({
             severity: 'success',
-            summary: 'Email verschickt',
-            detail: 'Bitte überprüfen Sie Ihre E-Mails.',
+            summary: t('login.emailSend'),
+            detail: t('login.emailSendDetail'),
             life: 10000
         })
     }
@@ -99,7 +89,7 @@ onMounted(async() => {
         await loginWithEmailLink().catch((error) => {
             toast.add({
                 severity: 'error',
-                summary: 'Fehler beim Einloggen',
+                summary: t('login.error'),
                 detail: error.message,
                 life: 10000
             })
