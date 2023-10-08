@@ -212,6 +212,7 @@
         "seconds": "Sekunden"
     },
     "admin": {
+        "notAdminError": "Sie sind kein Administrator",
         "changeDate": {
             "error": "Fehler",
             "errorNoDate": "Kein Datum ausgewählt",
@@ -219,6 +220,22 @@
             "errorNoDateFound": "Kein Datum gefunden",
             "success": "Erfolgreich",
             "successDetail": "Das Datum wurde erfolgreich geändert"
+        },
+        "createUser": {
+            "header": "Neuen Benutzer erstellen",
+            "buttonLabel": "Neuen Benutzer erstellen",
+            "formkit": {
+                "labelName": "Name",
+                "labelNameHelp": "Bitte geben Sie den Vor-/Nachname des neuen Benutzers ein",
+                "labelEmail": "E-Mail",
+                "labelEmailHelp": "Bitte geben Sie die E-Mail-Adresse des neuen Benutzers ein",
+                "labelPassword": "Passwort",
+                "labelPasswordHelp": "Bitte geben Sie ein Start-Passwort des neuen Benutzers ein",
+                "submit": "Benutzer erstellen"
+            },
+            "error": "Fehler beim Erstellen des Benutzers",
+            "success": "Erfolgreich",
+            "successDetail": "Benutzer wurde erstellt"
         }
     },
     "firebase": {

@@ -8,10 +8,26 @@
 
         <!-- You are an admin -->
         <div v-if="user.uid && userProfile?.role === 'admin'" class="flex flex-col gap-4">
+            <div class="flex gap-4">
+                <ChangeTimestamp />
+                <DateDisplay :timestamp="config?.weddingDate" />
+            </div>
             <ShowCountdown :timestamp="config?.weddingDate" />
-            <DateDisplay :timestamp="config?.weddingDate" />
-            <ChangeTimestamp />
-            <CreateUser />
+
+            <!-- Create User modal -->
+            <DisplayModal
+                ref="createUserModal"
+                :header="t('admin.createUser.header')"
+                buttonClass="basis-1/2"
+                :buttonLabel="t('admin.createUser.buttonLabel')"
+                buttonIcon="pi pi-user-plus"
+                button
+            >
+                <template #content>
+                    <CreateUser @created="createUserModal?.close()" />
+                </template>
+            </DisplayModal>
+
             <ListUsers />
         </div>
 
@@ -23,6 +39,7 @@
 </template>
 
 <script setup lang="ts">
+import DisplayModal from '@/components/DisplayModal.vue'
 import LoginForm from '@/components/user/LoginForm.vue'
 import LogoutUser from '@/components/user/LogoutUser.vue'
 import ShowCountdown from '@/components/ShowCountdown.vue'
@@ -32,6 +49,9 @@ import CreateUser from '@/components/admin/CreateUser.vue'
 import ListUsers from '@/components/admin/ListUsers.vue'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
+
+// Refs
+const createUserModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Localisation
 const { t } = useI18n()
