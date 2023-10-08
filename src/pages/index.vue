@@ -1,5 +1,5 @@
 <template>
-    <div class="m-4 flex flex-col gap-4">
+    <div class="flex flex-col gap-4">
         <ShowCountdown :timestamp="config?.weddingDate" />
         <DateDisplay :timestamp="config?.weddingDate" />
     </div>

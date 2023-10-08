@@ -10,14 +10,12 @@
     </div>
 
     <!-- User Details -->
-    <div v-else class="py-4 flex flex-col gap-4">
-        <div class="w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
-            <!-- User profile picture -->
-            <DisplayAvatar />
+    <div v-else class="flex flex-col gap-4">
+        <!-- User profile picture -->
+        <DisplayAvatar />
 
-            <!-- User information -->
-            <DisplayUserprofile />
-        </div>
+        <!-- User information -->
+        <DisplayUserprofile />
     </div>
 </template>
 
