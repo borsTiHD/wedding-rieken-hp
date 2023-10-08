@@ -214,6 +214,8 @@
     "admin": {
         "notAdminError": "Sie sind kein Administrator",
         "changeDate": {
+            "header": "Datum ändern",
+            "label": "Gesetztes Datum",
             "error": "Fehler",
             "errorNoDate": "Kein Datum ausgewählt",
             "errorNoTime": "Keine Zeit ausgewählt",
@@ -236,6 +238,9 @@
             "error": "Fehler beim Erstellen des Benutzers",
             "success": "Erfolgreich",
             "successDetail": "Benutzer wurde erstellt"
+        },
+        "listUsers": {
+            "header": "Alle Benutzer"
         }
     },
     "firebase": {

@@ -3,11 +3,12 @@
     <div v-if="user.uid && userProfile?.role === 'admin'" class="flex flex-col gap-4">
         <!-- Change date -->
         <Card>
-            <template #title>{{ t('admin.listUsers.header') }}</template>
+            <template #title>{{ t('admin.changeDate.header') }}</template>
             <template #content>
                 <div class="p-2 flex flex-col gap-4">
+                    <ChangeTimestamp />
                     <div class="flex gap-4">
-                        <ChangeTimestamp />
+                        <span class="text-2xl">{{ t('admin.changeDate.label') }}:</span>
                         <DateDisplay :timestamp="config?.weddingDate" />
                     </div>
                     <ShowCountdown :timestamp="config?.weddingDate" />
