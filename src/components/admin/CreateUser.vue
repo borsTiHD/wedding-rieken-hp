@@ -50,6 +50,7 @@ const { t } = useI18n()
 
 // Emit event
 const emit = defineEmits(['created'])
+const emitter = useEmitter() // Eventbus emitter
 
 // User store
 const userStore = useUserStore()
@@ -106,6 +107,9 @@ const createUser = async(form: { name: string, email: string, password: string }
         detail: t('admin.createUser.successDetail'),
         life: 3000
     })
+
+    // Emit event to reload users
+    emitter.$emit('user-created')
 
     // Emit event to parent
     emit('created')

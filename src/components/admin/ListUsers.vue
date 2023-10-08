@@ -78,4 +78,7 @@ const getUsers = async() => {
 onMounted(() => {
     getUsers()
 })
+
+// Register event to reload users on new user creation
+useRegisterEvent('user-created', getUsers)
 </script>
