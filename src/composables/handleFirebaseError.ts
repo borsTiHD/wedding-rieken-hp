@@ -21,6 +21,7 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
         'auth/too-many-requests': 'firebase.too-many-requests',
         'auth/user-disabled': 'firebase.user-disabled',
         'auth/user-not-found': 'firebase.user-not-found',
+        'auth/id-token-expired': 'firebase.id-token-expired',
         'auth/wrong-password': 'firebase.wrong-password',
         'auth/invalid-email-verified': 'firebase.invalid-email-verified',
         'auth/invalid-action-code': 'firebase.invalid-action-code',
