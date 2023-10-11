@@ -102,6 +102,7 @@
             "tooltipPlzVerifie": "Bitte verifizieren Sie Ihre E-Mail-Adresse",
             "verifieAriaLabel": "E-Mail verifizieren",
             "verified": "E-Mail verifiziert",
+            "notVerifited": "E-Mail nicht verifiziert",
             "verifiedError": "Fehler beim Senden der Verifizierungs-E-Mail",
             "verifiedSuccess": "E-Mail zum Verifizieren versendet",
             "verifiedSuccessDetail": "Sie haben eine E-Mail zum Verifizieren Ihrer E-Mail-Adresse erhalten. Bitte bestätigen Sie den Link in der E-Mail.",
@@ -198,9 +199,11 @@
             "header": "Rolle",
             "tooltipGuest": "Sie haben sich selbst registriert. Bitte warten Sie noch auf eine Bestätigung Ihrer Einladung.",
             "tooltipInvited": "Sie haben eine verifizierte Einladung. Bitte bestätigen Sie Ihre Einladung.",
+            "tooltipDeclined": "Sie wurden abgelehnt und haben keine Einladung erhalten. Sollte es sich um einen Fehler handeln, kontaktieren Sie uns bitte.",
             "adminRole": "Administrator",
             "invitedRole": "Eingeladener Gast",
-            "guestRole": "Selbsregistrierter Gast",
+            "guestRole": "Selbstregistrierter Gast",
+            "declinedRole": "Abgelehnter Gast",
             "noRole": "Keine Rolle",
             "notAdmin": "Sie sollten nicht hier sein, Sie sind kein Administrator... 🤓✌️\nBooooooh! 👻"
         }
@@ -240,7 +243,8 @@
             "successDetail": "Benutzer wurde erstellt"
         },
         "listUsers": {
-            "header": "Alle Benutzer"
+            "header": "Benutzer verwalten",
+            "noUsers": "Keine Benutzer gefunden"
         }
     },
     "firebase": {

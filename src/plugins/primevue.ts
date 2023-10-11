@@ -16,6 +16,10 @@ import InlineMessage from 'primevue/inlinemessage'
 import Avatar from 'primevue/avatar'
 import FileUpload from 'primevue/fileupload'
 import Dialog from 'primevue/dialog'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import Dropdown from 'primevue/dropdown'
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true })
@@ -41,4 +45,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Avatar', Avatar)
     nuxtApp.vueApp.component('FileUpload', FileUpload)
     nuxtApp.vueApp.component('Dialog', Dialog)
+    nuxtApp.vueApp.component('DataTable', DataTable)
+    nuxtApp.vueApp.component('Column', Column)
+    nuxtApp.vueApp.component('Tag', Tag)
+    nuxtApp.vueApp.component('Dropdown', Dropdown)
 })
