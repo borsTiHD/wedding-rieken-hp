@@ -51,6 +51,10 @@ const defaultAdditionalGuests = ref(String(additionalGuests.value))
 
 // Submit button
 const handleSubmit = async(form: { additionalGuests: number }) => {
+    // Cast to number
+    form.additionalGuests = Number(form.additionalGuests)
+
+    // Check if additional guests have changed
     if (additionalGuests.value === form.additionalGuests) {
         toast.add({
             severity: 'info',
