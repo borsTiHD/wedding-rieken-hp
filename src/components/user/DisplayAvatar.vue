@@ -21,7 +21,7 @@
                         @click="profilePictureModal?.open()"
                     >
                         <i class="pi pi-pencil text-white" />
-                    <!-- <Button icon="pi pi-pencil" rounded aria-label="Profilbild editieren" /> -->
+                        <!-- <Button icon="pi pi-pencil" rounded aria-label="Profilbild editieren" /> -->
                     </div>
 
                     <!-- Profile picture edit modal -->

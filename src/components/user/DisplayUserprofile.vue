@@ -117,6 +117,7 @@
                             <span>{{ userRole }}</span>
                             <i v-if="userProfile.role === 'guest'" v-tooltip.bottom="t('user.userRole.tooltipGuest')" class="pi pi-exclamation-circle text-sky-600" />
                             <i v-else-if="userProfile.role === 'invited'" v-tooltip.bottom="t('user.userRole.tooltipInvited')" class="pi pi-verified text-green-600" />
+                            <i v-else-if="userProfile.role === 'declined'" v-tooltip.bottom="t('user.userRole.tooltipDeclined')" class="pi pi-times text-red-600" />
                         </div>
                     </div>
                 </li>
@@ -227,6 +228,7 @@ const userRole = computed(() => {
     if (role === 'admin') return t('user.userRole.adminRole')
     if (role === 'invited') return t('user.userRole.invitedRole')
     if (role === 'guest') return t('user.userRole.guestRole')
+    if (role === 'declined') return t('user.userRole.declinedRole')
     return t('user.userRole.noRole')
 })
 
