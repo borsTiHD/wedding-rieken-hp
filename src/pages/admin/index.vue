@@ -16,20 +16,7 @@
             </template>
         </Card>
 
-        <!-- Create User modal -->
-        <DisplayModal
-            ref="createUserModal"
-            :header="t('admin.createUser.header')"
-            buttonClass="basis-1/2"
-            :buttonLabel="t('admin.createUser.buttonLabel')"
-            buttonIcon="pi pi-user-plus"
-            button
-        >
-            <template #content>
-                <CreateUser @created="createUserModal?.close()" />
-            </template>
-        </DisplayModal>
-
+        <!-- List users datatable -->
         <ListUsers />
     </div>
 
@@ -40,17 +27,12 @@
 </template>
 
 <script setup lang="ts">
-import DisplayModal from '@/components/DisplayModal.vue'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
-import CreateUser from '@/components/admin/CreateUser.vue'
 import ListUsers from '@/components/admin/ListUsers.vue'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
-
-// Refs
-const createUserModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Localisation
 const { t } = useI18n()
