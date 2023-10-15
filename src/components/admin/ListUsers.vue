@@ -66,6 +66,14 @@
                             </span>
                         </div>
                     </template>
+                    <Column field="photoURL" header="Avatar">
+                        <template #body="slotProps">
+                            <img v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" class="h-16 w-16 object-cover shadow-md rounded-md">
+                            <div v-else class="h-16 w-16 shadow-md rounded-md bg-gray-200 flex items-center">
+                                <span class="text-gray-400 text-center">No Avatar</span>
+                            </div>
+                        </template>
+                    </Column>
                     <Column field="displayName" header="Name" sortable>
                         <template #body="slotProps">
                             <div v-tooltip.bottom="`UID: ${slotProps.data.uid}`" class="flex flex-col cursor-pointer" @click="copyUID(slotProps.data.uid)">
@@ -75,14 +83,6 @@
                                     <i v-if="slotProps.data.emailVerified" v-tooltip.top="t('user.email.verified')" class="pi pi-verified text-green-600" />
                                     <i v-else v-tooltip.top="t('user.email.notVerifited')" class="pi pi-exclamation-circle text-sky-600" />
                                 </div>
-                            </div>
-                        </template>
-                    </Column>
-                    <Column field="photoURL" header="Avatar">
-                        <template #body="slotProps">
-                            <img v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" class="h-16 w-16 object-cover shadow-md rounded-md">
-                            <div v-else class="h-16 w-16 shadow-md rounded-md bg-gray-200 flex items-center">
-                                <span class="text-gray-400 text-center">No Avatar</span>
                             </div>
                         </template>
                     </Column>
@@ -155,6 +155,9 @@ type User = {
 
 // Refs
 const createUserModal = ref<InstanceType<typeof DisplayModal>>()
+
+// TODO: i18n for this component
+// TODO: Missing action - admin can invite or decline users
 
 // Composables
 const toast = useToast()
