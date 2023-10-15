@@ -38,6 +38,17 @@ if (cookieLocale) {
     setLocale('de')
 }
 
+// Main section responsive classes
+const mainClasses = computed(() => {
+    // Set responsive classes based on route name
+    // If route name includes 'admin' use a wider width
+    const routeName = useRoute().name as string
+    if (routeName.includes('admin')) {
+        return 'sm:w-11/12 md:w-10/12 lg:w-8/12'
+    }
+    return 'sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12'
+})
+
 // Fetch user data and app config
 onMounted(async() => {
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
