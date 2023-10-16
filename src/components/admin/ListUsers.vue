@@ -91,7 +91,7 @@
                     <Column field="role" :header="t('admin.listUsers.tableHeader.role')" sortable>
                         <template #body="slotProps">
                             <div class="flex items-center gap-2">
-                                <Tag :value="getUserRole(slotProps.data.role)" :severity="getUserRoleSeverity(slotProps.data.role)" class="whitespace-nowrap" rounded />
+                                <Tag :value="getUserRole(slotProps.data.role)" :icon="getUserRoleIcon(slotProps.data.role)" :severity="getUserRoleSeverity(slotProps.data.role)" class="whitespace-nowrap" rounded />
                                 <!-- <i v-if="slotProps.data.role === 'guest'" v-tooltip.top="'Bitte Einladung verifizieren'" class="pi pi-exclamation-circle text-sky-600" /> -->
                             </div>
                         </template>
@@ -103,15 +103,9 @@
                     </Column>
                     <Column field="invitation" :header="t('admin.listUsers.tableHeader.invitationState')" sortable>
                         <template #body="slotProps">
-                            <i
-                                v-if="slotProps.data.invitation"
-                                v-tooltip.bottom="getInvitationStatus(slotProps.data.invitation)"
-                                class="pi"
-                                :class="[
-                                    getInvitationStatusIcon(slotProps.data.invitation),
-                                    getInvitationStatusColor(slotProps.data.invitation)
-                                ]"
-                            />
+                            <InlineMessage v-if="slotProps.data.invitation" :severity="getInvitationStatusSeverity(slotProps.data.invitation)">
+                                {{ getInvitationStatus(slotProps.data.invitation) }}
+                            </InlineMessage>
                             <span v-else>-</span>
                         </template>
                     </Column>
@@ -254,32 +248,18 @@ const filters = ref({
 
 // Return invitation status for user
 const getInvitationStatus = (invitation: string) => {
-    if (invitation === 'pending') return t('user.invitation.stateNoReponse')
-    if (invitation === 'accepted') return t('user.invitation.stateAccepted')
-    if (invitation === 'declined') return t('user.invitation.stateDeclined')
+    if (invitation === 'pending') return t('user.invitation.stateNoReponseShort')
+    if (invitation === 'accepted') return t('user.invitation.stateAcceptedShort')
+    if (invitation === 'declined') return t('user.invitation.stateDeclinedShort')
     return t('user.invitation.stateNoInvitation')
 }
 
-// Return icon for invitation status
-const getInvitationStatusIcon = (invitation: string) => {
-    if (invitation === 'pending') return 'pi pi-question'
-    if (invitation === 'accepted') return 'pi pi-check'
-    if (invitation === 'declined') return 'pi pi-times'
-    return 'pi pi-ban'
-}
-
 // Return severity for invitation status
-const getInvitationStatusColor = (invitation: string) => {
-    switch (invitation) {
-        case 'accepted':
-            return 'text-green-600'
-        case 'declined':
-            return 'text-red-600'
-        case 'pending':
-            return 'text-sky-600'
-        default:
-            return 'text-gray-600'
-    }
+const getInvitationStatusSeverity = (invitation: string) => {
+    if (invitation === 'pending') return 'info'
+    if (invitation === 'accepted') return 'success'
+    if (invitation === 'declined') return 'error'
+    return 'warn'
 }
 
 // Return user role
@@ -304,6 +284,22 @@ const getUserRoleSeverity = (role: string) => {
             return 'danger'
         default:
             return 'info'
+    }
+}
+
+// Return icon for user role
+const getUserRoleIcon = (role: string) => {
+    switch (role) {
+        case 'admin':
+            return 'pi pi-user'
+        case 'invited':
+            return 'pi pi-check'
+        case 'guest':
+            return 'pi pi-info-circle'
+        case 'declined':
+            return 'pi pi-times'
+        default:
+            return 'pi pi-exclamation-triangle'
     }
 }
 
