@@ -26,6 +26,7 @@
         :label="props.buttonLabel"
         :outlined="props.buttonOutlined"
         :icon="props.buttonIcon"
+        :raised="props.buttonRaised"
         @click="visible = true"
     />
 </template>
@@ -57,6 +58,10 @@ const props = defineProps({
         default: undefined
     },
     buttonOutlined: {
+        type: Boolean,
+        default: false
+    },
+    buttonRaised: {
         type: Boolean,
         default: false
     },
