@@ -80,7 +80,7 @@ const createUser = async(form: { name: string, email: string, password: string }
         throw new Error(t('admin.notAdminError'))
     }
 
-    // Generate a random string and push it to the database
+    // Send request to API to create user
     const response = await $fetch('/api/users/add', {
         method: 'POST',
         body: {

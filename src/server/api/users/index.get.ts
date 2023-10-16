@@ -10,6 +10,7 @@ type User = {
 }
 
 export default defineEventHandler(async(event) => {
+    // Check if user is admin
     await checkAdmin(event)
 
     // Getting all users
