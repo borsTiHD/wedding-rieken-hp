@@ -243,7 +243,7 @@
             "successDetail": "Benutzer wurde erstellt"
         },
         "listUsers": {
-            "header": "Benutzer verwalten",
+            "header": "Benutzer Verwaltung",
             "noUsers": "Keine Benutzer gefunden",
             "needToCheckSelfRegisteredGuests": "OK | Achtung: 1 selbstregistrierter Gast muss geprüft werden | Achtung: {n} selbstregistrierte Gäste müssen geprüft werden",
             "invitedGuests": "Bisher wurde niemand eingeladen | Es gibt einen eingeladenen Gast | Es gibt {n} eingeladene Gäste",
