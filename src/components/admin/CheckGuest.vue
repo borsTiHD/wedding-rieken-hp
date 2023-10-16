@@ -11,12 +11,25 @@
 
     <!-- Button for showing the modal -->
     <Button
+        v-if="mode === 'default'"
         v-tooltip.left="t('admin.listUsers.checkGuest.checkTooltip')"
         :label="t('admin.listUsers.checkGuest.checkLabel')"
         class="whitespace-nowrap"
         icon="pi pi-user-plus"
         size="small"
         raised
+        @click="checkGuestModal?.open()"
+    />
+
+    <!-- Show another button on different mode -->
+    <Button
+        v-else-if="mode === 'changeInvitation'"
+        v-tooltip.left="t('admin.listUsers.checkGuest.checkTooltipChangeInvitation')"
+        class="whitespace-nowrap"
+        icon="pi pi-user-edit"
+        size="small"
+        severity="secondary"
+        outlined
         @click="checkGuestModal?.open()"
     />
 </template>
@@ -31,6 +44,10 @@ const props = defineProps({
     uid: {
         type: String,
         required: true
+    },
+    mode: {
+        type: String,
+        default: 'default'
     }
 })
 

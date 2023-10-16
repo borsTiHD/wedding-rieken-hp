@@ -128,6 +128,12 @@
                                     :uid="slotProps.data.uid"
                                     @changed="getUsers"
                                 />
+                                <CheckGuest
+                                    v-else
+                                    :uid="slotProps.data.uid"
+                                    mode="changeInvitation"
+                                    @changed="getUsers"
+                                />
                             </div>
                         </template>
                     </Column>
