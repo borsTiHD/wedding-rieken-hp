@@ -123,14 +123,10 @@
                     <Column :header="t('admin.listUsers.tableHeader.actions')">
                         <template #body="slotProps">
                             <div class="flex items-center gap-2">
-                                <Button
+                                <CheckGuest
                                     v-if="slotProps.data.role === 'guest'"
-                                    v-tooltip.left="t('admin.listUsers.checkGuestTooltip')"
-                                    :label="t('admin.listUsers.checkGuest')"
-                                    class="whitespace-nowrap"
-                                    icon="pi pi-user-plus"
-                                    size="small"
-                                    raised
+                                    :uid="slotProps.data.uid"
+                                    @changed="getUsers"
                                 />
                             </div>
                         </template>
@@ -146,6 +142,7 @@ import { useToast } from 'primevue/usetoast'
 import { FilterMatchMode } from 'primevue/api'
 import DisplayModal from '@/components/DisplayModal.vue'
 import CreateUser from '@/components/admin/CreateUser.vue'
+import CheckGuest from '@/components/admin/CheckGuest.vue'
 import type admin from 'firebase-admin'
 import type { UserProfile } from '@/types/UserProfile'
 

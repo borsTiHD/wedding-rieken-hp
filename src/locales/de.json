@@ -264,8 +264,17 @@
             "userSearch": {
                 "placeholder": "Suche nach User"
             },
-            "checkGuest": "Gast Prüfen",
-            "checkGuestTooltip": "Sie haben einen selbstregistrierten Gast gefunden. Bitte prüfen Sie, ob es sich um eine Person handelt, die Sie einladen möchten.",
+            "checkGuest": {
+                "checkModalHeader": "Gast eine Einladung/Ablehung senden",
+                "checkLabel": "Gast prüfen",
+                "checkTooltip": "Sie haben einen selbstregistrierten Gast gefunden. Bitte prüfen Sie, ob es sich um eine Person handelt, die Sie einladen möchten.",
+                "invite": "Einladen",
+                "decline": "Ablehnen",
+                "error": "Fehler beim Senden der Einladung/Ablehnung",
+                "success": "Erfolgreich",
+                "successDetailInvited": "Benutzer wurde erfolgreich eingeladen",
+                "successDetailDeclined": "Benutzer wurde erfolgreich abgelehnt"
+            },
             "tableHeader": {
                 "avatar": "Profilbild",
                 "name": "Name",
