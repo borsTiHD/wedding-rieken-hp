@@ -193,17 +193,17 @@ const usersData = computed(() => {
         invitation: string;
     }
 
-    // Select users based on selected type
-    let selectedUsers = users.value
-    if (selectedType.value === 'admin') {
-        selectedUsers = users.value.filter((user) => user.profile.role === 'admin')
-    } else if (selectedType.value === 'invited') {
-        selectedUsers = users.value.filter((user) => user.profile.role === 'invited')
-    } else if (selectedType.value === 'guest') {
-        selectedUsers = users.value.filter((user) => user.profile.role === 'guest')
-    } else if (selectedType.value === 'declined') {
-        selectedUsers = users.value.filter((user) => user.profile.role === 'declined')
+    // Mapping for user roles
+    const roleMapping = {
+        'admin': 'admin',
+        'invited': 'invited',
+        'guest': 'guest',
+        'declined': 'declined'
     }
+
+    // Select users based on selected type
+    const selectedRole = roleMapping[selectedType.value as keyof typeof roleMapping] || null
+    let selectedUsers = selectedRole ? users.value.filter((user) => user.profile.role === selectedRole) : users.value
 
     // Convert users to DataTableUser
     const user: DataTableUser[] = selectedUsers.map((user) => ({
