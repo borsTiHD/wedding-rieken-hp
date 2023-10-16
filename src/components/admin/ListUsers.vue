@@ -52,6 +52,7 @@
                                 buttonClass=""
                                 :buttonLabel="t('admin.createUser.buttonLabel')"
                                 buttonIcon="pi pi-user-plus"
+                                buttonRaised
                                 button
                             >
                                 <template #content>

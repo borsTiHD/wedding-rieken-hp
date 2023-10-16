@@ -16,7 +16,7 @@
             />
 
             <div class="flex gap-2">
-                <Button :label="t('user.deleteUser.submit')" icon="pi pi-user-minus" severity="danger" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('user.deleteUser.submit')" icon="pi pi-user-minus" severity="danger" type="submit" raised :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>

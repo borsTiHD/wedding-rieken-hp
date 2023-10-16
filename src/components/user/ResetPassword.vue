@@ -1,5 +1,5 @@
 <template>
-    <Button :label="t('user.password.resetPassword.submitButton')" icon="pi pi-lock-open" :loading="loading" @click="handleSubmit" />
+    <Button :label="t('user.password.resetPassword.submitButton')" icon="pi pi-lock-open" raised :loading="loading" @click="handleSubmit" />
 </template>
 
 <script setup lang="ts">

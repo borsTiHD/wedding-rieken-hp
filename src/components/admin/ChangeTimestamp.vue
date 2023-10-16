@@ -8,7 +8,7 @@
             <i class="pi pi-clock" />
             <Calendar v-model="time" timeOnly />
         </span>
-        <Button type="submit" :label="t('buttons.submit')" @click="handleSubmit" />
+        <Button type="submit" :label="t('buttons.submit')" raised @click="handleSubmit" />
     </div>
 </template>
 

@@ -34,7 +34,7 @@
             />
 
             <div class="flex gap-2">
-                <Button :label="t('admin.createUser.formkit.submit')" icon="pi pi-user-plus" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('admin.createUser.formkit.submit')" icon="pi pi-user-plus" type="submit" raised :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>

@@ -29,7 +29,7 @@
             />
 
             <div class="flex gap-2">
-                <Button :label="t('login.submit')" icon="pi pi-check" type="submit" :loading="loading" :disabled="!valid" />
+                <Button :label="t('login.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
             </div>
         </div>
     </FormKit>

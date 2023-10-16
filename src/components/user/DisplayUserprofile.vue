@@ -137,6 +137,7 @@
                             :header="t('user.password.changePassword.modalHeader')"
                             :buttonLabel="t('user.password.changePassword.modalButton')"
                             buttonIcon="pi pi-lock"
+                            buttonRaised
                             button
                         >
                             <template #content>

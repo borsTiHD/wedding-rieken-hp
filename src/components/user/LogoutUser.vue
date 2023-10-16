@@ -1,5 +1,5 @@
 <template>
-    <Button :label="t('logout.submit')" severity="danger" icon="pi pi-sign-out" :loading="loading" @click="logout" />
+    <Button :label="t('logout.submit')" severity="danger" icon="pi pi-sign-out" raised :loading="loading" @click="logout" />
 </template>
 
 <script setup lang="ts">
