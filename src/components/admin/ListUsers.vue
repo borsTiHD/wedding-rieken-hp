@@ -3,9 +3,9 @@
         <template #title>
             <div class="flex items-baseline gap-4">
                 {{ t('admin.listUsers.header') }}
-                <div class="flex gap-1 text-sm text-gray-500">
-                    <span>Achtung: {{ selfRegisteredGuests ? selfRegisteredGuests.length : 0 }} selbstregistrierte Gäste müssen geprüft werden</span>
-                    <i v-if="selfRegisteredGuests.length > 0" class="pi pi-exclamation-circle text-sky-600" />
+                <div v-if="selfRegisteredGuests.length > 0" class="flex gap-1 text-sm text-gray-500">
+                    <span>{{ t('admin.listUsers.needToCheckSelfRegisteredGuests', { n: selfRegisteredGuests.length }, selfRegisteredGuests.length) }}</span>
+                    <i class="pi pi-exclamation-circle text-sky-600" />
                 </div>
             </div>
         </template>
@@ -15,15 +15,15 @@
                 <div class="flex items-center gap-4">
                     <!-- User infos -->
                     <div class="flex flex-col pr-4 border-r-2">
-                        <span class="font-bold">Es gibt {{ invitedGuests ? invitedGuests.length : 0 }} eingeladene Gäste</span>
-                        <span class="text-sm text-gray-500">Davon sind noch {{ pendingInvitations ? pendingInvitations.length : 0 }} Einladungen unbeantwortet</span>
+                        <span class="font-bold">{{ t('admin.listUsers.invitedGuests', { n: invitedGuests.length }, invitedGuests.length) }}</span>
+                        <span class="text-sm text-gray-500">{{ t('admin.listUsers.pendingInvitations', { n: pendingInvitations.length }, pendingInvitations.length) }}</span>
                     </div>
                     <div class="flex flex-col pr-4 border-r-2">
-                        <span class="text-sm text-gray-600">Es haben bereits {{ acceptedInvitations ? acceptedInvitations.length : 0 }} Gäste zugesagt</span>
-                        <span class="text-sm text-gray-400">Es haben bereits {{ declinedInvitations ? declinedInvitations.length : 0 }} Gäste abgesagt</span>
+                        <span class="text-sm text-gray-600">{{ t('admin.listUsers.acceptedInvitations', { n: acceptedInvitations.length }, acceptedInvitations.length) }}</span>
+                        <span class="text-sm text-gray-400">{{ t('admin.listUsers.declinedInvitations', { n: declinedInvitations.length }, declinedInvitations.length) }}</span>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-bold">Es werden zusammen {{ totalGuests }} Gäste erwartet</span>
+                        <span class="text-bold">{{ t('admin.listUsers.totalGuests', { n: totalGuests }, totalGuests) }}</span>
                     </div>
                 </div>
 
@@ -60,14 +60,15 @@
                                 </template>
                             </DisplayModal>
 
-                            <Dropdown v-model="selectedType" :options="types" optionLabel="name" optionValue="code" placeholder="Welche User sollen gezeigt werden?" class="ml-auto" />
+                            <!-- Filter users -->
+                            <Dropdown v-model="selectedType" :options="types" optionLabel="name" optionValue="code" :placeholder="t('admin.listUsers.userFilter.placeholder')" class="ml-auto" />
                             <span class="p-input-icon-left">
                                 <i class="pi pi-search" />
-                                <InputText v-model="globalSearch" placeholder="Keyword Search" />
+                                <InputText v-model="globalSearch" :placeholder="t('admin.listUsers.userSearch.placeholder')" />
                             </span>
                         </div>
                     </template>
-                    <Column field="photoURL" header="Avatar">
+                    <Column field="photoURL" :header="t('admin.listUsers.tableHeader.avatar')">
                         <template #body="slotProps">
                             <img v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" class="h-16 w-16 object-cover shadow-md rounded-md">
                             <div v-else class="h-16 w-16 shadow-md rounded-md bg-gray-200 flex items-center">
@@ -75,7 +76,7 @@
                             </div>
                         </template>
                     </Column>
-                    <Column field="displayName" header="Name" sortable>
+                    <Column field="displayName" :header="t('admin.listUsers.tableHeader.name')" sortable>
                         <template #body="slotProps">
                             <div v-tooltip.bottom="`UID: ${slotProps.data.uid}`" class="flex flex-col cursor-pointer" @click="copyUID(slotProps.data.uid)">
                                 <span class="font-bold">{{ slotProps.data.displayName }}</span>
@@ -87,7 +88,7 @@
                             </div>
                         </template>
                     </Column>
-                    <Column field="role" header="Role" sortable>
+                    <Column field="role" :header="t('admin.listUsers.tableHeader.role')" sortable>
                         <template #body="slotProps">
                             <div class="flex items-center gap-2">
                                 <Tag :value="getUserRole(slotProps.data.role)" :severity="getUserRoleSeverity(slotProps.data.role)" class="whitespace-nowrap" rounded />
@@ -95,7 +96,12 @@
                             </div>
                         </template>
                     </Column>
-                    <Column field="invitation" header="Invitation Status" sortable>
+                    <Column field="additionalGuests" :header="t('admin.listUsers.tableHeader.additionalGuests')" sortable>
+                        <template #body="slotProps">
+                            <span>{{ slotProps.data.additionalGuests }}</span>
+                        </template>
+                    </Column>
+                    <Column field="invitation" :header="t('admin.listUsers.tableHeader.invitationState')" sortable>
                         <template #body="slotProps">
                             <i
                                 v-if="slotProps.data.invitation"
@@ -109,25 +115,20 @@
                             <span v-else>-</span>
                         </template>
                     </Column>
-                    <Column field="additionalGuests" header="Additional Guests" sortable>
-                        <template #body="slotProps">
-                            <span>{{ slotProps.data.additionalGuests }}</span>
-                        </template>
-                    </Column>
-                    <Column field="phoneNumber" header="Phone" sortable>
+                    <Column field="phoneNumber" :header="t('admin.listUsers.tableHeader.phone')" sortable>
                         <template #body="slotProps">
                             <span>{{ slotProps.data.phoneNumber }}</span>
                         </template>
                     </Column>
-                    <Column header="Actions">
+                    <Column :header="t('admin.listUsers.tableHeader.actions')">
                         <template #body="slotProps">
                             <div class="flex items-center gap-2">
                                 <Button
                                     v-if="slotProps.data.role === 'guest'"
-                                    v-tooltip.left="'Selbstregistrierten Benutzer einladen oder ablehnen'"
+                                    v-tooltip.left="t('admin.listUsers.checkGuestTooltip')"
+                                    :label="t('admin.listUsers.checkGuest')"
                                     class="whitespace-nowrap"
                                     icon="pi pi-user-plus"
-                                    label="Gast prüfen"
                                     size="small"
                                     raised
                                 />
@@ -157,7 +158,6 @@ type User = {
 // Refs
 const createUserModal = ref<InstanceType<typeof DisplayModal>>()
 
-// TODO: i18n for this component
 // TODO: Missing action - admin can invite or decline users
 
 // Composables
@@ -168,7 +168,13 @@ const { t } = useI18n()
 const users = ref<User[]>([])
 const loading = ref(false)
 const selectedType = ref('all')
-const types = [{ name: 'All', code: 'all' }, { name: 'Admin', code: 'admin' }, { name: 'Invited', code: 'invited' }, { name: 'Guest', code: 'guest'}, { name: 'Declined', code: 'declined'}]
+const types = [
+    { name: t('admin.listUsers.userFilter.types.all'), code: 'all' },
+    { name: t('admin.listUsers.userFilter.types.admin'), code: 'admin' },
+    { name: t('admin.listUsers.userFilter.types.invited'), code: 'invited' },
+    { name: t('admin.listUsers.userFilter.types.declined'), code: 'declined'},
+    { name: t('admin.listUsers.userFilter.types.guest'), code: 'guest'}
+]
 const invitedGuests = computed(() => users.value.filter((user) => user.profile.role === 'invited'))
 const selfRegisteredGuests = computed(() => users.value.filter((user) => user.profile.role === 'guest'))
 const pendingInvitations = computed(() => invitedGuests.value.filter((user) => user.profile.invitation === 'pending'))

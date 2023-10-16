@@ -244,7 +244,37 @@
         },
         "listUsers": {
             "header": "Benutzer verwalten",
-            "noUsers": "Keine Benutzer gefunden"
+            "noUsers": "Keine Benutzer gefunden",
+            "needToCheckSelfRegisteredGuests": "OK | Achtung: 1 selbstregistrierter Gast muss geprüft werden | Achtung: {n} selbstregistrierte Gäste müssen geprüft werden",
+            "invitedGuests": "Bisher wurde niemand eingeladen | Es gibt einen eingeladenen Gast | Es gibt {n} eingeladene Gäste",
+            "pendingInvitations": "Davon gibt es keine offenen Einladungen | Davon ist noch 1'ne Einladung unbeantwortet | Davon sind noch {n} Einladungen unbeantwortet",
+            "acceptedInvitations": "Es hat noch kein Gast zugesagt | Es hat bereits 1 Gast zugesagt | Es haben bereits {n} Gäste zugesagt",
+            "declinedInvitations": "Es hat noch kein Gast abgesagt | Es hat bereits 1 Gast abgesagt | Es haben bereits {n} Gäste abgesagt",
+            "totalGuests": "Es wird derzeit kein Gast erwartet | Es wird zusammen 1 Gast erwartet | Es werden zusammen {n} Gäste erwartet",
+            "userFilter": {
+                "placeholder": "Welche User sollen gezeigt werden?",
+                "types": {
+                    "all": "Alle",
+                    "admin": "Administratoren",
+                    "guest": "Selbstregistrierte Gäste",
+                    "invited": "Eingeladene Gäste",
+                    "declined": "Abgelehnte Gäste"
+                }
+            },
+            "userSearch": {
+                "placeholder": "Suche nach User"
+            },
+            "checkGuest": "Gast Prüfen",
+            "checkGuestTooltip": "Sie haben einen selbstregistrierten Gast gefunden. Bitte prüfen Sie, ob es sich um eine Person handelt, die Sie einladen möchten.",
+            "tableHeader": {
+                "avatar": "Profilbild",
+                "name": "Name",
+                "role": "Rolle",
+                "phone": "Telefonnummer",
+                "additionalGuests": "Zusätzliche Gäste",
+                "invitationState": "Einladungsstatus",
+                "actions": "Aktionen"
+            }
         }
     },
     "firebase": {
