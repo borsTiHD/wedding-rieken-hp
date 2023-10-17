@@ -3,7 +3,9 @@
         "inputDateFormat": "dd.mm.yy"
     },
     "buttons": {
-        "submit": "Speichern"
+        "submit": "Speichern",
+        "yes": "Ja",
+        "no": "Nein"
     },
     "settings": {
         "language": "Sprache"
@@ -287,6 +289,18 @@
                 "additionalGuests": "Zusätzliche Gäste",
                 "invitationState": "Einladungsstatus",
                 "actions": "Aktionen"
+            }
+        },
+        "inviteToken": {
+            "header": "Einladungs Token ändern",
+            "confirmHeader": "Wollen Sie den Einladungs Token wirklich ändern?",
+            "confirmMessage": "Achtung, dadurch werden ältere Einladungs Links ungültig.",
+            "success": "Erfolgreich",
+            "successDetail": "Der Einladungs Token wurde erfolgreich geändert",
+            "error": "Fehler beim Ändern des Einladungs Tokens",
+            "formkit": {
+                "label": "Einladungs Token",
+                "submit": "Ändern"
             }
         }
     },

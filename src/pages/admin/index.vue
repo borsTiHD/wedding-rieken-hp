@@ -16,6 +16,16 @@
             </template>
         </Card>
 
+        <!-- Change invite token -->
+        <Card>
+            <template #title>{{ t('admin.inviteToken.header') }}</template>
+            <template #content>
+                <div class="p-2 flex flex-col gap-4">
+                    <ChangeInviteToken />
+                </div>
+            </template>
+        </Card>
+
         <!-- List users datatable -->
         <ListUsers />
     </div>
@@ -30,6 +40,7 @@
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
+import ChangeInviteToken from '@/components/admin/ChangeInviteToken.vue'
 import ListUsers from '@/components/admin/ListUsers.vue'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'

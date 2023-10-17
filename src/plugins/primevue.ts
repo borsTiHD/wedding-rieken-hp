@@ -1,6 +1,7 @@
 import { defineNuxtPlugin } from '#app'
 import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
+import ConfirmationService from 'primevue/confirmationservice'
 import Tooltip from 'primevue/tooltip'
 import Card from 'primevue/card'
 import Button from 'primevue/button'
@@ -20,6 +21,7 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Tag from 'primevue/tag'
 import Dropdown from 'primevue/dropdown'
+import ConfirmPopup from 'primevue/confirmpopup'
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true })
@@ -29,6 +31,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     // Tooltip directive
     nuxtApp.vueApp.directive('tooltip', Tooltip)
+
+    // Confirmation service
+    nuxtApp.vueApp.use(ConfirmationService)
 
     // PrimeVue components
     nuxtApp.vueApp.component('Card', Card)
@@ -49,4 +54,5 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Column', Column)
     nuxtApp.vueApp.component('Tag', Tag)
     nuxtApp.vueApp.component('Dropdown', Dropdown)
+    nuxtApp.vueApp.component('ConfirmPopup', ConfirmPopup)
 })
