@@ -6,7 +6,7 @@
         :actions="false"
         @submit="handleSubmit"
     >
-        <div class="flex flex-col items-center gap-4">
+        <div class="flex items-center gap-4">
             <Skeleton v-if="loading" width="14rem" height="3rem" />
             <FormKit
                 v-else
@@ -19,8 +19,8 @@
             />
 
             <ConfirmPopup />
+            <Button :label="t('admin.inviteToken.formkit.submit')" class="w-full" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="confirmDialog($event)" />
         </div>
-        <Button :label="t('admin.inviteToken.formkit.submit')" class="w-full" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="confirmDialog($event)" />
     </FormKit>
 </template>
 
@@ -101,6 +101,9 @@ const changeToken = async(form: { token: string }) => {
         detail: t('admin.inviteToken.successDetail'),
         life: 3000
     })
+
+    // Refresh page
+    location.reload()
 }
 
 // Get invite token

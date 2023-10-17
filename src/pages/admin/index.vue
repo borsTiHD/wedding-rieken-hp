@@ -26,7 +26,7 @@
         </div>
 
         <!-- Change invite token -->
-        <Card>
+        <Card :pt="{ content: { class: 'pb-0' } }">
             <template #title>{{ t('admin.inviteToken.header') }}</template>
             <template #content>
                 <ChangeInviteToken />
