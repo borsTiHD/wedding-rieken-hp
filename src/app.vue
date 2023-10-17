@@ -9,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import { useAppStore } from '@/stores/app'
@@ -49,10 +50,22 @@ const mainClasses = computed(() => {
     return 'sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12'
 })
 
+// Save invitiation token from route if provided
+const checkAndSaveToken = async() => {
+    // Get 'token' param from route
+    // If token is not empty, save it in localStorage
+    const token = useRoute().query.token as string
+    if (token) {
+        const tokenLocalStorage = useStorage('invitation-token', token, localStorage, { mergeDefaults: true })
+        tokenLocalStorage.value = token
+    }
+}
+
 // Fetch user data and app config
 onMounted(async() => {
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error
+    await checkAndSaveToken() // Check if token is provided in route and save it in localStorage
     stoptLoading() // Stop loading spinner
 })
 </script>
