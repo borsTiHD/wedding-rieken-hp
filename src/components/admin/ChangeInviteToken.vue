@@ -104,6 +104,17 @@ const changeToken = async(form: { token: string }) => {
 
 // Get invite token
 const getInviteToken = async() => {
+    // Check if user is logged in
+    if (!user.value) {
+        throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
+
+    // Check if user is admin
+    // This is not necessary, because the button is only visible for admins also the API will throw an error if the user is not admin
+    if (userProfile.value && userProfile.value.role !== 'admin') {
+        throw new Error(t('admin.notAdminError'))
+    }
+
     // If collection and id is specified, return document from collection
     const response = await queryByCollectionAndId('app', 'admin').catch((error) => {
         const errorMessage = handleFirebaseError(error, 'admin.inviteToken.error')
@@ -121,6 +132,8 @@ const getInviteToken = async() => {
 
 // On mounted
 onMounted(async() => {
+    loading.value = true
     await getInviteToken()
+    loading.value = false
 })
 </script>
