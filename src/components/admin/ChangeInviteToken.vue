@@ -6,20 +6,21 @@
         :actions="false"
         @submit="handleSubmit"
     >
-        <div class="flex items-center gap-4">
+        <div class="flex flex-col items-center gap-4">
             <Skeleton v-if="loading" width="14rem" height="3rem" />
             <FormKit
                 v-else
                 v-model="defaultToken"
                 type="text"
                 name="token"
+                outer-class="w-full"
                 :label="t('admin.inviteToken.formkit.label')"
                 validation="required|length:15"
             />
 
             <ConfirmPopup />
-            <Button :label="t('admin.inviteToken.formkit.submit')" class="h-12" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="confirmDialog($event)" />
         </div>
+        <Button :label="t('admin.inviteToken.formkit.submit')" class="w-full" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="confirmDialog($event)" />
     </FormKit>
 </template>
 
