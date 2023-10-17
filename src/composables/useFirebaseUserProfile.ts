@@ -122,6 +122,27 @@ export default function() {
         return true
     }
 
+    // Change role to 'invited'
+    // Needs a valid token
+    // Firebase will check if the token is valid
+    const changeRoleToInvited = async(token: string): Promise<boolean> => {
+        const user = $auth.currentUser
+        if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+
+        // Get user id
+        const uid = user.uid
+
+        // Update role in user profile
+        // TODO: Needs a new endpoint in the backend, validate the token and change the profile role to 'invited' from the user id
+        console.log('uid', uid)
+        console.log('token', token)
+
+        // Refresh user profile
+        await refreshUserProfile()
+
+        return true
+    }
+
     // Delete a user
     // - deletes the user account
     // - deletes the user profile
@@ -189,6 +210,7 @@ export default function() {
         fetchAdditionalUserProfile, // Additional user profile data
         createDefaultUserProfile, // Additional user profile data
         changeAdditionalUserProfileData, // Additional user profile data
+        changeRoleToInvited, // Additional user profile data
         deleteUserAccount // Delete user with all data (firebase profile, additional user profile data, files)
     }
 }
