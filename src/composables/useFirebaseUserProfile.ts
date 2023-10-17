@@ -169,7 +169,7 @@ export default function() {
         return queryByCollectionAndId(usersPath, uid).catch(async(error) => {
             console.error(error)
             // If the user profile does not exist, create it
-            if (error.message === 'Document does not exist') {
+            if (error.message === 'custom/document-does-not-exist') {
                 // Create default user profile
                 await createDefaultUserProfile(uid)
                 return queryByCollectionAndId(usersPath, uid).catch((error) => {

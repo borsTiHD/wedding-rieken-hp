@@ -40,7 +40,7 @@ export const queryByCollectionAndId = async(col: string, id: string): Promise<Do
     const docRef = doc(firestoreDb, col, id)
     const docSnap = await getDoc(docRef)
     if (!docSnap.exists()) {
-        throw new Error('Document does not exist')
+        throw new Error('custom/document-does-not-exist')
     }
 
     return {
