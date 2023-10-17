@@ -28,7 +28,6 @@
             </Card>
         </div>
 
-
         <!-- List users datatable -->
         <ListUsers />
     </div>
