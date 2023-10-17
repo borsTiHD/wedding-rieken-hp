@@ -315,7 +315,8 @@
             "authFailed": "Authentifizierung fehlgeschlagen",
             "fileNotUploaded": "Datei konnte nicht hochgeladen werden",
             "fileNotDeleted": "Datei konnte nicht gelöscht werden",
-            "filesNotDeleted": "Dateien konnten nicht gelöscht werden"
+            "filesNotDeleted": "Dateien konnten nicht gelöscht werden",
+            "documentDoesNotExist": "Dokument in Firebase existiert nicht"
         },
         "storage": {
             "unauthorized": "Sie haben keine Berechtigung, diese Datei hochzuladen",

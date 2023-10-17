@@ -43,7 +43,7 @@ export function useFirestore() {
         const docRef = doc($firestore, col, id)
         const docSnap = await getDoc(docRef)
         if (!docSnap.exists()) {
-            throw new Error('Document does not exist')
+            throw new Error('custom/document-does-not-exist')
         }
 
         return docSnap.data()

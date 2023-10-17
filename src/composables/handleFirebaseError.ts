@@ -2,6 +2,9 @@ import { FirebaseError } from '@firebase/util'
 
 // Error handling function
 export default function handleFirebaseError(error: FirebaseError, defaultCode: string) {
+    // Log original error
+    console.error(error)
+
     // Exception for 'auth/requires-recent-login'
     // This error is thrown when the user's last sign-in time does not meet the security threshold
     // This error code will be handled in the calling function
@@ -10,7 +13,9 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
     }
 
     // Localisation
-    const { t } = useI18n()
+    // const { t } = useI18n() // Can't use i18n here, because it's only available in the setup() function
+    const { $i18n } = useNuxtApp()
+    const t = $i18n.t
 
     // Mapping Firebase error translations
     const errorTranslations: { [key: string]: string }  = {
@@ -33,7 +38,10 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
         // Storage error messages
         'storage/unauthorized': 'firebase.storage.unauthorized',
         'storage/canceled': 'firebase.storage.canceled',
-        'storage/unknown': 'firebase.storage.unknown'
+        'storage/unknown': 'firebase.storage.unknown',
+
+        // Custom error messages
+        'custom/document-does-not-exist': 'firebase.custom.documentDoesNotExist'
     }
 
     // Set default error message
@@ -42,6 +50,8 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
     // Check if error code is in the mapping
     if (errorTranslations.hasOwnProperty(error.code)) {
         errorMessage = t(errorTranslations[error.code])
+    } else if (errorTranslations.hasOwnProperty(error.message)) {
+        errorMessage = t(errorTranslations[error.message])
     }
 
     // Log error message
