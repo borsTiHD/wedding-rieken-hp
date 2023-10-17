@@ -301,6 +301,10 @@
                 "label": "Einladungs Token",
                 "submit": "Ändern"
             }
+        },
+        "qrcode": {
+            "header": "Einladungs QR-Code",
+            "download": "QR-Code herunterladen"
         }
     },
     "firebase": {
