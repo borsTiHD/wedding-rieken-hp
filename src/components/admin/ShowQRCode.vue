@@ -32,6 +32,14 @@ const loading = ref(false)
 const canvasId = 'invitationTokenCanvas'
 const invitationToken = ref()
 
+// Clear canvas
+const clearCanvas = () => {
+    const canvas = document.getElementById(canvasId) as HTMLCanvasElement
+    const context = canvas.getContext('2d')
+    if (!context) return false
+    context.clearRect(0, 0, canvas.width, canvas.height)
+}
+
 // Create QR code from token
 // Returns a promise and resolves true if successful
 const createQRCode = async() => {
@@ -96,9 +104,14 @@ const getInviteToken = async() => {
     return true
 }
 
-// On mounted
-onMounted(async() => {
+// Initilize QR code
+const init = async() => {
     loading.value = true
+
+    // Clear canvas
+    clearCanvas()
+
+    // Get invite token
     const checkToken = await getInviteToken().catch((error) => {
         console.error(error)
         return false
@@ -113,5 +126,13 @@ onMounted(async() => {
     // Create QR code if token is valid
     await createQRCode()
     loading.value = false
+}
+
+// Register event to reload qr code if token has changed
+useRegisterEvent('invitation-token-updated', init)
+
+// On mounted
+onMounted(async() => {
+    await init()
 })
 </script>

@@ -35,6 +35,7 @@ const toast = useToast()
 const confirm = useConfirm()
 const { t } = useI18n()
 const { queryByCollectionAndId, update } = useFirestore()
+const emitter = useEmitter() // Eventbus emitter
 
 // User store
 const userStore = useUserStore()
@@ -102,8 +103,8 @@ const changeToken = async(form: { token: string }) => {
         life: 3000
     })
 
-    // Refresh page
-    location.reload()
+    // Emit event that token has changed
+    emitter.$emit('invitation-token-updated')
 }
 
 // Get invite token
