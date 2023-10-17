@@ -293,7 +293,6 @@
         },
         "inviteToken": {
             "header": "Einladungs Token ändern",
-            "confirmHeader": "Wollen Sie den Einladungs Token wirklich ändern?",
             "confirmMessage": "Achtung, dadurch werden ältere Einladungs Links ungültig.",
             "success": "Erfolgreich",
             "successDetail": "Der Einladungs Token wurde erfolgreich geändert",
