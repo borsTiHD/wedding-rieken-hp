@@ -1,30 +1,33 @@
 <template>
     <!-- You are an admin -->
     <div v-if="user.uid && userProfile?.role === 'admin'" class="flex flex-col gap-4">
-        <!-- Change date -->
-        <Card>
-            <template #title>{{ t('admin.changeDate.header') }}</template>
-            <template #content>
-                <div class="p-2 flex flex-col gap-4">
-                    <ChangeTimestamp />
-                    <div class="flex gap-4">
-                        <span class="text-2xl">{{ t('admin.changeDate.label') }}:</span>
-                        <DateDisplay :timestamp="config?.weddingDate" />
+        <div class="flex gap-4 flex-wrap">
+            <!-- Change date -->
+            <Card class="grow">
+                <template #title>{{ t('admin.changeDate.header') }}</template>
+                <template #content>
+                    <div class="p-2 flex flex-col gap-4">
+                        <ChangeTimestamp />
+                        <div class="flex gap-4">
+                            <span class="text-2xl">{{ t('admin.changeDate.label') }}:</span>
+                            <DateDisplay :timestamp="config?.weddingDate" />
+                        </div>
+                        <ShowCountdown :timestamp="config?.weddingDate" />
                     </div>
-                    <ShowCountdown :timestamp="config?.weddingDate" />
-                </div>
-            </template>
-        </Card>
+                </template>
+            </Card>
 
-        <!-- Change invite token -->
-        <Card>
-            <template #title>{{ t('admin.inviteToken.header') }}</template>
-            <template #content>
-                <div class="p-2 flex flex-col gap-4">
-                    <ChangeInviteToken />
-                </div>
-            </template>
-        </Card>
+            <!-- Change invite token -->
+            <Card class="grow basis-96">
+                <template #title>{{ t('admin.inviteToken.header') }}</template>
+                <template #content>
+                    <div class="p-2 flex flex-col gap-4">
+                        <ChangeInviteToken />
+                    </div>
+                </template>
+            </Card>
+        </div>
+
 
         <!-- List users datatable -->
         <ListUsers />
