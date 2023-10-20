@@ -23,7 +23,7 @@
                         <span class="text-sm text-gray-400">{{ t('admin.listUsers.declinedInvitations', { n: declinedInvitations.length }, declinedInvitations.length) }}</span>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-bold">{{ t('admin.listUsers.totalGuests', { n: totalGuests }, totalGuests) }}</span>
+                        <span class="font-bold">{{ t('admin.listUsers.totalGuests', { n: totalGuests }, totalGuests) }}</span>
                     </div>
                 </div>
 
