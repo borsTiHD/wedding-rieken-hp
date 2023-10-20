@@ -42,20 +42,16 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import { useUserStore } from '@/stores/user'
+import useBackendApi from '@/composables/useBackendApi'
 
 // Composables
 const toast = useToast()
 const { t } = useI18n()
+const { createUser } = useBackendApi()
 
 // Emit event
 const emit = defineEmits(['created'])
 const emitter = useEmitter() // Eventbus emitter
-
-// User store
-const userStore = useUserStore()
-const user = computed(() => userStore.user)
-const userProfile = computed(() => userStore.userProfile)
 
 // Data
 const loading = ref(false)
@@ -63,33 +59,14 @@ const loading = ref(false)
 // Submit button
 const handleSubmit = async(form: { name: string, email: string, password: string }) => {
     loading.value = true
-    await createUser(form).catch(() => { return false })
+    await createNewUser(form).catch(() => { return false })
     loading.value = false
 }
 
 // Create user function
-const createUser = async(form: { name: string, email: string, password: string }) => {
-    // Check if user is logged in
-    if (!user.value) {
-        throw new Error(t('firebase.custom.noUserLoggedIn'))
-    }
-
-    // Check if user is admin
-    // This is not necessary, because the button is only visible for admins also the API will throw an error if the user is not admin
-    if (userProfile.value && userProfile.value.role !== 'admin') {
-        throw new Error(t('admin.notAdminError'))
-    }
-
+const createNewUser = async(form: { name: string, email: string, password: string }) => {
     // Send request to API to create user
-    const response = await $fetch('/api/users/add', {
-        method: 'POST',
-        body: {
-            name: form.name,
-            email: form.email,
-            password: form.password,
-            role: 'invited'
-        }
-    }).catch((error: { statusMessage: string }) => {
+    const response = await createUser(form.name, form.email, form.password).catch((error: { statusMessage: string }) => {
         toast.add({ severity: 'error', summary: 'Error', detail: error.statusMessage, life: 10000 })
         throw error
     })

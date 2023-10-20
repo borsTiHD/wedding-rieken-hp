@@ -6,10 +6,56 @@ export default function useBackendApi() {
     const { $i18n } = useNuxtApp()
     const t = $i18n.t
 
+    // Options
+    const apiBaseUrl = '/api'
+
     // User store
     const userStore = useUserStore()
     const user = computed(() => userStore.user)
     const userProfile = computed(() => userStore.userProfile)
+
+    // Get list of all users
+    // Only admins can get the list of all users
+    async function getAllUsers() {
+        // Check if user is logged in
+        if (!user.value) {
+            throw new Error(t('firebase.custom.noUserLoggedIn'))
+        }
+
+        // Check if user is admin
+        // This is not necessary, the API would throw an error if the user is no admin
+        if (userProfile.value && userProfile.value.role !== 'admin') {
+            throw new Error(t('admin.notAdminError'))
+        }
+
+        // Get list of all users
+        return useFetch(`${apiBaseUrl}/users`)
+    }
+
+    // Create a new user
+    // Only admins can create new users
+    async function createUser(name: string, email: string, password: string, role?: 'invited' | 'declined') {
+        // Check if user is logged in
+        if (!user.value) {
+            throw new Error(t('firebase.custom.noUserLoggedIn'))
+        }
+
+        // Check if user is admin
+        // This is not necessary, the API would throw an error if the user is no admin
+        if (userProfile.value && userProfile.value.role !== 'admin') {
+            throw new Error(t('admin.notAdminError'))
+        }
+
+        return $fetch(`${apiBaseUrl}/users/add`, {
+            method: 'POST',
+            body: {
+                name,
+                email,
+                password,
+                role: role ? role : 'invited'
+            }
+        })
+    }
 
     // Check guest and set the profile role
     // Only admins can set the role
@@ -29,7 +75,7 @@ export default function useBackendApi() {
         const profile: PartialUserProfile = { role }
 
         // Send request to API to set new role
-        return $fetch('/api/users/update', {
+        return $fetch(`${apiBaseUrl}/users/update`, {
             method: 'POST',
             body: {
                 uid,
@@ -39,6 +85,8 @@ export default function useBackendApi() {
     }
 
     return {
+        getAllUsers,
+        createUser,
         updateUserRole
     }
 }

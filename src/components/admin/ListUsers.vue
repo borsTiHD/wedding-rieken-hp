@@ -143,6 +143,7 @@ import { FilterMatchMode } from 'primevue/api'
 import DisplayModal from '@/components/DisplayModal.vue'
 import CreateUser from '@/components/admin/CreateUser.vue'
 import CheckGuest from '@/components/admin/CheckGuest.vue'
+import useBackendApi from '@/composables/useBackendApi'
 import type admin from 'firebase-admin'
 import type { UserProfile } from '@/types/UserProfile'
 
@@ -160,6 +161,7 @@ const createUserModal = ref<InstanceType<typeof DisplayModal>>()
 // Composables
 const toast = useToast()
 const { t } = useI18n()
+const { getAllUsers } = useBackendApi()
 
 // Data
 const users = ref<User[]>([])
@@ -314,7 +316,7 @@ const getUsers = async() => {
     loading.value = true
 
     // Get all users
-    const response = await useFetch('/api/users').catch((error: { statusMessage: string }) => {
+    const response = await getAllUsers().catch((error: { statusMessage: string }) => {
         toast.add({ severity: 'error', summary: 'Error', detail: error.statusMessage, life: 10000 })
         loading.value = false
         throw error
