@@ -84,9 +84,29 @@ export default function useBackendApi() {
         })
     }
 
+    // Update user profile role to invited
+    // Needs a valid token, which is sent to the API and compared with the token in the database
+    async function updateUserRoleToInvited(uid: string, token: string) {
+        // Check if user is logged in
+        if (!user.value) {
+            throw new Error(t('firebase.custom.noUserLoggedIn'))
+        }
+
+        // Make API Call and update user role
+        return $fetch(`${apiBaseUrl}/user/update-role`, {
+            method: 'POST',
+            body: {
+                uid,
+                token
+            }
+        })
+    }
+
+    // Return functions
     return {
-        getAllUsers,
-        createUser,
-        updateUserRole
+        getAllUsers, // admin only
+        createUser, // admin only
+        updateUserRole, // admin only
+        updateUserRoleToInvited // user only
     }
 }
