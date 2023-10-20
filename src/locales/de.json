@@ -203,7 +203,7 @@
         "userRole": {
             "header": "Rolle",
             "tooltipGuest": "Sie haben sich selbst registriert. Bitte warten Sie noch auf eine Bestätigung Ihrer Einladung.",
-            "tooltipInvited": "Sie haben eine verifizierte Einladung. Bitte bestätigen Sie Ihre Einladung.",
+            "tooltipInvited": "Sie haben eine verifizierte Einladung.",
             "tooltipDeclined": "Sie wurden abgelehnt und haben keine Einladung erhalten. Sollte es sich um einen Fehler handeln, kontaktieren Sie uns bitte.",
             "adminRole": "Administrator",
             "invitedRole": "Eingeladener Gast",
@@ -306,6 +306,9 @@
             "header": "Einladungs QR-Code",
             "download": "QR-Code herunterladen"
         }
+    },
+    "api": {
+        "roleNotChanged": "Rolle konnte nicht geändert werden"
     },
     "firebase": {
         "custom": {
