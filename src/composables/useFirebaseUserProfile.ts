@@ -2,6 +2,7 @@ import { updateProfile, updateEmail, updatePassword, deleteUser } from 'firebase
 import { FirebaseError } from '@firebase/util'
 import { useUserStore } from '@/stores/user'
 import handleFirebaseError from '@/composables/handleFirebaseError'
+import useBackendApi from '@/composables/useBackendApi'
 import type { UserProfile, PartialUserProfile } from '@/types/UserProfile'
 
 export default function() {
@@ -9,6 +10,7 @@ export default function() {
     const { queryByCollectionAndId, deleteByCollectionAndId, updateByCollectionAndId, addByCollectionAndId } = useFirestore() // Firestore composable
     const { sendUserEmailVerification } = useFirebaseAuth() // Firebase auth composable
     const { deleteUserFolder } = useFirebaseStorage() // FirebaseStorage composable
+    const { updateUserRoleToInvited } = useBackendApi() // Backend API composable
 
     // User store
     const userStore = useUserStore()
@@ -133,9 +135,10 @@ export default function() {
         const uid = user.uid
 
         // Update role in user profile
-        // TODO: Needs a new endpoint in the backend, validate the token and change the profile role to 'invited' from the user id
-        console.log('uid', uid)
-        console.log('token', token)
+        await updateUserRoleToInvited(uid, token).catch((error) => {
+            console.error(error)
+            throw new Error(t('api.roleNotChanged'))
+        })
 
         // Refresh user profile
         await refreshUserProfile()
