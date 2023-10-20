@@ -37,8 +37,7 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
-import { useUserStore } from '@/stores/user'
-import type { PartialUserProfile } from '@/types/UserProfile'
+import useBackendApi from '@/composables/useBackendApi'
 
 const props = defineProps({
     uid: {
@@ -60,11 +59,7 @@ const checkGuestModal = ref<InstanceType<typeof DisplayModal>>()
 // Composables
 const toast = useToast()
 const { t } = useI18n()
-
-// User store
-const userStore = useUserStore()
-const user = computed(() => userStore.user)
-const userProfile = computed(() => userStore.userProfile)
+const { updateUserRole } = useBackendApi()
 
 // Data
 const loading = ref(false)
@@ -74,34 +69,18 @@ const handleSubmit = async(value: boolean) => {
     loading.value = true
     await checkGuest(value).catch(() => { return false })
     loading.value = false
+
+    // Close modal
+    checkGuestModal.value?.close()
 }
 
 // Check guest and set the profile role
 const checkGuest = async(value: boolean) => {
-    // Check if user is logged in
-    if (!user.value) {
-        throw new Error(t('firebase.custom.noUserLoggedIn'))
-    }
-
-    // Check if user is admin
-    // This is not necessary, because the button is only visible for admins also the API will throw an error if the user is not admin
-    if (userProfile.value && userProfile.value.role !== 'admin') {
-        throw new Error(t('admin.notAdminError'))
-    }
-
     // Set invitation response
-    const profile: PartialUserProfile = {
-        role: value ? 'invited' : 'declined'
-    }
+    const role = value ? 'invited' : 'declined'
 
     // Send request to API to set new role
-    const response = await $fetch('/api/users/update', {
-        method: 'POST',
-        body: {
-            uid: props.uid,
-            profile
-        }
-    }).catch((error: { statusMessage: string }) => {
+    const response = await updateUserRole(props.uid, role).catch((error: { statusMessage: string }) => {
         toast.add({ severity: 'error', summary: 'Error', detail: error.statusMessage, life: 10000 })
         console.error(error)
         throw error
