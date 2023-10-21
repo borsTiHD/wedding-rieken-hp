@@ -289,9 +289,9 @@
                 "avatar": "Profilbild",
                 "name": "Name",
                 "role": "Rolle",
-                "phone": "Telefonnummer",
+                "phone": "Telefon",
                 "additionalGuests": "Zusätzliche Gäste",
-                "invitationState": "Einladungsstatus",
+                "invitationState": "Einladung",
                 "actions": "Aktionen"
             }
         },
