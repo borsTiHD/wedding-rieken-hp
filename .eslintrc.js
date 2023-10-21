@@ -45,7 +45,7 @@ module.exports = {
 
         // Vue specific rules
         'vue/multi-word-component-names': ['error', {
-            ignores: ['default', 'index', '[name]', 'admin', 'login', 'register', 'user']
+            ignores: ['default', 'index', '[name]', 'admin', 'login', 'register', 'user', 'profile']
         }],
         'vue/max-attributes-per-line': 'off',
         'vue/singleline-html-element-content-newline': 'off',
