@@ -3,6 +3,7 @@ import { FirebaseError } from '@firebase/util'
 import { useUserStore } from '@/stores/user'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import useBackendApi from '@/composables/useBackendApi'
+import useInvitiationToken from '@/composables/useInvitiationToken'
 import type { UserProfile, PartialUserProfile } from '@/types/UserProfile'
 
 export default function() {
@@ -11,6 +12,7 @@ export default function() {
     const { sendUserEmailVerification } = useFirebaseAuth() // Firebase auth composable
     const { deleteUserFolder } = useFirebaseStorage() // FirebaseStorage composable
     const { updateUserRoleToInvited } = useBackendApi() // Backend API composable
+    const { deleteInvitiationToken } = useInvitiationToken() // Invitation token composable
 
     // User store
     const userStore = useUserStore()
@@ -135,10 +137,13 @@ export default function() {
         const uid = user.uid
 
         // Update role in user profile
-        await updateUserRoleToInvited(uid, token).catch((error) => {
+        const response = await updateUserRoleToInvited(uid, token).catch((error) => {
             console.error(error)
             throw new Error(t('api.roleNotChanged'))
         })
+
+        // Delete token from localStorage if the role was changed
+        if (response) { deleteInvitiationToken() }
 
         // Refresh user profile
         await refreshUserProfile()
