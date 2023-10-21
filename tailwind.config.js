@@ -7,7 +7,7 @@ module.exports = {
         './src/**/*.{vue,js,ts,jsx,tsx}',
         './node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}'
     ],
-    // important: true, // Disabled so it works better with PrimeVue CSS
+    important: true,
     theme: {
         extend: {}
     },

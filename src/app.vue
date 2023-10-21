@@ -2,7 +2,7 @@
     <div class="app-wrapper">
         <Toast position="bottom-right" />
         <LoadingOverlay v-if="loading" :progress="progress" />
-        <main v-else class="p-4 w-full mx-auto flex flex-col gap-4" :class="mainClasses">
+        <main v-else class="p-4 mx-auto flex flex-col gap-4" :class="mainClasses">
             <NuxtPage />
         </main>
     </div>
