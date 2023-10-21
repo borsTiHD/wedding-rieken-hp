@@ -33,8 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import { useStorage } from '@vueuse/core'
 import { useToast } from 'primevue/usetoast'
+import useInvitiationToken from '@/composables/useInvitiationToken'
 
 // Localisation
 const { t } = useI18n()
@@ -43,23 +43,10 @@ const { t } = useI18n()
 const toast = useToast()
 const { registerUser } = useFirebaseAuth()
 const { changeRoleToInvited } = useFirebaseUserProfile()
+const { getInvitiationToken } = useInvitiationToken()
 
 // Data
 const loading = ref(false)
-
-// Get invitation token from localStorage
-const getInvitiationToken = () => {
-    // First check if token is in url
-    // Get 'token' param from route
-    // If token is not empty, save it in localStorage
-    const tokenFromUrl = useRoute().query.token as string
-    if (tokenFromUrl) return tokenFromUrl
-
-    // If token is not in url, check localStorage
-    // Can happen if the user already visited the page before with a token
-    const token = useStorage('invitation-token', '', localStorage, { mergeDefaults: true })
-    return token.value
-}
 
 // Submit button
 const handleSubmit = async(form: { email: string, password: string }) => {
@@ -89,7 +76,7 @@ const handleSubmit = async(form: { email: string, password: string }) => {
         // And change profile role to 'invited'
         // Firebase will check if the token is valid
         const token = getInvitiationToken()
-        if (token) {
+        if (token && token !== '') {
             await changeRoleToInvited(token).catch((error: { message: string }) => {
                 toast.add({
                     severity: 'error',
