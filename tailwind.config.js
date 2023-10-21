@@ -2,12 +2,12 @@
 
 module.exports = {
     content: [
-        './src/**/*.{vue,js,ts,jsx,tsx}',
-        './nuxt.config.{js,ts}',
         './index.html',
+        './nuxt.config.{js,ts}',
+        './src/**/*.{vue,js,ts,jsx,tsx}',
         './node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}'
     ],
-    important: true,
+    // important: true, // Disabled so it works better with PrimeVue CSS
     theme: {
         extend: {}
     },
@@ -17,6 +17,3 @@ module.exports = {
     //     preflight: false
     // }
 }
-
-
-
