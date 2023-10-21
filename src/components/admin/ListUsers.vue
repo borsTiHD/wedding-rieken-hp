@@ -103,9 +103,7 @@
                     </Column>
                     <Column field="invitation" :header="t('admin.listUsers.tableHeader.invitationState')" sortable>
                         <template #body="slotProps">
-                            <InlineMessage v-if="slotProps.data.invitation" :severity="getInvitationStatusSeverity(slotProps.data.invitation)">
-                                {{ getInvitationStatus(slotProps.data.invitation) }}
-                            </InlineMessage>
+                            <InlineMessage v-if="slotProps.data.invitation" v-tooltip.bottom="getInvitationStatus(slotProps.data.invitation)" :severity="getInvitationStatusSeverity(slotProps.data.invitation)" />
                             <span v-else>-</span>
                         </template>
                     </Column>
@@ -250,9 +248,9 @@ const filters = ref({
 
 // Return invitation status for user
 const getInvitationStatus = (invitation: string) => {
-    if (invitation === 'pending') return t('user.invitation.stateNoReponseShort')
-    if (invitation === 'accepted') return t('user.invitation.stateAcceptedShort')
-    if (invitation === 'declined') return t('user.invitation.stateDeclinedShort')
+    if (invitation === 'pending') return t('user.invitation.stateNoReponse')
+    if (invitation === 'accepted') return t('user.invitation.stateAccepted')
+    if (invitation === 'declined') return t('user.invitation.stateDeclined')
     return t('user.invitation.stateNoInvitation')
 }
 
