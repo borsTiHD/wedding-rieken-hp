@@ -91,7 +91,7 @@ const props = defineProps({
     },
     style: {
         type: [String, Object],
-        default: () => { return { width: '50vw' } }
+        default: () => { return { width: '30vw', minWidth: 'fit-content', maxWidth: '40rem' } }
     },
     breakpoints: {
         type: Object,
