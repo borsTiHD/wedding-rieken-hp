@@ -129,6 +129,9 @@
                         <ChangeLanguage />
                     </div>
 
+                    <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
+                    <UpgradeUserRole v-if="userProfile.role === 'guest' && token && token !== ''" class="basis-1/2" />
+
                     <div class="flex gap-2 w-full">
                         <!-- Change Password -->
                         <DisplayModal
@@ -179,6 +182,7 @@
 import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
 import LogoutUser from '@/components/user/LogoutUser.vue'
+import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePhone from '@/components/user/ChangePhone.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
@@ -188,6 +192,7 @@ import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
 import DeleteUser from '@/components/user/DeleteUser.vue'
 import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
+import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useUserStore } from '@/stores/user'
 
 // Composables
@@ -232,6 +237,10 @@ const userRole = computed(() => {
     if (role === 'declined') return t('user.userRole.declinedRole')
     return t('user.userRole.noRole')
 })
+
+// Invitation token
+const { getInvitiationToken } = useInvitiationToken()
+const token = computed(() => getInvitiationToken())
 
 // Email verification
 const loadingEmailVerify = ref(false)

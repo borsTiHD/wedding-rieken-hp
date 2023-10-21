@@ -211,6 +211,13 @@
             "declinedRole": "Abgelehnter Gast",
             "noRole": "Keine Rolle",
             "notAdmin": "Sie sollten nicht hier sein, Sie sind kein Administrator... 🤓✌️\nBooooooh! 👻"
+        },
+        "upgradeUserRole": {
+            "submit": "Einladungstoken aktivieren",
+            "error": "Fehler beim Aktivieren des Einladungstokens",
+            "noToken": "Kein Einladungstoken vorhanden",
+            "success": "Einladungstoken aktiviert",
+            "successDetail": "Sie haben Ihren Einladungstoken erfolgreich aktiviert"
         }
     },
     "countdown":{
