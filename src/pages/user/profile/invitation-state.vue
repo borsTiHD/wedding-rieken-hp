@@ -2,7 +2,12 @@
     <Card>
         <template #content>
             <div class="flex flex-col gap-4">
-                <span>IAM A CHILD - FOURTH PAGE</span>
+                <!-- Welcome box -->
+                <div class="flex flex-col gap-4">
+                    <h1 class="text-4xl">{{ t('profileStepper.invitationState.header') }}</h1>
+                    <p>{{ t('profileStepper.invitationState.text') }}</p>
+                </div>
+
                 <span>TODO: Invitation State (annehmen/ablehnen)</span>
                 <span>TODO: Additional Guests</span>
 
@@ -23,4 +28,7 @@ definePageMeta({
 // Emit events to parent to navigate between pages
 const emit = defineEmits(['prev-page', 'complete-page'])
 const navPage = (to: 'prev' | 'complete') => emit(`${to}-page`)
+
+// Localisation
+const { t } = useI18n()
 </script>
