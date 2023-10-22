@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!user.uid" class="flex flex-col gap-4">
+    <div v-if="!uid" class="flex flex-col gap-4">
         <h1 class="text-2xl">{{ t('register.header') }}:</h1>
         <RegisterForm />
     </div>
@@ -20,5 +20,5 @@ const { t } = useI18n()
 
 // User store
 const userStore = useUserStore()
-const user = computed(() => userStore.user)
+const uid = computed(() => userStore.uid)
 </script>
