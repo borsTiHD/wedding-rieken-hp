@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { MenuItem } from 'primevue/menuitem'
 
 export const usePagesStore = defineStore('pages-store', () => {
     // Localisation
@@ -6,7 +7,7 @@ export const usePagesStore = defineStore('pages-store', () => {
     const localePath = useLocalePath()
 
     // Pages for the navigation bar
-    const pages = computed(() => [
+    const pages = computed<MenuItem[]>(() => [
         { name: t('pages.home'), path: localePath('/') },
         { name: t('pages.login'), path: localePath('/login') },
         { name: t('pages.register'), path: localePath('/register')  },
