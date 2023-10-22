@@ -60,6 +60,7 @@
         }
     },
     "profileStepper": {
+        "stateComplete": "Fertig",
         "buttons": {
             "next": "Weiter",
             "back": "Zurück",

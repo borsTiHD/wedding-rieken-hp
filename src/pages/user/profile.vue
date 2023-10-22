@@ -16,7 +16,7 @@
                         <NuxtLink v-slot="routerProps" :to="{ path: item.route }" custom>
                             <a :href="routerProps.href" v-bind="props.action" @click="($event) => routerProps.navigate($event)" @keydown.enter="($event) => routerProps.navigate($event)">
                                 <span v-bind="props.step">{{ index + 1 }}</span>
-                                <span v-bind="props.label">{{ label }}</span>
+                                <span v-bind="props.label">{{ label }} <i v-if="checkState(index)" v-tooltip.bottom="t('profileStepper.stateComplete')" class="pi pi-verified text-green-600" /></span>
                             </a>
                         </NuxtLink>
                     </template>
@@ -80,9 +80,41 @@ const prevPage = () => { router.push(items.value[currentPageIndex.value - 1].rou
 
 // Complete the stepper
 const complete = () => {
+    // TODO: Implement completion logic
     console.log('complete')
 }
 
-// TODO: Check the state of the profile completion
-// Push to the specific route/state if not completed
+// Check if the state of the page is complete
+const checkState = (index: number) => {
+    // Get the page from the items array
+    const page = items.value[index]
+
+    // TODO: Check the state of the profile completion
+    // Push to the specific route/state if not completed
+
+    // Define a mapping of page labels to check functions
+    const pageChecks: Record<string, () => boolean> = {
+        [t('profileStepper.index.header')]: () => !!uid.value,
+        [t('profileStepper.userInformation.header')]: () => {
+            // Implement checks for user information completeness and return true/false
+            return false
+        },
+        [t('profileStepper.profilePicture.header')]: () => {
+            // Implement checks for profile picture completeness and return true/false
+            return false
+        },
+        [t('profileStepper.invitationState.header')]: () => {
+            // Implement checks for invitation state and return true/false
+            return false
+        }
+    }
+
+    // Check if the page label exists in the mapping, and if it does, call the corresponding check function
+    if (typeof page?.label === 'string' && page.label in pageChecks) {
+        return pageChecks[page.label]()
+    }
+
+    // Return false if no checks are defined for the page
+    return false
+}
 </script>
