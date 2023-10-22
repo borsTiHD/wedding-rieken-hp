@@ -8,8 +8,8 @@
                     <p>{{ t('profileStepper.index.text') }}</p>
                 </div>
 
-                <!-- User not logged in -->
-                <div v-if="!uid" class="flex flex-col gap-4">
+                <!-- State incomplete -->
+                <div v-if="!checkState" class="flex flex-col gap-4">
                     <h1 class="text-2xl">{{ t('login.notLoggedIn') }}:</h1>
                     <p class="flex flex-col">
                         <i18n-t keypath="profileStepper.index.loginLink" tag="span">
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="flex">
-                    <Button :label="t('profileStepper.buttons.next')" class="ml-auto" :disabled="!uid" @click="navPage('next')" />
+                    <Button :label="t('profileStepper.buttons.next')" class="ml-auto" :disabled="!checkState" @click="navPage('next')" />
                 </div>
             </div>
         </template>
@@ -34,8 +34,6 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/user'
-
 definePageMeta({
     key: (route) => route.fullPath
 })
@@ -48,7 +46,7 @@ const navPage = (to: 'next') => emit(`${to}-page`)
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-// User store
-const userStore = useUserStore()
-const uid = computed(() => userStore.uid)
+// Check completion state of this page
+const { checker } = useProfileChecker()
+const checkState = computed(() => checker(t('profileStepper.index.header')))
 </script>

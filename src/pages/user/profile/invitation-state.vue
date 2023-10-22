@@ -2,14 +2,18 @@
     <Card>
         <template #content>
             <div class="flex flex-col gap-4">
-                <!-- Welcome box -->
-                <div class="flex flex-col gap-4">
-                    <h1 class="text-4xl">{{ t('profileStepper.invitationState.header') }}</h1>
+                <!-- Header -->
+                <h1 class="text-4xl">{{ t('profileStepper.invitationState.header') }}</h1>
+
+                <!-- State incomplete -->
+                <div v-if="!checkState" class="flex flex-col gap-4">
                     <p>{{ t('profileStepper.invitationState.text') }}</p>
+                    <span>TODO: Invitation State (annehmen/ablehnen)</span>
+                    <span>TODO: Additional Guests</span>
                 </div>
 
-                <span>TODO: Invitation State (annehmen/ablehnen)</span>
-                <span>TODO: Additional Guests</span>
+                <!-- State complete -->
+                <p v-else>{{ t('profileStepper.invitationState.textComplete') }}</p>
 
                 <div class="flex">
                     <Button label="Prev page" @click="navPage('prev')" />
@@ -31,4 +35,8 @@ const navPage = (to: 'prev' | 'complete') => emit(`${to}-page`)
 
 // Localisation
 const { t } = useI18n()
+
+// Check completion state of this page
+const { checker } = useProfileChecker()
+const checkState = computed(() => checker(t('profileStepper.invitationState.header')))
 </script>

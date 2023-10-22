@@ -76,15 +76,18 @@
         },
         "userInformation": {
             "header": "Profil",
-            "text": "Bitte vervollständigen Sie Ihre Benutzerinformationen."
+            "text": "Bitte vervollständigen Sie Ihre Benutzerinformationen.",
+            "textComplete": "Ihre Benutzerinformationen sind vollständig."
         },
         "profilePicture": {
             "header": "Profilbild",
-            "text": "Bitte laden Sie ein Profilbild hoch."
+            "text": "Bitte laden Sie ein Profilbild hoch.",
+            "textComplete": "Ihr Profilbild wurde hochgeladen."
         },
         "invitationState": {
             "header": "Einladung",
-            "text": "Bitte bestätigen Sie Ihre Einladung. Wenn Sie zusätzliche Gäste mitbringen möchten, geben Sie diese bitte an."
+            "text": "Bitte bestätigen Sie Ihre Einladung. Wenn Sie zusätzliche Gäste mitbringen möchten, geben Sie diese bitte an.",
+            "textComplete": "Sie haben Ihre Einladung bestätigt."
         }
     },
     "user": {

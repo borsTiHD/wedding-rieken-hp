@@ -2,13 +2,17 @@
     <Card>
         <template #content>
             <div class="flex flex-col gap-4">
-                <!-- Welcome box -->
-                <div class="flex flex-col gap-4">
-                    <h1 class="text-4xl">{{ t('profileStepper.profilePicture.header') }}</h1>
+                <!-- Header -->
+                <h1 class="text-4xl">{{ t('profileStepper.profilePicture.header') }}</h1>
+
+                <!-- State incomplete -->
+                <div v-if="!checkState" class="flex flex-col gap-4">
                     <p>{{ t('profileStepper.profilePicture.text') }}</p>
+                    <span>TODO: Check Profilbild</span>
                 </div>
 
-                <span>TODO: Check Profilbild</span>
+                <!-- State complete -->
+                <p v-else>{{ t('profileStepper.profilePicture.textComplete') }}</p>
 
                 <div class="flex">
                     <Button label="Prev page" @click="navPage('prev')" />
@@ -30,4 +34,8 @@ const navPage = (to: 'next' | 'prev') => emit(`${to}-page`)
 
 // Localisation
 const { t } = useI18n()
+
+// Check completion state of this page
+const { checker } = useProfileChecker()
+const checkState = computed(() => checker(t('profileStepper.profilePicture.header')))
 </script>
