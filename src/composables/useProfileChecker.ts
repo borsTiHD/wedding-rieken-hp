@@ -6,9 +6,17 @@ export default function() {
     const { $i18n } = useNuxtApp()
     const t = $i18n.t
 
-    // User store
+    // User store values
     const userStore = useUserStore()
     const uid = computed(() => userStore.uid)
+    const displayName = computed(() => userStore.displayName)
+    const email = computed(() => userStore.email)
+    const photoURL = computed(() => userStore.photoURL)
+    const emailVerified = computed(() => userStore.emailVerified)
+    const userProfile = computed(() => userStore.userProfile)
+    const phoneNumber = computed(() => userProfile.value?.phoneNumber)
+    const invitationState = computed(() => userProfile.value?.invitation)
+    const role = computed(() => userProfile.value?.role)
 
     // Checker
     function checker(pageLabel: string) {
@@ -19,16 +27,16 @@ export default function() {
         const pageChecks: Record<string, () => boolean> = {
             [t('profileStepper.index.header')]: () => !!uid.value,
             [t('profileStepper.userInformation.header')]: () => {
-                // Implement checks for user information completeness and return true/false
-                return false
+                // Need to check if the user has a display name, email, email verified and phone number
+                return !!displayName.value && !!email.value && !!emailVerified.value && !!phoneNumber.value
             },
             [t('profileStepper.profilePicture.header')]: () => {
-                // Implement checks for profile picture completeness and return true/false
-                return false
+                // Need to check if the user has a profile picture
+                return !!photoURL.value
             },
             [t('profileStepper.invitationState.header')]: () => {
-                // Implement checks for invitation state and return true/false
-                return false
+                // Need to check if the user has an invitation state and role is 'invited'
+                return !!invitationState.value && role.value === 'invited'
             }
         }
 
