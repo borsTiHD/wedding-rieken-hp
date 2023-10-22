@@ -10,10 +10,20 @@
                     <p>{{ t('profileStepper.invitationState.text') }}</p>
                     <span>TODO: Invitation State (annehmen/ablehnen)</span>
                     <span>TODO: Additional Guests</span>
+
+                    <span>invitationState: {{ invitationState }}</span>
+                    <span>role: {{ role }}</span>
+                    <span>additionalGuests: {{ additionalGuests }}</span>
                 </div>
 
                 <!-- State complete -->
-                <p v-else>{{ t('profileStepper.invitationState.textComplete') }}</p>
+                <div v-else class="flex flex-col gap-4">
+                    <p>{{ t('profileStepper.invitationState.textComplete') }}</p>
+
+                    <span>invitationState: {{ invitationState }}</span>
+                    <span>role: {{ role }}</span>
+                    <span>additionalGuests: {{ additionalGuests }}</span>
+                </div>
 
                 <div class="flex">
                     <Button label="Prev page" @click="navPage('prev')" />
@@ -25,6 +35,8 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from '@/stores/user'
+
 definePageMeta({
     key: (route) => route.fullPath
 })
@@ -39,4 +51,12 @@ const { t } = useI18n()
 // Check completion state of this page
 const { checker } = useProfileChecker()
 const checkState = computed(() => checker(t('profileStepper.invitationState.header')))
+
+
+// User store
+const userStore = useUserStore()
+const userProfile = computed(() => userStore.userProfile)
+const invitationState = computed(() => userProfile.value?.invitation)
+const role = computed(() => userProfile.value?.role)
+const additionalGuests = computed(() => userProfile.value?.additionalGuests)
 </script>

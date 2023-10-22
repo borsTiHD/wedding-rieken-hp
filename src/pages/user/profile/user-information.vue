@@ -9,10 +9,51 @@
                 <div v-if="!checkState" class="flex flex-col gap-4">
                     <p>{{ t('profileStepper.userInformation.text') }}</p>
                     <span>TODO: Check Email (+ verification), Name and Phone</span>
+
+                    <span>Email: {{ email }}
+                        <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
+
+                        <!-- Email verification button -->
+                        <span v-else>NOT VERIFIED</span>
+                        <!-- <Button
+                            v-else
+                            v-tooltip.bottom="t('user.email.tooltipPlzVerifie')"
+                            :aria-label="t('user.email.verifieAriaLabel')"
+                            icon="pi pi-exclamation-circle"
+                            outlined
+                            class="p-0"
+                            :loading="loadingEmailVerify"
+                            @click.prevent="handleVerifyEmail"
+                        /> -->
+                    </span>
+                    <span>Name: {{ displayName }}</span>
+                    <span>Phone: {{ phoneNumber }}</span>
                 </div>
 
                 <!-- State complete -->
-                <p v-else>{{ t('profileStepper.userInformation.textComplete') }}</p>
+                <!-- State complete -->
+                <div v-else class="flex flex-col gap-4">
+                    <p>{{ t('profileStepper.userInformation.textComplete') }}</p>
+
+                    <span>Email: {{ email }}
+                        <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
+
+                        <!-- Email verification button -->
+                        <span v-else>NOT VERIFIED</span>
+                        <!-- <Button
+                            v-else
+                            v-tooltip.bottom="t('user.email.tooltipPlzVerifie')"
+                            :aria-label="t('user.email.verifieAriaLabel')"
+                            icon="pi pi-exclamation-circle"
+                            outlined
+                            class="p-0"
+                            :loading="loadingEmailVerify"
+                            @click.prevent="handleVerifyEmail"
+                        /> -->
+                    </span>
+                    <span>Name: {{ displayName }}</span>
+                    <span>Phone: {{ phoneNumber }}</span>
+                </div>
 
                 <div class="flex">
                     <Button label="Prev page" @click="navPage('prev')" />
@@ -24,6 +65,8 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from '@/stores/user'
+
 definePageMeta({
     key: (route) => route.fullPath
 })
@@ -38,4 +81,12 @@ const { t } = useI18n()
 // Check completion state of this page
 const { checker } = useProfileChecker()
 const checkState = computed(() => checker(t('profileStepper.userInformation.header')))
+
+// User store
+const userStore = useUserStore()
+const displayName = computed(() => userStore.displayName)
+const email = computed(() => userStore.email)
+const emailVerified = computed(() => userStore.emailVerified)
+const userProfile = computed(() => userStore.userProfile)
+const phoneNumber = computed(() => userProfile.value?.phoneNumber)
 </script>
