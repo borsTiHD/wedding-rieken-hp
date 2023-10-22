@@ -24,7 +24,7 @@
         "alreadyLoggedIn": "Sie sind bereits eingeloggt",
         "notLoggedIn": "Sie sind nicht eingeloggt",
         "tryingToLogin": "Versuche einzuloggen...",
-        "loginLink": "Klicke {action} um dich einloggen.",
+        "loginLink": "Klicke {action} um dich einzuloggen.",
         "loginLinkTag": "hier",
         "loginWithMailSend": "Sie haben eine E-Mail mit einem Login-Link erhalten",
         "emailSend": "E-Mail gesendet",
