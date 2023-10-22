@@ -1,7 +1,7 @@
 <template>
     <Card :pt="ptCard">
         <template #content>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center gap-4">
                 <!-- User avatar with edit icon on mouse hover -->
                 <div class="relative inline-block">
                     <Avatar
@@ -41,6 +41,9 @@
                         <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
                     </div>
                 </div>
+
+                <!-- Profile progress with link -->
+                <DisplayProfileProgress class="ml-auto" />
             </div>
         </template>
     </Card>
@@ -48,6 +51,7 @@
 
 <script setup lang="ts">
 import DisplayModal from '@/components/DisplayModal.vue'
+import DisplayProfileProgress from '@/components/user/DisplayProfileProgress.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
 import { useUserStore } from '@/stores/user'
 
@@ -76,4 +80,7 @@ const ptCard = {
         class: 'p-0'
     }
 }
+
+// TODO: Add a completion check for every state and make a progress circle
+// Also add a linkt to the profile completion stepper if the profile is not complete
 </script>
