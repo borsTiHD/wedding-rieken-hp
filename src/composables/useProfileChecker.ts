@@ -36,7 +36,7 @@ export default function() {
             },
             [t('profileStepper.invitationState.header')]: () => {
                 // Need to check if the user has an invitation state and role is 'invited'
-                return !!invitationState.value && role.value === 'invited'
+                return ['declined', 'accepted'].includes(invitationState.value) && role.value === 'invited'
             }
         }
 

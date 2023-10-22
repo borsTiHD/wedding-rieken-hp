@@ -12,7 +12,7 @@
                     <span>TODO: Additional Guests</span>
 
                     <span>invitationState: {{ invitationState }}</span>
-                    <span>role: {{ role }}</span>
+                    <span>role need to be invited: {{ role }}</span>
                     <span>additionalGuests: {{ additionalGuests }}</span>
                 </div>
 
