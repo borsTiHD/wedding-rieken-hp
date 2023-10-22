@@ -4,7 +4,7 @@
         <h1 class="text-2xl">{{ t('login.notLoggedIn') }}</h1>
         <i18n-t keypath="login.loginLink" tag="span">
             <template #action>
-                <NuxtLink to="login" class="font-medium text-blue-600">{{ t('login.loginLinkTag') }}</NuxtLink>
+                <NuxtLink :to="localePath('/login')" class="font-medium text-blue-600">{{ t('login.loginLinkTag') }}</NuxtLink>
             </template>
         </i18n-t>
     </div>
@@ -26,6 +26,7 @@ import { useUserStore } from '@/stores/user'
 
 // Localisation
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 // User store
 const userStore = useUserStore()

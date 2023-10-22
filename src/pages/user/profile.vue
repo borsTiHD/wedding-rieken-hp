@@ -35,6 +35,9 @@
 <script setup lang="ts">
 import { MenuItem } from 'primevue/menuitem'
 
+// Localisation
+const localePath = useLocalePath()
+
 // Composables
 const route = useRoute()
 const router = useRouter()
@@ -43,19 +46,19 @@ const router = useRouter()
 const items = ref<MenuItem[]>([
     {
         label: 'Registration',
-        route: '/user/profile'
+        route: localePath('/user/profile')
     },
     {
         label: 'Profil',
-        route: '/user/profile/second-page'
+        route: localePath('/user/profile/second-page')
     },
     {
         label: 'Profilbild',
-        route: '/user/profile/third-page'
+        route: localePath('/user/profile/third-page')
     },
     {
         label: 'Einladungsstatus',
-        route: '/user/profile/fourth-page'
+        route: localePath('/user/profile/fourth-page')
     }
 ])
 
