@@ -4,8 +4,8 @@
             <template #content>
                 <Steps
                     :model="items"
-                    aria-label="Form Steps"
-                    :readonly="false"
+                    aria-label="Profile Steps"
+                    :readonly="!uid"
                     :pt="{
                         menuitem: ({ context }) => ({
                             class: isActive(context.item) && 'p-highlight p-steps-current'
@@ -34,31 +34,37 @@
 
 <script setup lang="ts">
 import { MenuItem } from 'primevue/menuitem'
+import { useUserStore } from '@/stores/user'
 
 // Localisation
+const { t } = useI18n()
 const localePath = useLocalePath()
 
 // Composables
 const route = useRoute()
 const router = useRouter()
 
+// User store
+const userStore = useUserStore()
+const uid = computed(() => userStore.uid)
+
 // Menu items
 const items = ref<MenuItem[]>([
     {
-        label: 'Registration',
+        label: t('profileStepper.index.header'),
         route: localePath('/user/profile')
     },
     {
-        label: 'Profil',
-        route: localePath('/user/profile/second-page')
+        label: t('profileStepper.userInformation.header'),
+        route: localePath('/user/profile/user-information')
     },
     {
-        label: 'Profilbild',
-        route: localePath('/user/profile/third-page')
+        label: t('profileStepper.profilePicture.header'),
+        route: localePath('/user/profile/profile-picture')
     },
     {
-        label: 'Einladungsstatus',
-        route: localePath('/user/profile/fourth-page')
+        label: t('profileStepper.invitationState.header'),
+        route: localePath('/user/profile/invitation-state')
     }
 ])
 

@@ -59,6 +59,32 @@
             "labelPasswordHelp": "Bitte geben Sie Ihr Passwort ein"
         }
     },
+    "profileStepper": {
+        "buttons": {
+            "next": "Weiter",
+            "back": "Zurück",
+            "complete": "Fertig"
+        },
+        "index": {
+            "header": "Willkommen",
+            "text": "Bitte vervollständigen Sie Ihr Profil, um die Einladung zu bestätigen. Sie können Ihre Daten auch zu einem späteren Zeitpunkt anpassen.",
+            "loginLink": "Klicke {action} um dich einzuloggen.",
+            "registerLink": "Oder klicke {action} um dich zu registrieren.",
+            "linkTag": "hier"
+        },
+        "userInformation": {
+            "header": "Profil",
+            "text": "Bitte vervollständigen Sie Ihre Benutzerinformationen."
+        },
+        "profilePicture": {
+            "header": "Profilbild",
+            "text": "Bitte laden Sie ein Profilbild hoch."
+        },
+        "invitationState": {
+            "header": "Einladung",
+            "text": "Bitte bestätigen Sie Ihre Einladung. Wenn Sie zusätzliche Gäste mitbringen möchten, geben Sie diese bitte an."
+        }
+    },
     "user": {
         "noName": "Kein Name",
         "welcome": "Willkommen {name}",
