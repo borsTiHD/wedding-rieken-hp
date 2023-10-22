@@ -1,8 +1,10 @@
 <template>
-    <div class="app-wrapper">
+    <LoadingOverlay v-if="loading" :progress="progress" />
+    <div v-else class="app-wrapper">
         <Toast position="bottom-right" />
-        <LoadingOverlay v-if="loading" :progress="progress" />
-        <main v-else class="p-4 mx-auto flex flex-col gap-4" :class="mainClasses">
+
+        <AppNavbar />
+        <main class="p-4 mx-auto flex flex-col gap-4" :class="mainClasses">
             <NuxtPage />
         </main>
     </div>
@@ -10,6 +12,7 @@
 
 <script setup lang="ts">
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
+import AppNavbar from '@/components/layout/AppNavbar.vue'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useAppStore } from '@/stores/app'

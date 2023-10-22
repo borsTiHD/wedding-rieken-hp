@@ -23,6 +23,7 @@ import Tag from 'primevue/tag'
 import Dropdown from 'primevue/dropdown'
 import ConfirmPopup from 'primevue/confirmpopup'
 import Steps from 'primevue/steps'
+import Menubar from 'primevue/menubar'
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true })
@@ -57,4 +58,5 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Dropdown', Dropdown)
     nuxtApp.vueApp.component('ConfirmPopup', ConfirmPopup)
     nuxtApp.vueApp.component('Steps', Steps)
+    nuxtApp.vueApp.component('Menubar', Menubar)
 })

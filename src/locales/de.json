@@ -2,6 +2,14 @@
     "general": {
         "inputDateFormat": "dd.mm.yy"
     },
+    "pages": {
+        "home": "Home",
+        "admin": "Admin",
+        "login": "Login",
+        "register": "Registrieren",
+        "user": "Benutzer",
+        "profile": "Profil"
+    },
     "buttons": {
         "submit": "Speichern",
         "yes": "Ja",
