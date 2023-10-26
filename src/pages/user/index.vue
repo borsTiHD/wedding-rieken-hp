@@ -1,8 +1,8 @@
 <template>
-    <Card>
+    <Card v-if="!uid">
         <template #content>
             <!-- User not logged in -->
-            <div v-if="!uid" class="flex flex-col gap-4">
+            <div class="flex flex-col gap-4">
                 <h1 class="text-2xl">{{ t('login.notLoggedIn') }}</h1>
                 <i18n-t keypath="login.loginLink" tag="span">
                     <template #action>
@@ -10,17 +10,17 @@
                     </template>
                 </i18n-t>
             </div>
-
-            <!-- User Details -->
-            <div v-else class="flex flex-col gap-4">
-                <!-- User profile picture -->
-                <DisplayAvatar />
-
-                <!-- User information -->
-                <DisplayUserprofile />
-            </div>
         </template>
     </Card>
+
+    <!-- User Details -->
+    <div v-else class="flex flex-col gap-4">
+        <!-- User profile picture -->
+        <DisplayAvatar />
+
+        <!-- User information -->
+        <DisplayUserprofile />
+    </div>
 </template>
 
 <script setup lang="ts">
