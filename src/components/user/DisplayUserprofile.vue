@@ -4,7 +4,7 @@
         <template #content>
             <ul class="flex flex-col gap-2">
                 <!-- Display name -->
-                <li v-tooltip.top="t('user.displayName.tooltip')" class="custom-list-item cursor-pointer" @click="displayNameModal?.open()">
+                <li v-tooltip.top="t('user.displayName.tooltip')" class="profile-list-item cursor-pointer" @click="displayNameModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.displayName.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -23,7 +23,7 @@
                 </li>
 
                 <!-- Email -->
-                <li v-tooltip.top="t('user.email.tooltip')" class="custom-list-item cursor-pointer" @click="emailModal?.open()">
+                <li v-tooltip.top="t('user.email.tooltip')" class="profile-list-item cursor-pointer" @click="emailModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.email.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -54,7 +54,7 @@
                 </li>
 
                 <!-- Phone -->
-                <li v-tooltip.top="t('user.phone.tootlip')" class="custom-list-item cursor-pointer" @click="phoneModal?.open()">
+                <li v-tooltip.top="t('user.phone.tootlip')" class="profile-list-item cursor-pointer" @click="phoneModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.phone.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -73,7 +73,7 @@
                 </li>
 
                 <!-- Additional guests -->
-                <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="custom-list-item cursor-pointer" @click="additionalGuestsModal?.open()">
+                <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="profile-list-item cursor-pointer" @click="additionalGuestsModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.additionalGuests.header') }}</h2>
                         <span>{{ userProfile.additionalGuests }}</span>
@@ -89,7 +89,7 @@
                 </li>
 
                 <!-- Invitation status -->
-                <li v-tooltip.top="t('user.invitation.tooltip')" class="custom-list-item cursor-pointer" @click="invitationModal?.open()">
+                <li v-tooltip.top="t('user.invitation.tooltip')" class="profile-list-item cursor-pointer" @click="invitationModal?.open()">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.invitation.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -110,7 +110,7 @@
                 </li>
 
                 <!-- User role -->
-                <li class="custom-list-item">
+                <li class="profile-list-item">
                     <div class="flex flex-col">
                         <h2 class="text-xl font-semibold">{{ t('user.userRole.header') }}</h2>
                         <div class="flex items-center gap-2">
@@ -274,9 +274,3 @@ const handleVerifyEmail = async() => {
     loadingEmailVerify.value = false
 }
 </script>
-
-<style scoped>
-.custom-list-item {
-    @apply flex items-center justify-between border-b-2 mb-2 pb-2 !important;
-}
-</style>

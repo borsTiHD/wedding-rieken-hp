@@ -72,4 +72,9 @@ body {
     --tw-bg-opacity: 1 !important;
     background-color: rgb(243 244 246 / var(--tw-bg-opacity)) !important;
 }
+
+/* Profile list items */
+.profile-list-item {
+    @apply flex items-center justify-between border-b-2 mb-2 pb-2 !important;
+}
 </style>
