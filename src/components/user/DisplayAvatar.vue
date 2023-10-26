@@ -36,10 +36,7 @@
                     <h1 class="text-2xl font-semibold">{{ displayName ? t('user.welcome', { name: displayName }) : t('user.noName') }}</h1>
 
                     <!-- Email Address -->
-                    <div class="flex items-center gap-2">
-                        <p class="text-gray-600">{{ email }}</p>
-                        <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
-                    </div>
+                    <span class="text-gray-600">{{ email }}</span>
                 </div>
 
                 <!-- Profile progress with link -->
@@ -68,7 +65,6 @@ const userStore = useUserStore()
 // User data from store
 const displayName = computed(() => userStore.displayName)
 const email = computed(() => userStore.email)
-const emailVerified = computed(() => userStore.emailVerified)
 const photoURL = computed(() => userStore.photoURL)
 
 // Card pass-through props
@@ -80,7 +76,4 @@ const ptCard = {
         class: 'p-0'
     }
 }
-
-// TODO: Add a completion check for every state and make a progress circle
-// Also add a linkt to the profile completion stepper if the profile is not complete
 </script>
