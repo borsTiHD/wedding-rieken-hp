@@ -210,6 +210,9 @@
             "success": "Foto hochgeladen",
             "successDetail": "Sie haben Ihr Profilbild erfolgreich geändert"
         },
+        "profileProgress": {
+            "tooltip": "Klicken um Profil zu vervollständigen"
+        },
         "phone": {
             "header": "Telefonnummer",
             "headerModal": "Telefonnummer ändern",
