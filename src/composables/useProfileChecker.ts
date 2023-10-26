@@ -18,36 +18,34 @@ export default function() {
     const invitationState = computed(() => userProfile.value?.invitation)
     const role = computed(() => userProfile.value?.role)
 
-    // Checker
+    // Array with all possible checks
+    const allChecks = [
+        {
+            label: t('profileStepper.index.header'),
+            check: () => !!uid.value
+        },
+        {
+            label: t('profileStepper.userInformation.header'),
+            check: () => !!displayName.value && !!email.value && !!emailVerified.value && !!phoneNumber.value
+        },
+        {
+            label: t('profileStepper.profilePicture.header'),
+            check: () => !!photoURL.value
+        },
+        {
+            label: t('profileStepper.invitationState.header'),
+            check: () => ['declined', 'accepted'].includes(invitationState.value) && role.value === 'invited'
+        }
+    ]
+
+    // Checker function that returns true if the corresponding check function returns true
     function checker(pageLabel: string) {
-        // TODO: Check the state of the profile completion
-        // Push to the specific route/state if not completed
+        // Find the corresponding check function in the array
+        const checkFunction = allChecks.find((check) => check.label === pageLabel)
 
-        // Define a mapping of page labels to check functions
-        const pageChecks: Record<string, () => boolean> = {
-            [t('profileStepper.index.header')]: () => !!uid.value,
-            [t('profileStepper.userInformation.header')]: () => {
-                // Need to check if the user has a display name, email, email verified and phone number
-                return !!displayName.value && !!email.value && !!emailVerified.value && !!phoneNumber.value
-            },
-            [t('profileStepper.profilePicture.header')]: () => {
-                // Need to check if the user has a profile picture
-                return !!photoURL.value
-            },
-            [t('profileStepper.invitationState.header')]: () => {
-                // Need to check if the user has an invitation state and role is 'invited'
-                return ['declined', 'accepted'].includes(invitationState.value) && role.value === 'invited'
-            }
-        }
-
-        // Check if the page label exists in the mapping, and if it does, call the corresponding check function
-        if (pageLabel in pageChecks) {
-            return pageChecks[pageLabel]()
-        }
-
-        // Return false if no checks are defined for the page
-        return false
+        // If found, call the check function; otherwise, return false
+        return checkFunction ? checkFunction.check() : false
     }
 
-    return { checker }
+    return { checker, allChecks }
 }
