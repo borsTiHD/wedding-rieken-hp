@@ -154,8 +154,6 @@ type User = {
 // Refs
 const createUserModal = ref<InstanceType<typeof DisplayModal>>()
 
-// TODO: Missing action - admin can invite or decline users
-
 // Composables
 const toast = useToast()
 const { t } = useI18n()
