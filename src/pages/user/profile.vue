@@ -84,10 +84,8 @@ const nextPage = () => { router.push(items.value[currentPageIndex.value + 1].rou
 const prevPage = () => { router.push(items.value[currentPageIndex.value - 1].route) }
 
 // Complete the stepper
-const complete = () => {
-    // TODO: Implement completion logic
-    console.log('complete')
-}
+// This will link to the user profile page
+const complete = () => { router.push(localePath('/user')) }
 
 // Check if the state of the page is complete
 const checkState = (index: number) => {
