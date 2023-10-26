@@ -71,7 +71,7 @@
                     <Column field="photoURL" :header="t('admin.listUsers.tableHeader.avatar')">
                         <template #body="slotProps">
                             <img v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" class="h-16 w-16 object-cover shadow-md rounded-md">
-                            <div v-else class="h-16 w-16 shadow-md rounded-md bg-gray-200 flex items-center">
+                            <div v-else class="h-16 w-16 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
                                 <span class="text-gray-400 text-center">No Avatar</span>
                             </div>
                         </template>
