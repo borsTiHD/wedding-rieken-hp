@@ -1,20 +1,24 @@
 <template>
-    <div v-if="!user.uid" class="flex flex-col gap-4">
-        <h1 class="text-2xl">{{ t('login.header') }}:</h1>
-        <TabView v-model:activeIndex="activeIndex">
-            <TabPanel :header="t('login.header')">
-                <LoginForm />
-            </TabPanel>
-            <TabPanel :header="t('login.wihtoutPassword')">
-                <LoginWithEmailLink />
-            </TabPanel>
-        </TabView>
-    </div>
+    <Card>
+        <template #content>
+            <div v-if="!user.uid" class="flex flex-col gap-4">
+                <h1 class="text-2xl">{{ t('login.header') }}:</h1>
+                <TabView v-model:activeIndex="activeIndex">
+                    <TabPanel :header="t('login.header')">
+                        <LoginForm />
+                    </TabPanel>
+                    <TabPanel :header="t('login.wihtoutPassword')">
+                        <LoginWithEmailLink />
+                    </TabPanel>
+                </TabView>
+            </div>
 
-    <div v-else class="flex flex-col gap-4">
-        <h1 class="text-2xl">{{ t('login.alreadyLoggedIn') }}:</h1>
-        <LogoutUser />
-    </div>
+            <div v-else class="flex flex-col gap-4">
+                <h1 class="text-2xl">{{ t('login.alreadyLoggedIn') }}:</h1>
+                <LogoutUser />
+            </div>
+        </template>
+    </Card>
 </template>
 
 <script setup lang="ts">

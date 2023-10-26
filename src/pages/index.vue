@@ -1,8 +1,12 @@
 <template>
-    <div class="flex flex-col gap-4">
-        <ShowCountdown :timestamp="config?.weddingDate" />
-        <DateDisplay :timestamp="config?.weddingDate" />
-    </div>
+    <Card>
+        <template #content>
+            <div class="flex flex-col gap-4">
+                <ShowCountdown :timestamp="config?.weddingDate" />
+                <DateDisplay :timestamp="config?.weddingDate" />
+            </div>
+        </template>
+    </Card>
 </template>
 
 <script setup lang="ts">
