@@ -3,31 +3,77 @@
         <template #content>
             <div class="flex flex-col gap-4">
                 <!-- Header -->
-                <h1 class="text-4xl">{{ t('profileStepper.invitationState.header') }}</h1>
+                <div class="flex gap-4">
+                    <h1 class="text-4xl">{{ t('profileStepper.invitationState.header') }}</h1>
+                    <i v-if="checkState" v-tooltip.bottom="t('profileStepper.stateComplete')" class="text-2xl pi pi-verified text-green-600" />
+                    <i v-else v-tooltip.bottom="t('profileStepper.stateIncomplete')" class="text-2xl pi pi-exclamation-circle text-sky-600" />
+                </div>
 
                 <!-- State incomplete -->
-                <div v-if="!checkState" class="flex flex-col gap-4">
+                <div v-if="!checkState" class="flex gap-4">
                     <p>{{ t('profileStepper.invitationState.text') }}</p>
-                    <span>TODO: Invitation State (annehmen/ablehnen)</span>
-                    <span>TODO: Additional Guests</span>
-
-                    <span>invitationState: {{ invitationState }}</span>
-                    <span>role need to be invited: {{ role }}</span>
-                    <span>additionalGuests: {{ additionalGuests }}</span>
                 </div>
 
                 <!-- State complete -->
-                <div v-else class="flex flex-col gap-4">
+                <div v-else class="flex gap-4">
                     <p>{{ t('profileStepper.invitationState.textComplete') }}</p>
-
-                    <span>invitationState: {{ invitationState }}</span>
-                    <span>role: {{ role }}</span>
-                    <span>additionalGuests: {{ additionalGuests }}</span>
                 </div>
 
+                <ul class="flex flex-col gap-2">
+                    <!-- Additional guests -->
+                    <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="profile-list-item cursor-pointer" @click="additionalGuestsModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.additionalGuests.header') }}</h2>
+                            <span>{{ additionalGuests }}</span>
+
+                            <!-- Additional Guests change modal -->
+                            <DisplayModal ref="additionalGuestsModal" :header="t('user.additionalGuests.headerModal')">
+                                <template #content>
+                                    <ChangeAdditionalGuests @changed="additionalGuestsModal?.close()" />
+                                </template>
+                            </DisplayModal>
+                        </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
+
+                    <!-- Invitation status -->
+                    <li v-tooltip.top="t('user.invitation.tooltip')" class="profile-list-item cursor-pointer" @click="invitationModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.invitation.header') }}</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ invitationStatus }}</span>
+                                <i v-if="userProfile?.invitation === 'accepted'" v-tooltip.bottom="t('user.invitation.tooltipAccepted')" class="pi pi-verified text-green-600" />
+                                <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.bottom="t('user.invitation.tooltipDeclined')" class="pi pi-exclamation-circle text-sky-600" />
+                                <i v-else-if="userProfile?.invitation === 'pending'" v-tooltip.bottom="t('user.invitation.tooltipNoResponse')" class="pi pi-question-circle text-yellow-300" />
+                            </div>
+
+                            <!-- Additional Guests change modal -->
+                            <DisplayModal ref="invitationModal" :header="t('user.invitation.headerModal')">
+                                <template #content>
+                                    <ChangeInvitation @changed="invitationModal?.close()" />
+                                </template>
+                            </DisplayModal>
+                        </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
+
+                    <!-- User role -->
+                    <li class="profile-list-item">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.userRole.header') }}</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ userRole }}</span>
+                                <i v-if="role === 'guest'" v-tooltip.bottom="t('user.userRole.tooltipGuest')" class="pi pi-exclamation-circle text-sky-600" />
+                                <i v-else-if="role === 'invited'" v-tooltip.bottom="t('user.userRole.tooltipInvited')" class="pi pi-verified text-green-600" />
+                                <i v-else-if="role === 'declined'" v-tooltip.bottom="t('user.userRole.tooltipDeclined')" class="pi pi-times text-red-600" />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
                 <div class="flex">
-                    <Button label="Prev page" @click="navPage('prev')" />
-                    <Button label="Complete" class="ml-auto" @click="navPage('complete')" />
+                    <Button :label="t('profileStepper.buttons.back')" @click="navPage('prev')" />
+                    <Button :label="t('profileStepper.buttons.complete')" class="ml-auto" @click="navPage('complete')" />
                 </div>
             </div>
         </template>
@@ -35,6 +81,7 @@
 </template>
 
 <script setup lang="ts">
+import DisplayModal from '@/components/DisplayModal.vue'
 import { useUserStore } from '@/stores/user'
 
 definePageMeta({
@@ -52,11 +99,28 @@ const { t } = useI18n()
 const { checker } = useProfileChecker()
 const checkState = computed(() => checker(t('profileStepper.invitationState.header')))
 
+// Refs
+const invitationModal = ref<InstanceType<typeof DisplayModal>>()
+const additionalGuestsModal = ref<InstanceType<typeof DisplayModal>>()
 
 // User store
 const userStore = useUserStore()
 const userProfile = computed(() => userStore.userProfile)
-const invitationState = computed(() => userProfile.value?.invitation)
 const role = computed(() => userProfile.value?.role)
 const additionalGuests = computed(() => userProfile.value?.additionalGuests)
+const invitationStatus = computed(() => {
+    const invitation = userProfile.value?.invitation
+    if (invitation === 'pending') return t('user.invitation.stateNoReponse')
+    if (invitation === 'accepted') return t('user.invitation.stateAccepted')
+    if (invitation === 'declined') return t('user.invitation.stateDeclined')
+    return t('user.invitation.stateNoInvitation')
+})
+const userRole = computed(() => {
+    const role = userProfile.value?.role
+    if (role === 'admin') return t('user.userRole.adminRole')
+    if (role === 'invited') return t('user.userRole.invitedRole')
+    if (role === 'guest') return t('user.userRole.guestRole')
+    if (role === 'declined') return t('user.userRole.declinedRole')
+    return t('user.userRole.noRole')
+})
 </script>
