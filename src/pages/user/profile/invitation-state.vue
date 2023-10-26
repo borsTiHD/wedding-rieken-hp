@@ -71,6 +71,9 @@
                     </li>
                 </ul>
 
+                <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
+                <UpgradeUserRole v-if="role === 'guest' && token && token !== ''" class="basis-full" />
+
                 <div class="flex">
                     <Button :label="t('profileStepper.buttons.back')" @click="navPage('prev')" />
                     <Button :label="t('profileStepper.buttons.complete')" class="ml-auto" @click="navPage('complete')" />
@@ -82,6 +85,10 @@
 
 <script setup lang="ts">
 import DisplayModal from '@/components/DisplayModal.vue'
+import ChangeInvitation from '@/components/user/ChangeInvitation.vue'
+import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
+import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
+import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useUserStore } from '@/stores/user'
 
 definePageMeta({
@@ -98,6 +105,10 @@ const { t } = useI18n()
 // Check completion state of this page
 const { checker } = useProfileChecker()
 const checkState = computed(() => checker(t('profileStepper.invitationState.header')))
+
+// Invitation token
+const { getInvitiationToken } = useInvitiationToken()
+const token = computed(() => getInvitiationToken())
 
 // Refs
 const invitationModal = ref<InstanceType<typeof DisplayModal>>()
