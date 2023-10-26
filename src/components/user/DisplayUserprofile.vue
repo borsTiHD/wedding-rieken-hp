@@ -124,19 +124,13 @@
 
                 <!-- User actions -->
                 <li class="flex flex-col gap-4 mt-12">
-                    <!-- Change Language -->
-                    <div class="mb-8">
-                        <ChangeLanguage />
-                    </div>
-
                     <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
-                    <UpgradeUserRole v-if="userProfile.role === 'guest' && token && token !== ''" class="basis-1/2" />
+                    <UpgradeUserRole v-if="userProfile.role === 'guest' && token && token !== ''" class="basis-full" />
 
-                    <div class="flex gap-2 w-full">
+                    <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2">
                         <!-- Change Password -->
                         <DisplayModal
                             ref="passwordModal"
-                            buttonClass="basis-1/2"
                             :header="t('user.password.changePassword.modalHeader')"
                             :buttonLabel="t('user.password.changePassword.modalButton')"
                             buttonIcon="pi pi-lock"
@@ -149,14 +143,13 @@
                         </DisplayModal>
 
                         <!-- Password Reset -->
-                        <ResetPassword class="basis-1/2" />
+                        <ResetPassword />
                     </div>
 
-                    <div class="flex gap-2 w-full">
+                    <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2">
                         <!-- Delete User Account -->
                         <DisplayModal
                             ref="deleteUserModal"
-                            buttonClass="basis-1/2"
                             :header="t('user.deleteUser.headerModal')"
                             :buttonLabel="t('user.deleteUser.submit')"
                             buttonIcon="pi pi-user-minus"
@@ -170,7 +163,7 @@
                         </DisplayModal>
 
                         <!-- Logout -->
-                        <LogoutUser class="basis-1/2" />
+                        <LogoutUser />
                     </div>
                 </li>
             </ul>
@@ -191,7 +184,6 @@ import ChangePassword from '@/components/user/ChangePassword.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
 import DeleteUser from '@/components/user/DeleteUser.vue'
-import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
 import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useUserStore } from '@/stores/user'
 
@@ -205,6 +197,7 @@ const { sendUserEmailVerification } = useFirebaseAuth()
 //       The guide should be shown on the first login and when the user clicks on the button to show the guide
 //       Make sure to save the state of the guide in the user profile
 //       Should the guide show the invitation queston first? Also with a nice response to the answer?
+// TODO: More mobile friendly - the tooltips for more information whats wrong is not displaying (mabye show it in an grayish text below the display fields?)
 
 // Refs
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
