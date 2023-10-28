@@ -71,11 +71,12 @@ body {
     color: #fff; */
     --tw-bg-opacity: 1 !important;
     background-color: rgb(243 244 246 / var(--tw-bg-opacity)) !important;
+    /* background-color: #E09F3E !important; */
 }
 
 /* Styling for all cards */
 .card-primary {
-    @apply bg-white rounded-3xl ring-1 ring-slate-900/5 shadow-xl !important;
+    @apply bg-white rounded-3xl ring-1 ring-slate-900/5 shadow-xl !important; /* bg-[#FFF3B0] */
 }
 
 /* Profile list items */
