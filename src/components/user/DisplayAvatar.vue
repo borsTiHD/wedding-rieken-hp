@@ -33,10 +33,11 @@
                 </div>
                 <div class="flex flex-col">
                     <!-- Display name -->
-                    <h1 class="text-2xl font-semibold">{{ displayName ? t('user.welcome', { name: displayName }) : t('user.noName') }}</h1>
+                    <h1 class="text-2xl font-semibold hidden md:inline">{{ displayName ? t('user.welcome', { name: displayName }) : t('user.noName') }}</h1>
+                    <h1 class="text-2xl font-semibold inline md:hidden">{{ displayName ? displayName : t('user.noName') }}</h1> <!-- on mobile -->
 
                     <!-- Email Address -->
-                    <span class="text-gray-600">{{ email }}</span>
+                    <span class="text-xs sm:text-base text-gray-600">{{ email }}</span>
                 </div>
 
                 <!-- Profile progress with link -->
