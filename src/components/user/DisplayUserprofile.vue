@@ -13,7 +13,7 @@
                         </div>
 
                         <!-- Display name change modal -->
-                        <DisplayModal ref="displayNameModal" :header="t('user.displayName.headerModal')">
+                        <DisplayModal ref="displayNameModal" :position="modalPosition" :header="t('user.displayName.headerModal')">
                             <template #content>
                                 <ChangeDisplayName @changed="displayNameModal?.close()" />
                             </template>
@@ -44,7 +44,7 @@
                         </div>
 
                         <!-- Email change modal -->
-                        <DisplayModal ref="emailModal" :header="t('user.email.headerModal')">
+                        <DisplayModal ref="emailModal" :position="modalPosition" :header="t('user.email.headerModal')">
                             <template #content>
                                 <ChangeEmail @changed="emailModal?.close()" />
                             </template>
@@ -63,7 +63,7 @@
                         </div>
 
                         <!-- Phone change modal -->
-                        <DisplayModal ref="phoneModal" :header="t('user.phone.headerModal')">
+                        <DisplayModal ref="phoneModal" :position="modalPosition" :header="t('user.phone.headerModal')">
                             <template #content>
                                 <ChangePhone @changed="phoneModal?.close()" />
                             </template>
@@ -79,7 +79,7 @@
                         <span>{{ userProfile.additionalGuests }}</span>
 
                         <!-- Additional Guests change modal -->
-                        <DisplayModal ref="additionalGuestsModal" :header="t('user.additionalGuests.headerModal')">
+                        <DisplayModal ref="additionalGuestsModal" :position="modalPosition" :header="t('user.additionalGuests.headerModal')">
                             <template #content>
                                 <ChangeAdditionalGuests @changed="additionalGuestsModal?.close()" />
                             </template>
@@ -100,7 +100,7 @@
                         </div>
 
                         <!-- Additional Guests change modal -->
-                        <DisplayModal ref="invitationModal" :header="t('user.invitation.headerModal')">
+                        <DisplayModal ref="invitationModal" :position="modalPosition" :header="t('user.invitation.headerModal')">
                             <template #content>
                                 <ChangeInvitation @changed="invitationModal?.close()" />
                             </template>
@@ -131,6 +131,7 @@
                         <!-- Change Password -->
                         <DisplayModal
                             ref="passwordModal"
+                            :position="modalPosition"
                             :header="t('user.password.changePassword.modalHeader')"
                             :buttonLabel="t('user.password.changePassword.modalButton')"
                             buttonIcon="pi pi-lock"
@@ -150,6 +151,7 @@
                         <!-- Delete User Account -->
                         <DisplayModal
                             ref="deleteUserModal"
+                            :position="modalPosition"
                             :header="t('user.deleteUser.headerModal')"
                             :buttonLabel="t('user.deleteUser.submit')"
                             buttonIcon="pi pi-user-minus"
@@ -185,12 +187,14 @@ import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
 import DeleteUser from '@/components/user/DeleteUser.vue'
 import useInvitiationToken from '@/composables/useInvitiationToken'
+import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 // Composables
 const toast = useToast()
 const { t } = useI18n()
 const { sendUserEmailVerification } = useFirebaseAuth()
+const { modalPosition } = useModalPosition() // Modal position
 
 // TODO: Create a hover effect for the list items
 // TODO: Create a step by step guide for the user profile, with a progress bar at the top and a button to skip the guide

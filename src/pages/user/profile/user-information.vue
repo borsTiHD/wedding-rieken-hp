@@ -29,7 +29,7 @@
                             </div>
 
                             <!-- Display name change modal -->
-                            <DisplayModal ref="displayNameModal" :header="t('user.displayName.headerModal')">
+                            <DisplayModal ref="displayNameModal" :position="modalPosition" :header="t('user.displayName.headerModal')">
                                 <template #content>
                                     <ChangeDisplayName @changed="displayNameModal?.close()" />
                                 </template>
@@ -60,7 +60,7 @@
                             </div>
 
                             <!-- Email change modal -->
-                            <DisplayModal ref="emailModal" :header="t('user.email.headerModal')">
+                            <DisplayModal ref="emailModal" :position="modalPosition" :header="t('user.email.headerModal')">
                                 <template #content>
                                     <ChangeEmail @changed="emailModal?.close()" />
                                 </template>
@@ -79,7 +79,7 @@
                             </div>
 
                             <!-- Phone change modal -->
-                            <DisplayModal ref="phoneModal" :header="t('user.phone.headerModal')">
+                            <DisplayModal ref="phoneModal" :position="modalPosition" :header="t('user.phone.headerModal')">
                                 <template #content>
                                     <ChangePhone @changed="phoneModal?.close()" />
                                 </template>
@@ -96,21 +96,21 @@
             </div>
 
             <!-- Display name change modal -->
-            <DisplayModal ref="displayNameModal" :header="t('user.displayName.headerModal')">
+            <DisplayModal ref="displayNameModal" :position="modalPosition" :header="t('user.displayName.headerModal')">
                 <template #content>
                     <ChangeDisplayName @changed="displayNameModal?.close()" />
                 </template>
             </DisplayModal>
 
             <!-- Email change modal -->
-            <DisplayModal ref="emailModal" :header="t('user.email.headerModal')">
+            <DisplayModal ref="emailModal" :position="modalPosition" :header="t('user.email.headerModal')">
                 <template #content>
                     <ChangeEmail @changed="emailModal?.close()" />
                 </template>
             </DisplayModal>
 
             <!-- Phone change modal -->
-            <DisplayModal ref="phoneModal" :header="t('user.phone.headerModal')">
+            <DisplayModal ref="phoneModal" :position="modalPosition" :header="t('user.phone.headerModal')">
                 <template #content>
                     <ChangePhone @changed="phoneModal?.close()" />
                 </template>
@@ -125,6 +125,7 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePhone from '@/components/user/ChangePhone.vue'
+import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 definePageMeta({
@@ -139,6 +140,7 @@ const navPage = (to: 'next' | 'prev') => emit(`${to}-page`)
 const toast = useToast()
 const { t } = useI18n() // Localisation
 const { sendUserEmailVerification } = useFirebaseAuth()
+const { modalPosition } = useModalPosition() // Modal position
 
 // Refs
 const displayNameModal = ref<InstanceType<typeof DisplayModal>>()

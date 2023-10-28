@@ -1,6 +1,6 @@
 <template>
     <!-- Modal for checking guest -->
-    <DisplayModal ref="checkGuestModal" :header="t('admin.listUsers.checkGuest.checkModalHeader')">
+    <DisplayModal ref="checkGuestModal" :position="modalPosition" :header="t('admin.listUsers.checkGuest.checkModalHeader')">
         <template #content>
             <div class="flex gap-2 w-full">
                 <Button class="grow" :label="t('admin.listUsers.checkGuest.invite')" icon="pi pi-thumbs-up" type="submit" raised :loading="loading" @click="handleSubmit(true)" />
@@ -38,6 +38,7 @@
 import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
 import useBackendApi from '@/composables/useBackendApi'
+import { useModalPosition } from '@/composables/useModalPosition'
 
 const props = defineProps({
     uid: {
@@ -60,6 +61,7 @@ const checkGuestModal = ref<InstanceType<typeof DisplayModal>>()
 const toast = useToast()
 const { t } = useI18n()
 const { updateUserRole } = useBackendApi()
+const { modalPosition } = useModalPosition() // Modal position
 
 // Data
 const loading = ref(false)

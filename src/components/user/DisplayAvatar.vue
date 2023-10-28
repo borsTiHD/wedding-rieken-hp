@@ -25,7 +25,7 @@
                     </div>
 
                     <!-- Profile picture edit modal -->
-                    <DisplayModal ref="profilePictureModal" :header="t('user.profilePicture.modalHeader')">
+                    <DisplayModal ref="profilePictureModal" :position="modalPosition" :header="t('user.profilePicture.modalHeader')">
                         <template #content>
                             <UploadProfilePicture @uploaded="profilePictureModal?.close()" />
                         </template>
@@ -51,10 +51,14 @@
 import DisplayModal from '@/components/DisplayModal.vue'
 import DisplayProfileProgress from '@/components/user/DisplayProfileProgress.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
+import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 // Localisation
 const { t } = useI18n()
+
+// Modal position
+const { modalPosition } = useModalPosition()
 
 // Refs
 const profilePictureModal = ref<InstanceType<typeof DisplayModal>>()

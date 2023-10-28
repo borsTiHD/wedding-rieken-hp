@@ -27,7 +27,7 @@
                             <span>{{ additionalGuests }}</span>
 
                             <!-- Additional Guests change modal -->
-                            <DisplayModal ref="additionalGuestsModal" :header="t('user.additionalGuests.headerModal')">
+                            <DisplayModal ref="additionalGuestsModal" :position="modalPosition" :header="t('user.additionalGuests.headerModal')">
                                 <template #content>
                                     <ChangeAdditionalGuests @changed="additionalGuestsModal?.close()" />
                                 </template>
@@ -48,7 +48,7 @@
                             </div>
 
                             <!-- Additional Guests change modal -->
-                            <DisplayModal ref="invitationModal" :header="t('user.invitation.headerModal')">
+                            <DisplayModal ref="invitationModal" :position="modalPosition" :header="t('user.invitation.headerModal')">
                                 <template #content>
                                     <ChangeInvitation @changed="invitationModal?.close()" />
                                 </template>
@@ -89,6 +89,7 @@ import ChangeInvitation from '@/components/user/ChangeInvitation.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import useInvitiationToken from '@/composables/useInvitiationToken'
+import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 definePageMeta({
@@ -101,6 +102,9 @@ const navPage = (to: 'prev' | 'complete') => emit(`${to}-page`)
 
 // Localisation
 const { t } = useI18n()
+
+// Modal position
+const { modalPosition } = useModalPosition()
 
 // Check completion state of this page
 const { checker } = useProfileChecker()

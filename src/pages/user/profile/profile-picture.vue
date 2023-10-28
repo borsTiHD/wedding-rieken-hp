@@ -44,7 +44,7 @@
                         </div>
 
                         <!-- Profile picture edit modal -->
-                        <DisplayModal ref="profilePictureModal" :header="t('user.profilePicture.modalHeader')">
+                        <DisplayModal ref="profilePictureModal" :position="modalPosition" :header="t('user.profilePicture.modalHeader')">
                             <template #content>
                                 <UploadProfilePicture @uploaded="profilePictureModal?.close()" />
                             </template>
@@ -64,6 +64,7 @@
 <script setup lang="ts">
 import DisplayModal from '@/components/DisplayModal.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
+import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 definePageMeta({
@@ -76,6 +77,9 @@ const navPage = (to: 'next' | 'prev') => emit(`${to}-page`)
 
 // Localisation
 const { t } = useI18n()
+
+// Modal position
+const { modalPosition } = useModalPosition()
 
 // Check completion state of this page
 const { checker } = useProfileChecker()

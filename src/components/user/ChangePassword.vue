@@ -37,7 +37,7 @@
     </FormKit>
 
     <!-- Re-authenticate user -->
-    <DisplayModal ref="reauthenticateModal" :header="t('user.reauthenticate.header')">
+    <DisplayModal ref="reauthenticateModal" :position="modalPosition" :header="t('user.reauthenticate.header')">
         <template #content>
             <ReauthenticateUser @loggedin="reauthenticateModal?.close()" />
         </template>
@@ -48,6 +48,7 @@
 import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
 import ReauthenticateUser from '@/components/user/ReauthenticateUser.vue'
+import { useModalPosition } from '@/composables/useModalPosition'
 
 // Emit event
 const emit = defineEmits(['changed'])
@@ -59,6 +60,7 @@ const reauthenticateModal = ref<InstanceType<typeof DisplayModal>>()
 const toast = useToast()
 const { t } = useI18n()
 const { changePassword } = useFirebaseUserProfile()
+const { modalPosition } = useModalPosition() // Modal position
 
 // Data
 const loading = ref(false)

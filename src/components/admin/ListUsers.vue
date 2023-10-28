@@ -48,6 +48,7 @@
                             <!-- Create User modal -->
                             <DisplayModal
                                 ref="createUserModal"
+                                :position="modalPosition"
                                 :header="t('admin.createUser.header')"
                                 buttonClass=""
                                 :buttonLabel="t('admin.createUser.buttonLabel')"
@@ -142,6 +143,7 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import CreateUser from '@/components/admin/CreateUser.vue'
 import CheckGuest from '@/components/admin/CheckGuest.vue'
 import useBackendApi from '@/composables/useBackendApi'
+import { useModalPosition } from '@/composables/useModalPosition'
 import type admin from 'firebase-admin'
 import type { UserProfile } from '@/types/UserProfile'
 
@@ -158,6 +160,7 @@ const createUserModal = ref<InstanceType<typeof DisplayModal>>()
 const toast = useToast()
 const { t } = useI18n()
 const { getAllUsers } = useBackendApi()
+const { modalPosition } = useModalPosition() // Modal position
 
 // Data
 const users = ref<User[]>([])
