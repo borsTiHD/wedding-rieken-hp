@@ -47,5 +47,20 @@ export default function() {
         return checkFunction ? checkFunction.check() : false
     }
 
-    return { checker, allChecks }
+    // Checks the state of the profile
+    // For that, it loops through all checks and returns a percentage of completion
+    const checkState = computed(() => {
+        const totalChecks = allChecks.length
+        let completedChecks = 0
+
+        for (const check of allChecks) {
+            if (check.check()) {
+                completedChecks++
+            }
+        }
+
+        return Math.round((completedChecks / totalChecks) * 100)
+    })
+
+    return { checker, allChecks, checkState }
 }
