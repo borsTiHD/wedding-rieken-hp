@@ -1,12 +1,5 @@
 <template>
     <Menubar :model="navItems" class="bg-zinc-100">
-        <template #start>
-            <NuxtLink :to="homeRoute">
-                <div class="flex gap-4 mr-4 items-center">
-                    <span class="text-2xl font-bold text-zinc-700 hover:text-zinc-200">{{ appName }}</span>
-                </div>
-            </NuxtLink>
-        </template>
         <template #item="{ item }">
             <NuxtLink v-slot="{ href, navigate, isActive, isExactActive }" :to="item.path" custom>
                 <a
@@ -26,6 +19,15 @@
         </template>
         <template #end>
             <div class="flex items-center gap-2 mr-2">
+                <Avatar
+                    :image="photoURL ? photoURL : undefined"
+                    :icon="photoURL ? undefined : 'pi pi-user'"
+                    class="cursor-pointer"
+                    size="xlarge"
+                    shape="circle"
+                    @click="onAvatarClick"
+                />
+
                 <!-- Only for testing -->
                 <ClientOnly>
                     <ChangeLanguage />
@@ -38,12 +40,22 @@
 <script setup lang="ts">
 import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
 import { usePagesStore } from '@/stores/pages'
+import { useUserStore } from '@/stores/user'
 
-// App name
-const appName = 'TEST_APP'
+// Composables
+const localePath = useLocalePath()
+const router = useRouter()
 
 // Navitems
 const pagesStore = usePagesStore()
 const navItems = computed(() => pagesStore.pages)
-const homeRoute = { path: '/' } // Home Route
+
+// User store
+const userStore = useUserStore()
+const photoURL = computed(() => userStore.photoURL)
+
+// Click on avatar
+const onAvatarClick = () => {
+    router.push(localePath('/user'))
+}
 </script>
