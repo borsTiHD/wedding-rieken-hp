@@ -1,14 +1,14 @@
 <template>
-    <Menubar :model="navItems" class="bg-zinc-100">
+    <Menubar :model="navItems" class="bg-transparent border-none">
         <template #item="{ item }">
             <NuxtLink v-slot="{ href, navigate, isActive, isExactActive }" :to="item.path" custom>
                 <a
                     :href="href"
                     :class="[
-                        'p-menuitem-link bg-zinc-100 text-black/60', // default
-                        'hover:bg-zinc-200 hover:text-primary/80', // hover - hover:text-black/80
+                        'p-menuitem-link bg-transparent text-black/60', // default
+                        'hover:text-primary/80', // hover - hover:text-black/80
                         {
-                            'active-link bg-slate-200 text-primary font-bold': isActive, // active - text-black/60
+                            'active-link text-primary font-bold': isActive, // active - text-black/60
                             'active-link-exact': isExactActive // active-exact
                         }]"
                     @click="navigate"
