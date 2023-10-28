@@ -105,14 +105,15 @@ export default function() {
 
     // Send email link to login
     const sendEmailLink = async(email: string): Promise<boolean> => {
-        const config = useRuntimeConfig()
-        const { firebaseAuthEmailSigninUrl } = config.public // Set in nuxt.config.ts
+        // Create url for email link
+        const baseUrl = window.location.origin
+        const url = `${baseUrl}/login/?tab=email`
 
         // Action code settings - see https://firebase.google.com/docs/auth/web/email-link-auth#handle_the_sign-in_link
         const actionCodeSettings = {
             // URL you want to redirect back to.
             // TODO: The domain (www.example.com) for this URL must be whitelisted in the Firebase Console.
-            url: firebaseAuthEmailSigninUrl ? `${firebaseAuthEmailSigninUrl}?tab=email` : 'no-url-set',
+            url: url,
             handleCodeInApp: true // This must be true
         }
 
