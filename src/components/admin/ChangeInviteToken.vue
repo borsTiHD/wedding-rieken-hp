@@ -6,7 +6,7 @@
         :actions="false"
         @submit="handleSubmit"
     >
-        <div class="flex items-center gap-4">
+        <div class="flex flex-col sm:flex-row items-center gap-4">
             <Skeleton v-if="loading" width="14rem" height="3rem" />
             <FormKit
                 v-else

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex gap-4">
+    <div class="flex flex-col sm:flex-row gap-4">
         <span class="p-input-icon-right">
             <i class="pi pi-calendar" />
             <Calendar v-model="date" :date-format="t('general.inputDateFormat')" :minDate="minDate" />

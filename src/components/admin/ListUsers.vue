@@ -1,7 +1,7 @@
 <template>
     <Card>
         <template #title>
-            <div class="flex items-baseline gap-4">
+            <div class="flex flex-col sm:flex-row items-baseline gap-4">
                 {{ t('admin.listUsers.header') }}
                 <div v-if="selfRegisteredGuests.length > 0" class="flex gap-1 text-sm text-gray-500">
                     <span>{{ t('admin.listUsers.needToCheckSelfRegisteredGuests', { n: selfRegisteredGuests.length }, selfRegisteredGuests.length) }}</span>
@@ -12,13 +12,13 @@
         <template #content>
             <div class="flex flex-col gap-4">
                 <!-- User invitation infos -->
-                <div class="flex items-center gap-4">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
                     <!-- User infos -->
-                    <div class="flex flex-col pr-4 border-r-2">
+                    <div class="flex flex-col pr-4 sm:border-r-2">
                         <span class="font-bold">{{ t('admin.listUsers.invitedGuests', { n: invitedGuests.length }, invitedGuests.length) }}</span>
                         <span class="text-sm text-gray-500">{{ t('admin.listUsers.pendingInvitations', { n: pendingInvitations.length }, pendingInvitations.length) }}</span>
                     </div>
-                    <div class="flex flex-col pr-4 border-r-2">
+                    <div class="flex flex-col pr-4 sm:border-r-2">
                         <span class="text-sm text-gray-600">{{ t('admin.listUsers.acceptedInvitations', { n: acceptedInvitations.length }, acceptedInvitations.length) }}</span>
                         <span class="text-sm text-gray-400">{{ t('admin.listUsers.declinedInvitations', { n: declinedInvitations.length }, declinedInvitations.length) }}</span>
                     </div>
@@ -41,7 +41,7 @@
                     :rowsPerPageOptions="[5, 10, 20, 50]"
                 >
                     <template #header>
-                        <div class="flex flex-wrap items-center gap-2">
+                        <div class="flex flex-wrap sm:items-center gap-2">
                             <!-- Refresh users -->
                             <Button icon="pi pi-refresh" rounded raised @click="getUsers" />
 
@@ -50,7 +50,7 @@
                                 ref="createUserModal"
                                 :position="modalPosition"
                                 :header="t('admin.createUser.header')"
-                                buttonClass=""
+                                buttonClass="w-full sm:w-fit"
                                 :buttonLabel="t('admin.createUser.buttonLabel')"
                                 buttonIcon="pi pi-user-plus"
                                 buttonRaised
@@ -62,7 +62,9 @@
                             </DisplayModal>
 
                             <!-- Filter users -->
-                            <Dropdown v-model="selectedType" :options="types" optionLabel="name" optionValue="code" :placeholder="t('admin.listUsers.userFilter.placeholder')" class="ml-auto" />
+                            <Dropdown v-model="selectedType" :options="types" optionLabel="name" optionValue="code" :placeholder="t('admin.listUsers.userFilter.placeholder')" class="w-full sm:w-fit sm:ml-auto" />
+
+                            <!-- Search -->
                             <span class="p-input-icon-left">
                                 <i class="pi pi-search" />
                                 <InputText v-model="globalSearch" :placeholder="t('admin.listUsers.userSearch.placeholder')" />
