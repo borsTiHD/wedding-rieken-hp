@@ -1,7 +1,7 @@
 <template>
     <Card class="card-primary">
         <template #content>
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col items-center gap-4">
                 <ShowCountdown :timestamp="config?.weddingDate" />
                 <DateDisplay :timestamp="config?.weddingDate" />
             </div>

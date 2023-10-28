@@ -1,5 +1,5 @@
 <template>
-    <span class="text-2xl">{{ d(computedDate, 'long') }}</span>
+    <span class="text-xl sm:text-2xl">{{ d(computedDate, 'long') }}</span>
 </template>
 
 <script setup lang="ts">

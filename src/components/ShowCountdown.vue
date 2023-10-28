@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-around text-xl">
+    <div class="flex justify-around text-xl w-full">
         <div class="text-center">
             <div class="text-3xl font-bold">{{ days }}</div>
             <div class="text-sm">{{ t('countdown.days') }}</div>
