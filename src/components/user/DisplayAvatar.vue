@@ -16,7 +16,7 @@
                     <!-- Edit profile picture on mouse hover -->
                     <div
                         v-if="showProfilePictureEditIcon"
-                        class="absolute inset-0 mb-1 flex items-center justify-center rounded-full bg-black bg-opacity-50 transition-opacity duration-300 hover:opacity-100 cursor-pointer"
+                        class="absolute inset-0 mb-2 flex items-center justify-center rounded-full bg-black bg-opacity-50 transition-opacity duration-300 hover:opacity-100 cursor-pointer"
                         @mouseleave="showProfilePictureEditIcon = false"
                         @click="profilePictureModal?.open()"
                     >
