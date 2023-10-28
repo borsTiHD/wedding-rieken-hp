@@ -19,6 +19,10 @@
         </template>
         <template #end>
             <div class="flex items-center gap-2 mr-2">
+                <!-- Language selector -->
+                <ChangeLanguage />
+
+                <!-- Avatar - with link to user profile -->
                 <Avatar
                     :image="photoURL ? photoURL : undefined"
                     :icon="photoURL ? undefined : 'pi pi-user'"
@@ -27,11 +31,6 @@
                     shape="circle"
                     @click="onAvatarClick"
                 />
-
-                <!-- Only for testing -->
-                <ClientOnly>
-                    <ChangeLanguage />
-                </ClientOnly>
             </div>
         </template>
     </Menubar>
