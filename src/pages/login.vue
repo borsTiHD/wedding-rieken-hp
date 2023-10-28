@@ -29,19 +29,33 @@ import { useUserStore } from '@/stores/user'
 
 // Localisation
 const { t } = useI18n()
+const localePath = useLocalePath()
+
+// Router
+const router = useRouter()
 
 // User store
 const userStore = useUserStore()
 const user = computed(() => userStore.user)
+const uid = computed(() => userStore.uid)
 
 // Tab Menu
 const activeIndex = ref(0)
 
+// Watch uid and push to home if user is logged in
+watch(uid, (newUid) => {
+    if (newUid) { router.push(localePath('/')) }
+})
+
+// On mount
 onMounted(() => {
     // Get 'tab' query and set activeIndex
     const query = useRouter().currentRoute.value.query
     if (query?.tab && query.tab === 'email') {
         activeIndex.value = 1
     }
+
+    // If user is logged in, push to home
+    if (uid.value) { router.push(localePath('/')) }
 })
 </script>

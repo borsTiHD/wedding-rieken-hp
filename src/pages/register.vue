@@ -29,6 +29,10 @@ import { useUserStore } from '@/stores/user'
 
 // Localisation
 const { t } = useI18n()
+const localePath = useLocalePath()
+
+// Router
+const router = useRouter()
 
 // User store
 const userStore = useUserStore()
@@ -36,4 +40,10 @@ const uid = computed(() => userStore.uid)
 
 // Tab Menu
 const activeIndex = ref(0)
+
+// On mount
+onMounted(() => {
+    // If user is logged in, push to home
+    if (uid.value) { router.push(localePath('/')) }
+})
 </script>
