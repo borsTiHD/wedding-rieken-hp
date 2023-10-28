@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-4">
-        <Card>
+        <Card class="card-primary">
             <template #content>
                 <Steps
                     :model="items"

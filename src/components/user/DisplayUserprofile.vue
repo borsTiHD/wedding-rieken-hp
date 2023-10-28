@@ -1,5 +1,5 @@
 <template>
-    <Card>
+    <Card class="card-primary">
         <template #title>{{ t('user.header') }}</template>
         <template #content>
             <ul class="flex flex-col gap-2">

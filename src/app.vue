@@ -73,6 +73,11 @@ body {
     background-color: rgb(243 244 246 / var(--tw-bg-opacity)) !important;
 }
 
+/* Styling for all cards */
+.card-primary {
+    @apply bg-white rounded-3xl ring-1 ring-slate-900/5 shadow-xl !important;
+}
+
 /* Profile list items */
 .profile-list-item {
     @apply flex items-center justify-between border-b-2 mb-2 pb-2 !important;

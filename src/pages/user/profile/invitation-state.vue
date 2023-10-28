@@ -1,5 +1,5 @@
 <template>
-    <Card>
+    <Card class="card-primary">
         <template #content>
             <div class="flex flex-col gap-4">
                 <!-- Header -->

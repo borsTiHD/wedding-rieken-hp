@@ -1,5 +1,5 @@
 <template>
-    <Card>
+    <Card class="card-primary">
         <template #title>
             <div class="flex flex-col sm:flex-row items-baseline gap-4">
                 {{ t('admin.listUsers.header') }}

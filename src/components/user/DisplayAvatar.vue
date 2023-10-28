@@ -1,5 +1,5 @@
 <template>
-    <Card :pt="ptCard">
+    <Card class="card-primary" :pt="ptCard">
         <template #content>
             <div class="flex items-center gap-4">
                 <!-- User avatar with edit icon on mouse hover -->

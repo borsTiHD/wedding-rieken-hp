@@ -1,5 +1,5 @@
 <template>
-    <Card>
+    <Card class="card-primary">
         <template #content>
             <div v-if="!uid" class="flex flex-col gap-4">
                 <h1 class="text-2xl">{{ t('register.header') }}:</h1>

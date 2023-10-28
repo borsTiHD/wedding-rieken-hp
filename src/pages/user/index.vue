@@ -1,5 +1,5 @@
 <template>
-    <Card v-if="!uid">
+    <Card v-if="!uid" class="card-primary">
         <template #content>
             <!-- User not logged in -->
             <div class="flex flex-col gap-4">
