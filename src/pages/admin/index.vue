@@ -3,7 +3,7 @@
     <div v-if="user.uid && userProfile?.role === 'admin'" class="flex flex-col gap-4">
         <div class="flex gap-4 flex-wrap">
             <!-- Change date -->
-            <Card class="grow">
+            <Card class="card-primary grow">
                 <template #title>{{ t('admin.changeDate.header') }}</template>
                 <template #content>
                     <div class="flex flex-col gap-4">
@@ -17,7 +17,7 @@
                 </template>
             </Card>
             <!-- QR Code -->
-            <Card class="grow" :pt="{ content: { class: 'p-0' } }">
+            <Card class="card-primary grow" :pt="{ content: { class: 'p-0' } }">
                 <template #title>{{ t('admin.qrcode.header') }}</template>
                 <template #content>
                     <ShowQRCode />
@@ -26,7 +26,7 @@
         </div>
 
         <!-- Change invite token -->
-        <Card :pt="{ content: { class: 'pb-0' } }">
+        <Card class="card-primary grow" :pt="{ content: { class: 'pb-0' } }">
             <template #title>{{ t('admin.inviteToken.header') }}</template>
             <template #content>
                 <ChangeInviteToken />
