@@ -16,7 +16,7 @@
                         <NuxtLink v-slot="routerProps" :to="{ path: item.route }" custom>
                             <a :href="routerProps.href" v-bind="props.action" @click="($event) => routerProps.navigate($event)" @keydown.enter="($event) => routerProps.navigate($event)">
                                 <span v-bind="props.step">{{ index + 1 }}</span>
-                                <span v-bind="props.label">
+                                <span v-bind="props.label" class="flex items-center justify-center flex-wrap gap-1">
                                     {{ label }}
                                     <i v-if="checkState(index)" v-tooltip.bottom="t('profileStepper.stateComplete')" class="pi pi-verified text-green-600" />
                                     <i v-else v-tooltip.bottom="t('profileStepper.stateIncomplete')" class="pi pi-exclamation-circle text-sky-600" />
