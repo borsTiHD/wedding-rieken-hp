@@ -32,6 +32,10 @@
 
                     <!-- List  with links to profile, settings, logout, etc. -->
                     <ul class="flex flex-col px-0 sm:px-8 w-full">
+                        <li v-if="uid && userProfile && userProfile.role === 'admin'" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/admin'))">
+                            <span>{{ t('pages.admin') }}</span>
+                            <i class="pi pi-chevron-right" />
+                        </li>
                         <li class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/user'))">
                             <span>{{ t('pages.user') }}</span>
                             <i class="pi pi-chevron-right" />
@@ -77,6 +81,7 @@ const { checkState } = useProfileChecker()
 // User store
 const userStore = useUserStore()
 const uid = computed(() => userStore.uid)
+const userProfile = computed(() => userStore.userProfile)
 const displayName = computed(() => userStore.displayName)
 const photoURL = computed(() => userStore.photoURL)
 
