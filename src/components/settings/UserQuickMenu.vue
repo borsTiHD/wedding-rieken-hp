@@ -30,9 +30,8 @@
                             <span>{{ t('pages.user') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
-                        <li class="quick-menu-list-item hover:text-red-400" @click="routeChange(localePath('/logout'))">
+                        <li class="quick-menu-list-item hover:text-red-400" @click="logout">
                             <span>{{ t('logout.submit') }}</span>
-                            <i class="pi pi-chevron-right" />
                         </li>
                     </ul>
                 </template>
@@ -56,12 +55,15 @@
 </template>
 
 <script setup lang="ts">
+import { useToast } from 'primevue/usetoast'
 import OverlayPanel from 'primevue/overlaypanel'
 import { useUserStore } from '@/stores/user'
 
 // Composables
+const toast = useToast()
 const { t } = useI18n()
 const localePath = useLocalePath()
+const { logoutUser } = useFirebaseAuth()
 const router = useRouter()
 
 // User store
@@ -72,12 +74,37 @@ const photoURL = computed(() => userStore.photoURL)
 
 // Overlay search panel
 const op = ref<OverlayPanel | null>(null)
-const showSearchPanel = (event: Event) => op.value?.show(event)
+const showSearchPanel = (event: Event) => {
+    op.value?.toggle(event)
+}
 
 // Change route and close overlay panel
 const routeChange = (route: string) => {
     op.value?.hide()
     router.push(localePath(route))
+}
+
+// Logout button
+const logout = async() => {
+    await logoutUser()
+        .then(() => {
+            toast.add({
+                severity: 'success',
+                summary: t('logout.success'),
+                detail: t('logout.successDetail'),
+                life: 3000
+            })
+        })
+        .catch((error: { message: string }) => {
+            toast.add({
+                severity: 'error',
+                summary: t('logout.error'),
+                detail: error.message,
+                life: 10000
+            })
+        })
+
+    op.value?.hide()
 }
 </script>
 
