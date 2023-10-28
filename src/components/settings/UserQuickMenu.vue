@@ -24,6 +24,12 @@
                     <!-- Display name -->
                     <h1 class="text-2xl font-semibold">{{ displayName ? displayName : t('user.noName') }}</h1>
 
+                    <div v-if="checkState < 100" class="flex items-center px-0 sm:px-8 w-full cursor-pointer hover:text-neutral-400" @click="routeChange(localePath('/user/profile/'))">
+                        <span>Dein Profil ist noch nicht vollständig</span>
+                        <!-- Profile progress with link -->
+                        <DisplayProfileProgress class="ml-auto" />
+                    </div>
+
                     <!-- List  with links to profile, settings, logout, etc. -->
                     <ul class="flex flex-col px-0 sm:px-8 w-full">
                         <li class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/user'))">
@@ -57,14 +63,16 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import OverlayPanel from 'primevue/overlaypanel'
+import DisplayProfileProgress from '@/components/user/DisplayProfileProgress.vue'
 import { useUserStore } from '@/stores/user'
 
 // Composables
 const toast = useToast()
 const { t } = useI18n()
+const router = useRouter()
 const localePath = useLocalePath()
 const { logoutUser } = useFirebaseAuth()
-const router = useRouter()
+const { checkState } = useProfileChecker()
 
 // User store
 const userStore = useUserStore()
@@ -111,6 +119,6 @@ const logout = async() => {
 <style scoped>
 /* Profile list items */
 .quick-menu-list-item {
-    @apply flex items-center justify-between p-2 cursor-pointer !important;
+    @apply flex items-center justify-between py-2 cursor-pointer !important;
 }
 </style>
