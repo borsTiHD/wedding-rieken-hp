@@ -1,20 +1,41 @@
 import { defineStore } from 'pinia'
 import { MenuItem } from 'primevue/menuitem'
+import { useUserStore } from '@/stores/user'
 
 export const usePagesStore = defineStore('pages-store', () => {
     // Localisation
     const { t } = useI18n()
     const localePath = useLocalePath()
 
+    // User store
+    const userStore = useUserStore()
+    const uid = computed(() => userStore.uid)
+    const userProfile = computed(() => userStore.userProfile)
+
     // Pages for the navigation bar
-    const pages = computed<MenuItem[]>(() => [
-        { name: t('pages.home'), path: localePath('/') },
-        { name: t('pages.login'), path: localePath('/login') },
-        { name: t('pages.register'), path: localePath('/register')  },
-        { name: t('pages.user'), path: localePath('/user') },
-        { name: t('pages.profile'), path: localePath('/user/profile') },
-        { name: t('pages.admin'), path: localePath('/admin') }
-    ])
+    const pages = computed<MenuItem[]>(() => {
+        const pages = [
+            { name: t('pages.home'), path: localePath('/') },
+            { name: t('pages.user'), path: localePath('/user') }
+        ]
+
+        // If the user is not logged in add the login and register pages
+        if (!uid.value) {
+            pages.push(
+                { name: t('pages.login'), path: localePath('/login') },
+                { name: t('pages.register'), path: localePath('/register')  }
+            )
+        }
+
+        // If the logged in user is an admin add the admin pages
+        if (uid.value && userProfile.value && userProfile.value.role === 'admin') {
+            pages.push(
+                { name: t('pages.admin'), path: localePath('/admin') }
+            )
+        }
+
+        return pages
+    })
 
     return { pages }
 })
