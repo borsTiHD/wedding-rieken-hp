@@ -4,6 +4,7 @@
         modal
         :header="props.header"
         :closeicon="props.closeicon"
+        :position="props.position"
         :maximizable="props.maximizable"
         :maximizeicon="props.maximizeicon"
         :style="props.style"
@@ -32,6 +33,10 @@
 </template>
 
 <script setup lang="ts">
+import type { PropType } from 'vue'
+
+type Position = 'center' | 'left' | 'top' | 'bottom' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' | undefined
+
 const props = defineProps({
     showModal: {
         type: Boolean,
@@ -68,6 +73,10 @@ const props = defineProps({
     buttonClass: {
         type: String,
         default: undefined
+    },
+    position: {
+        type: String as PropType<Position>,
+        default: 'center'
     },
     draggable: {
         type: Boolean,
