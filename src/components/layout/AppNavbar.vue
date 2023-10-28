@@ -22,15 +22,8 @@
                 <!-- Language selector -->
                 <ChangeLanguage />
 
-                <!-- Avatar - with link to user profile -->
-                <Avatar
-                    :image="photoURL ? photoURL : undefined"
-                    :icon="photoURL ? undefined : 'pi pi-user'"
-                    class="cursor-pointer"
-                    size="xlarge"
-                    shape="circle"
-                    @click="onAvatarClick"
-                />
+                <!-- User quick menu -->
+                <UserQuickMenu />
             </div>
         </template>
     </Menubar>
@@ -38,23 +31,10 @@
 
 <script setup lang="ts">
 import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
+import UserQuickMenu from '@/components/settings/UserQuickMenu.vue'
 import { usePagesStore } from '@/stores/pages'
-import { useUserStore } from '@/stores/user'
-
-// Composables
-const localePath = useLocalePath()
-const router = useRouter()
 
 // Navitems
 const pagesStore = usePagesStore()
 const navItems = computed(() => pagesStore.pages)
-
-// User store
-const userStore = useUserStore()
-const photoURL = computed(() => userStore.photoURL)
-
-// Click on avatar
-const onAvatarClick = () => {
-    router.push(localePath('/user'))
-}
 </script>

@@ -6,6 +6,7 @@
         "home": "Home",
         "admin": "Admin",
         "login": "Login",
+        "logout": "Logout",
         "register": "Registrieren",
         "user": "Profil",
         "profile": "Profil vervollständigen"

@@ -1,0 +1,89 @@
+<template>
+    <div class="flex">
+        <!-- Avatar - click opens the overlay -->
+        <Avatar
+            :image="photoURL ? photoURL : undefined"
+            :icon="photoURL ? undefined : 'pi pi-user'"
+            class="cursor-pointer"
+            size="large"
+            shape="circle"
+            @click="showSearchPanel"
+        />
+
+        <OverlayPanel ref="op" class="w-full sm:mr-4 sm:w-96">
+            <div class="flex flex-col items-center gap-4">
+                <Avatar
+                    :image="photoURL ? photoURL : undefined"
+                    :icon="photoURL ? undefined : 'pi pi-user'"
+                    size="xlarge"
+                    shape="circle"
+                />
+
+                <!-- If user is logged in -->
+                <template v-if="uid">
+                    <!-- Display name -->
+                    <h1 class="text-2xl font-semibold">{{ displayName ? displayName : t('user.noName') }}</h1>
+
+                    <!-- List  with links to profile, settings, logout, etc. -->
+                    <ul class="flex flex-col px-0 sm:px-8 w-full">
+                        <li class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/user'))">
+                            <span>{{ t('pages.user') }}</span>
+                            <i class="pi pi-chevron-right" />
+                        </li>
+                        <li class="quick-menu-list-item hover:text-red-400" @click="routeChange(localePath('/logout'))">
+                            <span>{{ t('logout.submit') }}</span>
+                            <i class="pi pi-chevron-right" />
+                        </li>
+                    </ul>
+                </template>
+
+                <!-- If user is NOT logged in -->
+                <template v-else>
+                    <!-- Display name -->
+                    <h1 class="text-2xl font-semibold">{{ t('login.notLoggedIn') }}</h1>
+
+                    <!-- List  with links to profile, settings, logout, etc. -->
+                    <ul class="flex flex-col px-0 sm:px-8 w-full">
+                        <li class="quick-menu-list-item hover:text-neutral-400" @click="routeChange(localePath('/login'))">
+                            <span>{{ t('login.submit') }}</span>
+                            <i class="pi pi-chevron-right" />
+                        </li>
+                    </ul>
+                </template>
+            </div>
+        </OverlayPanel>
+    </div>
+</template>
+
+<script setup lang="ts">
+import OverlayPanel from 'primevue/overlaypanel'
+import { useUserStore } from '@/stores/user'
+
+// Composables
+const { t } = useI18n()
+const localePath = useLocalePath()
+const router = useRouter()
+
+// User store
+const userStore = useUserStore()
+const uid = computed(() => userStore.uid)
+const displayName = computed(() => userStore.displayName)
+const photoURL = computed(() => userStore.photoURL)
+
+// Overlay search panel
+const op = ref<OverlayPanel | null>(null)
+const showSearchPanel = (event: Event) => op.value?.show(event)
+
+// Change route and close overlay panel
+const routeChange = (route: string) => {
+    op.value?.hide()
+    router.push(localePath(route))
+}
+</script>
+
+<style scoped>
+/* Profile list items */
+.quick-menu-list-item {
+    @apply flex items-center justify-between p-2 cursor-pointer !important;
+}
+</style>
