@@ -11,7 +11,11 @@ module.exports = {
     ],
     // important: true,
     theme: {
-        extend: {}
+        extend: {
+            backgroundImage: {
+                'background-wallpaper': 'url(\'@/assets/img/pexels-photo-2959196.jpeg\')'
+            }
+        }
     },
     plugins: [
         formKitTailwind
