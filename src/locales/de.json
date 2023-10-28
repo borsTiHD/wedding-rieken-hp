@@ -402,6 +402,7 @@
         "quota-exceeded": "Das Limit wurde erreicht. Bitte versuche es später erneut.",
         "expired-action-code": "Der Bestätigungscode ist abgelaufen",
         "requires-recent-login": "Bitte loggen Sie sich erneut ein",
-        "id-token-expired": "Die Anmeldung ist abgelaufen. Bitte loggen Sie sich erneut ein."
+        "id-token-expired": "Die Anmeldung ist abgelaufen. Bitte loggen Sie sich erneut ein.",
+        "unauthorized-continue-uri": "Die Domain ist nicht autorisiert"
     }
 }

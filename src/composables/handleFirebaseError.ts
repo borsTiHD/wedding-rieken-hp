@@ -34,6 +34,7 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
         'auth/quota-exceeded': 'firebase.quota-exceeded',
         'auth/expired-action-code': 'firebase.expired-action-code',
         'auth/requires-recent-login': 'firebase.requires-recent-login',
+        'auth/unauthorized-continue-uri': 'firebase.unauthorized-continue-uri',
 
         // Storage error messages
         'storage/unauthorized': 'firebase.storage.unauthorized',
