@@ -43,7 +43,7 @@
                             <div class="flex items-center gap-2">
                                 <span>{{ invitationStatus }}</span>
                                 <i v-if="userProfile?.invitation === 'accepted'" v-tooltip.bottom="t('user.invitation.tooltipAccepted')" class="pi pi-verified text-green-600" />
-                                <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.bottom="t('user.invitation.tooltipDeclined')" class="pi pi-exclamation-circle text-sky-600" />
+                                <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.bottom="t('user.invitation.tooltipDeclined')" class="pi pi-times-circle text-red-600" />
                                 <i v-else-if="userProfile?.invitation === 'pending'" v-tooltip.bottom="t('user.invitation.tooltipNoResponse')" class="pi pi-question-circle text-yellow-300" />
                             </div>
 
