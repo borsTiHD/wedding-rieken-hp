@@ -19,7 +19,7 @@ export const usePagesStore = defineStore('pages-store', () => {
         ]
 
         // If the user is logged in
-        if (uid.value && userProfile.value && userProfile.value.role === 'admin') {
+        if (uid.value) {
             pages.push(
                 { name: t('pages.user'), path: localePath('/user') }
             )
