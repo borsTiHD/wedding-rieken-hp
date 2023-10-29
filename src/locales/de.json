@@ -9,6 +9,7 @@
         "logout": "Logout",
         "register": "Registrieren",
         "user": "Profil",
+        "account": "Account",
         "profile": "Profil vervollständigen"
     },
     "buttons": {
@@ -95,6 +96,10 @@
         "noName": "Kein Name",
         "welcome": "Willkommen {name}",
         "header": "Benutzerinformationen",
+        "account": {
+            "header": "Account",
+            "button": "Account Einstellungen"
+        },
         "additionalGuests": {
             "header": "Zusätzliche Gäste",
             "headerModal": "Anzahl ändern",

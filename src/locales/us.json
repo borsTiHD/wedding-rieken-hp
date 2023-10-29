@@ -16,5 +16,11 @@
     "user": {
         "noName": "No name",
         "welcome": "Welcome {name}"
+    },
+    "countdown":{
+        "days": "Days",
+        "hours": "Hours",
+        "minutes": "Minutes",
+        "seconds": "Seconds"
     }
 }

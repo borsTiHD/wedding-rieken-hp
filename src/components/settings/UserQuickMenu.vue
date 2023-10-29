@@ -43,6 +43,10 @@
                             <span>{{ t('pages.user') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
+                        <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/user/account'))" @keydown.enter="routeChange(localePath('/user/account'))">
+                            <span>{{ t('pages.account') }}</span>
+                            <i class="pi pi-chevron-right" />
+                        </li>
                         <li tabindex="0" class="quick-menu-list-item hover:text-red-400" @click="logout" @keydown.enter="logout">
                             <span>{{ t('logout.submit') }}</span>
                         </li>

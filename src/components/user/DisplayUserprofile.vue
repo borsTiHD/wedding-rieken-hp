@@ -123,50 +123,14 @@
                 </li>
 
                 <!-- User actions -->
-                <li class="flex flex-col gap-4 mt-12">
+                <li v-if="userProfile.role === 'guest' && token && token !== ''" class="flex flex-col">
                     <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
-                    <UpgradeUserRole v-if="userProfile.role === 'guest' && token && token !== ''" class="basis-full" />
+                    <UpgradeUserRole class="basis-full" />
+                </li>
 
-                    <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2">
-                        <!-- Change Password -->
-                        <DisplayModal
-                            ref="passwordModal"
-                            :position="modalPosition"
-                            :header="t('user.password.changePassword.modalHeader')"
-                            :buttonLabel="t('user.password.changePassword.modalButton')"
-                            buttonIcon="pi pi-lock"
-                            buttonRaised
-                            button
-                        >
-                            <template #content>
-                                <ChangePassword @changed="passwordModal?.close()" />
-                            </template>
-                        </DisplayModal>
-
-                        <!-- Password Reset -->
-                        <ResetPassword />
-                    </div>
-
-                    <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2">
-                        <!-- Delete User Account -->
-                        <DisplayModal
-                            ref="deleteUserModal"
-                            :position="modalPosition"
-                            :header="t('user.deleteUser.headerModal')"
-                            :buttonLabel="t('user.deleteUser.submit')"
-                            buttonIcon="pi pi-user-minus"
-                            buttonSeverity="danger"
-                            buttonOutlined
-                            button
-                        >
-                            <template #content>
-                                <DeleteUser @deleted="deleteUserModal?.close()" />
-                            </template>
-                        </DisplayModal>
-
-                        <!-- Logout -->
-                        <LogoutUser />
-                    </div>
+                <!-- User actions -->
+                <li class="flex flex-col">
+                    <Button :label="t('user.account.button')" icon="pi pi-user" raised @click="router.push(localePath('/user/account'))" />
                 </li>
             </ul>
         </template>
@@ -176,23 +140,21 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
-import LogoutUser from '@/components/user/LogoutUser.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePhone from '@/components/user/ChangePhone.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
 import ChangeInvitation from '@/components/user/ChangeInvitation.vue'
-import ChangePassword from '@/components/user/ChangePassword.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
-import ResetPassword from '@/components/user/ResetPassword.vue'
-import DeleteUser from '@/components/user/DeleteUser.vue'
 import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 // Composables
 const toast = useToast()
+const router = useRouter()
 const { t } = useI18n()
+const localePath = useLocalePath()
 const { sendUserEmailVerification } = useFirebaseAuth()
 const { modalPosition } = useModalPosition() // Modal position
 
@@ -206,11 +168,9 @@ const { modalPosition } = useModalPosition() // Modal position
 // Refs
 const emailModal = ref<InstanceType<typeof DisplayModal>>()
 const phoneModal = ref<InstanceType<typeof DisplayModal>>()
-const passwordModal = ref<InstanceType<typeof DisplayModal>>()
 const invitationModal = ref<InstanceType<typeof DisplayModal>>()
 const displayNameModal = ref<InstanceType<typeof DisplayModal>>()
 const additionalGuestsModal = ref<InstanceType<typeof DisplayModal>>()
-const deleteUserModal = ref<InstanceType<typeof DisplayModal>>()
 
 // User store
 const userStore = useUserStore()
