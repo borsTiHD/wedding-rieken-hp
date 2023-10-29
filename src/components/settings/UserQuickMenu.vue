@@ -12,7 +12,7 @@
             @keydown.enter="showSearchPanel"
         />
 
-        <OverlayPanel ref="op" class="w-full sm:mr-4 sm:w-96">
+        <OverlayPanel ref="op" :pt="{ root: { class: [ 'w-full sm:w-96 !rounded-3xl' ] } }">
             <div class="flex flex-col items-center gap-4">
                 <Avatar
                     :image="photoURL ? photoURL : undefined"
