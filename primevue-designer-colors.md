@@ -37,3 +37,4 @@
 
 - **Secondary Background:** 255, 243, 176 (![#FFF3B0](https://via.placeholder.com/15/FFF3B0/000000?text=+) #FFF3B0)
 - **Secondary Text:** 73, 80, 87 (![#495057](https://via.placeholder.com/15/495057/000000?text=+) #495057)
+- **Warning Background:** 224, 159, 62 (![#E09F3E](https://via.placeholder.com/15/E09F3E/000000?text=+) #E09F3E)
