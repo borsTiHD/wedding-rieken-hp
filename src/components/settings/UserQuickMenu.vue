@@ -5,7 +5,7 @@
             :image="photoURL ? photoURL : undefined"
             :icon="photoURL ? undefined : 'pi pi-user'"
             tabindex="0"
-            class="cursor-pointer !bg-transparent"
+            class="cursor-pointer !rounded-full"
             size="large"
             shape="circle"
             @click="showSearchPanel"
@@ -17,7 +17,7 @@
                 <Avatar
                     :image="photoURL ? photoURL : undefined"
                     :icon="photoURL ? undefined : 'pi pi-user'"
-                    class="!bg-transparent"
+                    class="!rounded-full"
                     size="xlarge"
                     shape="circle"
                 />

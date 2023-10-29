@@ -8,7 +8,7 @@
                         tabindex="0"
                         :image="photoURL ? photoURL : undefined"
                         :icon="photoURL ? undefined : 'pi pi-user'"
-                        class="cursor-pointer !bg-transparent"
+                        class="cursor-pointer !rounded-full"
                         size="xlarge"
                         shape="circle"
                         @mouseover="showProfilePictureEditIcon = true"
