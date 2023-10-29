@@ -4,10 +4,12 @@
         <Avatar
             :image="photoURL ? photoURL : undefined"
             :icon="photoURL ? undefined : 'pi pi-user'"
+            tabindex="0"
             class="cursor-pointer"
             size="large"
             shape="circle"
             @click="showSearchPanel"
+            @keydown.enter="showSearchPanel"
         />
 
         <OverlayPanel ref="op" class="w-full sm:mr-4 sm:w-96">
@@ -24,7 +26,7 @@
                     <!-- Display name -->
                     <h1 class="text-2xl font-semibold">{{ displayName ? displayName : t('user.noName') }}</h1>
 
-                    <div v-if="checkState < 100" class="flex items-center px-0 sm:px-8 w-full cursor-pointer hover:text-neutral-400" @click="routeChange(localePath('/user/profile/'))">
+                    <div v-if="checkState < 100" tabindex="0" class="flex items-center px-0 sm:px-8 w-full cursor-pointer hover:text-neutral-400" @click="routeChange(localePath('/user/profile/'))" @keydown.enter="routeChange(localePath('/user/profile/'))">
                         <span>Dein Profil ist noch nicht vollständig</span>
                         <!-- Profile progress with link -->
                         <DisplayProfileProgress class="ml-auto" />
@@ -32,15 +34,15 @@
 
                     <!-- List  with links to profile, settings, logout, etc. -->
                     <ul class="flex flex-col px-0 sm:px-8 w-full">
-                        <li v-if="uid && userProfile && userProfile.role === 'admin'" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/admin'))">
+                        <li v-if="uid && userProfile && userProfile.role === 'admin'" tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/admin'))" @keydown.enter="routeChange(localePath('/admin'))">
                             <span>{{ t('pages.admin') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
-                        <li class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/user'))">
+                        <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/user'))" @keydown.enter="routeChange(localePath('/user'))">
                             <span>{{ t('pages.user') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
-                        <li class="quick-menu-list-item hover:text-red-400" @click="logout">
+                        <li tabindex="0" class="quick-menu-list-item hover:text-red-400" @click="logout" @keydown.enter="logout">
                             <span>{{ t('logout.submit') }}</span>
                         </li>
                     </ul>
@@ -52,8 +54,8 @@
                     <h1 class="text-2xl font-semibold">{{ t('login.notLoggedIn') }}</h1>
 
                     <!-- List  with links to profile, settings, logout, etc. -->
-                    <ul class="flex flex-col px-0 sm:px-8 w-full">
-                        <li class="quick-menu-list-item hover:text-neutral-400" @click="routeChange(localePath('/login'))">
+                    <ul tabindex="0" class="flex flex-col px-0 sm:px-8 w-full">
+                        <li class="quick-menu-list-item hover:text-neutral-400" @click="routeChange(localePath('/login'))" @keydown.enter="routeChange(localePath('/login'))">
                             <span>{{ t('login.submit') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>

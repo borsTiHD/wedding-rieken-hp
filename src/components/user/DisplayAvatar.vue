@@ -5,12 +5,14 @@
                 <!-- User avatar with edit icon on mouse hover -->
                 <div class="relative inline-block">
                     <Avatar
+                        tabindex="0"
                         :image="photoURL ? photoURL : undefined"
                         :icon="photoURL ? undefined : 'pi pi-user'"
                         class="cursor-pointer"
                         size="xlarge"
                         shape="circle"
                         @mouseover="showProfilePictureEditIcon = true"
+                        @keydown.enter="profilePictureModal?.open()"
                     />
 
                     <!-- Edit profile picture on mouse hover -->
