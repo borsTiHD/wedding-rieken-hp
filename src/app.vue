@@ -18,6 +18,8 @@ import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 
+// TODO: Change favicon
+
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
 const { loading, progress, stoptLoading } = useLoadingSpinner(true)
