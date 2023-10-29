@@ -38,9 +38,11 @@
     </div>
 
     <!-- You are not an admin -->
-    <div v-else>
-        <h1 class="text-2xl text-center whitespace-pre-line">{{ t('user.userRole.notAdmin') }}</h1>
-    </div>
+    <Card v-else class="card-primary">
+        <template #content>
+            <h1 class="text-2xl text-center whitespace-pre-line">{{ t('user.userRole.notAdmin') }}</h1>
+        </template>
+    </Card>
 </template>
 
 <script setup lang="ts">
