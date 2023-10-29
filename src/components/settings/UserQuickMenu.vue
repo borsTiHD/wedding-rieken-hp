@@ -27,7 +27,7 @@
                     <!-- Display name -->
                     <h1 class="text-2xl font-semibold">{{ displayName ? displayName : t('user.noName') }}</h1>
 
-                    <div v-if="checkState < 100" tabindex="0" class="flex items-center px-0 sm:px-8 w-full cursor-pointer hover:text-neutral-400" @click="routeChange(localePath('/user/profile/'))" @keydown.enter="routeChange(localePath('/user/profile/'))">
+                    <div v-if="checkState < 100" tabindex="0" class="flex items-center px-0 sm:px-8 w-full cursor-pointer hover:text-neutral-400" @click="routeChange('/user/profile/')" @keydown.enter="routeChange('/user/profile/')">
                         <span>Dein Profil ist noch nicht vollständig</span>
                         <!-- Profile progress with link -->
                         <DisplayProfileProgress class="ml-auto" />
@@ -35,15 +35,15 @@
 
                     <!-- List  with links to profile, settings, logout, etc. -->
                     <ul class="flex flex-col px-0 sm:px-8 w-full">
-                        <li v-if="uid && userProfile && userProfile.role === 'admin'" tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/admin'))" @keydown.enter="routeChange(localePath('/admin'))">
+                        <li v-if="uid && userProfile && userProfile.role === 'admin'" tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange('/admin')" @keydown.enter="routeChange('/admin')">
                             <span>{{ t('pages.admin') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
-                        <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/user'))" @keydown.enter="routeChange(localePath('/user'))">
+                        <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange('/user')" @keydown.enter="routeChange('/user')">
                             <span>{{ t('pages.user') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
-                        <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange(localePath('/user/account'))" @keydown.enter="routeChange(localePath('/user/account'))">
+                        <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange('/user/account')" @keydown.enter="routeChange('/user/account')">
                             <span>{{ t('pages.account') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
@@ -60,7 +60,7 @@
 
                     <!-- List  with links to profile, settings, logout, etc. -->
                     <ul tabindex="0" class="flex flex-col px-0 sm:px-8 w-full">
-                        <li class="quick-menu-list-item hover:text-neutral-400" @click="routeChange(localePath('/login'))" @keydown.enter="routeChange(localePath('/login'))">
+                        <li class="quick-menu-list-item hover:text-neutral-400" @click="routeChange('/login')" @keydown.enter="routeChange('/login')">
                             <span>{{ t('login.submit') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
