@@ -266,7 +266,7 @@
         }
     },
     "countdown":{
-        "days": "Tage",
+        "days": "Tag(e)",
         "hours": "Stunden",
         "minutes": "Minuten",
         "seconds": "Sekunden"

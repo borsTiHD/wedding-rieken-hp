@@ -62,6 +62,8 @@ import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
+// TODO: Add email verification button
+
 // Composables
 const { t } = useI18n()
 const { modalPosition } = useModalPosition() // Modal position

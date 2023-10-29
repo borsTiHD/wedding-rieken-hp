@@ -27,6 +27,8 @@ const props = defineProps({
     }
 })
 
+// TODO: Show a message when the countdown is over
+
 // Localisation
 const { t } = useI18n()
 
