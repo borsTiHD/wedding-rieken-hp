@@ -67,14 +67,8 @@ onMounted(async() => {
 
 <style>
 body {
-    /* background-color: #1F2937;
-    color: #fff; */
-    --tw-bg-opacity: 1 !important;
-    background-color: rgb(243 244 246 / var(--tw-bg-opacity)) !important;
-    /* background-color: #E09F3E !important; */
-
-    /* Background Image */
-    @apply bg-background-wallpaper bg-fixed bg-top bg-repeat-x bg-[length:auto_140%] !important;
+    /* Background Color + Image */
+    @apply bg-body bg-background-wallpaper bg-fixed bg-top bg-repeat-x bg-[length:auto_140%] !important;
 }
 
 /* Styling for all cards */
