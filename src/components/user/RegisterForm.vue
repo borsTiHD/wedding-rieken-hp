@@ -38,8 +38,10 @@ import useInvitiationToken from '@/composables/useInvitiationToken'
 
 // Localisation
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 // Composables
+const router = useRouter()
 const toast = useToast()
 const { registerUser } = useFirebaseAuth()
 const { changeRoleToInvited } = useFirebaseUserProfile()
@@ -86,6 +88,9 @@ const handleSubmit = async(form: { email: string, password: string }) => {
                 })
             })
         }
+
+        // Redirect to profile completion page after registration
+        router.push(localePath('/user/profile'))
     }
 
     // Stop loading
