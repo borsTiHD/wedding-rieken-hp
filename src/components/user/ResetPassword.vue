@@ -1,17 +1,34 @@
 <template>
-    <Button :label="t('user.password.resetPassword.submitButton')" icon="pi pi-lock-open" raised :loading="loading" @click="handleSubmit" />
+    <ConfirmPopup />
+    <Button :label="t('user.password.resetPassword.submitButton')" icon="pi pi-lock-open" raised :loading="loading" @click="confirmDialog($event)" />
 </template>
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
+import { useConfirm } from 'primevue/useconfirm'
 
 // Refs
 const loading = ref(false)
 
 // Composables
 const toast = useToast()
+const confirm = useConfirm()
 const { t } = useI18n()
 const { sendUserPasswordResetEmail } = useFirebaseAuth()
+
+// Confirm dialog
+const confirmDialog = (event: MouseEvent) => {
+    confirm.require({
+        target: event.currentTarget as HTMLElement,
+        message: t('admin.inviteToken.confirmMessage'),
+        acceptLabel: t('buttons.yes'),
+        rejectLabel: t('buttons.no'),
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            handleSubmit() // Submit Button
+        }
+    })
+}
 
 // Submit button
 const handleSubmit = async() => {
