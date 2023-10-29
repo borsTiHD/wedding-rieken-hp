@@ -46,6 +46,7 @@ export default defineNuxtConfig({
     },
     css: [
         '@/assets/css/tailwindcss.css', // tailwindcss
+        'flag-icons/css/flag-icons.min.css', // https://github.com/lipis/flag-icons/tree/main
         'primevue/resources/themes/lara-light-blue/theme.css',
         'primevue/resources/primevue.min.css',
         'primeicons/primeicons.css'
@@ -63,7 +64,7 @@ export default defineNuxtConfig({
         defaultLocale: 'de',
         locales: [
             { code: 'de', iso: 'de-DE', name: 'Deutsch' },
-            { code: 'en', iso: 'en-US', name: 'English' }
+            { code: 'us', iso: 'en-US', name: 'English' }
         ],
         detectBrowserLanguage: {
             useCookie: true,

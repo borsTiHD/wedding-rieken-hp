@@ -36,6 +36,7 @@
         "@vueuse/core": "^10.5.0",
         "firebase": "^10.3.1",
         "firebase-admin": "^11.10.1",
+        "flag-icons": "^6.11.2",
         "pinia": "^2.1.6",
         "primeicons": "^6.0.1",
         "primevue": "^3.38.1",
