@@ -33,6 +33,17 @@ export default defineNuxtConfig({
         '@formkit/nuxt',
         '@nuxtjs/i18n'
     ],
+    app: {
+        head: {
+            link: [
+                {
+                    id: 'theme-link',
+                    rel: 'stylesheet',
+                    href: 'assets/themes/theme.css'
+                }
+            ]
+        }
+    },
     css: [
         '@/assets/css/tailwindcss.css', // tailwindcss
         'primevue/resources/themes/lara-light-blue/theme.css',
