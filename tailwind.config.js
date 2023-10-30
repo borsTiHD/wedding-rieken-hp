@@ -12,6 +12,10 @@ module.exports = {
     // important: true,
     theme: {
         extend: {
+            fontFamily: {
+                montserrat: ['Montserrat'],
+                roboto: ['Roboto']
+            },
             colors: {
                 'body': '#cbc8c6' // body background color
             },

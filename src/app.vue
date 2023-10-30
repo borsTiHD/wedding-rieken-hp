@@ -4,7 +4,7 @@
         <Toast position="bottom-right" />
 
         <AppNavbar />
-        <main class="p-4 mx-auto flex flex-col gap-4" :class="mainClasses">
+        <main :class="mainClasses">
             <NuxtPage />
         </main>
     </div>
@@ -17,8 +17,12 @@ import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
+import '@fontsource/roboto'
+import '@fontsource/roboto/700.css'
+import '@fontsource/montserrat'
 
 // TODO: Change favicon
+// TODO: Fix background image on mobile
 
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
@@ -52,10 +56,12 @@ const mainClasses = computed(() => {
     // Set responsive classes based on route name
     // If route name includes 'admin' use a wider width
     const routeName = useRoute().name as string
-    if (routeName.includes('admin')) {
-        return 'sm:w-11/12 md:w-10/12 lg:w-8/12'
+    if (routeName.includes('index')) {
+        return 'mx-auto flex flex-col gap-4'
+    } else if (routeName.includes('admin')) {
+        return 'mx-auto flex flex-col gap-4 p-4 sm:w-11/12 md:w-10/12 lg:w-8/12'
     }
-    return 'sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12'
+    return 'mx-auto flex flex-col gap-4 p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12'
 })
 
 // Fetch user data and app config
@@ -70,7 +76,7 @@ onMounted(async() => {
 <style>
 body {
     /* Background Color + Image */
-    @apply bg-body bg-background-wallpaper bg-fixed bg-top bg-repeat-x bg-[length:auto_140%] !important;
+    @apply bg-body bg-background-wallpaper bg-fixed bg-contain sm:bg-[length:auto_100%] !important;
 }
 
 /* Styling for all cards */
