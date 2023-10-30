@@ -20,6 +20,9 @@
         </template>
         <template #end>
             <div class="flex items-center gap-2 mr-2">
+                <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
+                <UpgradeUserRole v-if="userProfile.role === 'guest' && token && token !== ''" small />
+
                 <!-- Language selector -->
                 <ChangeLanguage />
 
@@ -33,9 +36,19 @@
 <script setup lang="ts">
 import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
 import UserQuickMenu from '@/components/settings/UserQuickMenu.vue'
+import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import { usePagesStore } from '@/stores/pages'
+import { useUserStore } from '@/stores/user'
 
 // Navitems
 const pagesStore = usePagesStore()
 const navItems = computed(() => pagesStore.pages)
+
+// User store
+const userStore = useUserStore()
+const userProfile = computed(() => userStore.userProfile)
+
+// Invitation token
+const { getInvitiationToken } = useInvitiationToken()
+const token = computed(() => getInvitiationToken())
 </script>

@@ -1,10 +1,21 @@
 <template>
-    <Button :label="t('user.upgradeUserRole.submit')" severity="success" icon="pi pi-gift" raised :loading="loading" @click="handleSubmit" />
+    <!-- Normal size -->
+    <Button v-if="!props.small" :label="t('user.upgradeUserRole.submit')" severity="success" icon="pi pi-gift" raised :loading="loading" @click="handleSubmit" />
+
+    <!-- Small size -->
+    <Button v-else v-tooltip.bottom="t('user.upgradeUserRole.submit')" severity="success" icon="pi pi-gift" raised rounded :loading="loading" @click="handleSubmit" />
 </template>
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import useInvitiationToken from '@/composables/useInvitiationToken'
+
+const props = defineProps({
+    small: {
+        type: Boolean,
+        default: false
+    }
+})
 
 // Composables
 const toast = useToast()
