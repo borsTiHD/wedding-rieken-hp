@@ -1,6 +1,6 @@
 <template>
     <LoadingOverlay v-if="loading" :progress="progress" />
-    <div v-else class="app-wrapper background-image bg-fixed h-screen">
+    <div v-else class="app-wrapper min-h-screen flex flex-col background-image bg-fixed">
         <Toast position="bottom-right" />
 
         <!-- Navbar -->
@@ -8,12 +8,16 @@
 
         <!-- Main content -->
         <NuxtPage class="pt-20" />
+
+        <!-- Footer -->
+        <AppFooter />
     </div>
 </template>
 
 <script setup lang="ts">
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
+import AppFooter from '@/components/layout/AppFooter.vue'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useAppStore } from '@/stores/app'
