@@ -1,13 +1,13 @@
 <template>
     <LoadingOverlay v-if="loading" :progress="progress" />
-    <div v-else class="app-wrapper">
+    <div v-else class="app-wrapper background-image bg-fixed h-screen">
         <Toast position="bottom-right" />
 
         <!-- Navbar -->
         <AppNavbar />
 
         <!-- Main content -->
-        <NuxtPage class="mt-20" />
+        <NuxtPage class="pt-20" />
     </div>
 </template>
 
@@ -62,9 +62,14 @@ onMounted(async() => {
 </script>
 
 <style>
+/* Background color */
 body {
-    /* Background Color + Image */
-    @apply bg-body bg-background-wallpaper bg-fixed bg-top bg-contain sm:bg-[length:auto_100%] !important;
+    @apply bg-body !important;
+}
+
+/* Background image */
+.background-image {
+    @apply bg-background-wallpaper bg-center bg-cover bg-no-repeat !important;
 }
 
 /* Main content wrapper */
