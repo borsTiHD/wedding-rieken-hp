@@ -3,10 +3,11 @@
     <div v-else class="app-wrapper">
         <Toast position="bottom-right" />
 
+        <!-- Navbar -->
         <AppNavbar />
-        <main :class="mainClasses">
-            <NuxtPage />
-        </main>
+
+        <!-- Main content -->
+        <NuxtPage />
     </div>
 </template>
 
@@ -51,19 +52,6 @@ if (cookieLocale) {
     setLocale('de')
 }
 
-// Main section responsive classes
-const mainClasses = computed(() => {
-    // Set responsive classes based on route name
-    // If route name includes 'admin' use a wider width
-    const routeName = useRoute().name as string
-    if (routeName.includes('index')) {
-        return 'mx-auto flex flex-col gap-4'
-    } else if (routeName.includes('admin')) {
-        return 'mx-auto flex flex-col gap-4 p-4 sm:w-11/12 md:w-10/12 lg:w-8/12'
-    }
-    return 'mx-auto flex flex-col gap-4 p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12'
-})
-
 // Fetch user data and app config
 onMounted(async() => {
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
@@ -76,7 +64,12 @@ onMounted(async() => {
 <style>
 body {
     /* Background Color + Image */
-    @apply bg-body bg-background-wallpaper bg-fixed bg-contain sm:bg-[length:auto_100%] !important;
+    @apply bg-body bg-background-wallpaper bg-fixed bg-top bg-contain sm:bg-[length:auto_100%] !important;
+}
+
+/* Main content wrapper */
+.content-wrapper {
+    @apply mx-auto flex flex-col gap-4 p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 !important;
 }
 
 /* Styling for all cards */

@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto flex flex-col w-full">
+    <main class="mx-auto flex flex-col w-full">
         <!-- Main content -->
         <section class="min-h-screen flex justify-center">
             <div class="w-3/4 sm:w-2/3 xl:w-1/2 pt-24 sm:pt-0 flex flex-col justify-start sm:justify-center text-white">
@@ -87,7 +87,7 @@
                 </Card>
             </div>
         </section>
-    </div>
+    </main>
 </template>
 
 <script setup lang="ts">

@@ -1,48 +1,50 @@
 <template>
-    <!-- You are an admin -->
-    <div v-if="user.uid && userProfile?.role === 'admin'" class="flex flex-col gap-4">
-        <div class="flex gap-4 flex-wrap">
-            <!-- Change date -->
-            <Card class="card-primary grow">
-                <template #title>{{ t('admin.changeDate.header') }}</template>
-                <template #content>
-                    <div class="flex flex-col gap-4">
-                        <ChangeTimestamp />
-                        <div class="flex gap-4">
-                            <span class="text-2xl">{{ t('admin.changeDate.label') }}:</span>
-                            <DateDisplay :timestamp="config?.weddingDate" />
+    <main class="mx-auto flex flex-col gap-4 p-4 sm:w-11/12 md:w-10/12 lg:w-8/12">
+        <!-- You are an admin -->
+        <template v-if="user.uid && userProfile?.role === 'admin'">
+            <div class="flex gap-4 flex-wrap">
+                <!-- Change date -->
+                <Card class="card-primary grow">
+                    <template #title>{{ t('admin.changeDate.header') }}</template>
+                    <template #content>
+                        <div class="flex flex-col gap-4">
+                            <ChangeTimestamp />
+                            <div class="flex gap-4">
+                                <span class="text-2xl">{{ t('admin.changeDate.label') }}:</span>
+                                <DateDisplay :timestamp="config?.weddingDate" />
+                            </div>
+                            <ShowCountdown :timestamp="config?.weddingDate" />
                         </div>
-                        <ShowCountdown :timestamp="config?.weddingDate" />
-                    </div>
-                </template>
-            </Card>
-            <!-- QR Code -->
-            <Card class="card-primary grow" :pt="{ content: { class: 'p-0' } }">
-                <template #title>{{ t('admin.qrcode.header') }}</template>
-                <template #content>
-                    <ShowQRCode />
-                </template>
-            </Card>
-        </div>
+                    </template>
+                </Card>
+                <!-- QR Code -->
+                <Card class="card-primary grow" :pt="{ content: { class: 'p-0' } }">
+                    <template #title>{{ t('admin.qrcode.header') }}</template>
+                    <template #content>
+                        <ShowQRCode />
+                    </template>
+                </Card>
+            </div>
 
-        <!-- Change invite token -->
-        <Card class="card-primary grow" :pt="{ content: { class: 'pb-0' } }">
-            <template #title>{{ t('admin.inviteToken.header') }}</template>
+            <!-- Change invite token -->
+            <Card class="card-primary grow" :pt="{ content: { class: 'pb-0' } }">
+                <template #title>{{ t('admin.inviteToken.header') }}</template>
+                <template #content>
+                    <ChangeInviteToken />
+                </template>
+            </Card>
+
+            <!-- List users datatable -->
+            <ListUsers />
+        </template>
+
+        <!-- You are not an admin -->
+        <Card v-else class="card-primary">
             <template #content>
-                <ChangeInviteToken />
+                <h1 class="text-2xl text-center whitespace-pre-line">{{ t('user.userRole.notAdmin') }}</h1>
             </template>
         </Card>
-
-        <!-- List users datatable -->
-        <ListUsers />
-    </div>
-
-    <!-- You are not an admin -->
-    <Card v-else class="card-primary">
-        <template #content>
-            <h1 class="text-2xl text-center whitespace-pre-line">{{ t('user.userRole.notAdmin') }}</h1>
-        </template>
-    </Card>
+    </main>
 </template>
 
 <script setup lang="ts">

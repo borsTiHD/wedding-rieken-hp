@@ -1,24 +1,26 @@
 <template>
-    <Card class="card-primary">
-        <template #content>
-            <div v-if="!uid" class="flex flex-col gap-4">
-                <h1 class="text-2xl">{{ t('register.header') }}:</h1>
-                <TabView v-model:activeIndex="activeIndex">
-                    <TabPanel :header="t('register.header')">
-                        <RegisterForm />
-                    </TabPanel>
-                    <TabPanel :header="t('login.wihtoutPassword')">
-                        <LoginWithEmailLink />
-                    </TabPanel>
-                </TabView>
-            </div>
+    <main class="content-wrapper">
+        <Card class="card-primary">
+            <template #content>
+                <div v-if="!uid" class="flex flex-col gap-4">
+                    <h1 class="text-2xl">{{ t('register.header') }}:</h1>
+                    <TabView v-model:activeIndex="activeIndex">
+                        <TabPanel :header="t('register.header')">
+                            <RegisterForm />
+                        </TabPanel>
+                        <TabPanel :header="t('login.wihtoutPassword')">
+                            <LoginWithEmailLink />
+                        </TabPanel>
+                    </TabView>
+                </div>
 
-            <div v-else class="flex flex-col gap-4">
-                <h1 class="text-2xl">{{ t('login.alreadyLoggedIn') }}:</h1>
-                <LogoutUser />
-            </div>
-        </template>
-    </Card>
+                <div v-else class="flex flex-col gap-4">
+                    <h1 class="text-2xl">{{ t('login.alreadyLoggedIn') }}:</h1>
+                    <LogoutUser />
+                </div>
+            </template>
+        </Card>
+    </main>
 </template>
 
 <script setup lang="ts">

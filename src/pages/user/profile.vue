@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-4">
+    <main class="content-wrapper">
         <Card class="card-primary">
             <template #content>
                 <Steps
@@ -33,12 +33,12 @@
                 <component :is="Component" />
             </keep-alive>
         </NuxtPage>
-    </div>
+    </main>
 </template>
 
 <script setup lang="ts">
-import { MenuItem } from 'primevue/menuitem'
 import { useUserStore } from '@/stores/user'
+import type { MenuItem } from 'primevue/menuitem'
 
 // Localisation
 const { t } = useI18n()
