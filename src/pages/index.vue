@@ -2,7 +2,7 @@
     <main class="mx-auto flex flex-col">
         <!-- Main content -->
         <section class="min-h-screen flex justify-center background-image h-full -mt-20">
-            <div class="w-3/4 sm:w-2/3 xl:w-1/2 pt-24 sm:pt-0 flex flex-col justify-start sm:justify-center text-white">
+            <div class="w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col justify-center text-white">
                 <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm">Lisa</span>
                 <span class="font-montserrat text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
                 <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm self-end">Marcel</span>

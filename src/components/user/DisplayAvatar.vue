@@ -8,7 +8,7 @@
                         tabindex="0"
                         :image="photoURL ? photoURL : undefined"
                         :icon="photoURL ? undefined : 'pi pi-user'"
-                        class="cursor-pointer !rounded-full"
+                        class="cursor-pointer rounded-full"
                         size="xlarge"
                         shape="circle"
                         @mouseover="showProfilePictureEditIcon = true"
@@ -77,10 +77,10 @@ const photoURL = computed(() => userStore.photoURL)
 // Card pass-through props
 const ptCard = {
     body: {
-        class: '!p-4'
+        class: 'p-4'
     },
     content: {
-        class: '!p-0 sm:!m-4'
+        class: 'p-0 sm:m-4'
     }
 }
 </script>

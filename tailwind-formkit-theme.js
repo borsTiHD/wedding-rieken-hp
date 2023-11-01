@@ -1,6 +1,6 @@
 // Tailwind theme for FormKit
 export default {
     global: {
-        wrapper: '!max-w-full'
+        wrapper: 'max-w-full'
     }
 }

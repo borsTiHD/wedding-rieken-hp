@@ -17,7 +17,7 @@
                 <Avatar
                     :image="photoURL ? photoURL : undefined"
                     :icon="photoURL ? undefined : 'pi pi-user'"
-                    class="!rounded-full"
+                    class="rounded-full"
                     size="xlarge"
                     shape="circle"
                 />

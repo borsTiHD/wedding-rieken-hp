@@ -7,4 +7,7 @@
 @layer tailwind-utilities {
     @tailwind components;
     @tailwind utilities;
+    /* fix for breakpoints not working with tailwind+primevue and setting "important: true" */
+    /* see: https://github.com/tailwindlabs/tailwindcss/discussions/12336 */
+    @tailwind variants;
 }
