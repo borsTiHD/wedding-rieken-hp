@@ -7,7 +7,7 @@
         <AppNavbar />
 
         <!-- Main content -->
-        <NuxtPage />
+        <NuxtPage class="mt-20" />
     </div>
 </template>
 
