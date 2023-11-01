@@ -1,9 +1,12 @@
 <template>
     <main class="content-wrapper">
-        <Card class="card-primary">
+        <!-- Not logged in -->
+        <Card v-if="!uid" class="card-primary">
+            <template #title>
+                <h2>{{ t('register.header') }}</h2>
+            </template>
             <template #content>
-                <div v-if="!uid" class="flex flex-col gap-4">
-                    <h1 class="text-2xl">{{ t('register.header') }}:</h1>
+                <div class="flex flex-col gap-4">
                     <TabView v-model:activeIndex="activeIndex">
                         <TabPanel :header="t('register.header')">
                             <RegisterForm />
@@ -13,9 +16,16 @@
                         </TabPanel>
                     </TabView>
                 </div>
+            </template>
+        </Card>
 
-                <div v-else class="flex flex-col gap-4">
-                    <h1 class="text-2xl">{{ t('login.alreadyLoggedIn') }}:</h1>
+        <!-- Already logged in -->
+        <Card v-else class="card-primary">
+            <template #title>
+                <h2>{{ t('login.alreadyLoggedIn') }}</h2>
+            </template>
+            <template #content>
+                <div class="flex flex-col gap-4">
                     <LogoutUser />
                 </div>
             </template>

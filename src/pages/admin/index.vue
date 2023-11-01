@@ -5,7 +5,9 @@
             <div class="flex gap-4 flex-wrap">
                 <!-- Change date -->
                 <Card class="card-primary grow">
-                    <template #title>{{ t('admin.changeDate.header') }}</template>
+                    <template #title>
+                        <h2>{{ t('admin.changeDate.header') }}</h2>
+                    </template>
                     <template #content>
                         <div class="flex flex-col gap-4">
                             <ChangeTimestamp />
@@ -19,7 +21,9 @@
                 </Card>
                 <!-- QR Code -->
                 <Card class="card-primary grow" :pt="{ content: { class: 'p-0' } }">
-                    <template #title>{{ t('admin.qrcode.header') }}</template>
+                    <template #title>
+                        <h2>{{ t('admin.qrcode.header') }}</h2>
+                    </template>
                     <template #content>
                         <ShowQRCode />
                     </template>
@@ -28,7 +32,9 @@
 
             <!-- Change invite token -->
             <Card class="card-primary grow" :pt="{ content: { class: 'pb-0' } }">
-                <template #title>{{ t('admin.inviteToken.header') }}</template>
+                <template #title>
+                    <h2>{{ t('admin.inviteToken.header') }}</h2>
+                </template>
                 <template #content>
                     <ChangeInviteToken />
                 </template>
@@ -41,7 +47,7 @@
         <!-- You are not an admin -->
         <Card v-else class="card-primary">
             <template #content>
-                <h1 class="text-2xl text-center whitespace-pre-line">{{ t('user.userRole.notAdmin') }}</h1>
+                <h2 class="text-2xl text-center whitespace-pre-line">{{ t('user.userRole.notAdmin') }}</h2>
             </template>
         </Card>
     </main>

@@ -1,9 +1,11 @@
 <template>
     <main class="content-wrapper">
         <Card class="card-primary">
+            <template #title>
+                <h2>{{ t('login.header') }}</h2>
+            </template>
             <template #content>
                 <div v-if="!user.uid" class="flex flex-col gap-4">
-                    <h1 class="text-2xl">{{ t('login.header') }}:</h1>
                     <TabView v-model:activeIndex="activeIndex">
                         <TabPanel :header="t('login.header')">
                             <LoginForm />

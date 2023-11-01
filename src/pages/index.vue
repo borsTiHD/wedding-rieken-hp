@@ -23,7 +23,7 @@
 
                 <Card class="card-primary">
                     <template #title>
-                        <h2 class="font-roboto">What is Lorem Ipsum?</h2>
+                        <h2>What is Lorem Ipsum?</h2>
                     </template>
                     <template #content>
                         <div class="flex flex-col items-center gap-4">
@@ -48,7 +48,7 @@
 
                 <Card class="card-primary">
                     <template #title>
-                        <h2 class="font-roboto">What is Lorem Ipsum?</h2>
+                        <h2>What is Lorem Ipsum?</h2>
                     </template>
                     <template #content>
                         <div class="flex flex-col items-center gap-4">
@@ -63,7 +63,7 @@
             <div class="p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
                 <Card class="card-primary">
                     <template #title>
-                        <h2 class="font-roboto">Ipsum dolor sit amet consectetur</h2>
+                        <h2>Ipsum dolor sit amet consectetur</h2>
                     </template>
                     <template #content>
                         <div class="flex flex-col items-center gap-4">

@@ -1,6 +1,8 @@
 <template>
     <Card class="card-primary">
-        <template #title>{{ t('user.account.header') }}</template>
+        <template #title>
+            <h2>{{ t('user.account.header') }}</h2>
+        </template>
         <template #content>
             <div class="flex flex-col gap-4">
                 <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->

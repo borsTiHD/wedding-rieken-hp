@@ -1,12 +1,12 @@
 <template>
     <Card class="card-primary">
+        <template #title>
+            <h2>{{ t('profileStepper.index.header') }}</h2>
+        </template>
         <template #content>
             <div class="flex flex-col gap-4">
                 <!-- Welcome box -->
-                <div class="flex flex-col gap-4">
-                    <h1 class="text-4xl">{{ t('profileStepper.index.header') }}</h1>
-                    <p>{{ t('profileStepper.index.text') }}</p>
-                </div>
+                <p>{{ t('profileStepper.index.text') }}</p>
 
                 <!-- State incomplete -->
                 <div v-if="!checkState" class="flex flex-col gap-4">

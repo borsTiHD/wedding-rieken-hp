@@ -1,6 +1,6 @@
 <template>
     <main class="content-wrapper">
-        <Card class="card-primary">
+        <Card class="card-primary" :pt="ptCard">
             <template #content>
                 <Steps
                     :model="items"
@@ -92,5 +92,15 @@ const checkState = (index: number) => {
     // Get the page from the items array
     const page = items.value[index]
     return checker(page?.label as string)
+}
+
+// Card pass-through props
+const ptCard = {
+    body: {
+        class: 'p-4'
+    },
+    content: {
+        class: 'p-0 sm:m-4'
+    }
 }
 </script>

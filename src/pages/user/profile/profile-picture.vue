@@ -1,14 +1,14 @@
 <template>
     <Card class="card-primary">
+        <template #title>
+            <div class="flex gap-4">
+                <h2>{{ t('profileStepper.profilePicture.header') }}</h2>
+                <i v-if="checkState" v-tooltip.bottom="t('profileStepper.stateComplete')" class="text-2xl pi pi-verified text-green-600" />
+                <i v-else v-tooltip.bottom="t('profileStepper.stateIncomplete')" class="text-2xl pi pi-exclamation-circle text-sky-600" />
+            </div>
+        </template>
         <template #content>
             <div class="flex flex-col gap-4">
-                <!-- Header -->
-                <div class="flex gap-4">
-                    <h1 class="text-4xl">{{ t('profileStepper.profilePicture.header') }}</h1>
-                    <i v-if="checkState" v-tooltip.bottom="t('profileStepper.stateComplete')" class="text-2xl pi pi-verified text-green-600" />
-                    <i v-else v-tooltip.bottom="t('profileStepper.stateIncomplete')" class="text-2xl pi pi-exclamation-circle text-sky-600" />
-                </div>
-
                 <!-- State incomplete -->
                 <div v-if="!checkState" class="flex gap-4">
                     <p>{{ t('profileStepper.profilePicture.text') }}</p>

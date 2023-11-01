@@ -1,10 +1,12 @@
 <template>
     <main class="content-wrapper">
+        <!-- User not logged in -->
         <Card v-if="!uid" class="card-primary">
+            <template #title>
+                <h2>{{ t('login.notLoggedIn') }}</h2>
+            </template>
             <template #content>
-                <!-- User not logged in -->
                 <div class="flex flex-col gap-4">
-                    <h1 class="text-2xl">{{ t('login.notLoggedIn') }}</h1>
                     <i18n-t keypath="login.loginLink" tag="span">
                         <template #action>
                             <NuxtLink :to="localePath('/login')" class="font-medium text-blue-600">{{ t('login.loginLinkTag') }}</NuxtLink>
