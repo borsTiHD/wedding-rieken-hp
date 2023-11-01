@@ -9,7 +9,7 @@ module.exports = {
         './node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}',
         './tailwind-formkit-theme.js'
     ],
-    // important: true,
+    important: true,
     theme: {
         extend: {
             fontFamily: {

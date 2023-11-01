@@ -34,12 +34,12 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n'
     ],
     css: [
-        '@/assets/css/tailwindcss.css', // tailwindcss
         'flag-icons/css/flag-icons.min.css', // https://github.com/lipis/flag-icons/tree/main
         // 'primevue/resources/themes/lara-light-blue/theme.css',
         'primevue/resources/primevue.min.css',
         'primeicons/primeicons.css',
-        '@/assets/css/theme.css' // custom primevue theme -> look at primevue-designer-colors.md
+        '@/assets/css/theme.css', // custom primevue theme -> look at primevue-designer-colors.md
+        '@/assets/css/tailwindcss.css' // tailwindcss
     ],
     build: {
         transpile: ['primevue', 'vue-i18n']
