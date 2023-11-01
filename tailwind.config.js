@@ -17,7 +17,13 @@ module.exports = {
                 roboto: ['Roboto']
             },
             colors: {
-                'body': '#cbc8c6' // body background color
+                // Colors: read more in 'primevue-designer-colors.md'
+                body: '#cbc8c6', // body background color
+                primary: '#335C67', // primary color
+                secondary: '#FFF3B0', // secondary color
+                accent: '#E09F3E', // accent color
+                'accent-2': '#9E2A2B', // accent color 2
+                'accent-3': '#540B0E' // accent color 3
             },
             backgroundImage: {
                 'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/pexels-photo-2253870.jpeg\')'
