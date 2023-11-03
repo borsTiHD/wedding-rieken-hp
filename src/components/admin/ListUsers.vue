@@ -65,9 +65,9 @@
                             <Dropdown v-model="selectedType" :options="types" optionLabel="name" optionValue="code" :placeholder="t('admin.listUsers.userFilter.placeholder')" class="w-full sm:w-fit sm:ml-auto" />
 
                             <!-- Search -->
-                            <span class="p-input-icon-left">
+                            <span class="p-input-icon-left w-full sm:w-fit">
                                 <i class="pi pi-search" />
-                                <InputText v-model="globalSearch" :placeholder="t('admin.listUsers.userSearch.placeholder')" />
+                                <InputText v-model="globalSearch" class="w-full" :placeholder="t('admin.listUsers.userSearch.placeholder')" />
                             </span>
                         </div>
                     </template>
