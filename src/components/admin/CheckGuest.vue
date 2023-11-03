@@ -28,7 +28,7 @@
         class="whitespace-nowrap"
         icon="pi pi-user-edit"
         size="small"
-        severity="secondary"
+        severity="info"
         outlined
         @click="checkGuestModal?.open()"
     />
