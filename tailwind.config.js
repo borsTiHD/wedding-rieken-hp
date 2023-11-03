@@ -27,7 +27,8 @@ module.exports = {
                 'accent-3': '#540B0E' // accent color 3
             },
             backgroundImage: {
-                'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/pexels-photo-2253870.jpeg\')'
+                // 'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/pexels-photo-2253870.jpeg\')'
+                'background-wallpaper': 'url(\'@/assets/img/pexels-photo-2253870.jpeg\')'
             }
         }
     },
