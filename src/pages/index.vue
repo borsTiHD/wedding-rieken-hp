@@ -3,9 +3,9 @@
         <!-- Main content -->
         <section class="min-h-screen flex justify-center background-image h-full -mt-20">
             <div class="w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col justify-center text-white">
-                <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm">Lisa</span>
+                <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
                 <span class="font-montserrat text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
-                <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm self-end">Marcel</span>
+                <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
             </div>
         </section>
 
@@ -98,4 +98,6 @@ import DateDisplay from '@/components/DateDisplay.vue'
 // Fetch app config
 const appStore = useAppStore()
 const config = appStore.config
+const bride = computed(() => appStore.bride)
+const groom = computed(() => appStore.groom)
 </script>
