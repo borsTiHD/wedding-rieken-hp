@@ -19,6 +19,7 @@ module.exports = {
             colors: {
                 // Colors: read more in 'primevue-designer-colors.md'
                 body: '#cbc8c6', // body background color
+                footer: '#0f172a', // footer background color
                 primary: '#335C67', // primary color
                 secondary: '#FFF3B0', // secondary color
                 accent: '#E09F3E', // accent color

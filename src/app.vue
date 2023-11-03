@@ -67,8 +67,10 @@ onMounted(async() => {
 
 <style>
 /* Background color */
-body {
-    @apply bg-body !important;
+body, html {
+    /* background: linear-gradient(to bottom, #ff0000, #0000ff); */
+    /* @apply bg-gradient-to-b from-body to-footer !important; */
+    @apply bg-footer !important;
 }
 
 /* Background image */

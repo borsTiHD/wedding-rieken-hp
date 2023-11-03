@@ -1,5 +1,5 @@
 <template>
-    <footer class="mt-auto flex justify-center items-center h-56 bg-slate-900 text-white"> <!-- bg-gray-200 text-black/80 -->
+    <footer class="mt-auto flex justify-center items-center h-56 bg-footer text-white"> <!-- bg-gray-200 text-black/80 -->
         <div class="flex flex-col justify-center items-center gap-2">
             <span>{{ t('footer.description', { bride, groom }) }}</span>
             <div class="flex gap-2">
