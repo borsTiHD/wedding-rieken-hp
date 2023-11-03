@@ -13,6 +13,10 @@ export const useAppStore = defineStore('app-store', () => {
     // Config data
     const config = ref<Config>()
 
+    // Bride and groom names
+    const bride = ref<string>('Lisa')
+    const groom = ref<string>('Marcel')
+
     // Fetch config data
     async function fetchConfig() {
         // If collection and id is specified, return document from collection
@@ -30,5 +34,5 @@ export const useAppStore = defineStore('app-store', () => {
         config.value = response as unknown as Config
     }
 
-    return { config, fetchConfig }
+    return { config, fetchConfig, bride, groom }
 })
