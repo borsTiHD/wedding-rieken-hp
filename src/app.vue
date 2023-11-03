@@ -80,7 +80,7 @@ body, html {
 
 /* Main content wrapper */
 .content-wrapper {
-    @apply mx-auto flex flex-col gap-4 p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 !important;
+    @apply mx-auto flex flex-col gap-4 p-4 w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 !important;
 }
 
 /* Styling for all cards */

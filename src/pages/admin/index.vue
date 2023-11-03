@@ -1,5 +1,5 @@
 <template>
-    <main class="mx-auto flex flex-col gap-4 p-4 sm:w-11/12 md:w-10/12 lg:w-8/12">
+    <main class="mx-auto flex flex-col gap-4 p-4 w-full sm:w-11/12 md:w-10/12 lg:w-8/12">
         <!-- You are an admin -->
         <template v-if="user.uid && userProfile?.role === 'admin'">
             <div class="flex gap-4 flex-wrap">
