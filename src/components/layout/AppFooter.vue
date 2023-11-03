@@ -1,7 +1,7 @@
 <template>
     <footer class="mt-auto flex justify-center items-center h-56 bg-slate-900 text-white"> <!-- bg-gray-200 text-black/80 -->
         <div class="flex flex-col justify-center items-center gap-2">
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
+            <span>{{ t('footer.description', { bride, groom }) }}</span>
             <div class="flex gap-2">
                 <NuxtLink
                     v-for="(item) in navItems"
@@ -24,8 +24,17 @@
 
 <script setup lang="ts">
 import { usePagesStore } from '@/stores/pages'
+import { useAppStore } from '@/stores/app'
+
+// Localisation
+const { t } = useI18n()
 
 // Navitems
 const pagesStore = usePagesStore()
 const navItems = computed(() => pagesStore.pages)
+
+// App store
+const appStore = useAppStore()
+const bride = computed(() => appStore.bride)
+const groom = computed(() => appStore.groom)
 </script>

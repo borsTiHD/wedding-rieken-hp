@@ -20,6 +20,9 @@
     "settings": {
         "language": "Sprache"
     },
+    "footer": {
+        "description": "Hochzeit von {bride} und {groom}"
+    },
     "login": {
         "header": "Einloggen",
         "wihtoutPassword": "Ohne Passwort",
