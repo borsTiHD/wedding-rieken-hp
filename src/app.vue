@@ -1,6 +1,6 @@
 <template>
     <LoadingOverlay v-if="loading" :progress="progress" />
-    <div v-else class="app-wrapper min-h-screen flex flex-col background-image bg-fixed">
+    <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
         <Toast position="bottom-right" />
 
         <!-- Navbar -->
@@ -70,7 +70,7 @@ onMounted(async() => {
 body, html {
     /* background: linear-gradient(to bottom, #ff0000, #0000ff); */
     /* @apply bg-gradient-to-b from-body to-footer !important; */
-    @apply bg-footer !important;
+    @apply bg-footer -z-50 !important;
 }
 
 /* Background image */

@@ -1,7 +1,14 @@
 <template>
     <main class="mx-auto flex flex-col">
         <!-- Main content -->
-        <section class="min-h-screen flex justify-center background-image h-full -mt-20">
+        <section class="h-screen flex justify-center relative overflow-hidden -mt-20">
+            <!-- Background image -->
+            <div
+                class="background-image absolute w-full h-full"
+                :style="{ transform: `translateY(${scrollY / 2}px)` }"
+            />
+
+            <!-- Content wrapper -->
             <div class="w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col justify-center text-white">
                 <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
                 <span class="font-montserrat text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
@@ -94,10 +101,14 @@
 import { useAppStore } from '@/stores/app'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
+import { useWindowSize } from '@/composables/useWindowSize'
 
 // Fetch app config
 const appStore = useAppStore()
 const config = appStore.config
 const bride = computed(() => appStore.bride)
 const groom = computed(() => appStore.groom)
+
+// Scroll event listener
+const { scrollY } = useWindowSize(undefined, true)
 </script>
