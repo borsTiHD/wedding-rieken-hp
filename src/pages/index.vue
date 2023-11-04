@@ -9,10 +9,14 @@
             />
 
             <!-- Content wrapper -->
-            <div class="w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col justify-center text-white">
-                <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
-                <span class="font-montserrat text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
-                <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
+            <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
+                <div class="mt-auto flex flex-col justify-center text-white">
+                    <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
+                    <span class="font-montserrat text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
+                    <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
+                </div>
+
+                <i class="text-white mt-auto mb-20 text-3xl md:text-5xl drop-shadow-sm self-center motion-safe:animate-bounce pi pi-angle-down" :class="isScrolled ? 'opacity-0' : 'opacity-100'" />
             </div>
         </section>
 
@@ -111,4 +115,5 @@ const groom = computed(() => appStore.groom)
 
 // Scroll event listener
 const { scrollY } = useWindowSize(undefined, true)
+const isScrolled = computed<boolean>(() => scrollY.value > 30)
 </script>
