@@ -6,8 +6,11 @@
         <!-- Navbar -->
         <AppNavbar />
 
+        <!-- Background image -->
+        <div v-if="!isIndex" class="background-image fixed top-0 left-0 w-full h-full" />
+
         <!-- Main content -->
-        <NuxtPage class="pt-20" />
+        <NuxtPage class="pt-20 z-20" />
 
         <!-- Footer -->
         <AppFooter />
@@ -27,10 +30,14 @@ import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
 
 // TODO: Change favicon
-// TODO: Fix background image on mobile
 
 // Localisation
 const { t } = useI18n()
+
+// Router
+const route = useRoute()
+const routeName = computed(() => route.name as string)
+const isIndex = computed(() => routeName.value.includes('index'))
 
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
