@@ -1,4 +1,8 @@
 {
+    "head": {
+        "titel": "Hochzeit von {bride} und {groom}",
+        "description": "Hochzeit von {bride} und {groom}"
+    },
     "general": {
         "inputDateFormat": "dd.mm.yy"
     },

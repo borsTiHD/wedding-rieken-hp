@@ -29,6 +29,9 @@ import '@fontsource/montserrat'
 // TODO: Change favicon
 // TODO: Fix background image on mobile
 
+// Localisation
+const { t } = useI18n()
+
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
 const { loading, progress, stoptLoading } = useLoadingSpinner(true)
@@ -36,6 +39,33 @@ const { loading, progress, stoptLoading } = useLoadingSpinner(true)
 // Stores
 const appStore = useAppStore() // App store
 const userStore = useUserStore() // User store
+
+// Refs
+const bride = computed(() => appStore.bride)
+const groom = computed(() => appStore.groom)
+const titel = computed(() => t('head.titel', { bride: bride.value, groom: groom.value }))
+const description = computed(() => t('head.description', { bride: bride.value, groom: groom.value }))
+
+// Set theme color
+const themeColor = computed(() => appStore.themeColor)
+watch(themeColor, (newValue) => {
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', newValue)
+})
+
+// Set meta tags
+useHead({
+    title: titel.value,
+    meta: [
+        {
+            name: 'description',
+            content: description.value
+        },
+        {
+            name: 'theme-color',
+            content: themeColor.value
+        }
+    ]
+})
 
 // Save invitiation token from route if provided
 const { getInvitiationToken } = useInvitiationToken()
@@ -70,7 +100,7 @@ onMounted(async() => {
 body, html {
     /* background: linear-gradient(to bottom, #ff0000, #0000ff); */
     /* @apply bg-gradient-to-b from-body to-footer !important; */
-    @apply bg-footer -z-50 !important;
+    @apply bg-footer font-montserrat -z-50 !important;
 }
 
 /* Background image */

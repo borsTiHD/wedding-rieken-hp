@@ -17,6 +17,12 @@ export const useAppStore = defineStore('app-store', () => {
     const bride = ref<string>('Lisa')
     const groom = ref<string>('Marcel')
 
+    // Theme color
+    const themeColor = ref<string>('#cbc8c6')
+    function setThemeColor(color: string) {
+        themeColor.value = color
+    }
+
     // Fetch config data
     async function fetchConfig() {
         // If collection and id is specified, return document from collection
@@ -34,5 +40,5 @@ export const useAppStore = defineStore('app-store', () => {
         config.value = response as unknown as Config
     }
 
-    return { config, fetchConfig, bride, groom }
+    return { config, fetchConfig, bride, groom, setThemeColor, themeColor }
 })

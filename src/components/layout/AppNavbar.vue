@@ -1,6 +1,6 @@
 <template>
-    <nav class="navbar fixed top-0 left-0 w-full transition duration-300 ease-in-out z-50" :class="{ 'bg-white border-b border-gray-100': isScrolled }">
-        <Menubar :model="navItems" class="bg-transparent border-none" :pt="{ menu: { class: ['rounded-md transition duration-300 ease-in-out', { 'bg-white': !isScrolled }] } }">
+    <nav class="navbar fixed top-0 left-0 w-full z-50" :class="{ 'bg-white border-b border-gray-100': isScrolled }">
+        <Menubar :model="navItems" class="bg-transparent border-none" :pt="{ menu: { class: ['rounded-md', { 'bg-white': !isScrolled }] } }">
             <template #item="{ item }">
                 <NuxtLink v-slot="{ href, navigate, isActive, isExactActive }" :to="item.path" custom>
                     <a
@@ -40,6 +40,7 @@ import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
 import UserQuickMenu from '@/components/settings/UserQuickMenu.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
+import { useAppStore } from '@/stores/app'
 import { usePagesStore } from '@/stores/pages'
 import { useUserStore } from '@/stores/user'
 
@@ -58,4 +59,18 @@ const token = computed(() => getInvitiationToken())
 // Scroll event listener
 const { scrollY } = useWindowSize(100)
 const isScrolled = computed<boolean>(() => scrollY.value > 30)
+
+// App store
+const appStore = useAppStore() // App store
+
+// Change theme color on scroll
+watch(isScrolled, (newValue) => {
+    if (newValue) {
+        // After scroll to match navbar background
+        appStore.setThemeColor('#fff')
+    } else {
+        // Default theme color
+        appStore.setThemeColor('#cbc8c6')
+    }
+})
 </script>
