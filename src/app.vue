@@ -100,7 +100,7 @@ onMounted(async() => {
 body, html {
     /* background: linear-gradient(to bottom, #ff0000, #0000ff); */
     /* @apply bg-gradient-to-b from-body to-footer !important; */
-    @apply bg-footer font-montserrat -z-50 !important;
+    @apply bg-body font-montserrat -z-50 !important;
 }
 
 /* Background image */
