@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { useEventListener } from '@/composables/useEventListener'
-export function useWindowSize(timer = 500) {
+export function useWindowSize(timer = 500, noTimeout = false) {
     // On resize window handler - sets the current window size
     const windowWidth = ref(window.innerWidth)
     const windowHeight = ref(window.innerHeight)
@@ -10,6 +10,13 @@ export function useWindowSize(timer = 500) {
     let timeoutScroll: ReturnType<typeof setTimeout> | null = null
     // On resize window handler - sets the current window size
     useEventListener(window, 'resize', () => {
+        // If no timeout is set, update the values immediately
+        if (noTimeout) {
+            windowWidth.value = window.innerWidth
+            windowHeight.value = window.innerHeight
+            return true
+        }
+
         // Start small timeout to prevent multiple calls
         if (!timeoutResize) {
             timeoutResize = setTimeout(() => {
@@ -21,6 +28,13 @@ export function useWindowSize(timer = 500) {
     })
     // On scroll window handler - sets the current scroll position
     useEventListener(window, 'scroll', () => {
+        // If no timeout is set, update the values immediately
+        if (noTimeout) {
+            scrollX.value = window.scrollX
+            scrollY.value = window.scrollY
+            return true
+        }
+
         // Start small timeout to prevent multiple calls
         if (!timeoutScroll) {
             timeoutScroll = setTimeout(() => {
