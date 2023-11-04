@@ -3,14 +3,15 @@
         <div class="flex flex-col justify-center items-center gap-2">
             <span>{{ t('footer.description', { bride, groom }) }}</span>
             <div class="flex gap-2">
-                <NuxtLink
-                    v-for="(item) in navItems"
+                <template
+                    v-for="(item, index) in navItems"
                     :key="item.path"
-                    :to="item.path"
-                    class="link link-hover hover:text-rose-500"
                 >
-                    {{ item.name }}
-                </NuxtLink>
+                    <NuxtLink :to="item.path" class="link link-hover hover:text-rose-500 px-1">
+                        {{ item.name }}
+                    </NuxtLink>
+                    <span v-if="index < navItems.length - 1">|</span>
+                </template>
             </div>
             <p class="flex items-end gap-2 font-weight-thin">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m14.6 16.6l4.6-4.6l-4.6-4.6L16 6l6 6l-6 6l-1.4-1.4m-5.2 0L4.8 12l4.6-4.6L8 6l-6 6l6 6l1.4-1.4Z" /></svg>
