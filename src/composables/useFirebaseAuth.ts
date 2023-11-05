@@ -59,12 +59,12 @@ export default function() {
     }
 
     // Send email for password reset
-    const sendUserPasswordResetEmail = async(): Promise<boolean> => {
-        const email = $auth.currentUser?.email
-        if (!email) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    const sendUserPasswordResetEmail = async(email?: string): Promise<boolean> => {
+        const userEmail = email ? email : $auth.currentUser?.email
+        if (!userEmail) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
 
         // Send password reset email
-        await sendPasswordResetEmail($auth, email).catch((error: FirebaseError) => {
+        await sendPasswordResetEmail($auth, userEmail).catch((error: FirebaseError) => {
             const errorMessage = handleFirebaseError(error, 'firebase.custom.resetMailCouldNotSend')
             throw new Error(errorMessage)
         })
