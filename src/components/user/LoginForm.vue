@@ -7,6 +7,7 @@
     >
         <div class="flex flex-col">
             <FormKit
+                v-model="email"
                 type="email"
                 name="email"
                 :label="t('login.formkit.labelEmail')"
@@ -24,8 +25,13 @@
             />
 
             <div class="flex justify-between mb-4">
-                <span class="font-medium">!!Passwort vergessen!!</span>
-                <NuxtLink :to="localePath('/register')" class="font-medium">{{ t('register.submit') }}</NuxtLink>
+                <!-- Forgot password button -->
+                <ForgotPassword :email="email" />
+
+                <!-- Register link -->
+                <NuxtLink :to="localePath('/register')">
+                    <Button class="whitespace-nowrap p-0 sm:p-2" :label="t('register.submit')" text size="small" />
+                </NuxtLink>
             </div>
 
             <Button :label="t('login.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
@@ -35,6 +41,7 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
+import ForgotPassword from '@/components/user/ForgotPassword.vue'
 
 // Composables
 const toast = useToast()
@@ -44,6 +51,7 @@ const { loginUser } = useFirebaseAuth()
 
 // Data
 const loading = ref(false)
+const email = ref('')
 
 // Submit button
 const handleSubmit = async(form: { email: string, password: string }) => {

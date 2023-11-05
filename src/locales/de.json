@@ -207,8 +207,10 @@
             },
             "resetPassword": {
                 "submitButton": "Passwort zurücksetzen",
+                "forgotButton": "Passwort vergessen?",
                 "confirmMessage": "Sind Sie sicher, dass Sie Ihr Passwort zurücksetzen möchten?",
                 "error": "Fehler beim Zurücksetzen Ihres Passworts",
+                "noMail": "Keine E-Mail-Adresse angegeben",
                 "success": "Passwort zurückgesetzt",
                 "successDetail": "Sie haben Ihr Passwort erfolgreich zurückgesetzt. Eine Email mit weiteren Schritten wurde an Ihr Postfach versendet."
             }
