@@ -15,11 +15,6 @@
                         </TabPanel>
                     </TabView>
                 </div>
-
-                <div v-else class="flex flex-col gap-4">
-                    <h1 class="text-2xl">{{ t('login.alreadyLoggedIn') }}:</h1>
-                    <LogoutUser />
-                </div>
             </template>
         </Card>
     </main>
@@ -28,7 +23,6 @@
 <script setup lang="ts">
 import LoginForm from '@/components/user/LoginForm.vue'
 import LoginWithEmailLink from '@/components/user/LoginWithEmailLink.vue'
-import LogoutUser from '@/components/user/LogoutUser.vue'
 import { useUserStore } from '@/stores/user'
 
 // Localisation
@@ -48,7 +42,7 @@ const activeIndex = ref(0)
 
 // Watch uid and push to home if user is logged in
 watch(uid, (newUid) => {
-    if (newUid) { router.push(localePath('/')) }
+    if (newUid) { router.push(localePath('/user')) }
 })
 
 // On mount
@@ -60,6 +54,6 @@ onMounted(() => {
     }
 
     // If user is logged in, push to home
-    if (uid.value) { router.push(localePath('/')) }
+    if (uid.value) { router.push(localePath('/user')) }
 })
 </script>
