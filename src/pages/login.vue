@@ -1,5 +1,5 @@
 <template>
-    <main class="content-wrapper">
+    <main class="content-flex w-full sm:max-w-xl">
         <Card class="card-primary">
             <template #title>
                 <h2>{{ t('login.header') }}</h2>

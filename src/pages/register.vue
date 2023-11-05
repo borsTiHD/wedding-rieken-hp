@@ -1,5 +1,5 @@
 <template>
-    <main class="content-wrapper">
+    <main class="content-flex w-full sm:max-w-xl">
         <!-- Not logged in -->
         <Card v-if="!uid" class="card-primary">
             <template #title>
