@@ -20,7 +20,7 @@ const { sendUserPasswordResetEmail } = useFirebaseAuth()
 const confirmDialog = (event: MouseEvent) => {
     confirm.require({
         target: event.currentTarget as HTMLElement,
-        message: t('admin.inviteToken.confirmMessage'),
+        message: t('user.password.resetPassword.confirmMessage'),
         acceptLabel: t('buttons.yes'),
         rejectLabel: t('buttons.no'),
         icon: 'pi pi-exclamation-triangle',

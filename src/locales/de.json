@@ -206,6 +206,7 @@
             },
             "resetPassword": {
                 "submitButton": "Passwort zurücksetzen",
+                "confirmMessage": "Sind Sie sicher, dass Sie Ihr Passwort zurücksetzen möchten?",
                 "error": "Fehler beim Zurücksetzen Ihres Passworts",
                 "success": "Passwort zurückgesetzt",
                 "successDetail": "Sie haben Ihr Passwort erfolgreich zurückgesetzt. Eine Email mit weiteren Schritten wurde an Ihr Postfach versendet."
