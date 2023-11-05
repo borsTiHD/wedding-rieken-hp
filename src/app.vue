@@ -116,17 +116,9 @@ body, html {
 }
 
 /* Main content wrapper */
-.content-sizer {
-    @apply w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 !important;
-}
-
-.content-flex {
-    @apply mx-auto flex flex-col gap-4 p-4 !important;
-}
-
-.content-wrapper {
-    @apply content-flex content-sizer !important;
-}
+.content-sizer { @apply w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 !important; }
+.content-flex { @apply mx-auto flex flex-col gap-4 p-4 !important; }
+.content-wrapper { @apply content-flex content-sizer !important; }
 
 /* Styling for all cards */
 .card-primary {
