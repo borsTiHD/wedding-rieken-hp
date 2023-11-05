@@ -10,7 +10,6 @@
                 type="email"
                 name="email"
                 :label="t('register.formkit.labelEmail')"
-                prefix-icon="email"
                 placeholder="myname@website.com"
                 :help="t('register.formkit.labelEmailHelp')"
                 validation="required|email"
@@ -20,14 +19,11 @@
                 type="password"
                 name="password"
                 :label="t('register.formkit.labelPassword')"
-                prefix-icon="password"
                 :help="t('register.formkit.labelPasswordHelp')"
                 validation="required"
             />
 
-            <div class="flex gap-2">
-                <Button :label="t('register.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
-            </div>
+            <Button :label="t('register.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
         </div>
     </FormKit>
 </template>

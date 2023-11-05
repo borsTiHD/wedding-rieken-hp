@@ -30,6 +30,7 @@
     "login": {
         "header": "Einloggen",
         "wihtoutPassword": "Ohne Passwort",
+        "loginHintWithoutPassword": "Sie können sich auch ohne Passwort einloggen. Bitte geben Sie Ihre E-Mail-Adresse ein und klicken Sie auf 'Einloggen'. Sie erhalten dann eine E-Mail mit einem Login-Link.",
         "alreadyLoggedIn": "Sie sind bereits eingeloggt",
         "notLoggedIn": "Sie sind nicht eingeloggt",
         "tryingToLogin": "Versuche einzuloggen...",

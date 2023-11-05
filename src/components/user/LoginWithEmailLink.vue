@@ -17,20 +17,19 @@
         @submit="handleSubmit"
     >
         <div class="flex flex-col">
+            <p class="mb-4 font-medium">{{ t('login.loginHintWithoutPassword') }}</p>
+
             <FormKit
                 type="email"
                 name="email"
                 :label="t('login.formkit.labelEmail')"
                 :help="t('login.formkit.labelEmailHelp')"
-                prefix-icon="email"
                 placeholder="myname@website.com"
                 validation="required|email"
                 autofocus
             />
 
-            <div class="flex gap-2">
-                <Button :label="t('login.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
-            </div>
+            <Button :label="t('login.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
         </div>
     </FormKit>
 </template>

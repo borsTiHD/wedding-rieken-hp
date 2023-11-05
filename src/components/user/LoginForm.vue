@@ -11,7 +11,6 @@
                 name="email"
                 :label="t('login.formkit.labelEmail')"
                 :help="t('login.formkit.labelEmailHelp')"
-                prefix-icon="email"
                 placeholder="myname@website.com"
                 validation="required|email"
                 autofocus
@@ -21,13 +20,15 @@
                 name="password"
                 :label="t('login.formkit.labelPassword')"
                 :help="t('login.formkit.labelPasswordHelp')"
-                prefix-icon="password"
                 validation="required"
             />
 
-            <div class="flex gap-2">
-                <Button :label="t('login.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
+            <div class="flex justify-between mb-4">
+                <span class="font-medium">!!Passwort vergessen!!</span>
+                <NuxtLink :to="localePath('/register')" class="font-medium">{{ t('register.submit') }}</NuxtLink>
             </div>
+
+            <Button :label="t('login.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
         </div>
     </FormKit>
 </template>
@@ -38,6 +39,7 @@ import { useToast } from 'primevue/usetoast'
 // Composables
 const toast = useToast()
 const { t } = useI18n()
+const localePath = useLocalePath()
 const { loginUser } = useFirebaseAuth()
 
 // Data
