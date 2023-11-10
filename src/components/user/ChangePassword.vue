@@ -5,13 +5,11 @@
         :actions="false"
         @submit="handleSubmit"
     >
-        <div class="flex flex-col">
+        <div class="flex flex-col pt-2">
             <FormKit
                 type="password"
                 name="password"
-                :label="t('user.password.formkit.labelNew')"
-                :help="t('user.password.formkit.labelNewHelp')"
-                prefix-icon="password"
+                :placeholder="t('user.password.formkit.labelNew')"
                 suffix-icon="eyeClosed"
                 validation="required"
                 validation-visibility="live"
@@ -20,9 +18,7 @@
             <FormKit
                 type="password"
                 name="password_confirm"
-                :label="t('user.password.formkit.labelNewRepeat')"
-                :help="t('user.password.formkit.labelNewRepeatHelp')"
-                prefix-icon="password"
+                :placeholder="t('user.password.formkit.labelNewRepeat')"
                 suffix-icon="eyeClosed"
                 validation="required|confirm"
                 validation-visibility="live"
