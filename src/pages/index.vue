@@ -19,7 +19,17 @@
                     <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
                 </div>
 
-                <i class="text-white mt-auto mb-20 text-3xl md:text-5xl drop-shadow-sm self-center motion-safe:animate-bounce pi pi-angle-down" :class="isScrolled ? 'opacity-0' : 'opacity-100'" />
+                <!-- Scroll down icon -->
+                <i
+                    :class="[
+                        isScrolled ? 'opacity-0' : 'opacity-100',
+                        'mt-auto mb-20 text-3xl md:text-5xl self-center ', // Sizes
+                        'text-white drop-shadow-sm pi pi-angle-down', // Icon
+                        'motion-safe:animate-bounce motion-reduce:animate-none', // Animation
+                        'cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg' // Hover
+                    ]"
+                    @click="scrollToNextSection"
+                />
             </div>
         </section>
 
@@ -119,4 +129,20 @@ const groom = computed(() => appStore.groom)
 // Scroll event listener
 const { scrollY } = useWindowSize(undefined, true)
 const isScrolled = computed<boolean>(() => scrollY.value > 30)
+
+// Scroll to next section
+const scrollToNextSection = () => {
+    const nextSection = document.querySelector<HTMLElement>('section:nth-child(2)')
+    if (nextSection) {
+        // Get navbar height for offset
+        const navbar = document.querySelector<HTMLElement>('.navbar')
+        const offset = navbar?.offsetHeight || 0
+
+        // Calculate new Y-Value based on the next section
+        const nextSectionY = nextSection.getBoundingClientRect().top + window.scrollY - offset
+
+        // Scroll to next section with smooth behavior and offset
+        window.scrollTo({ top: nextSectionY, behavior: 'smooth' })
+    }
+}
 </script>
