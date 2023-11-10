@@ -22,9 +22,7 @@
             <FormKit
                 type="email"
                 name="email"
-                :label="t('login.formkit.labelEmail')"
-                :help="t('login.formkit.labelEmailHelp')"
-                placeholder="myname@website.com"
+                :placeholder="t('login.formkit.labelEmail')"
                 validation="required|email"
                 autofocus
             />

@@ -9,17 +9,14 @@
             <FormKit
                 type="email"
                 name="email"
-                :label="t('register.formkit.labelEmail')"
-                placeholder="myname@website.com"
-                :help="t('register.formkit.labelEmailHelp')"
+                :placeholder="t('register.formkit.labelEmail')"
                 validation="required|email"
                 autofocus
             />
             <FormKit
                 type="password"
                 name="password"
-                :label="t('register.formkit.labelPassword')"
-                :help="t('register.formkit.labelPasswordHelp')"
+                :placeholder="t('register.formkit.labelPassword')"
                 validation="required"
             />
 

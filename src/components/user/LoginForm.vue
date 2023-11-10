@@ -10,17 +10,14 @@
                 v-model="email"
                 type="email"
                 name="email"
-                :label="t('login.formkit.labelEmail')"
-                :help="t('login.formkit.labelEmailHelp')"
-                placeholder="myname@website.com"
+                :placeholder="t('login.formkit.labelEmail')"
                 validation="required|email"
                 autofocus
             />
             <FormKit
                 type="password"
                 name="password"
-                :label="t('login.formkit.labelPassword')"
-                :help="t('login.formkit.labelPasswordHelp')"
+                :placeholder="t('login.formkit.labelPassword')"
                 validation="required"
             />
 
