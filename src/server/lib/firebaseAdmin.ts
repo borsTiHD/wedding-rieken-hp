@@ -6,11 +6,24 @@ import { ServiceAccount } from 'firebase-admin/lib/credential'
 
 const config = useRuntimeConfig()
 const firebaseConfig = config.firebaseAdmin // Set in nuxt.config.ts
-const serviceAccount = {
+const serviceAccount: ServiceAccount = {
     projectId: firebaseConfig.projectId,
     privateKey: firebaseConfig.privateKey.replace(/\\n/g, '\n'),
     clientEmail: firebaseConfig.clientEmail
-} as ServiceAccount
+}
+
+// Check if object is a valid ServiceAccount object
+function isValidServiceAccount(account: ServiceAccount): boolean {
+    return account
+        && typeof account.projectId === 'string'
+        && typeof account.privateKey === 'string'
+        && typeof account.clientEmail === 'string'
+}
+
+// Check if serviceAccount is set correctly
+if (!isValidServiceAccount(serviceAccount)) {
+    throw new Error('Firebase: Invalid service account configuration')
+}
 
 // Initialize Firebase
 const firebaseApp = admin.initializeApp({
