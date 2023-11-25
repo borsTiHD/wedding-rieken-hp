@@ -8,6 +8,9 @@
                 <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
                 <UpgradeUserRole v-if="userProfile.role === 'guest' && token && token !== ''" class="basis-full" />
 
+                <!-- Verify Email -->
+                <VerifyEmail v-if="!emailVerified" />
+
                 <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2">
                     <!-- Change Password -->
                     <DisplayModal
@@ -57,14 +60,13 @@
 import DisplayModal from '@/components/DisplayModal.vue'
 import LogoutUser from '@/components/user/LogoutUser.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
+import VerifyEmail from '@/components/user/VerifyEmail.vue'
 import ChangePassword from '@/components/user/ChangePassword.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
 import DeleteUser from '@/components/user/DeleteUser.vue'
 import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
-
-// TODO: Add email verification button
 
 // Composables
 const { t } = useI18n()
@@ -77,6 +79,7 @@ const deleteUserModal = ref<InstanceType<typeof DisplayModal>>()
 // User store
 const userStore = useUserStore()
 const userProfile = computed(() => userStore.userProfile)
+const emailVerified = computed(() => userStore.emailVerified)
 
 // Invitation token
 const { getInvitiationToken } = useInvitiationToken()

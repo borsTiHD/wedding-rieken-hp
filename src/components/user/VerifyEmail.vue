@@ -7,6 +7,7 @@
         icon="pi pi-exclamation-circle"
         outlined
         class="p-0"
+        severity="info"
         :loading="loadingEmailVerify"
         @click.prevent="handleVerifyEmail"
     />
@@ -15,8 +16,10 @@
     <Button
         v-else-if="props.mode === 'large' || !props.mode"
         v-tooltip.bottom="t('user.email.tooltipPlzVerifie')"
+        :label="t('user.email.verifieAriaLabel')"
         :aria-label="t('user.email.verifieAriaLabel')"
         icon="pi pi-exclamation-circle"
+        severity="info"
         :loading="loadingEmailVerify"
         @click.prevent="handleVerifyEmail"
     />
