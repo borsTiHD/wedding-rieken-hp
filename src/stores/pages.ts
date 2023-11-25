@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { MenuItem } from 'primevue/menuitem'
 import { useUserStore } from '@/stores/user'
+import type { MenuItem } from 'primevue/menuitem'
 
 export const usePagesStore = defineStore('pages-store', () => {
     // Localisation
@@ -28,8 +28,8 @@ export const usePagesStore = defineStore('pages-store', () => {
         // If the user is not logged in add the login and register pages
         if (!uid.value) {
             pages.push(
-                { name: t('pages.login'), path: localePath('/login') },
-                { name: t('pages.register'), path: localePath('/register')  }
+                { name: t('pages.login'), path: localePath('/login') }
+                // { name: t('pages.register'), path: localePath('/register')  }
             )
         }
 

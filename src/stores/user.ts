@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { onAuthStateChanged, getIdToken, User} from 'firebase/auth'
+import { onAuthStateChanged, getIdToken, type User } from 'firebase/auth'
 import clearNestedObject from '@/composables/clearNestedObject'
 import type { UserProfile } from '@/types/UserProfile'
 
