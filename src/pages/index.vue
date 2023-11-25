@@ -139,7 +139,8 @@ const scrollToNextSection = () => {
         const offset = navbar?.offsetHeight || 0
 
         // Calculate new Y-Value based on the next section
-        const nextSectionY = nextSection.getBoundingClientRect().top + window.scrollY - offset
+        // 16px offset because the navbar has a padding of 16px if the page is not scrolled
+        const nextSectionY = nextSection.getBoundingClientRect().top + window.scrollY - offset + 16
 
         // Scroll to next section with smooth behavior and offset
         window.scrollTo({ top: nextSectionY, behavior: 'smooth' })

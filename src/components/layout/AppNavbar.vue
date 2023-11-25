@@ -1,6 +1,20 @@
 <template>
-    <nav class="navbar fixed top-0 left-0 w-full z-50" :class="{ 'bg-white border-b border-gray-100': isScrolled }">
-        <Menubar :model="navItems" class="bg-transparent border-none" :pt="{ menu: { class: ['rounded-md', { 'bg-white': !isScrolled }] } }">
+    <nav
+        class="navbar fixed top-0 left-0 w-full z-50"
+        :class="{ 'bg-white border-b border-gray-100': isScrolled }"
+    >
+        <Menubar
+            :model="navItems"
+            class="bg-transparent border-none"
+            :pt="{
+                menu: {
+                    class: [
+                        'rounded-md transition-all duration-300 ease-in-out',
+                        { 'bg-white p-2': !isScrolled }
+                    ]
+                }
+            }"
+        >
             <template #item="{ item }">
                 <NuxtLink v-slot="{ href, navigate, isActive, isExactActive }" :to="item.path" custom>
                     <a
