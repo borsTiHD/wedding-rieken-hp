@@ -21,13 +21,13 @@
 
                 <!-- User avatar with edit icon on mouse hover -->
                 <div class="flex items-center justify-center gap-4">
-                    <div class="relative inline-block h-72 w-72">
+                    <div class="relative inline-block h-64 w-64">
                         <div
                             class="cursor-pointer flex items-center justify-center"
                             @mouseover="showProfilePictureEditIcon = true"
                         >
-                            <img v-if="photoURL" :src="photoURL" :alt="`Your profile picture`" class="h-72 w-72 object-cover shadow-md rounded-md">
-                            <div v-else class="h-72 w-72 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
+                            <img v-if="photoURL" :src="photoURL" :alt="`Your profile picture`" class="h-64 w-64 object-cover shadow-md rounded-md">
+                            <div v-else class="h-64 w-64 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
                                 <span class="text-gray-400 text-center">No Avatar</span>
                             </div>
                         </div>
