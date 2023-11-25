@@ -1,3 +1,33 @@
+// Function checks a single environment variable
+function checkEnvironmentVariable(variableName: string): void {
+    if (!process.env[variableName]) {
+        throw new Error(`Firebase: Missing environment variable ${variableName}`)
+    }
+}
+
+// All required environment variables
+function isValidEnvironment(): void {
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_PROJECTID')
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_PRIVATE_KEY_ID')
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_PRIVATE_KEY')
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_CLIENT_EMAIL')
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_CLIENT_ID')
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_AUTH_URI')
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_TOKEN_URI')
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_AUTH_PROVIDER_X509_CERT_URL')
+    checkEnvironmentVariable('NUXT_FIREBASE_ADMIN_CLIENT_X509_CERT_URL')
+    checkEnvironmentVariable('NUXT_FIREBASE_APIKEY')
+    checkEnvironmentVariable('NUXT_FIREBASE_AUTHDOMAIN')
+    checkEnvironmentVariable('NUXT_FIREBASE_PROJECTID')
+    checkEnvironmentVariable('NUXT_FIREBASE_STORAGEBUCKET')
+    checkEnvironmentVariable('NUXT_FIREBASE_MESSAGINGSENDERID')
+    checkEnvironmentVariable('NUXT_FIREBASE_APPID')
+    checkEnvironmentVariable('NUXT_FIREBASE_MEASUREMENTID')
+}
+
+// Check if all environment variables are set correctly
+isValidEnvironment()
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     runtimeConfig: {
@@ -23,8 +53,7 @@ export default defineNuxtConfig({
                 messagingSenderId: process.env.NUXT_FIREBASE_MESSAGINGSENDERID,
                 appId: process.env.NUXT_FIREBASE_APPID,
                 measurementId: process.env.NUXT_FIREBASE_MEASUREMENTID
-            },
-            firebaseAuthEmailSigninUrl: process.env.NUXT_FIREBASE_AUTH_EMAIL_SIGNIN_URL
+            }
         }
     },
     srcDir: 'src/',
