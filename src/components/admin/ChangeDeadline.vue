@@ -26,6 +26,9 @@ import handleFirebaseError from '@/composables/handleFirebaseError'
 import { useAppStore } from '@/stores/app'
 import type { PartialConfig } from '@/types/Config'
 
+// TODO: Add rules to firebase
+// TODO: Add user notification for changing invite state and additional guests
+
 // Composables
 const { t } = useI18n() // Localisation
 const toast = useToast()
