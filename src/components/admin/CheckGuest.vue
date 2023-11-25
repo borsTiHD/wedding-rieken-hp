@@ -40,15 +40,13 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import useBackendApi from '@/composables/useBackendApi'
 import { useModalPosition } from '@/composables/useModalPosition'
 
-const props = defineProps({
-    uid: {
-        type: String,
-        required: true
-    },
-    mode: {
-        type: String,
-        default: 'default'
-    }
+type Props = {
+    uid: string
+    mode?: 'default' | 'changeInvitation'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    mode: 'default'
 })
 
 // Emit event

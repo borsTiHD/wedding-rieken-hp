@@ -33,79 +33,46 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
-
 type Position = 'center' | 'left' | 'top' | 'bottom' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' | undefined
 
-const props = defineProps({
-    showModal: {
-        type: Boolean,
-        default: false
-    },
-    header: {
-        type: String,
-        default: 'Header'
-    },
-    button: {
-        type: Boolean,
-        default: false
-    },
-    buttonLabel: {
-        type: String,
-        default: 'Anzeigen'
-    },
-    buttonIcon: {
-        type: String,
-        default: 'pi pi-external-link'
-    },
-    buttonSeverity: {
-        type: String,
-        default: undefined
-    },
-    buttonOutlined: {
-        type: Boolean,
-        default: false
-    },
-    buttonRaised: {
-        type: Boolean,
-        default: false
-    },
-    buttonClass: {
-        type: String,
-        default: undefined
-    },
-    position: {
-        type: String as PropType<Position>,
-        default: 'center'
-    },
-    draggable: {
-        type: Boolean,
-        default: false
-    },
-    closeicon: {
-        type: Boolean,
-        default: true
-    },
-    dismissableMask: {
-        type: Boolean,
-        default: true
-    },
-    maximizable: {
-        type: Boolean,
-        default: false
-    },
-    maximizeicon: {
-        type: Boolean,
-        default: true
-    },
-    style: {
-        type: [String, Object],
-        default: () => { return { width: '30vw', minWidth: 'fit-content', maxWidth: '40rem' } }
-    },
-    breakpoints: {
-        type: Object,
-        default: () => { return { '960px': '75vw', '641px': '100vw' } }
-    }
+type Props = {
+    showModal?: boolean
+    header?: string
+    button?: boolean
+    buttonLabel?: string
+    buttonIcon?: string
+    buttonSeverity?: string
+    buttonOutlined?: boolean
+    buttonRaised?: boolean
+    buttonClass?: string
+    position?: Position
+    draggable?: boolean
+    closeicon?: boolean
+    dismissableMask?: boolean
+    maximizable?: boolean
+    maximizeicon?: boolean
+    style?: string | Record<string, string>
+    breakpoints?: Record<string, string>
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    showModal: false,
+    header: 'Header',
+    button: false,
+    buttonLabel: 'Anzeigen',
+    buttonIcon: 'pi pi-external-link',
+    buttonSeverity: undefined,
+    buttonOutlined: false,
+    buttonRaised: false,
+    buttonClass: undefined,
+    position: 'center',
+    draggable: false,
+    closeicon: true,
+    dismissableMask: true,
+    maximizable: false,
+    maximizeicon: true,
+    style: () => { return { width: '30vw', minWidth: 'fit-content', maxWidth: '40rem' } },
+    breakpoints: () => { return { '960px': '75vw', '641px': '100vw' } }
 })
 
 // Events

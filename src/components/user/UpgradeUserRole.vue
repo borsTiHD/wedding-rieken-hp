@@ -10,11 +10,9 @@
 import { useToast } from 'primevue/usetoast'
 import useInvitiationToken from '@/composables/useInvitiationToken'
 
-const props = defineProps({
-    small: {
-        type: Boolean,
-        default: false
-    }
+type Props = { small?: boolean }
+const props = withDefaults(defineProps<Props>(), {
+    small: false
 })
 
 // Composables

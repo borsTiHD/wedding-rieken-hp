@@ -16,14 +16,9 @@ const confirm = useConfirm()
 const { t } = useI18n()
 const { sendUserPasswordResetEmail } = useFirebaseAuth()
 
-// Email prop
-const props = defineProps({
-    email: {
-        type: String,
-        default: '',
-        required: true
-    }
-})
+const props = defineProps<{
+    email: string
+}>()
 
 // Confirm dialog
 const confirmDialog = (event: MouseEvent) => {

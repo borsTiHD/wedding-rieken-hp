@@ -12,12 +12,9 @@
 </template>
 
 <script setup lang="ts">
-// Props for 'progress'
-const props = defineProps({
-    progress: {
-        type: Number,
-        default: 0
-    }
+type Props = { progress: number }
+const props = withDefaults(defineProps<Props>(), {
+    progress: 0
 })
 </script>
 
