@@ -33,16 +33,7 @@
                             <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
 
                             <!-- Email verification button -->
-                            <Button
-                                v-else
-                                v-tooltip.bottom="t('user.email.tooltipPlzVerifie')"
-                                :aria-label="t('user.email.verifieAriaLabel')"
-                                icon="pi pi-exclamation-circle"
-                                outlined
-                                class="p-0"
-                                :loading="loadingEmailVerify"
-                                @click.prevent="handleVerifyEmail"
-                            />
+                            <VerifyEmail v-if="!emailVerified" mode="small" />
                         </div>
 
                         <!-- Email change modal -->
@@ -140,9 +131,9 @@
 </template>
 
 <script setup lang="ts">
-import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
+import VerifyEmail from '@/components/user/VerifyEmail.vue'
 import ChangeEmail from '@/components/user/ChangeEmail.vue'
 import ChangePhone from '@/components/user/ChangePhone.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
@@ -153,11 +144,9 @@ import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 // Composables
-const toast = useToast()
 const router = useRouter()
 const { t } = useI18n()
 const localePath = useLocalePath()
-const { sendUserEmailVerification } = useFirebaseAuth()
 const { modalPosition } = useModalPosition() // Modal position
 
 // TODO: Create a hover effect for the list items
@@ -200,36 +189,4 @@ const userRole = computed(() => {
 // Invitation token
 const { getInvitiationToken } = useInvitiationToken()
 const token = computed(() => getInvitiationToken())
-
-// Email verification
-const loadingEmailVerify = ref(false)
-const handleVerifyEmail = async() => {
-    // Start loading
-    loadingEmailVerify.value = true
-
-    // Send email verification
-    const response = await sendUserEmailVerification().catch((error: Error) => {
-        console.error(error)
-        toast.add({
-            severity: 'error',
-            summary: t('user.email.verifiedError'),
-            detail: error.message,
-            life: 10000
-        })
-        return false
-    })
-
-    // Show success toast
-    if (response) {
-        toast.add({
-            severity: 'success',
-            summary: t('user.email.verifiedSuccess'),
-            detail: t('user.email.verifiedSuccessDetail'),
-            life: 10000
-        })
-    }
-
-    // Stop loading
-    loadingEmailVerify.value = false
-}
 </script>
