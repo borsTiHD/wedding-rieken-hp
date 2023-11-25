@@ -5,7 +5,7 @@
             :image="photoURL ? photoURL : undefined"
             :icon="photoURL ? undefined : 'pi pi-user'"
             tabindex="0"
-            class="cursor-pointer !rounded-full"
+            class="cursor-pointer !rounded-full hover:shadow-lg transition-shadow duration-300 ease-in-out"
             size="large"
             shape="circle"
             @click="showSearchPanel"
