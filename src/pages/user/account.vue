@@ -22,14 +22,14 @@
             <DisplayAvatar />
 
             <!-- User settings -->
-            <UserSettings />
+            <AccountSettings />
         </div>
     </main>
 </template>
 
 <script setup lang="ts">
 import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
-import UserSettings from '@/components/settings/UserSettings.vue'
+import AccountSettings from '@/components/settings/AccountSettings.vue'
 import { useUserStore } from '@/stores/user'
 
 // Localisation
