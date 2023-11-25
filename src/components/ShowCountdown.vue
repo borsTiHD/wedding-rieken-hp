@@ -20,12 +20,9 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-    timestamp: {
-        type: Number,
-        default: 0
-    }
-})
+const props = defineProps<{
+    timestamp?: number
+}>()
 
 // TODO: Show a message when the countdown is over
 
@@ -33,7 +30,6 @@ const props = defineProps({
 const { t } = useI18n()
 
 // Countdown values
-const targetDate = ref(0)
 const days = ref(0)
 const hours = ref(0)
 const minutes = ref(0)
@@ -42,8 +38,11 @@ const interval = ref<null | ReturnType<typeof setInterval>>(null)
 
 // Update countdown values
 const updateCountdown = () => {
+    // Return if timestamp is undefined
+    if (!props.timestamp) return
+
     const currentTime = Math.floor(Date.now() / 1000)
-    const timeLeft = targetDate.value - currentTime
+    const timeLeft = props.timestamp - currentTime
 
     if (timeLeft <= 0) {
         days.value = 0
@@ -58,15 +57,7 @@ const updateCountdown = () => {
     }
 }
 
-// Watch for changes in timestamp
-watch(() => props.timestamp, () => {
-    targetDate.value = props.timestamp
-})
-
 onMounted(() => {
-    // Set initial timestamp in seconds
-    targetDate.value = props.timestamp
-
     updateCountdown()
     if (interval.value) { clearInterval(interval.value) }
     interval.value = setInterval(updateCountdown, 1000)
