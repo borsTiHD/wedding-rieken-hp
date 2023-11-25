@@ -23,6 +23,18 @@ export const useAppStore = defineStore('app-store', () => {
         themeColor.value = color
     }
 
+    // Deadline Date: Format date based on timestamp
+    const deadlineDate = computed(() => {
+        if (!config.value?.deadline) return 0
+        return new Date(config.value?.deadline * 1000)
+    })
+
+    // Check if the current date/time is before the deadline
+    const isBeforeDeadline = computed(() => {
+        if (!config.value?.deadline) return false
+        return Date.now() < config.value?.deadline * 1000
+    })
+
     // Fetch config data
     async function fetchConfig() {
         // If collection and id is specified, return document from collection
@@ -45,5 +57,5 @@ export const useAppStore = defineStore('app-store', () => {
         return updateByCollectionAndId('app', 'config', config)
     }
 
-    return { config, updateConfig, fetchConfig, bride, groom, setThemeColor, themeColor }
+    return { config, updateConfig, fetchConfig, bride, groom, deadlineDate, isBeforeDeadline, setThemeColor, themeColor }
 })
