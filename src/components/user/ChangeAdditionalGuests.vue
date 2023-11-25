@@ -5,8 +5,8 @@
         :actions="false"
         @submit="handleSubmit"
     >
-        <div class="flex flex-col gap-2">
-            <p class="max-w-xl">{{ t('user.additionalGuests.deadlineInfo', { date: d(deadlineDate, 'short') }) }}</p>
+        <div v-if="isBeforeDeadline" class="flex flex-col gap-2">
+            <p class="max-w-xl mb-4">{{ t('user.additionalGuests.deadlineInfo', { date: d(deadlineDate, 'short') }) }}</p>
             <FormKit
                 v-model="defaultAdditionalGuests"
                 type="number"
@@ -22,6 +22,10 @@
             <div class="flex gap-2">
                 <Button :label="t('buttons.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
             </div>
+        </div>
+
+        <div v-else>
+            <p class="max-w-xl">{{ t('user.additionalGuests.deadlinePassedInfo') }}</p>
         </div>
     </FormKit>
 </template>
@@ -49,13 +53,8 @@ const additionalGuests = computed(() => userProfile.value.additionalGuests)
 
 // App config
 const appStore = useAppStore()
-const config = computed(() => appStore.config)
-
-// Deadline: Format date based on timestamp
-const deadlineDate = computed(() => {
-    if (!config.value?.deadline) return 0
-    return new Date(config.value?.deadline * 1000)
-})
+const deadlineDate = computed(() => appStore.deadlineDate)
+const isBeforeDeadline = computed(() => appStore.isBeforeDeadline)
 
 // Data
 const loading = ref(false)

@@ -1,10 +1,16 @@
 <template>
     <div class="flex flex-col gap-6 w-full">
-        <p class="max-w-xl">{{ t('user.invitation.deadlineInfo', { date: d(deadlineDate, 'short') }) }}</p>
-        <div class="flex gap-2 w-full">
-            <Button class="grow" :label="t('user.invitation.labelAccept')" icon="pi pi-thumbs-up" type="submit" raised :loading="loading" @click="handleSubmit(true)" />
-            <Button class="grow" :label="t('user.invitation.labelDecline')" icon="pi pi-thumbs-down" type="submit" severity="danger" outlined :loading="loading" @click="handleSubmit(false)" />
-        </div>
+        <template v-if="isBeforeDeadline">
+            <p class="max-w-xl">{{ t('user.invitation.deadlineInfo', { date: d(deadlineDate, 'short') }) }}</p>
+            <div class="flex gap-2 w-full">
+                <Button class="grow" :label="t('user.invitation.labelAccept')" icon="pi pi-thumbs-up" type="submit" raised :loading="loading" @click="handleSubmit(true)" />
+                <Button class="grow" :label="t('user.invitation.labelDecline')" icon="pi pi-thumbs-down" type="submit" severity="danger" outlined :loading="loading" @click="handleSubmit(false)" />
+            </div>
+        </template>
+
+        <template v-else>
+            <p class="max-w-xl">{{ t('user.invitation.deadlinePassedInfo') }}</p>
+        </template>
     </div>
 </template>
 
@@ -27,13 +33,8 @@ const userStore = useUserStore()
 
 // App config
 const appStore = useAppStore()
-const config = computed(() => appStore.config)
-
-// Deadline: Format date based on timestamp
-const deadlineDate = computed(() => {
-    if (!config.value?.deadline) return 0
-    return new Date(config.value?.deadline * 1000)
-})
+const deadlineDate = computed(() => appStore.deadlineDate)
+const isBeforeDeadline = computed(() => appStore.isBeforeDeadline)
 
 // Data
 const loading = ref(false)

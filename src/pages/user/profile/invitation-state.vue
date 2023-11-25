@@ -10,7 +10,10 @@
         <template #content>
             <div class="flex flex-col gap-4">
                 <!-- State incomplete -->
-                <p v-if="!checkState" >{{ t('profileStepper.invitationState.text', { date: d(deadlineDate, 'short') }) }}</p>
+                <div v-if="!checkState">
+                    <p v-if="isBeforeDeadline">{{ t('profileStepper.invitationState.text', { date: d(deadlineDate, 'short') }) }}</p>
+                    <p v-else>{{ t('profileStepper.invitationState.textDeadlinePassed') }}</p>
+                </div>
 
                 <!-- State complete -->
                 <p v-else>{{ t('profileStepper.invitationState.textComplete') }}</p>
@@ -105,13 +108,8 @@ const { modalPosition } = useModalPosition()
 
 // App config
 const appStore = useAppStore()
-const config = computed(() => appStore.config)
-
-// Format date based on timestamp
-const deadlineDate = computed(() => {
-    if (!config.value?.deadline) return 0
-    return new Date(config.value?.deadline * 1000) // Konvertiere Unix-Zeitstempel in Millisekunden
-})
+const deadlineDate = computed(() => appStore.deadlineDate)
+const isBeforeDeadline = computed(() => appStore.isBeforeDeadline)
 
 // Check completion state of this page
 const { checker } = useProfileChecker()

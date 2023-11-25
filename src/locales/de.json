@@ -96,7 +96,8 @@
         },
         "invitationState": {
             "header": "Einladung",
-            "text": "Bitte bestätigen Sie Ihre Einladung. Wenn Sie zusätzliche Gäste mitbringen möchten, geben Sie diese bitte an. Bitte treffen sie bis zum {date} eine Entscheidung.",
+            "text": "Bitte bestätigen Sie Ihre Einladung. Wenn Sie zusätzliche Gäste mitbringen möchten, geben Sie diese bitte an. Bitte treffen sie Ihre Entscheidung bis zum {date}.",
+            "textDeadlinePassed": "Die Deadline ist bereits abgelaufen. Sie können Ihre Entscheidung nicht mehr ändern.",
             "textComplete": "Sie haben Ihre Einladung bestätigt."
         }
     },
@@ -112,7 +113,8 @@
             "header": "Zusätzliche Gäste",
             "headerModal": "Anzahl ändern",
             "tooltip": "Klicken Sie hier, um die Anzahl zusätzlicher Gäste zu ändern",
-            "deadlineInfo": "Bitte treffen Sie bis zum {date} eine Entscheidung, ob Sie zusätzliche Gäste mitbringen möchten. Nach dieser Deadline können Sie die Anzahl nicht mehr ändern.",
+            "deadlineInfo": "Bitte treffen Sie Ihre Entscheidung bis zum {date}, ob Sie zusätzliche Gäste mitbringen möchten. Nach dieser Deadline können Sie die Anzahl nicht mehr ändern.",
+            "deadlinePassedInfo": "Die Deadline ist bereits abgelaufen. Sie können die Anzahl zusätzlicher Gäste nicht mehr ändern. Sollten Sie eine Änderung vornehmen wollen, kontaktieren Sie uns bitte.",
             "notChangedInfo": "Anzahl nicht geändert",
             "notChangedInfoDetail": "Sie haben die Anzahl nicht geändert",
             "success": "Anzahl geändert",
@@ -179,7 +181,8 @@
             "tooltipAccepted": "Sie haben die Einladung angenommen",
             "tooltipDeclined": "Sie haben die Einladung abgelehnt",
             "tooltipNoResponse": "Sie haben noch nicht auf die Einladung geantwortet",
-            "deadlineInfo": "Bitte treffen Sie bis zum {date} eine Entscheidung, ob Sie die Einladung annehmen oder ablehnen möchten. Nach dieser Deadline können Sie Ihre Entscheidung nicht mehr ändern.",
+            "deadlineInfo": "Bitte treffen Sie Ihre Entscheidung bis zum {date}, ob Sie die Einladung annehmen oder ablehnen möchten. Nach dieser Deadline können Sie Ihre Entscheidung nicht mehr ändern.",
+            "deadlinePassedInfo": "Die Deadline ist bereits abgelaufen. Sie können Ihre Entscheidung nicht mehr ändern. Sollten Sie eine Änderung vornehmen wollen, kontaktieren Sie uns bitte.",
             "stateAccepted": "Einladung angenommen",
             "stateDeclined": "Einladung abgelehnt",
             "stateNoReponse": "Einladung ausstehend",
