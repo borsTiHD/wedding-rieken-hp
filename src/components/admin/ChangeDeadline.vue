@@ -10,9 +10,7 @@
                     <span class="text-2xl">{{ t('admin.changeDeadline.label') }}:</span>
                     <DateDisplay :timestamp="config?.deadline" />
                 </div>
-                <div class="flex gap-4">
-                    <p>{{ t('admin.changeDeadline.infoText') }}</p>
-                </div>
+                <p class="whitespace-normal">{{ t('admin.changeDeadline.infoText') }}</p>
             </div>
         </template>
     </Card>

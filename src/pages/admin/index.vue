@@ -1,23 +1,25 @@
 <template>
-    <main class="mx-auto flex flex-col gap-4 p-4 w-full sm:w-11/12 md:w-10/12 lg:w-8/12">
+    <main class="mx-auto flex flex-wrap gap-4 p-4 w-full sm:w-11/12 md:w-10/12 lg:w-8/12">
         <!-- You are an admin -->
         <template v-if="user.uid && userProfile?.role === 'admin'">
-            <div class="flex gap-4 flex-wrap">
+            <div class="flex flex-wrap gap-4 w-full">
                 <!-- Change date -->
-                <ChangeWeddingDate />
+                <ChangeWeddingDate class="basis-[40rem]" />
 
                 <!-- QR Code -->
-                <ShowQRCode />
+                <ShowQRCode class="basis-80" />
             </div>
 
-            <!-- Change deadline -->
-            <ChangeDeadline />
+            <div class="flex flex-wrap gap-4 w-full">
+                <!-- Change deadline -->
+                <ChangeDeadline class="basis-[40rem]" />
 
-            <!-- Change invite token -->
-            <ChangeInviteToken />
+                <!-- Change invite token -->
+                <ChangeInviteToken class="basis-80" />
+            </div>
 
             <!-- List users datatable -->
-            <ListUsers />
+            <ListUsers class="basis-full" />
         </template>
 
         <!-- You are not an admin -->
