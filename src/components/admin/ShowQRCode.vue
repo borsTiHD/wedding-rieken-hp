@@ -1,17 +1,24 @@
 <template>
-    <div class="flex flex-col">
-        <div class="flex justify-center">
-            <Skeleton v-if="loading" width="10rem" height="10rem" />
-            <canvas :id="canvasId" />
-        </div>
-        <!-- Download button -->
-        <Button
-            :label="t('admin.qrcode.download')"
-            icon="pi pi-download"
-            raised
-            @click="downloadQRCode"
-        />
-    </div>
+    <Card class="card-primary grow" :pt="{ content: { class: 'p-0' } }">
+        <template #title>
+            <h2>{{ t('admin.qrcode.header') }}</h2>
+        </template>
+        <template #content>
+            <div class="flex flex-col">
+                <div class="flex justify-center">
+                    <Skeleton v-if="loading" width="10rem" height="10rem" />
+                    <canvas :id="canvasId" />
+                </div>
+                <!-- Download button -->
+                <Button
+                    :label="t('admin.qrcode.download')"
+                    icon="pi pi-download"
+                    raised
+                    @click="downloadQRCode"
+                />
+            </div>
+        </template>
+    </Card>
 </template>
 
 <script setup lang="ts">

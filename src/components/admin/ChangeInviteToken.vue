@@ -1,27 +1,34 @@
 <template>
-    <FormKit
-        :id="formId"
-        v-slot="{ state: { valid } }"
-        type="form"
-        :actions="false"
-        @submit="handleSubmit"
-    >
-        <div class="flex flex-col sm:flex-row items-center gap-4">
-            <Skeleton v-if="loading" width="14rem" height="3rem" />
+    <Card class="card-primary grow" :pt="{ content: { class: 'pb-0' } }">
+        <template #title>
+            <h2>{{ t('admin.inviteToken.header') }}</h2>
+        </template>
+        <template #content>
             <FormKit
-                v-else
-                v-model="defaultToken"
-                type="text"
-                name="token"
-                outer-class="w-full"
-                :label="t('admin.inviteToken.formkit.label')"
-                validation="required|length:15"
-            />
+                :id="formId"
+                v-slot="{ state: { valid } }"
+                type="form"
+                :actions="false"
+                @submit="handleSubmit"
+            >
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <Skeleton v-if="loading" width="14rem" height="3rem" />
+                    <FormKit
+                        v-else
+                        v-model="defaultToken"
+                        type="text"
+                        name="token"
+                        outer-class="w-full"
+                        :label="t('admin.inviteToken.formkit.label')"
+                        validation="required|length:15"
+                    />
 
-            <ConfirmPopup />
-            <Button :label="t('admin.inviteToken.formkit.submit')" class="w-full" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="confirmDialog($event)" />
-        </div>
-    </FormKit>
+                    <ConfirmPopup />
+                    <Button :label="t('admin.inviteToken.formkit.submit')" class="w-full" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="confirmDialog($event)" />
+                </div>
+            </FormKit>
+        </template>
+    </Card>
 </template>
 
 <script setup lang="ts">
