@@ -14,21 +14,25 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import { useAppStore } from '@/stores/app'
+
+const props = defineProps({
+    timestamp: {
+        type: Number,
+        default: 0
+    }
+})
 
 // Composables
 const toast = useToast()
 const { t } = useI18n()
-const { update } = useFirestore() // Firestore composable
-
-// App config
-const appStore = useAppStore()
-const config = appStore.config
 
 // Data
 const date = ref()
 const time = ref()
 const minDate = ref(new Date())
+
+// Events
+const emit = defineEmits(['change'])
 
 // Submit button
 const handleSubmit = async() => {
@@ -63,41 +67,22 @@ const handleSubmit = async() => {
     // Get timestamp from date
     const timestamp = Math.floor(newDate.getTime() / 1000)
 
-    // Update wedding date
-    await update('app', 'config', 'weddingDate', timestamp).catch((error: { message: string }) => {
-        toast.add({
-            severity: 'error',
-            summary: t('admin.changeDate.error'),
-            detail: error.message,
-            life: 5000
-        })
-        throw new Error(error.message)
-    })
-
-    // Show success message
-    toast.add({
-        severity: 'success',
-        summary: t('admin.changeDate.success'),
-        detail: t('admin.changeDate.successDetail'),
-        life: 5000
-    })
-
-    // Update app config
-    appStore.fetchConfig()
+    // Emit event
+    emit('change', timestamp)
 }
 
 onMounted(() => {
-    if (!config?.weddingDate) {
+    if (!props.timestamp) {
         console.error(t('admin.changeDate.errorNoDateFound'))
         return false
     }
 
     // Set default date from timestamp
     date.value = new Date()
-    date.value.setTime(config?.weddingDate * 1000)
+    date.value.setTime(props.timestamp * 1000)
 
     // Set default time from timestamp
     time.value = new Date()
-    time.value.setTime(config?.weddingDate * 1000)
+    time.value.setTime(props.timestamp * 1000)
 })
 </script>
