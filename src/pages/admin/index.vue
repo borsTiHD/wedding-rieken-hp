@@ -10,6 +10,9 @@
                 <ShowQRCode />
             </div>
 
+            <!-- Change deadline -->
+            <ChangeDeadline />
+
             <!-- Change invite token -->
             <ChangeInviteToken />
 
@@ -28,6 +31,7 @@
 
 <script setup lang="ts">
 import ChangeWeddingDate from '@/components/admin/ChangeWeddingDate.vue'
+import ChangeDeadline from '@/components/admin/ChangeDeadline.vue'
 import ShowQRCode from '@/components/admin/ShowQRCode.vue'
 import ChangeInviteToken from '@/components/admin/ChangeInviteToken.vue'
 import ListUsers from '@/components/admin/ListUsers.vue'

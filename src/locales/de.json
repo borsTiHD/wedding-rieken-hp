@@ -294,6 +294,14 @@
             "success": "Erfolgreich",
             "successDetail": "Das Datum wurde erfolgreich geändert"
         },
+        "changeDeadline": {
+            "header": "Deadline ändern",
+            "infoText": "Bitte beachten Sie, dass nach der gesetzten Deadline die Gäste keine Änderungen mehr an Ihrer Einladung oder der Anzahl an zusätzlichen Gästen durchführen können.",
+            "label": "Gesetztes Datum",
+            "error": "Fehler",
+            "success": "Erfolgreich",
+            "successDetail": "Das Datum wurde erfolgreich geändert"
+        },
         "createUser": {
             "header": "Neuen Benutzer erstellen",
             "buttonLabel": "Neuen Benutzer erstellen",

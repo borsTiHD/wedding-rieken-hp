@@ -15,12 +15,9 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 
-const props = defineProps({
-    timestamp: {
-        type: Number,
-        default: 0
-    }
-})
+const props = defineProps<{
+    timestamp?: number
+}>()
 
 // Composables
 const toast = useToast()

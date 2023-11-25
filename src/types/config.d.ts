@@ -1,6 +1,7 @@
 // Config types
 export interface Config {
-    weddingDate: number
+    weddingDate: number,
+    deadline: number,
 }
 
 // Type for the partial config
