@@ -285,7 +285,7 @@
     "admin": {
         "notAdminError": "Sie sind kein Administrator",
         "changeDate": {
-            "header": "Datum ändern",
+            "header": "Hochzeitsdatum ändern",
             "label": "Gesetztes Datum",
             "error": "Fehler",
             "errorNoDate": "Kein Datum ausgewählt",

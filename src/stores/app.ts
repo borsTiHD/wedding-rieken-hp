@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { useFirestore } from '@/composables/useFirestore'
 import handleFirebaseError from '@/composables/handleFirebaseError'
-import type { Config } from '@/types/Config'
+import type { Config, PartialConfig } from '@/types/Config'
 
 export const useAppStore = defineStore('app-store', () => {
     // Firestore composable
-    const { queryByCollectionAndId } = useFirestore()
+    const { queryByCollectionAndId, updateByCollectionAndId } = useFirestore()
 
     // Localisation
     const { t } = useI18n()
@@ -40,5 +40,10 @@ export const useAppStore = defineStore('app-store', () => {
         config.value = response as unknown as Config
     }
 
-    return { config, fetchConfig, bride, groom, setThemeColor, themeColor }
+    // Update config data
+    async function updateConfig(config: PartialConfig) {
+        return updateByCollectionAndId('app', 'config', config)
+    }
+
+    return { config, updateConfig, fetchConfig, bride, groom, setThemeColor, themeColor }
 })
