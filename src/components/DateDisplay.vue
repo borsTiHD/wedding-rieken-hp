@@ -12,6 +12,6 @@ const props = defineProps<{
 // Format date based on timestamp
 const computedDate = computed(() => {
     if (!props.timestamp) return 0
-    return new Date(props.timestamp * 1000) // Konvertiere Unix-Zeitstempel in Millisekunden
+    return new Date(props.timestamp * 1000)
 })
 </script>

@@ -1,13 +1,17 @@
 <template>
-    <div class="flex gap-2 w-full">
-        <Button class="grow" :label="t('user.invitation.labelAccept')" icon="pi pi-thumbs-up" type="submit" raised :loading="loading" @click="handleSubmit(true)" />
-        <Button class="grow" :label="t('user.invitation.labelDecline')" icon="pi pi-thumbs-down" type="submit" severity="danger" outlined :loading="loading" @click="handleSubmit(false)" />
+    <div class="flex flex-col gap-6 w-full">
+        <p class="max-w-xl">{{ t('user.invitation.deadlineInfo', { date: d(deadlineDate, 'short') }) }}</p>
+        <div class="flex gap-2 w-full">
+            <Button class="grow" :label="t('user.invitation.labelAccept')" icon="pi pi-thumbs-up" type="submit" raised :loading="loading" @click="handleSubmit(true)" />
+            <Button class="grow" :label="t('user.invitation.labelDecline')" icon="pi pi-thumbs-down" type="submit" severity="danger" outlined :loading="loading" @click="handleSubmit(false)" />
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import { useUserStore } from '@/stores/user'
+import { useAppStore } from '@/stores/app'
 import type { PartialUserProfile } from '@/types/UserProfile'
 
 // Emit event
@@ -15,11 +19,21 @@ const emit = defineEmits(['changed'])
 
 // Composables
 const toast = useToast()
-const { t } = useI18n()
+const { t, d } = useI18n()
 const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
 
 // User store
 const userStore = useUserStore()
+
+// App config
+const appStore = useAppStore()
+const config = computed(() => appStore.config)
+
+// Deadline: Format date based on timestamp
+const deadlineDate = computed(() => {
+    if (!config.value?.deadline) return 0
+    return new Date(config.value?.deadline * 1000)
+})
 
 // Data
 const loading = ref(false)

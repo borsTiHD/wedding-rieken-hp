@@ -5,7 +5,8 @@
         :actions="false"
         @submit="handleSubmit"
     >
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-2">
+            <p class="max-w-xl">{{ t('user.additionalGuests.deadlineInfo', { date: d(deadlineDate, 'short') }) }}</p>
             <FormKit
                 v-model="defaultAdditionalGuests"
                 type="number"
@@ -28,10 +29,11 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import { useUserStore } from '@/stores/user'
+import { useAppStore } from '@/stores/app'
 import type { PartialUserProfile } from '@/types/UserProfile'
 
 // Localisation
-const { t } = useI18n()
+const { t, d } = useI18n()
 
 // Emit event
 const emit = defineEmits(['changed'])
@@ -44,6 +46,16 @@ const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
 const userStore = useUserStore()
 const userProfile = computed(() => userStore.userProfile)
 const additionalGuests = computed(() => userProfile.value.additionalGuests)
+
+// App config
+const appStore = useAppStore()
+const config = computed(() => appStore.config)
+
+// Deadline: Format date based on timestamp
+const deadlineDate = computed(() => {
+    if (!config.value?.deadline) return 0
+    return new Date(config.value?.deadline * 1000)
+})
 
 // Data
 const loading = ref(false)

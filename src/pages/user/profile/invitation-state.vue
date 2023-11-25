@@ -10,14 +10,10 @@
         <template #content>
             <div class="flex flex-col gap-4">
                 <!-- State incomplete -->
-                <div v-if="!checkState" class="flex gap-4">
-                    <p>{{ t('profileStepper.invitationState.text') }}</p>
-                </div>
+                <p v-if="!checkState" >{{ t('profileStepper.invitationState.text', { date: d(deadlineDate, 'short') }) }}</p>
 
                 <!-- State complete -->
-                <div v-else class="flex gap-4">
-                    <p>{{ t('profileStepper.invitationState.textComplete') }}</p>
-                </div>
+                <p v-else>{{ t('profileStepper.invitationState.textComplete') }}</p>
 
                 <ul class="flex flex-col gap-2">
                     <!-- Additional guests -->
@@ -91,6 +87,7 @@ import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import useInvitiationToken from '@/composables/useInvitiationToken'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
+import { useAppStore } from '@/stores/app'
 
 definePageMeta({
     key: (route) => route.fullPath
@@ -101,10 +98,20 @@ const emit = defineEmits(['prev-page', 'complete-page'])
 const navPage = (to: 'prev' | 'complete') => emit(`${to}-page`)
 
 // Localisation
-const { t } = useI18n()
+const { t, d } = useI18n()
 
 // Modal position
 const { modalPosition } = useModalPosition()
+
+// App config
+const appStore = useAppStore()
+const config = computed(() => appStore.config)
+
+// Format date based on timestamp
+const deadlineDate = computed(() => {
+    if (!config.value?.deadline) return 0
+    return new Date(config.value?.deadline * 1000) // Konvertiere Unix-Zeitstempel in Millisekunden
+})
 
 // Check completion state of this page
 const { checker } = useProfileChecker()
