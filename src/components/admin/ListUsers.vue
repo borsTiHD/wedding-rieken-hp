@@ -33,6 +33,7 @@
                     v-model:expandedRows="expandedRows"
                     :value="usersData"
                     :loading="loading"
+                    :rowClass="rowClass"
                     stripedRows
                     paginator
                     size="small"
@@ -63,7 +64,15 @@
                             </DisplayModal>
 
                             <!-- Filter users -->
-                            <Dropdown v-model="selectedType" :options="types" optionLabel="name" optionValue="code" :placeholder="t('admin.listUsers.userFilter.placeholder')" class="w-full sm:w-fit sm:ml-auto" />
+                            <Dropdown
+                                v-model="selectedType"
+                                :options="types"
+                                optionLabel="name"
+                                optionValue="code"
+                                scrollHeight="auto"
+                                :placeholder="t('admin.listUsers.userFilter.placeholder')"
+                                class="w-full sm:w-fit sm:ml-auto"
+                            />
 
                             <!-- Search -->
                             <span class="p-input-icon-left w-full sm:w-fit">
@@ -314,6 +323,13 @@ const usersData = computed(() => {
         ? user.filter((user) => JSON.stringify(convertUser(user)).toLowerCase().includes(globalSearch.value.toLowerCase()))
         : user
 })
+
+// Row class
+const rowClass = (data: DataTableUser) => roleClassMap[data.role] || ''
+const roleClassMap: { [role: string]: string } = {
+    'admin': 'bg-blue-100',
+    'guest': 'bg-yellow-100'
+}
 
 // Calculate total guests with additional guests
 // Add guest only if 'invitation' is 'accepted' and if 'user role' is 'invited'
