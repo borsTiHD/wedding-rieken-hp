@@ -36,7 +36,7 @@
             <template #end>
                 <div class="flex items-center gap-2 mr-2">
                     <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
-                    <UpgradeUserRole v-if="userProfile.role === 'guest' && token && token !== ''" small />
+                    <UpgradeUserRole v-if="(!uid || userProfile.role === 'guest') && token && token !== ''" small />
 
                     <!-- Language selector -->
                     <ChangeLanguage />
@@ -64,6 +64,7 @@ const navItems = computed(() => pagesStore.pages)
 
 // User store
 const userStore = useUserStore()
+const uid = computed(() => userStore.uid)
 const userProfile = computed(() => userStore.userProfile)
 
 // Invitation token

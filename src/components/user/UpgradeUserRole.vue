@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import useInvitiationToken from '@/composables/useInvitiationToken'
+import { useUserStore } from '@/stores/user'
 
 type Props = { small?: boolean }
 const props = withDefaults(defineProps<Props>(), {
@@ -18,8 +19,14 @@ const props = withDefaults(defineProps<Props>(), {
 // Composables
 const toast = useToast()
 const { t } = useI18n()
+const router = useRouter()
+const localePath = useLocalePath()
 const { changeRoleToInvited } = useFirebaseUserProfile()
 const { getInvitiationToken } = useInvitiationToken()
+
+// User store
+const userStore = useUserStore()
+const uid = computed(() => userStore.uid)
 
 // Data
 const loading = ref(false)
@@ -27,6 +34,14 @@ const loading = ref(false)
 // Submit button
 const handleSubmit = async() => {
     loading.value = true
+
+    // Check if user is logged in
+    if (!uid.value) {
+        // Push user to welcome page
+        router.push(localePath('welcome'))
+        loading.value = false
+        return false
+    }
 
     // Check if user has an invitation token
     // And change profile role to 'invited'
