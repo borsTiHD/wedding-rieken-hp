@@ -20,6 +20,7 @@
         :aria-label="t('user.email.verifieAriaLabel')"
         icon="pi pi-exclamation-circle"
         severity="info"
+        raised
         :loading="loadingEmailVerify"
         @click.prevent="handleVerifyEmail"
     />
