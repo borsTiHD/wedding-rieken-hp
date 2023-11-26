@@ -30,15 +30,16 @@
                 <!-- Users datatable -->
                 <DataTable
                     v-model:filters="filters"
+                    v-model:expandedRows="expandedRows"
                     :value="usersData"
                     :loading="loading"
-                    dataKey="uid"
                     stripedRows
                     paginator
                     size="small"
                     removableSort
                     :rows="10"
                     :rowsPerPageOptions="[5, 10, 20, 50]"
+                    @row-click="setExpandedRow"
                 >
                     <template #header>
                         <div class="flex flex-wrap sm:items-center gap-2">
@@ -71,51 +72,120 @@
                             </span>
                         </div>
                     </template>
+
+                    <!-- Row expansion - Mobile view -->
+                    <template #expansion="slotProps">
+                        <ul class="flex flex-col gap-2">
+                            <li class="user-list-item">
+                                <div class="flex items-center gap-2">
+                                    <span>{{ t('admin.listUsers.tableHeader.actions') }}:</span>
+                                    <CheckGuest
+                                        v-if="slotProps.data.role === 'guest'"
+                                        :uid="slotProps.data.uid"
+                                        @changed="getUsers"
+                                    />
+                                    <CheckGuest
+                                        v-else
+                                        :uid="slotProps.data.uid"
+                                        mode="changeInvitation"
+                                        @changed="getUsers"
+                                    />
+                                </div>
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.email') }}:</span>
+                                <span class="truncate max-w-[11rem]">{{ slotProps.data.email }}</span>
+                                <Button icon="pi pi-copy" class="" size="small" severity="primary" text rounded aria-label="Copy" @click="copyToClipboard(slotProps.data.email)" />
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.role') }}:</span>
+                                <Tag
+                                    :value="getUserRole(slotProps.data.role)"
+                                    :icon="getUserRoleIcon(slotProps.data.role)"
+                                    :severity="getUserRoleSeverity(slotProps.data.role)"
+                                    class="whitespace-nowrap" rounded
+                                />
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.invitationState') }}:</span>
+                                <InlineMessage
+                                    v-if="slotProps.data.invitation"
+                                    v-tooltip.bottom="getInvitationStatus(slotProps.data.invitation)"
+                                    :severity="getInvitationStatusSeverity(slotProps.data.invitation)"
+                                />
+                                <span v-else>-</span>
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.additionalGuests') }}:</span>
+                                <span>{{ slotProps.data.additionalGuests }}</span>
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.phone') }}:</span>
+                                <span class="truncate max-w-[13rem]">{{ slotProps.data.phoneNumber }}</span>
+                                <Button icon="pi pi-copy" class="" size="small" severity="primary" text rounded aria-label="Copy" @click="copyToClipboard(slotProps.data.phoneNumber)" />
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">UID:</span>
+                                <span class="truncate max-w-[12rem]">{{ slotProps.data.uid }}</span>
+                                <Button icon="pi pi-copy" class="" size="small" severity="primary" text rounded aria-label="Copy" @click="copyToClipboard(slotProps.data.uid)" />
+                            </li>
+                        </ul>
+                    </template>
+
                     <Column field="photoURL" :header="t('admin.listUsers.tableHeader.avatar')">
                         <template #body="slotProps">
-                            <img v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" class="h-16 w-16 object-cover shadow-md rounded-md">
-                            <div v-else class="h-16 w-16 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
-                                <span class="text-gray-400 text-center">No Avatar</span>
+                            <div class="cursor-pointer">
+                                <img v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" class="h-16 w-16 object-cover shadow-md rounded-md">
+                                <div v-else class="h-16 w-16 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
+                                    <span class="text-gray-400 text-center select-none">No Avatar</span>
+                                </div>
                             </div>
                         </template>
                     </Column>
                     <Column field="displayName" :header="t('admin.listUsers.tableHeader.name')" sortable>
                         <template #body="slotProps">
-                            <div v-tooltip.bottom="`UID: ${slotProps.data.uid}`" class="flex flex-col cursor-pointer" @click="copyUID(slotProps.data.uid)">
-                                <span class="font-bold">{{ slotProps.data.displayName }}</span>
-                                <div class="flex items-center gap-2">
-                                    <span>{{ slotProps.data.email }}</span>
-                                    <i v-if="slotProps.data.emailVerified" v-tooltip.top="t('user.email.verified')" class="pi pi-verified text-green-600" />
-                                    <i v-else v-tooltip.top="t('user.email.notVerifited')" class="pi pi-exclamation-circle text-sky-600" />
-                                </div>
+                            <span :class="[{ 'font-bold': !isWidthSmall }, { 'text-sm': isWidthSmall }]">{{ slotProps.data.displayName }}</span>
+                            <div v-if="!isWidthSmall" class="flex items-center gap-2">
+                                <span>{{ slotProps.data.email }}</span>
+                                <i v-if="slotProps.data.emailVerified" v-tooltip.top="t('user.email.verified')" class="pi pi-verified text-green-600" />
+                                <i v-else v-tooltip.top="t('user.email.notVerifited')" class="pi pi-exclamation-circle text-sky-600" />
                             </div>
                         </template>
                     </Column>
-                    <Column field="role" :header="t('admin.listUsers.tableHeader.role')" sortable>
+                    <Column v-if="!isWidthSmall" field="role" :header="t('admin.listUsers.tableHeader.role')" sortable>
                         <template #body="slotProps">
                             <div class="flex items-center gap-2">
-                                <Tag :value="getUserRole(slotProps.data.role)" :icon="getUserRoleIcon(slotProps.data.role)" :severity="getUserRoleSeverity(slotProps.data.role)" class="whitespace-nowrap" rounded />
+                                <Tag
+                                    :value="getUserRole(slotProps.data.role)"
+                                    :icon="getUserRoleIcon(slotProps.data.role)"
+                                    :severity="getUserRoleSeverity(slotProps.data.role)"
+                                    class="whitespace-nowrap" rounded
+                                />
                                 <!-- <i v-if="slotProps.data.role === 'guest'" v-tooltip.top="'Bitte Einladung verifizieren'" class="pi pi-exclamation-circle text-sky-600" /> -->
                             </div>
                         </template>
                     </Column>
-                    <Column field="additionalGuests" :header="t('admin.listUsers.tableHeader.additionalGuests')" sortable>
+                    <Column v-if="!isWidthSmall" field="additionalGuests" :header="t('admin.listUsers.tableHeader.additionalGuests')" sortable>
                         <template #body="slotProps">
                             <span>{{ slotProps.data.additionalGuests }}</span>
                         </template>
                     </Column>
                     <Column field="invitation" :header="t('admin.listUsers.tableHeader.invitationState')" sortable>
                         <template #body="slotProps">
-                            <InlineMessage v-if="slotProps.data.invitation" v-tooltip.bottom="getInvitationStatus(slotProps.data.invitation)" :severity="getInvitationStatusSeverity(slotProps.data.invitation)" />
+                            <InlineMessage
+                                v-if="slotProps.data.invitation"
+                                v-tooltip.bottom="getInvitationStatus(slotProps.data.invitation)"
+                                :severity="getInvitationStatusSeverity(slotProps.data.invitation)"
+                            />
                             <span v-else>-</span>
                         </template>
                     </Column>
-                    <Column field="phoneNumber" :header="t('admin.listUsers.tableHeader.phone')" sortable>
+                    <Column v-if="!isWidthSmall" field="phoneNumber" :header="t('admin.listUsers.tableHeader.phone')" sortable>
                         <template #body="slotProps">
                             <span>{{ slotProps.data.phoneNumber }}</span>
                         </template>
                     </Column>
-                    <Column :header="t('admin.listUsers.tableHeader.actions')">
+                    <Column v-if="!isWidthSmall" :header="t('admin.listUsers.tableHeader.actions')">
                         <template #body="slotProps">
                             <div class="flex items-center gap-2">
                                 <CheckGuest
@@ -146,8 +216,23 @@ import CreateUser from '@/components/admin/CreateUser.vue'
 import CheckGuest from '@/components/admin/CheckGuest.vue'
 import useBackendApi from '@/composables/useBackendApi'
 import { useModalPosition } from '@/composables/useModalPosition'
+import { useWindowSize } from '@/composables/useWindowSize'
 import type admin from 'firebase-admin'
 import type { UserProfile } from '@/types/UserProfile'
+import type { DataTableRowClickEvent } from 'primevue/datatable'
+
+// Type definition for DataTableUser
+type DataTableUser = {
+        uid: string;
+        role: string;
+        displayName: string;
+        email: string;
+        emailVerified: boolean;
+        phoneNumber: string;
+        photoURL: string;
+        additionalGuests: number;
+        invitation: string;
+    }
 
 // Type definition for user
 type User = {
@@ -164,9 +249,20 @@ const { t } = useI18n()
 const { getAllUsers } = useBackendApi()
 const { modalPosition } = useModalPosition() // Modal position
 
+// Window size for expanded rows
+const { windowWidth } = useWindowSize(100)
+const isWidthSmall = computed<boolean>(() => windowWidth.value < 1400)
+watch(windowWidth, () => {
+    // Reset expanded rows on window resize
+    if (windowWidth.value > 1400) {
+        expandedRows.value = []
+    }
+})
+
 // Data
 const users = ref<User[]>([])
 const loading = ref(false)
+const expandedRows = ref<DataTableUser[]>([])
 const selectedType = ref('all')
 const types = [
     { name: t('admin.listUsers.userFilter.types.all'), code: 'all' },
@@ -181,18 +277,6 @@ const pendingInvitations = computed(() => invitedGuests.value.filter((user) => u
 const acceptedInvitations = computed(() => invitedGuests.value.filter((user) => user.profile.invitation === 'accepted'))
 const declinedInvitations = computed(() => invitedGuests.value.filter((user) => user.profile.invitation === 'declined'))
 const usersData = computed(() => {
-    type DataTableUser = {
-        uid: string;
-        role: string;
-        displayName: string;
-        email: string;
-        emailVerified: boolean;
-        phoneNumber: string;
-        photoURL: string;
-        additionalGuests: number;
-        invitation: string;
-    }
-
     // Mapping for user roles
     const roleMapping = {
         'admin': 'admin',
@@ -306,10 +390,28 @@ const getUserRoleIcon = (role: string) => {
     }
 }
 
-// Copy Uid to clipboard
-const copyUID = (uid: string) => {
-    navigator.clipboard.writeText(uid)
-    toast.add({ severity: 'success', summary: 'Success', detail: 'Copied UID to clipboard.', life: 3000 })
+// Set expanded row
+const setExpandedRow = (event: DataTableRowClickEvent) => {
+    const data: DataTableUser = event.data
+    const exists = expandedRows.value.findIndex((row) => row.uid === data.uid)
+    if (exists !== -1) {
+        // Remove index from expanded rows
+        expandedRows.value.splice(exists, 1)
+    } else {
+        // Add row to expanded rows
+        expandedRows.value.push(data)
+    }
+}
+
+// Copy to clipboard
+const copyToClipboard = async(value: string) => {
+    try {
+        await navigator.clipboard.writeText(value)
+        toast.add({ severity: 'success', summary: 'Success', detail: t('buttons.copyToClipboardSuccess'), life: 3000 })
+    } catch (err) {
+        console.error(err)
+        toast.add({ severity: 'error', summary: 'Error', detail: t('buttons.copyToClipboardError'), life: 10000 })
+    }
 }
 
 // Fetch users
@@ -343,3 +445,10 @@ onMounted(() => {
 // Register event to reload users on new user creation
 useRegisterEvent('user-created', getUsers)
 </script>
+
+<style scoped>
+/* list items */
+.user-list-item {
+    @apply flex gap-2 items-center border-b mb-2 pb-2 !important;
+}
+</style>

@@ -19,7 +19,10 @@
     "buttons": {
         "submit": "Speichern",
         "yes": "Ja",
-        "no": "Nein"
+        "no": "Nein",
+        "copyToClipboard": "In Zwischenablage kopieren",
+        "copyToClipboardSuccess": "In Zwischenablage kopiert",
+        "copyToClipboardError": "Fehler beim Kopieren in die Zwischenablage"
     },
     "settings": {
         "language": "Sprache"
@@ -359,6 +362,7 @@
             },
             "tableHeader": {
                 "avatar": "Profilbild",
+                "email": "EMail",
                 "name": "Name",
                 "role": "Rolle",
                 "phone": "Telefon",
