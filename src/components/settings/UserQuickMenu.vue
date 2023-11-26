@@ -27,18 +27,15 @@
                     <!-- Display name -->
                     <h1 class="text-2xl font-semibold">{{ displayName ? displayName : t('user.noName') }}</h1>
 
+                    <!-- Profile progress with link -->
                     <div v-if="checkState < 100" tabindex="0" class="flex items-center px-0 sm:px-8 w-full cursor-pointer hover:text-neutral-400" @click="routeChange('/user/profile/')" @keydown.enter="routeChange('/user/profile/')">
-                        <span>Dein Profil ist noch nicht vollständig</span>
+                        <span>{{ t('userQuickMenu.profileNotFinished') }}</span>
                         <!-- Profile progress with link -->
                         <DisplayProfileProgress class="ml-auto" />
                     </div>
 
                     <!-- List  with links to profile, settings, logout, etc. -->
                     <ul class="flex flex-col px-0 sm:px-8 w-full">
-                        <li v-if="uid && userProfile && userProfile.role === 'admin'" tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange('/admin')" @keydown.enter="routeChange('/admin')">
-                            <span>{{ t('pages.admin') }}</span>
-                            <i class="pi pi-chevron-right" />
-                        </li>
                         <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange('/user')" @keydown.enter="routeChange('/user')">
                             <span>{{ t('pages.user') }}</span>
                             <i class="pi pi-chevron-right" />
@@ -88,7 +85,6 @@ const { checkState } = useProfileChecker()
 // User store
 const userStore = useUserStore()
 const uid = computed(() => userStore.uid)
-const userProfile = computed(() => userStore.userProfile)
 const displayName = computed(() => userStore.displayName)
 const photoURL = computed(() => userStore.photoURL)
 

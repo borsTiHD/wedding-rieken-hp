@@ -105,6 +105,9 @@
             "textComplete": "Sie haben Ihre Einladung bestätigt."
         }
     },
+    "userQuickMenu": {
+        "profileNotFinished": "Profil nicht vervollständigt"
+    },
     "user": {
         "noName": "Kein Name",
         "welcome": "Willkommen {name}",
