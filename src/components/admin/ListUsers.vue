@@ -249,10 +249,15 @@ type User = {
     profile: UserProfile;
 }
 
+// Type definition for user type
+type UserRole = 'all' | UserProfile['role']
+
 // Refs
 const createUserModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Composables
+const route = useRoute()
+const router = useRouter()
 const toast = useToast()
 const { t } = useI18n()
 const { getAllUsers } = useBackendApi()
@@ -272,7 +277,7 @@ watch(windowWidth, () => {
 const users = ref<User[]>([])
 const loading = ref(false)
 const expandedRows = ref<DataTableUser[]>([])
-const selectedType = ref('all')
+const selectedType = ref<UserRole>('all')
 const types = [
     { name: t('admin.listUsers.userFilter.types.all'), code: 'all' },
     { name: t('admin.listUsers.userFilter.types.admin'), code: 'admin' },
@@ -453,9 +458,21 @@ const getUsers = async() => {
     loading.value = false
 }
 
-// Fetch users on component mount
+// Watch 'type' param from url and update selected type
+const selectedTypeFromUrl = computed(() => route.query.type as string)
+watch(() => selectedTypeFromUrl.value, (value) => {
+    selectedType.value = value ? value as UserRole : 'all'
+})
+
+// Watch selected type and update url
+watch(() => selectedType.value, (value) => {
+    value && router.push({ query: { type: value } })
+})
+
+// On component mount
 onMounted(() => {
-    getUsers()
+    getUsers() // Fetch users on component mount
+    selectedType.value = selectedTypeFromUrl.value as UserRole || 'all' // Set selected type from url
 })
 
 // Register event to reload users on new user creation
