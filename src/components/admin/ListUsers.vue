@@ -3,9 +3,9 @@
         <template #title>
             <div class="flex flex-col sm:flex-row items-baseline gap-4">
                 {{ t('admin.listUsers.header') }}
-                <div v-if="selfRegisteredGuests.length > 0" class="flex gap-1 text-sm text-gray-500">
+                <div v-if="selfRegisteredGuests.length > 0" class="p-2 flex gap-1 items-center text-sm text-gray-800 bg-yellow-200 rounded-lg">
                     <span>{{ t('admin.listUsers.needToCheckSelfRegisteredGuests', { n: selfRegisteredGuests.length }, selfRegisteredGuests.length) }}</span>
-                    <i class="pi pi-exclamation-circle text-sky-600" />
+                    <i class="pi pi-exclamation-circle text-yellow-600" />
                 </div>
             </div>
         </template>
