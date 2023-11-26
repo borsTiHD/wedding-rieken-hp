@@ -1,5 +1,5 @@
 <template>
-    <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" severity="info" />
+    <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
     <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :chooseLabel="uploadLabel" accept="image/*" :maxFileSize="maxFileSize" :invalidFileSizeMessage="invalidFileSizeMessage" auto customUpload @uploader="onUpload" />
 </template>
 
@@ -24,7 +24,7 @@ const user = computed(() => userStore.user)
 // Upload ref
 const loading = ref(false)
 const uploadLabel = t('user.profilePicture.submitButton')
-const maxFileSize = 5000000 // in bytes (5MB)
+const maxFileSize = 10 * 1000 * 1000 // in bytes (10MB)
 const maxFileSizeInMB = maxFileSize / 1000000
 const invalidFileSizeMessage = t('user.profilePicture.invalidFileSizeMessage', { maxFilesize: `${maxFileSizeInMB}MB` })
 
