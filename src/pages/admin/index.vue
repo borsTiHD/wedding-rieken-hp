@@ -17,9 +17,6 @@
                 <!-- Change invite token -->
                 <ChangeInviteToken class="basis-80" />
             </div>
-
-            <!-- List users datatable -->
-            <ListUsers class="basis-full max-w-full" />
         </template>
 
         <!-- You are not an admin -->
@@ -36,7 +33,6 @@ import ChangeWeddingDate from '@/components/admin/ChangeWeddingDate.vue'
 import ChangeDeadline from '@/components/admin/ChangeDeadline.vue'
 import ShowQRCode from '@/components/admin/ShowQRCode.vue'
 import ChangeInviteToken from '@/components/admin/ChangeInviteToken.vue'
-import ListUsers from '@/components/admin/ListUsers.vue'
 import { useUserStore } from '@/stores/user'
 
 // Localisation

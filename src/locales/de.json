@@ -9,6 +9,7 @@
     "pages": {
         "home": "Home",
         "admin": "Admin",
+        "user-management": "Benutzerverwaltung",
         "login": "Login",
         "logout": "Logout",
         "register": "Registrieren",

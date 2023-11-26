@@ -36,7 +36,8 @@ export const usePagesStore = defineStore('pages-store', () => {
         // If the logged in user is an admin add the admin pages
         if (uid.value && userProfile.value && userProfile.value.role === 'admin') {
             pages.push(
-                { name: t('pages.admin'), path: localePath('/admin') }
+                { name: t('pages.admin'), path: localePath('/admin') },
+                { name: t('pages.user-management'), path: localePath('/admin/user-management') }
             )
         }
 
