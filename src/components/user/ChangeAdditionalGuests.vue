@@ -6,7 +6,12 @@
         @submit="handleSubmit"
     >
         <div v-if="isBeforeDeadline" class="flex flex-col gap-2">
-            <p class="max-w-xl mb-4">{{ t('user.additionalGuests.deadlineInfo', { date: d(deadlineDate, 'short') }) }}</p>
+            <i18n-t keypath="user.additionalGuests.deadlineInfo" tag="p" class="max-w-xl mb-4">
+                <template #date>
+                    <span class="font-bold whitespace-nowrap">{{ d(deadlineDate, 'short') }}</span>
+                </template>
+            </i18n-t>
+
             <FormKit
                 v-model="defaultAdditionalGuests"
                 type="number"

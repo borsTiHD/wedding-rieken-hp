@@ -1,7 +1,13 @@
 <template>
     <div class="flex flex-col gap-6 w-full">
         <template v-if="isBeforeDeadline">
-            <p class="max-w-xl">{{ t('user.invitation.deadlineInfo', { date: d(deadlineDate, 'short') }) }}</p>
+            <i18n-t keypath="user.invitation.deadlineInfo" tag="p" class="max-w-xl">
+                <template #date>
+                    <span class="font-bold whitespace-nowrap">{{ d(deadlineDate, 'short') }}</span>
+                </template>
+            </i18n-t>
+
+
             <div class="flex gap-2 w-full">
                 <Button class="grow" :label="t('user.invitation.labelAccept')" icon="pi pi-thumbs-up" type="submit" raised :loading="loading" @click="handleSubmit(true)" />
                 <Button class="grow" :label="t('user.invitation.labelDecline')" icon="pi pi-thumbs-down" type="submit" severity="danger" outlined :loading="loading" @click="handleSubmit(false)" />

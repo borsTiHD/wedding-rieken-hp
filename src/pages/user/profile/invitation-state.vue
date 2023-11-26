@@ -11,7 +11,11 @@
             <div class="flex flex-col gap-4">
                 <!-- State incomplete -->
                 <div v-if="!checkState">
-                    <p v-if="isBeforeDeadline">{{ t('profileStepper.invitationState.text', { date: d(deadlineDate, 'short') }) }}</p>
+                    <i18n-t v-if="isBeforeDeadline" keypath="profileStepper.invitationState.text" tag="p">
+                        <template #date>
+                            <span class="font-bold whitespace-nowrap">{{ d(deadlineDate, 'short') }}</span>
+                        </template>
+                    </i18n-t>
                     <p v-else>{{ t('profileStepper.invitationState.textDeadlinePassed') }}</p>
                 </div>
 
