@@ -68,7 +68,8 @@ export default defineNuxtConfig({
         'primevue/resources/primevue.min.css',
         'primeicons/primeicons.css',
         '@/assets/css/theme.css', // custom primevue theme -> look at primevue-designer-colors.md
-        '@/assets/css/tailwindcss.css' // tailwindcss
+        '@/assets/css/tailwindcss.css', // tailwindcss
+        '@/assets/css/animista.css' // animista animations
     ],
     build: {
         transpile: ['primevue', 'vue-i18n']
