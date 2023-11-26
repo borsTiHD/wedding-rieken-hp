@@ -23,6 +23,12 @@ export const useAppStore = defineStore('app-store', () => {
         themeColor.value = color
     }
 
+    // Wedding Date: Format date based on timestamp
+    const weddingDate = computed(() => {
+        if (!config.value?.weddingDate) return 0
+        return new Date(config.value?.weddingDate * 1000)
+    })
+
     // Deadline Date: Format date based on timestamp
     const deadlineDate = computed(() => {
         if (!config.value?.deadline) return 0
@@ -57,5 +63,5 @@ export const useAppStore = defineStore('app-store', () => {
         return updateByCollectionAndId('app', 'config', config)
     }
 
-    return { config, updateConfig, fetchConfig, bride, groom, deadlineDate, isBeforeDeadline, setThemeColor, themeColor }
+    return { config, updateConfig, fetchConfig, bride, groom, weddingDate, deadlineDate, isBeforeDeadline, setThemeColor, themeColor }
 })
