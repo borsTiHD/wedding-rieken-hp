@@ -232,16 +232,16 @@ import type { DataTableRowClickEvent } from 'primevue/datatable'
 
 // Type definition for DataTableUser
 type DataTableUser = {
-        uid: string;
-        role: string;
-        displayName: string;
-        email: string;
-        emailVerified: boolean;
-        phoneNumber: string;
-        photoURL: string;
-        additionalGuests: number;
-        invitation: string;
-    }
+    uid: string;
+    role: string;
+    displayName: string;
+    email: string;
+    emailVerified: boolean;
+    phoneNumber: string;
+    photoURL: string;
+    additionalGuests: number;
+    invitation: string;
+}
 
 // Type definition for user
 type User = {
