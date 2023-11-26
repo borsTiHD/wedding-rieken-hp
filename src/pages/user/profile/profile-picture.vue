@@ -28,7 +28,7 @@
                         >
                             <img v-if="photoURL" :src="photoURL" :alt="`Your profile picture`" class="h-64 w-64 object-cover shadow-md rounded-md">
                             <div v-else class="h-64 w-64 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
-                                <span class="text-gray-400 text-center">No Avatar</span>
+                                <span class="text-gray-400 text-center select-none">No Avatar</span>
                             </div>
                         </div>
 
