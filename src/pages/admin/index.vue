@@ -23,7 +23,7 @@
         </template>
 
         <!-- You are not an admin -->
-        <Card v-else class="card-primary">
+        <Card v-else class="card-primary w-full">
             <template #content>
                 <h2 class="text-2xl text-center whitespace-pre-line">{{ t('user.userRole.notAdmin') }}</h2>
             </template>
