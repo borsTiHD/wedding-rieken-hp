@@ -1,9 +1,9 @@
 <template>
     <!-- Normal size -->
-    <Button v-if="!props.small" :label="t('user.upgradeUserRole.submit')" severity="success" icon="pi pi-gift" raised :loading="loading" @click="handleSubmit" />
+    <Button v-if="!props.small" :label="t('user.upgradeUserRole.submit')" class="pulse-green" severity="success" icon="pi pi-gift" raised :loading="loading" @click="handleSubmit" />
 
     <!-- Small size -->
-    <Button v-else v-tooltip.bottom="t('user.upgradeUserRole.submit')" severity="success" icon="pi pi-gift" raised rounded :loading="loading" @click="handleSubmit" />
+    <Button v-else v-tooltip.bottom="t('user.upgradeUserRole.submit')" class="pulse-green" severity="success" icon="pi pi-gift" raised rounded :loading="loading" @click="handleSubmit" />
 </template>
 
 <script setup lang="ts">
@@ -83,3 +83,28 @@ const handleSubmit = async() => {
     loading.value = false
 }
 </script>
+
+<style scoped>
+.pulse-green {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+    transform: scale(1);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+}
+</style>
