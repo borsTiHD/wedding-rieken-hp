@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import useInvitiationToken from '@/composables/useInvitiationToken'
+import useInvitationToken from '@/composables/useInvitationToken'
 
 // Localisation
 const { t } = useI18n()
@@ -38,7 +38,7 @@ const router = useRouter()
 const toast = useToast()
 const { registerUser } = useFirebaseAuth()
 const { changeRoleToInvited } = useFirebaseUserProfile()
-const { getInvitiationToken } = useInvitiationToken()
+const { getInvitationToken } = useInvitationToken()
 
 // Data
 const loading = ref(false)
@@ -70,7 +70,7 @@ const handleSubmit = async(form: { email: string, password: string }) => {
         // Check if user has an invitation token
         // And change profile role to 'invited'
         // Firebase will check if the token is valid
-        const token = getInvitiationToken()
+        const token = getInvitationToken()
         if (token && token !== '') {
             await changeRoleToInvited(token).catch((error: { message: string }) => {
                 toast.add({

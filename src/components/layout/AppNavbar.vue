@@ -68,8 +68,8 @@ const uid = computed(() => userStore.uid)
 const userProfile = computed(() => userStore.userProfile)
 
 // Invitation token
-const { getInvitiationToken } = useInvitiationToken()
-const token = computed(() => getInvitiationToken())
+const { getInvitationToken } = useInvitationToken()
+const token = computed(() => getInvitationToken())
 
 // Scroll event listener
 const { scrollY } = useWindowSize(100)

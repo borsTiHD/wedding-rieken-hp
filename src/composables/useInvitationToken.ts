@@ -2,7 +2,7 @@ import { useStorage } from '@vueuse/core'
 
 export default function() {
     // Get invitation token from url or localStorage
-    function getInvitiationToken() {
+    function getInvitationToken() {
         const defaultToken = ''
 
         // First check if token is in url
@@ -21,15 +21,15 @@ export default function() {
     }
 
     // Delete invitation token from localStorage
-    function deleteInvitiationToken() {
+    function deleteInvitationToken() {
         const token = useStorage('invitation-token', '', localStorage, { mergeDefaults: true })
         token.value = ''
         return true
     }
 
     return {
-        getInvitiationToken,
-        deleteInvitiationToken
+        getInvitationToken,
+        deleteInvitationToken
     }
 }
 

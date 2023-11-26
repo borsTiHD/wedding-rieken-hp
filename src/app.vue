@@ -22,7 +22,7 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
-import useInvitiationToken from '@/composables/useInvitiationToken'
+import useInvitationToken from '@/composables/useInvitationToken'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import '@fontsource/roboto'
@@ -78,8 +78,8 @@ useHead({
     ]
 })
 
-// Save invitiation token from route if provided
-const { getInvitiationToken } = useInvitiationToken()
+// Save invitation token from route if provided
+const { getInvitationToken } = useInvitationToken()
 
 // Language options for i18n
 // Also set language based on cookie or browser language
@@ -101,7 +101,7 @@ if (cookieLocale) {
 onMounted(async() => {
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error
-    getInvitiationToken() // Check if token is provided in route and save it in localStorage
+    getInvitationToken() // Check if token is provided in route and save it in localStorage
     stoptLoading() // Stop loading spinner
 })
 </script>

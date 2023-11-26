@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import useInvitiationToken from '@/composables/useInvitiationToken'
+import useInvitationToken from '@/composables/useInvitationToken'
 import { useUserStore } from '@/stores/user'
 
 type Props = { small?: boolean }
@@ -22,7 +22,7 @@ const { t } = useI18n()
 const router = useRouter()
 const localePath = useLocalePath()
 const { changeRoleToInvited } = useFirebaseUserProfile()
-const { getInvitiationToken } = useInvitiationToken()
+const { getInvitationToken } = useInvitationToken()
 
 // User store
 const userStore = useUserStore()
@@ -46,7 +46,7 @@ const handleSubmit = async() => {
     // Check if user has an invitation token
     // And change profile role to 'invited'
     // Firebase will check if the token is valid
-    const token = getInvitiationToken()
+    const token = getInvitationToken()
     if (token && token !== '') {
         const check = await changeRoleToInvited(token).catch((error: { message: string }) => {
             toast.add({

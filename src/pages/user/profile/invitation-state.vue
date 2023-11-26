@@ -87,7 +87,7 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import ChangeInvitation from '@/components/user/ChangeInvitation.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
-import useInvitiationToken from '@/composables/useInvitiationToken'
+import useInvitationToken from '@/composables/useInvitationToken'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
@@ -116,8 +116,8 @@ const { checker } = useProfileChecker()
 const checkState = computed(() => checker(t('profileStepper.invitationState.header')))
 
 // Invitation token
-const { getInvitiationToken } = useInvitiationToken()
-const token = computed(() => getInvitiationToken())
+const { getInvitationToken } = useInvitationToken()
+const token = computed(() => getInvitationToken())
 
 // Refs
 const invitationModal = ref<InstanceType<typeof DisplayModal>>()

@@ -35,7 +35,7 @@ import { useAppStore } from '@/stores/app'
 const router = useRouter()
 const { t, d } = useI18n()
 const localePath = useLocalePath()
-const { getInvitiationToken } = useInvitiationToken()
+const { getInvitationToken } = useInvitationToken()
 
 // App config
 const appStore = useAppStore()
@@ -55,7 +55,7 @@ watch(uid, (newUid) => {
 // On mount
 onMounted(() => {
     // If user got no invitation token -> push to home
-    if (!getInvitiationToken()) { router.push(localePath('/')) }
+    if (!getInvitationToken()) { router.push(localePath('/')) }
     // If user is logged in -> push to user
     else if (uid.value) { router.push(localePath('/user')) }
 })
