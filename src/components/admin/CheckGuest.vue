@@ -17,6 +17,7 @@
         class="whitespace-nowrap"
         icon="pi pi-user-plus"
         size="small"
+        severity="warning"
         raised
         @click="checkGuestModal?.open()"
     />
