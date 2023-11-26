@@ -9,7 +9,7 @@
     "pages": {
         "home": "Home",
         "admin": "Admin",
-        "user-management": "Benutzerverwaltung",
+        "user-management": "Users",
         "login": "Login",
         "logout": "Logout",
         "register": "Registrieren",
@@ -331,7 +331,7 @@
             "successDetail": "Benutzer wurde erstellt"
         },
         "listUsers": {
-            "header": "Benutzer Verwaltung",
+            "header": "Benutzerverwaltung",
             "noUsers": "Keine Benutzer gefunden",
             "needToCheckSelfRegisteredGuests": "OK | Achtung: 1 selbstregistrierter Gast muss geprüft werden | Achtung: {n} selbstregistrierte Gäste müssen geprüft werden",
             "invitedGuests": "Bisher wurde niemand eingeladen | Es gibt einen eingeladenen Gast | Es gibt {n} eingeladene Gäste",
