@@ -19,7 +19,7 @@
             </div>
 
             <!-- List users datatable -->
-            <ListUsers class="basis-full" />
+            <ListUsers class="basis-full max-w-full" />
         </template>
 
         <!-- You are not an admin -->
