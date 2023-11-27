@@ -14,7 +14,7 @@
         v-if="mode === 'default'"
         v-tooltip.left="t('admin.listUsers.checkGuest.checkTooltip')"
         :label="t('admin.listUsers.checkGuest.checkLabel')"
-        class="whitespace-nowrap"
+        class="whitespace-nowrap pulse-yellow"
         icon="pi pi-user-plus"
         size="small"
         severity="warning"
