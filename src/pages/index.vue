@@ -35,7 +35,7 @@
 
         <!-- Countdown -->
         <section class="bg-footer">
-            <div class="p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
+            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <Card class="card-primary">
                     <template #content>
                         <div class="flex flex-col items-center gap-4">
