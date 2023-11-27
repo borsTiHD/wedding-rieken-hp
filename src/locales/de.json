@@ -37,6 +37,9 @@
         "welcomeMessageAfterDeadline": "Wir haben Sie zu unserer Hochzeit am {weddingDate} eingeladen. Leider ist die Deadline zur Einladungsannahme bereits abgelaufen. Bitte kontaktieren Sie uns, falls Sie noch kommen möchten.",
         "loginLinkTag": "hier"
     },
+    "riddle": {
+        "text": "Ich bin der Schlüssel zu Erinnerungen, ein Hüter von Geschichten. In mir findet man Vergangenes, Gegenwärtiges und Zukünftiges. Was bin ich?"
+    },
     "login": {
         "header": "Einloggen",
         "wihtoutPassword": "Ohne Passwort",

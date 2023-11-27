@@ -45,16 +45,7 @@
                     </template>
                 </Card>
 
-                <Card class="card-primary">
-                    <template #title>
-                        <h2>What is Lorem Ipsum?</h2>
-                    </template>
-                    <template #content>
-                        <div class="flex flex-col items-center gap-4">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Phasellus egestas tellus rutrum tellus pellentesque eu. Accumsan lacus vel facilisis volutpat est. Amet consectetur adipiscing elit ut aliquam purus. Feugiat nisl pretium fusce id velit ut tortor. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Non odio euismod lacinia at. Sed felis eget velit aliquet sagittis id consectetur purus. Ornare lectus sit amet est. Porttitor eget dolor morbi non arcu risus quis varius quam. Integer vitae justo eget magna fermentum iaculis. Ipsum faucibus vitae aliquet nec ullamcorper sit. Egestas tellus rutrum tellus pellentesque eu tincidunt. Eget mauris pharetra et ultrices neque ornare aenean. In vitae turpis massa sed elementum tempus egestas sed sed. Mattis pellentesque id nibh tortor. Blandit cursus risus at ultrices mi. Ultrices neque ornare aenean euismod elementum.</p>
-                        </div>
-                    </template>
-                </Card>
+                <ShowRiddle />
             </div>
         </section>
 
@@ -118,6 +109,7 @@
 import { useAppStore } from '@/stores/app'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
+import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
 
 // Fetch app config
