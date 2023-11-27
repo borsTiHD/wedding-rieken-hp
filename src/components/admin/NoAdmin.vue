@@ -2,7 +2,11 @@
     <!-- You are not an admin -->
     <Card class="card-primary w-full">
         <template #content>
-            <h2 class="text-2xl text-center whitespace-pre-line">{{ t('user.userRole.notAdmin') }}</h2>
+            <i18n-t keypath="user.userRole.notAdmin" tag="h2" class="text-2xl text-center whitespace-pre-line">
+                <template #ghost>
+                    <span class="ml-4 inline-block wobble-hor-bottom">{{ t('user.userRole.ghost') }}</span>
+                </template>
+            </i18n-t>
         </template>
     </Card>
 </template>
@@ -11,6 +15,5 @@
 // Localisation
 const { t } = useI18n()
 
-// TODO: Adding a pulse animation to the emoji
-// Adding more easter eggs?
+// TODO: Adding cute ghosts flying around the page
 </script>

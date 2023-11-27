@@ -284,7 +284,8 @@
             "guestRole": "Selbstregistrierter Gast",
             "declinedRole": "Abgelehnter Gast",
             "noRole": "Keine Rolle",
-            "notAdmin": "Sie sollten nicht hier sein, Sie sind kein Administrator... 🤓✌️\nBooooooh! 👻"
+            "notAdmin": "Sie sollten nicht hier sein, Sie sind kein Administrator... 🤓✌️\nBooooooh! {ghost}",
+            "ghost": "👻"
         },
         "upgradeUserRole": {
             "submit": "Einladungstoken aktivieren",
