@@ -46,6 +46,8 @@
                 </Card>
 
                 <ShowRiddle />
+
+                <GalleryAlbum />
             </div>
         </section>
 
@@ -110,6 +112,7 @@ import { useAppStore } from '@/stores/app'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
+import GalleryAlbum from '@/components/content/GalleryAlbum.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
 
 // Fetch app config
