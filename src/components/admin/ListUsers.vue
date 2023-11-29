@@ -252,6 +252,8 @@ type User = {
 // Type definition for user type
 type UserRole = 'all' | UserProfile['role']
 
+// TODO: Prevent role changing if the user you want to change is an admin
+
 // Refs
 const createUserModal = ref<InstanceType<typeof DisplayModal>>()
 
