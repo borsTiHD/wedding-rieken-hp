@@ -1,6 +1,8 @@
+import type { Timestamp } from '@firebase/firestore-types'
+
 // Config types
 export interface Config {
-    weddingDate: number,
+    weddingDate: Timestamp,
     deadline: number,
 }
 

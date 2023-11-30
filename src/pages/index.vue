@@ -39,8 +39,8 @@
                 <Card class="card-primary">
                     <template #content>
                         <div class="flex flex-col items-center gap-4">
-                            <ShowCountdown :timestamp="config?.weddingDate" />
-                            <DateDisplay :timestamp="config?.weddingDate" />
+                            <ShowCountdown :timestamp="config?.weddingDate.seconds" />
+                            <DateDisplay :timestamp="config?.weddingDate.seconds" />
                         </div>
                     </template>
                 </Card>
@@ -57,8 +57,8 @@
                 <Card class="card-primary">
                     <template #content>
                         <div class="flex flex-col items-center gap-4">
-                            <ShowCountdown :timestamp="config?.weddingDate" />
-                            <DateDisplay :timestamp="config?.weddingDate" />
+                            <ShowCountdown :timestamp="config?.weddingDate.seconds" />
+                            <DateDisplay :timestamp="config?.weddingDate.seconds" />
                         </div>
                     </template>
                 </Card>
@@ -97,8 +97,8 @@
                 <Card class="card-primary">
                     <template #content>
                         <div class="flex flex-col items-center gap-4">
-                            <ShowCountdown :timestamp="config?.weddingDate" />
-                            <DateDisplay :timestamp="config?.weddingDate" />
+                            <ShowCountdown :timestamp="config?.weddingDate.seconds" />
+                            <DateDisplay :timestamp="config?.weddingDate.seconds" />
                         </div>
                     </template>
                 </Card>

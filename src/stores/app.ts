@@ -26,7 +26,7 @@ export const useAppStore = defineStore('app-store', () => {
     // Wedding Date: Format date based on timestamp
     const weddingDate = computed(() => {
         if (!config.value?.weddingDate) return 0
-        return new Date(config.value?.weddingDate * 1000)
+        return config.value?.weddingDate.toDate()
     })
 
     // Deadline Date: Format date based on timestamp
