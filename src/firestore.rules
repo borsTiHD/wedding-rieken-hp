@@ -1,0 +1,117 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Check if the user is logged in
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+
+    // Check if user is owner of the document
+    // And check if the user is logged in
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Check if "role" is not present in the request
+    function isRoleNotPresent() {
+      return !('role' in request.resource.data);
+    }
+
+    // Check if "role" is valid for normal users
+    // Normal users can only have "guest" as their role
+    function isRoleValueValid() {
+      let requestRole = request.resource.data.role;
+      return requestRole == 'guest'
+        || requestRole == 'invited'
+        || requestRole == 'declined';
+    }
+
+    // Check if "role" is not changed
+    // Normal users can't change their role
+    function isRoleNotChanged() {
+      let role = get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+      let requestRole = request.resource.data.role;
+      return requestRole == role;
+    }
+
+    // Check if "role" is "guest"
+    // Normal users can have "guest" as their role
+    function isRoleGuest() {
+      let requestRole = request.resource.data.role;
+      return requestRole == 'guest';
+    }
+
+    // Check if user is "admin"
+    function isAdmin() {
+      let role = get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+      return role == 'admin'
+    }
+
+    // Admins can do anything
+    match /{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+
+    // Allow the user to access documents in the "users" collection
+    match /users/{userId} {
+      // User can read their own profile
+      allow read: if isLoggedIn() && isOwner(userId);
+
+      // User can delete their own profile
+      allow delete: if isLoggedIn() && isOwner(userId);
+
+      // User can create their own profile
+      // But cannot set a different "role" (must be "guest"):
+      // - Checks if no role field in request.resource.data
+      // - Or checks if role is not modified
+      // - Or checks if role is "guest"
+      // - And checks everytime if role is a valid value
+      allow create: if (isOwner(userId)
+        && (
+          isRoleNotPresent()
+          || isRoleNotChanged()
+          || isRoleGuest()
+        )
+        && isRoleValueValid()
+      );
+
+      // User can only update their own profile
+      // But cannot set their "role":
+      // - Checks if no role field in request.resource.data
+      // - Or checks if role is not modified
+      // - And checks everytime if role is a valid value
+      allow update: if (isOwner(userId)
+        && (isRoleNotPresent() || isRoleNotChanged())
+        && isRoleValueValid()
+      );
+    }
+
+    // Allow access to the "config" document
+    match /app/config {
+      allow read: if true; // Everyone can read
+      // Allow write only if user role from /users/{userId} is "admin"
+      allow write: if isAdmin();
+    }
+
+    // Allow access to the "admin" document
+    // Only "admin" users have read/write access
+    match /app/admin {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // This rule allows anyone with your Firestore database reference to view, edit,
+    // and delete all data in your Firestore database. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Firestore database will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // all client requests to your Firestore database will be denied until you Update
+    // your rules
+    // match /{document=**} {
+    //   allow read, write: if request.time < timestamp.date(2023, 10, 9);
+    // }
+  }
+}
