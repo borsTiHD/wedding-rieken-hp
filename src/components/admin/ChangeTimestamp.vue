@@ -61,11 +61,8 @@ const handleSubmit = async() => {
     newDate.setHours(newTime.getHours(), newTime.getMinutes())
     newDate.setSeconds(0) // Set seconds to 0
 
-    // Get timestamp from date
-    const timestamp = Math.floor(newDate.getTime() / 1000)
-
     // Emit event
-    emit('change', timestamp)
+    emit('change', newDate)
 }
 
 onMounted(() => {
