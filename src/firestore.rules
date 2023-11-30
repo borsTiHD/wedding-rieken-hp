@@ -42,6 +42,20 @@ service cloud.firestore {
       return requestRole == 'guest';
     }
 
+    // Use "role" checks on create/update
+    // Cannot set a different "role" (must be "guest"):
+    // - Checks if no role field in request.resource.data
+    // - Or checks if role is not modified
+    // - Or checks if role is "guest"
+    // - And checks everytime if role is a valid value
+    function roleChecks() {
+      return (
+        isRoleNotPresent() // If "role" is not present in the request
+        || isRoleNotChanged() // Or if "role" is not changed
+        || isRoleGuest() // Or if "role" is "guest"
+      ) && isRoleValueValid() // And if "role" is valid
+    }
+
     // Check if user is "admin"
     function isAdmin() {
       let role = get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
@@ -62,29 +76,14 @@ service cloud.firestore {
       allow delete: if isLoggedIn() && isOwner(userId);
 
       // User can create their own profile
-      // But cannot set a different "role" (must be "guest"):
-      // - Checks if no role field in request.resource.data
-      // - Or checks if role is not modified
-      // - Or checks if role is "guest"
-      // - And checks everytime if role is a valid value
-      allow create: if (isOwner(userId)
-        && (
-          isRoleNotPresent()
-          || isRoleNotChanged()
-          || isRoleGuest()
-        )
-        && isRoleValueValid()
-      );
+      // - need to check role filed
+      allow create: if isOwner(userId)
+        && roleChecks();
 
       // User can only update their own profile
-      // But cannot set their "role":
-      // - Checks if no role field in request.resource.data
-      // - Or checks if role is not modified
-      // - And checks everytime if role is a valid value
-      allow update: if (isOwner(userId)
-        && (isRoleNotPresent() || isRoleNotChanged())
-        && isRoleValueValid()
-      );
+      // - need to check role filed
+      allow update: if isOwner(userId)
+        && roleChecks();
     }
 
     // Allow access to the "config" document
