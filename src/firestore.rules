@@ -21,10 +21,8 @@ service cloud.firestore {
 
     // Check if action is before deadline
     function isBeforeDeadline() {
-    //   let deadlineTimestamp = get(/databases/$(database)/documents/app/config).deadline;
-    //   let isBeforeDeadline = deadlineTimestamp > request.time;
-    //   return isBeforeDeadline
-      return true;
+      let deadlineTimestamp = get(/databases/$(database)/documents/app/config).data.deadline;
+      return request.time < deadlineTimestamp;
     }
 
     // Check if "role" is not present in the request
