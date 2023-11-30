@@ -1,0 +1,67 @@
+rules_version = '2';
+
+// Craft rules based on data in your Firestore database
+// allow write: if firestore.get(
+//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
+service firebase.storage {
+  match /b/{bucket}/o {
+    // This rule allows anyone with your Storage bucket reference to view, edit,
+    // and delete all data in your Storage bucket. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Storage bucket will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // all client requests to your Storage bucket will be denied until you Update
+    // your rules
+    // match /{allPaths=**} {
+    //   allow read, write: if request.time < timestamp.date(2023, 12, 30);
+    // }
+
+    // Check if user is "admin"
+    function isAdmin() {
+      let role = firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role;
+      return role == 'admin'
+    }
+
+    // Check if the user is logged in
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+
+    // Check if user is owner of the directory
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Check filesize
+    // Size limit is 10MB -> 10 * 1024 * 1024
+    function fileSizeOk() {
+      return request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // Check file type
+    // Only allow images
+    function fileTypeOk() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    // Admins can do anything
+    match /{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+
+    // Allow the user to access folder in the "users" collection
+    match /users/{userId}/{allPaths=**} {
+      // User can read their own files
+      allow read: if isOwner(userId);
+
+      // User can delete their own files
+      allow delete: if isLoggedIn() && isOwner(userId);
+
+      // User can create and update their own files
+      // Also check if the file size is ok
+      allow create, update: if isLoggedIn() && isOwner(userId) && fileSizeOk() && fileTypeOk();
+    }
+  }
+}
