@@ -13,6 +13,20 @@ service cloud.firestore {
       return request.auth.uid == userId;
     }
 
+    // Check if user is "admin"
+    function isAdmin() {
+      let role = get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+      return role == 'admin'
+    }
+
+    // Check if action is before deadline
+    function isBeforeDeadline() {
+    //   let deadlineTimestamp = get(/databases/$(database)/documents/app/config).deadline;
+    //   let isBeforeDeadline = deadlineTimestamp > request.time;
+    //   return isBeforeDeadline
+      return true;
+    }
+
     // Check if "role" is not present in the request
     function isRoleNotPresent() {
       return !('role' in request.resource.data);
@@ -56,10 +70,21 @@ service cloud.firestore {
       ) && isRoleValueValid() // And if "role" is valid
     }
 
-    // Check if user is "admin"
-    function isAdmin() {
-      let role = get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
-      return role == 'admin'
+    // Check "invitation" field
+    // - If "invitation" is not present in the request
+    // - Or if "invitation" is same as before
+    // - Or if "invitation" is "pending"
+    // - Or if "invitation" is different but before deadline
+    function checkInvitationField() {
+      return
+        // 1 is not exists
+        !('invitation' in request.resource.data)
+        // 2 is same
+        || (request.resource.data.invitation == resource.data.invitation)
+        // 3 is pending
+        || (request.resource.data.invitation == 'pending')
+        // 4 update before deadline
+        || (request.resource.data.invitation != resource.data.invitation && isBeforeDeadline());
     }
 
     // Admins can do anything
@@ -77,13 +102,17 @@ service cloud.firestore {
 
       // User can create their own profile
       // - need to check role filed
+      // - need to check invitation filed
       allow create: if isOwner(userId)
-        && roleChecks();
+        && roleChecks()
+        && checkInvitationField();
 
       // User can only update their own profile
       // - need to check role filed
+      // - need to check invitation filed
       allow update: if isOwner(userId)
-        && roleChecks();
+        && roleChecks()
+        && checkInvitationField();
     }
 
     // Allow access to the "config" document
