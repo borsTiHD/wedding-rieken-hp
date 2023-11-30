@@ -32,13 +32,13 @@ export const useAppStore = defineStore('app-store', () => {
     // Deadline Date: Format date based on timestamp
     const deadlineDate = computed(() => {
         if (!config.value?.deadline) return 0
-        return new Date(config.value?.deadline * 1000)
+        return config.value?.deadline.toDate()
     })
 
     // Check if the current date/time is before the deadline
     const isBeforeDeadline = computed(() => {
         if (!config.value?.deadline) return false
-        return Date.now() < config.value?.deadline * 1000
+        return Date.now() < config.value?.deadline.toDate()
     })
 
     // Fetch config data

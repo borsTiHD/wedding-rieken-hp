@@ -5,10 +5,10 @@
         </template>
         <template #content>
             <div class="flex flex-col gap-4">
-                <ChangeTimestamp :timestamp="config?.deadline" @change="changeWeddingTimestamp" />
+                <ChangeTimestamp :timestamp="config?.deadline.seconds" @change="changeWeddingTimestamp" />
                 <div class="flex gap-4">
                     <span class="text-2xl">{{ t('admin.changeDeadline.label') }}:</span>
-                    <DateDisplay :timestamp="config?.deadline" />
+                    <DateDisplay :timestamp="config?.deadline.seconds" />
                 </div>
                 <p class="whitespace-normal">{{ t('admin.changeDeadline.infoText') }}</p>
             </div>
@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
+import { Timestamp } from '@firebase/firestore'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
 import handleFirebaseError from '@/composables/handleFirebaseError'
@@ -35,9 +36,12 @@ const appStore = useAppStore()
 const config = computed(() => appStore.config)
 
 // Change wedding date
-const changeWeddingTimestamp = async(newTimestamp: number) => {
+const changeWeddingTimestamp = async(newTimestamp: Date) => {
+    // Convert timestamp to firestore timestamp
+    const firestoreTimestamp = Timestamp.fromDate(newTimestamp)
+
     const config: PartialConfig = {
-        deadline: newTimestamp
+        deadline: firestoreTimestamp
     }
 
     // Update wedding date

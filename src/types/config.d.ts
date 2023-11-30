@@ -3,7 +3,7 @@ import type { Timestamp } from '@firebase/firestore-types'
 // Config types
 export interface Config {
     weddingDate: Timestamp,
-    deadline: number,
+    deadline: Timestamp,
 }
 
 // Type for the partial config
