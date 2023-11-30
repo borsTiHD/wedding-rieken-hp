@@ -12,6 +12,7 @@ import {
     // collectionGroup,
     // Timestamp
 } from 'firebase/firestore'
+import type { PartialConfig } from '@/types/Config'
 
 // Types for firestore documents
 type Value = string | number | boolean | null | undefined | Document | Array<string | number | boolean | null | undefined | Document>
@@ -56,7 +57,7 @@ export function useFirestore() {
     }
 
     // Update a document by collection and ID
-    const updateByCollectionAndId = async(col: string, id: string, document: Document) => {
+    const updateByCollectionAndId = async(col: string, id: string, document: Document | PartialConfig) => {
         const docRef = doc($firestore, col, id)
         return await updateDoc(docRef, document)
     }
