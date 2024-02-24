@@ -9,9 +9,13 @@
             </i18n-t>
         </template>
     </Card>
+
+    <FlyingGhosts />
 </template>
 
 <script setup lang="ts">
+import FlyingGhosts from '@/components/admin/FlyingGhosts.vue'
+
 // Localisation
 const { t } = useI18n()
 
