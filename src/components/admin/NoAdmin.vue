@@ -10,14 +10,12 @@
         </template>
     </Card>
 
-    <FlyingGhosts />
+    <GhostsGame />
 </template>
 
 <script setup lang="ts">
-import FlyingGhosts from '@/components/admin/FlyingGhosts.vue'
+import GhostsGame from '@/components/ghost/GhostsGame.vue'
 
 // Localisation
 const { t } = useI18n()
-
-// TODO: Adding cute ghosts flying around the page
 </script>
