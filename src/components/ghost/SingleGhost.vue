@@ -84,6 +84,9 @@ const facing = ref<'left' | 'right'>('right')
 const direction = ref<'up' | 'down'>('down')
 const multiplier = ref<number>(1)
 
+// Hitting edge of the container counter
+const edgeCounter = ref<number>(0)
+
 // Set random size, speed, and opacity if not provided
 if (size.value === 0) { setRandomSize() }
 if (speed.value === 0) { setRandomSpeed() }
@@ -184,12 +187,26 @@ function isCloseToEdge(newLeft?: number, newTop?: number) {
 
     // Set padding for the container
     const padding = 10
-    return {
+
+    const check = {
         horizontal: checkLeft < 0 + padding // left
             || checkLeft + size.value + padding > containerWidth.value, // right
         vertical: checkTop < 0 + padding // top
             || checkTop + size.value + padding > containerHeight.value // bottom
     }
+
+    // Increase the edge counter if the ghost is close to the edge
+    if (check.horizontal || check.vertical) {
+        edgeCounter.value++
+
+        // Check if the ghost is stuck at the edge
+        if (edgeCounter.value > 10) {
+            setRandomPosition()
+            edgeCounter.value = 0
+        }
+    }
+
+    return check
 }
 
 // Ghost hit by a mouse click
