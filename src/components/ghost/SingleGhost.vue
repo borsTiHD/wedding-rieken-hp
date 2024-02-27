@@ -159,9 +159,9 @@ function isCloseToEdge(newLeft?: number, newTop?: number) {
     // Set padding for the container
     const padding = 10
     return {
-        horizontal: checkLeft < 0 + size.value + padding // left
+        horizontal: checkLeft < 0 + padding // left
             || checkLeft + size.value + padding > containerWidth.value, // right
-        vertical: checkTop < 0 + size.value + padding // top
+        vertical: checkTop < 0 + padding // top
             || checkTop + size.value + padding > containerHeight.value // bottom
     }
 }
