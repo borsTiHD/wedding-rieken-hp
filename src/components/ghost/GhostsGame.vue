@@ -1,5 +1,5 @@
 <template>
-    <div ref="ghostContainer" class="absolute inset-0 w-full h-full">
+    <div ref="ghostContainer" class="absolute inset-0 w-full h-full bg-black/50 z-40">
         <SingleGhost
             v-for="(ghost, index) in ghosts"
             :ref="el => ghost.itemRef = el"
