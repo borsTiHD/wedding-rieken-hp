@@ -1,12 +1,12 @@
 <template>
     <span
         v-if="show"
-        class="absolute wobble-hor-bottom bg-red-500/80 text-white p-2 rounded-md"
+        class="absolute wobble-hor-bottom bg-red-500/80 text-white p-2 rounded-md select-none"
         :style="{
             left: left + 'px',
             top: top + 'px',
         }"
-    >+100 dmg</span>
+    >+1 score</span>
 </template>
 
 <script setup lang="ts">
