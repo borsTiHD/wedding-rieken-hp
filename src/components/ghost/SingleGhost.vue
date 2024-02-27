@@ -2,7 +2,7 @@
     <HitMarker ref="hitMarkerRef" />
     <img
         :src="image"
-        class="absolute transition-all ease-in-out duration-150 cursor-crosshair select-none"
+        class="absolute transition-all ease-in-out duration-150 cursor-crosshair select-none hover:opacity-100"
         :class="{ 'transform -scale-x-100': facing === 'right' }"
         :style="{
             left: left + 'px',
