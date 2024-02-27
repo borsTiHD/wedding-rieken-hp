@@ -193,11 +193,16 @@ function isCloseToEdge(newLeft?: number, newTop?: number) {
 }
 
 // Ghost hit by a mouse click
-function hit() {
+function hit(event: MouseEvent) {
+    const mousePosition = {
+        x: event.clientX,
+        y: event.clientY
+    }
+
     // Show hit marker
     hitMarkerRef.value?.hit({
-        x: left.value - 10,
-        y: (top.value + size.value / 2) - 60
+        x: mousePosition.x - 35,
+        y: mousePosition.y - 80
     })
 
     // Opacity is set to 0 to make the ghost transparent
@@ -280,18 +285,22 @@ function stopMoving() {
 }
 
 // Watch settings for changes
-watch(() => props.settings, (newSettings) => {
+watch(() => props.settings, (newSettings, old) => {
     if (newSettings) {
-        if (newSettings.containerWidth && newSettings.containerHeight) {
+        if (
+            newSettings.containerWidth && newSettings.containerHeight
+            && (newSettings.containerWidth !== old.containerWidth || newSettings.containerHeight !== old.containerHeight)
+        ) {
             setContainerSize(newSettings.containerWidth, newSettings.containerHeight)
+
+            // Set random position if the container size changes
+            // to avoid ghost being stuck outside the container
+            setRandomPosition()
         }
         if (newSettings.size) { size.value = newSettings.size }
         if (newSettings.speed) { speed.value = newSettings.speed }
         if (newSettings.duration) { duration.value = newSettings.duration }
         if (newSettings.ghost) { image.value = ghostImages[newSettings.ghost - 1] }
-
-        // Set random position if the container size changes to avoid ghost being stuck outside the container
-        setRandomPosition()
     }
 }, { deep: true })
 
