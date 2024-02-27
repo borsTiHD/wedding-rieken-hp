@@ -2,8 +2,8 @@
     <HitMarker ref="hitMarkerRef" />
     <img
         :src="image"
-        class="absolute transition-all ease-in-out duration-150 cursor-crosshair"
-        :class="{ 'transform -scale-x-100': facing === 'left' }"
+        class="absolute transition-all ease-in-out duration-150 cursor-crosshair select-none"
+        :class="{ 'transform -scale-x-100': facing === 'right' }"
         :style="{
             left: left + 'px',
             top: top + 'px',
