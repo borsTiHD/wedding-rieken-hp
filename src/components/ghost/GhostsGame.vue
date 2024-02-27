@@ -1,6 +1,7 @@
 <template>
     <div ref="ghostContainer" class="absolute inset-0 flex justify-center w-full h-full bg-black/50 z-40">
         <ScoreBoard :score="highScore" :timer="currentGameTime" />
+        <GameOver :show="showGameOver" :score="highScore" />
         <SingleGhost
             v-for="(ghost, index) in ghosts"
             :ref="el => ghost.itemRef = el"
@@ -21,6 +22,7 @@
 <script setup lang="ts">
 import SingleGhost from '@/components/ghost/SingleGhost.vue'
 import ScoreBoard from '@/components/ghost/ScoreBoard.vue'
+import GameOver from '@/components/ghost/GameOver.vue'
 import type { GhostSetting } from '@/components/ghost/SingleGhost.vue'
 
 interface Ghost extends GhostSetting {
@@ -35,6 +37,7 @@ const containerHeight = ref<number>(ghostContainer.value?.clientHeight ?? 0)
 
 // Game state
 const running = ref<boolean>(false)
+const showGameOver = ref<boolean>(false)
 const highScore = ref<number>(0)
 const maxGameTime = 20 // in seconds
 const currentGameTime = ref<number>(0)
@@ -65,11 +68,13 @@ const gameStart = () => {
             // Remove all ghosts
             ghosts.value = []
 
-            // Add initial ghost
-            // Hitting the first ghost will start the game
-            addingGhost()
+            // Show game over screen
+            showGameOver.value = true
 
-            console.log('Game over - Score:', highScore.value)
+            // Add initial ghost after 3 seconds
+            setTimeout(() => {
+                addingGhost()
+            }, 3000)
         }
     }, 1000)
 }
@@ -77,6 +82,7 @@ const gameStart = () => {
 // Reset the game
 const gameReset = () => {
     running.value = false
+    showGameOver.value = false
     highScore.value = 0
     currentGameTime.value = maxGameTime
     ghosts.value = [] // Remove all ghosts
