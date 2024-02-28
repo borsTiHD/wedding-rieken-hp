@@ -1,12 +1,12 @@
 <template>
     <span
         v-if="show"
-        class="absolute wobble-hor-bottom bg-red-500/80 text-white p-2 rounded-md select-none pointer-events-none"
+        class="absolute wobble-hor-bottom bg-black/50 text-white p-2 rounded-md select-none pointer-events-none"
         :style="{
             left: left + 'px',
             top: top + 'px',
         }"
-    >+1 score</span>
+    >+1 👻</span>
 </template>
 
 <script setup lang="ts">
