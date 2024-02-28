@@ -1,7 +1,7 @@
 <template>
     <span
         v-if="show"
-        class="absolute wobble-hor-bottom bg-black/50 text-white p-2 rounded-md select-none pointer-events-none"
+        class="absolute animate-bounce bg-black/50 text-white p-2 rounded-md select-none pointer-events-none"
         :style="{
             left: left + 'px',
             top: top + 'px',
