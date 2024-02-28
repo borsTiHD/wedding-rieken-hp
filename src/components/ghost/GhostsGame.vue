@@ -144,7 +144,7 @@ const addingGhost = (number?: number) => {
         speed: undefined,
         duration: 30,
         ghost: number,
-        debug: true
+        debug: false
     }
 
     // Add the ghost to the ghosts array
