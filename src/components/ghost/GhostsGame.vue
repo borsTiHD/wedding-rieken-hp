@@ -1,5 +1,5 @@
 <template>
-    <div ref="ghostContainer" class="absolute inset-0 flex justify-center w-full h-full transition-all ease-in-out z-40" :class="{ 'bg-black/50': running }">
+    <div ref="ghostContainer" class="absolute inset-0 flex justify-center w-full h-full transition-all ease-in-out overflow-hidden z-40" :class="{ 'bg-black/50': running }">
         <ScoreBoard :score="score" :timer="currentGameTime" />
         <GameOver :show="showGameOver" :score="score" :highscore="highscore" />
         <SingleGhost
@@ -52,6 +52,10 @@ const currentGameTime = ref<number>(0)
 
 const ghosts = ref<Ghost[]>([])
 
+// Background music
+const audio = new Audio() // Create an <audio> element
+audio.src = '/assets/Ghost_House_Orchestral_Cover.mp3' // Set the source of your MP3 file
+
 // Game start
 const gameStart = () => {
     // Reset the game
@@ -60,6 +64,9 @@ const gameStart = () => {
 
     // Set the game to running state and reset the game time
     running.value = true
+
+    // Play audio
+    audio.play()
 
     // Start the game timer
     const timer = setInterval(() => {
@@ -103,6 +110,9 @@ const gameOver = (timer: ReturnType<typeof setInterval>) => {
     // Show game over screen
     showGameOver.value = true
 
+    // Stop audio
+    audio.pause()
+
     // Add initial ghost after 3 seconds of game over
     setTimeout(() => {
         addingGhost()
@@ -133,7 +143,7 @@ const addingGhost = (number?: number) => {
         size: Math.floor(Math.random() * 100) + 50,
         speed: undefined,
         duration: 30,
-        ghost: number, // Math.floor(Math.random() * 4) + 1
+        ghost: number,
         debug: true
     }
 

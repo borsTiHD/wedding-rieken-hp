@@ -117,7 +117,7 @@ const minSpeed = 1
 const maxSpeed = 10
 const minOpacity = 0.2
 const maxOpacity = 0.9
-const padding = 10 // Padding for boundary check
+const padding = -200 // Padding for boundary check
 
 // Hitting edge of the container counter
 const edgeCounter = ref<number>(0)
