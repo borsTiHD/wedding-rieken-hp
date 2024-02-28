@@ -1,18 +1,20 @@
 <template>
-    <div ref="ghostContainer" class="absolute inset-0 flex justify-center w-full h-full bg-black/50 z-40">
-        <ScoreBoard :score="highScore" :timer="currentGameTime" />
-        <GameOver :show="showGameOver" :score="highScore" />
+    <div ref="ghostContainer" class="absolute inset-0 flex justify-center w-full h-full transition-all ease-in-out z-40" :class="{ 'bg-black/50': running }">
+        <ScoreBoard :score="score" :timer="currentGameTime" />
+        <GameOver :show="showGameOver" :score="score" :highscore="highscore" />
         <SingleGhost
-            v-for="(ghost, index) in ghosts"
+            v-for="(ghost) in ghosts"
             :ref="el => ghost.itemRef = el"
-            :key="index"
+            :key="ghost.id"
             :settings="{
+                id: ghost.id,
                 containerWidth: containerWidth,
                 containerHeight: containerHeight,
                 size: ghost.size,
                 speed: ghost.speed,
                 duration: ghost.duration,
-                ghost: ghost.ghost
+                ghost: ghost.ghost,
+                debug: ghost.debug
             }"
             @hit="hit"
         />
@@ -30,6 +32,11 @@ interface Ghost extends GhostSetting {
     itemRef: Element | ComponentPublicInstance | null
 }
 
+// TODO: Background music
+// TODO: Hit sound
+// TODO: Game over sound
+// TODO: Custom cursor
+
 // Game boundaries
 const ghostContainer = ref<HTMLElement | null>(null)
 const containerWidth = ref<number>(ghostContainer.value?.clientWidth ?? 0)
@@ -38,8 +45,9 @@ const containerHeight = ref<number>(ghostContainer.value?.clientHeight ?? 0)
 // Game state
 const running = ref<boolean>(false)
 const showGameOver = ref<boolean>(false)
-const highScore = ref<number>(0)
-const maxGameTime = 20 // in seconds
+const score = ref<number>(0)
+const highscore = ref<number>(0)
+const maxGameTime = 30 // in seconds
 const currentGameTime = ref<number>(0)
 
 const ghosts = ref<Ghost[]>([])
@@ -48,42 +56,64 @@ const ghosts = ref<Ghost[]>([])
 const gameStart = () => {
     // Reset the game
     gameReset()
+    ghosts.value = []
 
     // Set the game to running state and reset the game time
     running.value = true
-
-    // Add initial 10 ghosts
-    for (let i = 0; i < 10; i++) {
-        addingGhost()
-    }
 
     // Start the game timer
     const timer = setInterval(() => {
         currentGameTime.value--
 
         if (currentGameTime.value <= 0) {
-            running.value = false
-            clearInterval(timer)
-
-            // Remove all ghosts
-            ghosts.value = []
-
-            // Show game over screen
-            showGameOver.value = true
-
-            // Add initial ghost after 3 seconds
-            setTimeout(() => {
-                addingGhost()
-            }, 3000)
+            gameOver(timer)
         }
     }, 1000)
+
+    // Add new ghost every x seconds until max ghosts reached
+    const maxGhosts = 10
+    const intervalDuration = 1000 * 2
+    const ghostInterval = setInterval(() => {
+        if (ghosts.value.length < maxGhosts) {
+            addingGhost()
+        } else {
+            clearInterval(ghostInterval)
+        }
+
+        // If the game is not running, clear the interval
+        if (!running.value) {
+            clearInterval(ghostInterval)
+        }
+    }, intervalDuration)
+}
+
+// Game over
+const gameOver = (timer: ReturnType<typeof setInterval>) => {
+    running.value = false
+    clearInterval(timer)
+
+    // Save highscore
+    if (score.value > highscore.value) {
+        highscore.value = score.value
+    }
+
+    // Remove all ghosts
+    ghosts.value = []
+
+    // Show game over screen
+    showGameOver.value = true
+
+    // Add initial ghost after 3 seconds of game over
+    setTimeout(() => {
+        addingGhost()
+    }, 3000)
 }
 
 // Reset the game
 const gameReset = () => {
     running.value = false
     showGameOver.value = false
-    highScore.value = 0
+    score.value = 0
     currentGameTime.value = maxGameTime
     ghosts.value = [] // Remove all ghosts
     addingGhost() // Add initial ghost
@@ -101,8 +131,10 @@ const addingGhost = (number?: number) => {
         containerWidth: containerWidth.value,
         containerHeight: containerHeight.value,
         size: Math.floor(Math.random() * 100) + 50,
-        duration: Math.floor(Math.random() * 500),
-        ghost: number // Math.floor(Math.random() * 4) + 1
+        speed: undefined,
+        duration: 30,
+        ghost: number, // Math.floor(Math.random() * 4) + 1
+        debug: true
     }
 
     // Add the ghost to the ghosts array
@@ -117,8 +149,8 @@ const hit = () => {
         gameStart()
     }
 
-    // Increase the high score
-    highScore.value++
+    // Increase the score
+    score.value++
 }
 
 // Set container sizes

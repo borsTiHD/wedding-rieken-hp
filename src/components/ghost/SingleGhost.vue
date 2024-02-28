@@ -2,17 +2,33 @@
     <HitMarker ref="hitMarkerRef" />
     <img
         :src="image"
-        class="absolute transition-all ease-in-out duration-150 cursor-crosshair select-none hover:opacity-100"
-        :class="{ 'transform -scale-x-100': facing === 'right' }"
+        class="absolute transition-all ease-in-out select-none"
+        :class="{
+            'transform -scale-x-100': facing === 'right',
+            // Only if the ghost is moving
+            // makes him visible on hover
+            // show crosshair cursor
+            // and add duration to the transition for smooth movement
+            'cursor-crosshair duration-300 hover:opacity-100': !invincible && interval
+        }"
         :style="{
             left: left + 'px',
             top: top + 'px',
             width: size + 'px',
-            height: size + 'px',
             opacity: opacity
         }"
-        @click="hit"
+        @mousedown="hit"
     >
+
+    <!-- Small box to show the ghost position for debugging -->
+    <div
+        v-if="debug"
+        class="bg-red-500 p-2 absolute select-none rounded"
+        :style="{
+            left: left + 'px',
+            top: top + 'px',
+        }"
+    />
 </template>
 
 <script setup lang="ts">
@@ -46,17 +62,22 @@ import ghost21 from '@/assets/img/ghosts/ghost21.png'
 import HitMarker from '@/components/ghost/HitMarker.vue'
 
 export type GhostSetting = {
+    id: number
     containerWidth: number
     containerHeight: number
     size?: number
     speed?: number
-    duration?: number // in milliseconds
+    duration?: number // Updates in milliseconds and should be the same as the transition duration in the template
     ghost?: number // Choose a ghost image
+    difficulty?: number // 1-10
+    debug?: boolean
 }
 
 const props = defineProps<{
     settings: GhostSetting
 }>()
+
+// TODO: Use difficulty to change the ghost's behaviour
 
 // Hit marker ref
 const hitMarkerRef = ref<InstanceType<typeof HitMarker> | null>(null)
@@ -73,16 +94,30 @@ const containerWidth = ref<number>(props.settings.containerWidth)
 const containerHeight = ref<number>(props.settings.containerHeight)
 
 // Ghost settings
+const debug = ref<boolean>(props.settings.debug ?? false)
 const interval = ref<ReturnType<typeof setInterval> | null>(null)
-const duration = ref<number>(props.settings.duration ?? 1000) // in milliseconds
+const duration = ref<number>(props.settings.duration ?? 10) // Updates in milliseconds and should be the same as the transition duration in the template
+const difficulty = ref<number>(props.settings.difficulty ?? 1)
+const invincible = ref<boolean>(false)
 const left = ref<number>(0)
 const top = ref<number>(0)
 const size = ref<number>(props.settings.size ?? 0)
 const speed = ref<number>(0)
 const opacity = ref<number>(0)
-const facing = ref<'left' | 'right'>('right')
-const direction = ref<'up' | 'down'>('down')
-const multiplier = ref<number>(1)
+const horizontalDirection = ref<'left' | 'right'>('right')
+const verticalDirection = ref<'up' | 'down'>('down')
+const facing = computed(() => horizontalDirection.value)
+
+// Constants
+const minSize = 50
+const maxSize = 150
+const minDifficulty = 1
+const maxDifficulty = 10
+const minSpeed = 1
+const maxSpeed = 10
+const minOpacity = 0.2
+const maxOpacity = 0.9
+const padding = 10 // Padding for boundary check
 
 // Hitting edge of the container counter
 const edgeCounter = ref<number>(0)
@@ -104,9 +139,18 @@ if (props.settings?.ghost) {
     image.value = ghostImages[Math.floor(Math.random() * ghostImages.length)]
 }
 
+// Set new difficulty
+function setDifficulty(newDifficulty: number) {
+    // Pay attention to the maximum and minimum difficulty
+    if (newDifficulty > maxDifficulty) { newDifficulty = maxDifficulty }
+    if (newDifficulty < minDifficulty) { newDifficulty = minDifficulty }
+
+    difficulty.value = newDifficulty
+}
+
 // Sets a random size
 function setRandomSize() {
-    size.value = Math.floor(Math.random() * 100) + 50
+    size.value = Math.floor(Math.random() * (maxSize - minSize)) + minSize
 }
 
 // Sets a random position
@@ -126,41 +170,40 @@ function setRandomPosition() {
 
 // Sets a random horizontal direction
 function setRandomFacing() {
-    facing.value = Math.random() > 0.5 ? 'left' : 'right'
+    horizontalDirection.value = randomBoolean(50) ? 'left' : 'right'
 }
 
 // Sets a random vertical direction
 function setRandomDirection() {
-    direction.value = Math.random() > 0.5 ? 'up' : 'down'
+    verticalDirection.value = randomBoolean(50) ? 'up' : 'down'
 }
 
 // Sets a random speed
 function setRandomSpeed() {
-    speed.value = Math.random() * 2 + 1
+    speed.value = Math.random() * 2 + 10
 }
 
 // Change speed randomly
 function changeSpeedRandomly() {
-    const maxSpeed = 10
-    const minSpeed = 1
-
     // Set acceleration or deceleration
     if (randomBoolean(50)) {
-        speed.value += Math.random() * 2 + 1
+        speed.value += Math.random() * 2 + 1 + difficulty.value
     } else {
-        speed.value -= Math.random() * 2 + 1
+        speed.value -= Math.random() * 2 + 1 + difficulty.value
     }
 
     // Pay attention to the maximum and minimum speed
     if (speed.value > maxSpeed) { speed.value = maxSpeed - 1 }
-    if (speed.value < minSpeed) { speed.value = minSpeed + 1 }
+    if (speed.value < minSpeed + difficulty.value) { speed.value = minSpeed + 1 }
+}
+
+// Set random opacity
+function setRandomOpacity() {
+    opacity.value = Math.random() * 0.7 + 0.2
 }
 
 // Change opacity randomly
 function changeOpacityRandomly() {
-    const maxOpacity = 1
-    const minOpacity = 0.1
-
     // Add or remove opacity randomly
     if (randomBoolean(50)) {
         opacity.value += Math.random()
@@ -173,11 +216,12 @@ function changeOpacityRandomly() {
     if (opacity.value < minOpacity) { opacity.value = minOpacity + 0.1 }
 }
 
-// Random boolean for x% chance of getting true
-// Default percentage is 1%
-// Multiplier is used to increase or decrease the chance
+// Random boolean with a percentage chance
+// Default chance is 1% for true
 function randomBoolean(percentage = 1) {
-    return Math.random() < percentage * multiplier.value / 100
+    // Create random number between 1 and 100 with only integer
+    const random = Math.floor(Math.random() * 100) + 1
+    return random < percentage
 }
 
 // Check if ghost is moving to close to the edge
@@ -185,14 +229,18 @@ function isCloseToEdge(newLeft?: number, newTop?: number) {
     const checkLeft = newLeft ?? left.value
     const checkTop = newTop ?? top.value
 
-    // Set padding for the container
-    const padding = 10
+    const closeToLeft = checkLeft < 0 + padding
+    const closeToRight = checkLeft + size.value + padding > containerWidth.value
+    const closeToTop = checkTop < 0 + padding
+    const closeToBottom = checkTop + size.value + padding > containerHeight.value
 
     const check = {
-        horizontal: checkLeft < 0 + padding // left
-            || checkLeft + size.value + padding > containerWidth.value, // right
-        vertical: checkTop < 0 + padding // top
-            || checkTop + size.value + padding > containerHeight.value // bottom
+        horizontal: closeToLeft || closeToRight,
+        vertical: closeToTop || closeToBottom,
+        left: closeToLeft,
+        right: closeToRight,
+        top: closeToTop,
+        bottom: closeToBottom
     }
 
     // Increase the edge counter if the ghost is close to the edge
@@ -211,6 +259,8 @@ function isCloseToEdge(newLeft?: number, newTop?: number) {
 
 // Ghost hit by a mouse click
 function hit(event: MouseEvent) {
+    if (invincible.value) { return }
+
     const mousePosition = {
         x: event.clientX,
         y: event.clientY
@@ -222,21 +272,29 @@ function hit(event: MouseEvent) {
         y: mousePosition.y - 80
     })
 
+    // Set invincible to avoid multiple hits
+    invincible.value = true
+
     // Opacity is set to 0 to make the ghost transparent
     opacity.value = 0
+
+    // Stop moving the ghost
+    stopMoving()
 
     // Set new random size, speed, and position
     setRandomSize()
     setRandomSpeed()
     setRandomPosition()
 
-    // Stop moving the ghost
-    stopMoving()
+    // Increase the difficulty of the ghost
+    setDifficulty(difficulty.value + 1)
 
     // Start moving the ghost again after a short delay
     setTimeout(() => {
+        setRandomOpacity()
         startMoving()
-    }, 1000)
+        invincible.value = false
+    }, 3000)
 
     // Emits a hit event
     emit('hit')
@@ -248,38 +306,38 @@ function move() {
     // Change direction if the ghost is close to the edge
     // If not close to the edge, randomly change direction
     if (isCloseToEdge().horizontal) {
-        facing.value = facing.value === 'right' ? 'left' : 'right'
-    } else if (randomBoolean()) {
-        facing.value = facing.value === 'right' ? 'left' : 'right'
+        horizontalDirection.value = horizontalDirection.value === 'right' ? 'left' : 'right'
+    } else if (randomBoolean(2)) {
+        horizontalDirection.value = horizontalDirection.value === 'right' ? 'left' : 'right'
     }
 
     // Check if the ghost is close to the vertical edge
     // Change direction if the ghost is close to the edge
     // If not close to the edge, randomly change direction
     if (isCloseToEdge().vertical) {
-        direction.value = direction.value === 'down' ? 'up' : 'down'
-    } else if (randomBoolean()) {
-        direction.value = direction.value === 'down' ? 'up' : 'down'
+        verticalDirection.value = verticalDirection.value === 'down' ? 'up' : 'down'
+    } else if (randomBoolean(2)) {
+        verticalDirection.value = verticalDirection.value === 'down' ? 'up' : 'down'
     }
 
     // Move the ghost to the right or left with random speed
-    if (randomBoolean(10)) { changeSpeedRandomly() }
-    if (facing.value === 'right') {
+    if (randomBoolean(2)) { changeSpeedRandomly() }
+    if (horizontalDirection.value === 'right') {
         left.value += speed.value
     } else {
         left.value -= speed.value
     }
 
     // Move the ghost up or down with random speed
-    if (randomBoolean(10)) { changeSpeedRandomly() }
-    if (direction.value === 'down') {
+    if (randomBoolean(2)) { changeSpeedRandomly() }
+    if (verticalDirection.value === 'down') {
         top.value += speed.value
     } else {
         top.value -= speed.value
     }
 
     // Set random opacity
-    if (randomBoolean(10)) { changeOpacityRandomly() }
+    if (randomBoolean(5)) { changeOpacityRandomly() }
 }
 
 // Set container size
@@ -328,7 +386,8 @@ const emit = defineEmits(['hit'])
 defineExpose({
     setContainerSize,
     startMoving,
-    stopMoving
+    stopMoving,
+    setDifficulty
 })
 
 // Start moving the ghost
