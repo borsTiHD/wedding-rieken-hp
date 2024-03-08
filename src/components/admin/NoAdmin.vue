@@ -10,11 +10,14 @@
         </template>
     </Card>
 
-    <GhostsGame />
+    <!-- <GhostsGame /> -->
+    <BooBash />
 </template>
 
 <script setup lang="ts">
-import GhostsGame from '@/components/ghost/GhostsGame.vue'
+// import GhostsGame from '@/components/ghost/GhostsGame.vue'
+import { BooBash } from 'vue-boo-bash'
+import 'vue-boo-bash/style.css'
 
 // Localisation
 const { t } = useI18n()
