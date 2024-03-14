@@ -11,14 +11,19 @@
     </Card>
 
     <!-- <GhostsGame /> -->
-    <BooBash />
+    <BooBash :settings="settings" />
 </template>
 
 <script setup lang="ts">
-// import GhostsGame from '@/components/ghost/GhostsGame.vue'
 import { BooBash } from 'vue-boo-bash'
 import 'vue-boo-bash/style.css'
+import BackgroundMusic from 'vue-boo-bash/Ghost_House_Orchestral_Cover.mp3'
 
 // Localisation
 const { t } = useI18n()
+
+// Game settings
+const settings = {
+    music: BackgroundMusic // specify source for background music
+}
 </script>
