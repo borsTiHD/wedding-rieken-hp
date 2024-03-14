@@ -401,6 +401,13 @@
             "download": "QR-Code herunterladen"
         }
     },
+    "ghostGame": {
+        "secret": "Sie haben das Geisterspiel gefunden. Viel Spaß!",
+        "score": "Punkte",
+        "time": "Zeit",
+        "gameover": "Spiel vorbei",
+        "highscore": "All Time Highscore"
+    },
     "api": {
         "roleNotChanged": "Rolle konnte nicht geändert werden"
     },
