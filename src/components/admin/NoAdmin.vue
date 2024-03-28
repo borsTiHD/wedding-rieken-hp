@@ -11,7 +11,7 @@
     </Card>
 
     <!-- <GhostsGame /> -->
-    <BooBash :settings="settings" />
+    <BooBash :settings="settings" @game-over="gameOver" />
 </template>
 
 <script setup lang="ts">
@@ -25,5 +25,10 @@ const { t } = useI18n()
 // Game settings
 const settings = {
     music: BackgroundMusic // specify source for background music
+}
+
+const gameOver = (event: { score: number; highScore: number }) => {
+    console.log('GAMEOVER', event)
+    // TODO: Check Score, or HighScore with Firebase and set new score if higher
 }
 </script>
