@@ -28,6 +28,8 @@ import { useUserStore } from '@/stores/user'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
+import '@fontsource/great-vibes'
+import '@fontsource/alex-brush'
 
 // TODO: Change favicon
 // TODO: Add a new date in admin panel - this date is an invite stop date
@@ -111,7 +113,7 @@ onMounted(async() => {
 body, html {
     /* background: linear-gradient(to bottom, #ff0000, #0000ff); */
     /* @apply bg-gradient-to-b from-body to-footer !important; */
-    @apply bg-body font-montserrat -z-50 !important;
+    @apply bg-body font-great-vibes -z-50 !important;
 }
 
 /* Background image */

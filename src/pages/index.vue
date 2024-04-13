@@ -14,9 +14,9 @@
                     class="mt-auto flex flex-col justify-center text-white"
                     :style="{ transform: `translateY(${scrollY / 4}px)` }"
                 >
-                    <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
-                    <span class="font-montserrat text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
-                    <span class="font-roboto text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
+                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
+                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
+                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
                 </div>
 
                 <!-- Scroll down icon -->

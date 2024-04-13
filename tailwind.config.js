@@ -14,7 +14,9 @@ module.exports = {
         extend: {
             fontFamily: {
                 montserrat: ['Montserrat'],
-                roboto: ['Roboto']
+                roboto: ['Roboto'],
+                'great-vibes': ['Great Vibes'],
+                'alex-brush': ['Alex Brush']
             },
             colors: {
                 // Colors: read more in 'primevue-designer-colors.md'
