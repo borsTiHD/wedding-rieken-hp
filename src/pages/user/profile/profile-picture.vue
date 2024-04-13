@@ -22,7 +22,7 @@
                 <!-- User avatar -->
                 <div class="flex items-center justify-center gap-4">
                     <div class="col-span-full flex flex-col sm:flex-row items-center gap-8">
-                        <img v-if="photoURL" :src="photoURL" :alt="`Your profile picture`" class="h-64 w-64 bg-gray-800 object-cover shadow-md rounded-md">
+                        <img v-if="photoURL" :src="photoURL" alt="Your profile picture" class="h-64 w-64 bg-gray-800 object-cover shadow-md rounded-md">
                         <div>
                             <UploadProfilePicture />
                             <p class="mt-2 text-xs leading-5 text-gray-400">JPG, GIF or PNG. 10MB max.</p>

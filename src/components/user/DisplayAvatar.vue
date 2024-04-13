@@ -2,45 +2,23 @@
     <Card class="card-primary" :pt="ptCard">
         <template #content>
             <div class="flex items-center gap-4">
-                <!-- User avatar with edit icon on mouse hover -->
-                <div class="relative inline-block">
-                    <Avatar
-                        tabindex="0"
-                        :image="photoURL ? photoURL : undefined"
-                        :icon="photoURL ? undefined : 'pi pi-user'"
-                        class="cursor-pointer rounded-full"
-                        size="xlarge"
-                        shape="circle"
-                        @mouseover="showProfilePictureEditIcon = true"
-                        @keydown.enter="profilePictureModal?.open()"
-                    />
-
-                    <!-- Edit profile picture on mouse hover -->
-                    <div
-                        v-if="showProfilePictureEditIcon"
-                        class="absolute inset-0 flex items-center justify-center rounded-full bg-black bg-opacity-50 transition-opacity duration-300 hover:opacity-100 cursor-pointer"
-                        :class="photoURL ? 'mb-2' : ''"
-                        @mouseleave="showProfilePictureEditIcon = false"
-                        @click="profilePictureModal?.open()"
-                    >
-                        <i class="pi pi-pencil text-white" />
-                        <!-- <Button icon="pi pi-pencil" rounded aria-label="Profilbild editieren" /> -->
+                <div class="flex items-center">
+                    <div>
+                        <img v-if="photoURL" class="inline-block h-14 w-14 rounded-full" :src="photoURL" alt="Your profile picture">
+                        <span v-else class="inline-block h-14 w-14 overflow-hidden rounded-full bg-gray-100">
+                            <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </span>
                     </div>
+                    <div class="ml-3">
+                        <!-- Display name - second one is on mobile -->
+                        <h1 class="text-2xl font-semibold text-gray-700 hidden md:inline">{{ displayName ? t('user.welcome', { name: displayName }) : t('user.noName') }}</h1>
+                        <h1 class="text-lg font-semibold text-gray-700 inline md:hidden">{{ displayName ? displayName : t('user.noName') }}</h1>
 
-                    <!-- Profile picture edit modal -->
-                    <DisplayModal ref="profilePictureModal" :position="modalPosition" :header="t('user.profilePicture.modalHeader')">
-                        <template #content>
-                            <UploadProfilePicture @uploaded="profilePictureModal?.close()" />
-                        </template>
-                    </DisplayModal>
-                </div>
-                <div class="flex flex-col">
-                    <!-- Display name -->
-                    <h1 class="text-2xl font-semibold hidden md:inline">{{ displayName ? t('user.welcome', { name: displayName }) : t('user.noName') }}</h1>
-                    <h1 class="text-2xl font-semibold inline md:hidden">{{ displayName ? displayName : t('user.noName') }}</h1> <!-- on mobile -->
-
-                    <!-- Email Address -->
-                    <span class="text-xs sm:text-base text-gray-600">{{ email }}</span>
+                        <!-- Email Address -->
+                        <p class="text-xs sm:text-base text-gray-500 ">{{ email }}</p>
+                    </div>
                 </div>
 
                 <!-- Profile progress with link -->
@@ -51,21 +29,11 @@
 </template>
 
 <script setup lang="ts">
-import DisplayModal from '@/components/DisplayModal.vue'
 import DisplayProfileProgress from '@/components/user/DisplayProfileProgress.vue'
-import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
-import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 // Localisation
 const { t } = useI18n()
-
-// Modal position
-const { modalPosition } = useModalPosition()
-
-// Refs
-const profilePictureModal = ref<InstanceType<typeof DisplayModal>>()
-const showProfilePictureEditIcon = ref(false)
 
 // User store
 const userStore = useUserStore()
