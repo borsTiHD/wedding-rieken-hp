@@ -7,12 +7,7 @@
         <template #content>
             <div class="flex flex-col divide-y">
                 <div class="col-span-full flex items-center gap-x-8 pb-4">
-                    <img v-if="photoURL" class="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover" :src="photoURL" alt="Your profile picture">
-                    <span v-else class="inline-block h-14 w-14 overflow-hidden rounded-full bg-gray-100" alt="No profile picture">
-                        <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                    </span>
+                    <DisplayAvatar size="xl" :circle="false" />
                     <div>
                         <UploadProfilePicture />
                         <p class="mt-2 text-xs leading-5 text-gray-400">{{ t('user.profilePicture.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}</p>
@@ -148,6 +143,7 @@
 
 <script setup lang="ts">
 import DisplayModal from '@/components/DisplayModal.vue'
+import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import VerifyEmail from '@/components/user/VerifyEmail.vue'
@@ -184,7 +180,6 @@ const additionalGuestsModal = ref<InstanceType<typeof DisplayModal>>()
 // User store
 const userStore = useUserStore()
 const userProfile = computed(() => userStore.userProfile)
-const photoURL = computed(() => userStore.photoURL)
 
 // User data from store
 const email = computed(() => userStore.email)
