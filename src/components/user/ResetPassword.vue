@@ -1,6 +1,6 @@
 <template>
     <ConfirmPopup />
-    <Button :label="t('user.password.resetPassword.submitButton')" icon="pi pi-lock-open" raised :loading="loading" @click="confirmDialog($event)" />
+    <Button :label="t('user.password.resetPassword.submitButton')" class="whitespace-nowrap w-full" icon="pi pi-lock-open" raised :loading="loading" @click="confirmDialog($event)" />
 </template>
 
 <script setup lang="ts">

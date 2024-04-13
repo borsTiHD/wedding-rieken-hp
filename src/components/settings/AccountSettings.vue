@@ -5,52 +5,96 @@
         </template>
         <template #content>
             <div class="flex flex-col gap-4">
-                <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
-                <UpgradeUserRole v-if="userProfile.role === 'guest' && token && token !== ''" class="basis-full" />
+                <p class="mt-1 text-sm leading-6 text-gray-500">{{ t('user.account.description') }}</p>
 
-                <!-- Verify Email -->
-                <VerifyEmail v-if="!emailVerified" />
+                <dl class="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+                    <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
+                    <div v-if="userProfile.role === 'guest' && token && token !== ''" class="pt-6 sm:flex">
+                        <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                            <UpgradeUserRole class="w-full" />
+                        </dt>
+                        <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                            <div class="text-gray-900">{{ t('user.account.descriptions.upgradeUserRole') }}</div>
+                        </dd>
+                    </div>
 
-                <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2">
+                    <!-- Verify Email -->
+                    <div v-if="!emailVerified" class="pt-6 sm:flex">
+                        <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                            <VerifyEmail />
+                        </dt>
+                        <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                            <div class="text-gray-900">{{ t('user.account.descriptions.passwordReset') }}</div>
+                        </dd>
+                    </div>
+
                     <!-- Change Password -->
-                    <DisplayModal
-                        ref="passwordModal"
-                        :position="modalPosition"
-                        :header="t('user.password.changePassword.modalHeader')"
-                        :buttonLabel="t('user.password.changePassword.modalButton')"
-                        buttonIcon="pi pi-lock"
-                        buttonRaised
-                        button
-                    >
-                        <template #content>
-                            <ChangePassword @changed="passwordModal?.close()" />
-                        </template>
-                    </DisplayModal>
+                    <div class="pt-6 sm:flex">
+                        <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                            <DisplayModal
+                                ref="passwordModal"
+                                :position="modalPosition"
+                                :header="t('user.password.changePassword.modalHeader')"
+                                :buttonLabel="t('user.password.changePassword.modalButton')"
+                                buttonIcon="pi pi-lock"
+                                buttonClass="whitespace-nowrap w-full"
+                                buttonRaised
+                                button
+                            >
+                                <template #content>
+                                    <ChangePassword @changed="passwordModal?.close()" />
+                                </template>
+                            </DisplayModal>
+                        </dt>
+                        <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                            <div class="text-gray-900">{{ t('user.account.descriptions.password') }}</div>
+                        </dd>
+                    </div>
 
                     <!-- Password Reset -->
-                    <ResetPassword />
-                </div>
+                    <div class="pt-6 sm:flex">
+                        <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                            <ResetPassword />
+                        </dt>
+                        <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                            <div class="text-gray-900">{{ t('user.account.descriptions.passwordReset') }}</div>
+                        </dd>
+                    </div>
 
-                <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-2">
                     <!-- Delete User Account -->
-                    <DisplayModal
-                        ref="deleteUserModal"
-                        :position="modalPosition"
-                        :header="t('user.deleteUser.headerModal')"
-                        :buttonLabel="t('user.deleteUser.submit')"
-                        buttonIcon="pi pi-user-minus"
-                        buttonSeverity="danger"
-                        buttonOutlined
-                        button
-                    >
-                        <template #content>
-                            <DeleteUser @deleted="deleteUserModal?.close()" />
-                        </template>
-                    </DisplayModal>
+                    <div class="pt-6 sm:flex">
+                        <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                            <DisplayModal
+                                ref="deleteUserModal"
+                                :position="modalPosition"
+                                :header="t('user.deleteUser.headerModal')"
+                                :buttonLabel="t('user.deleteUser.submit')"
+                                buttonIcon="pi pi-user-minus"
+                                buttonClass="whitespace-nowrap w-full"
+                                buttonSeverity="danger"
+                                buttonOutlined
+                                button
+                            >
+                                <template #content>
+                                    <DeleteUser @deleted="deleteUserModal?.close()" />
+                                </template>
+                            </DisplayModal>
+                        </dt>
+                        <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                            <div class="text-gray-900">{{ t('user.account.descriptions.deleteUser') }}</div>
+                        </dd>
+                    </div>
 
                     <!-- Logout -->
-                    <LogoutUser />
-                </div>
+                    <div class="pt-6 sm:flex">
+                        <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                            <LogoutUser />
+                        </dt>
+                        <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                            <div class="text-gray-900">{{ t('user.account.descriptions.logout') }}</div>
+                        </dd>
+                    </div>
+                </dl>
             </div>
         </template>
     </Card>

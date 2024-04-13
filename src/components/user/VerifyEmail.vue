@@ -12,13 +12,14 @@
         @click.prevent="handleVerifyEmail"
     />
 
-    <!-- Mode: large -->
+    <!-- Mode: large (default) -->
     <Button
         v-else-if="props.mode === 'large' || !props.mode"
         v-tooltip.bottom="t('user.email.tooltipPlzVerifie')"
         :label="t('user.email.verifieAriaLabel')"
         :aria-label="t('user.email.verifieAriaLabel')"
         icon="pi pi-exclamation-circle"
+        class="whitespace-nowrap w-full"
         severity="info"
         raised
         :loading="loadingEmailVerify"
