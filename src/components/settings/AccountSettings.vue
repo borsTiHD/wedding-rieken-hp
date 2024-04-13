@@ -22,7 +22,7 @@
                         <VerifyEmail />
                     </dt>
                     <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                        <div class="text-gray-900">{{ t('user.account.descriptions.passwordReset') }}</div>
+                        <div class="text-gray-900">{{ t('user.account.descriptions.emailVerification') }}</div>
                     </dd>
                 </div>
 

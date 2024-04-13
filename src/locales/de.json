@@ -128,6 +128,7 @@
             "description": "Ändern Sie hier Ihre Account-Einstellungen",
             "descriptions": {
                 "upgradeUserRole": "Sie haben einen Einladungstoken erhalten. Bitte aktivieren Sie diesen, um Ihre Einladung zu bestätigen und Ihre Rolle zu ändern.",
+                "emailVerification": "Bitte verifizieren Sie Ihre E-Mail-Adresse, um sicherzustellen, dass Sie wichtige Informationen erhalten.",
                 "password": "Ändern Sie Ihr Passwort hier, um die Sicherheit Ihres Kontos zu gewährleisten. Verwenden Sie ein starkes Passwort, das aus einer Kombination von Groß- und Kleinbuchstaben, Zahlen und Sonderzeichen besteht.",
                 "passwordReset": "Falls Sie Ihr Passwort vergessen haben, können Sie es hier zurücksetzen. Wir senden Ihnen Anweisungen zur Wiederherstellung an die mit Ihrem Konto verknüpfte E-Mail-Adresse.",
                 "deleteUser": "Möchten Sie Ihr Konto dauerhaft löschen? Diese Aktion kann nicht rückgängig gemacht werden und alle Ihre gespeicherten Daten werden unwiderruflich gelöscht. Bitte seien Sie sicher, bevor Sie fortfahren.",
