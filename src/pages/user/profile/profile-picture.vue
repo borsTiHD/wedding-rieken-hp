@@ -19,36 +19,14 @@
                     <p>{{ t('profileStepper.profilePicture.textComplete') }}</p>
                 </div>
 
-                <!-- User avatar with edit icon on mouse hover -->
+                <!-- User avatar -->
                 <div class="flex items-center justify-center gap-4">
-                    <div class="relative inline-block h-64 w-64">
-                        <div
-                            class="cursor-pointer flex items-center justify-center"
-                            @mouseover="showProfilePictureEditIcon = true"
-                        >
-                            <img v-if="photoURL" :src="photoURL" :alt="`Your profile picture`" class="h-64 w-64 object-cover shadow-md rounded-md">
-                            <div v-else class="h-64 w-64 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
-                                <span class="text-gray-400 text-center select-none">No Avatar</span>
-                            </div>
+                    <div class="col-span-full flex flex-col sm:flex-row items-center gap-8">
+                        <img v-if="photoURL" :src="photoURL" :alt="`Your profile picture`" class="h-64 w-64 bg-gray-800 object-cover shadow-md rounded-md">
+                        <div>
+                            <UploadProfilePicture />
+                            <p class="mt-2 text-xs leading-5 text-gray-400">JPG, GIF or PNG. 10MB max.</p>
                         </div>
-
-                        <!-- Edit profile picture on mouse hover -->
-                        <div
-                            v-if="showProfilePictureEditIcon"
-                            class="absolute inset-0 rounded-md flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 hover:opacity-100 cursor-pointer"
-                            @mouseleave="showProfilePictureEditIcon = false"
-                            @click="profilePictureModal?.open()"
-                        >
-                            <i class="pi pi-pencil text-white" />
-                        <!-- <Button icon="pi pi-pencil" rounded aria-label="Profilbild editieren" /> -->
-                        </div>
-
-                        <!-- Profile picture edit modal -->
-                        <DisplayModal ref="profilePictureModal" :position="modalPosition" :header="t('user.profilePicture.modalHeader')">
-                            <template #content>
-                                <UploadProfilePicture @uploaded="profilePictureModal?.close()" />
-                            </template>
-                        </DisplayModal>
                     </div>
                 </div>
 
@@ -62,9 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import DisplayModal from '@/components/DisplayModal.vue'
 import UploadProfilePicture from '@/components/user/UploadProfilePicture.vue'
-import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 
 definePageMeta({
@@ -78,16 +54,9 @@ const navPage = (to: 'next' | 'prev') => emit(`${to}-page`)
 // Localisation
 const { t } = useI18n()
 
-// Modal position
-const { modalPosition } = useModalPosition()
-
 // Check completion state of this page
 const { checker } = useProfileChecker()
 const checkState = computed(() => checker(t('profileStepper.profilePicture.header')))
-
-// Refs
-const profilePictureModal = ref<InstanceType<typeof DisplayModal>>()
-const showProfilePictureEditIcon = ref(false)
 
 // User store
 const userStore = useUserStore()
