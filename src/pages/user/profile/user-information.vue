@@ -18,7 +18,7 @@
                     <p>{{ t('profileStepper.userInformation.textComplete') }}</p>
                 </div>
 
-                <ul class="flex flex-col gap-2">
+                <ul class="flex flex-col divide-y">
                     <!-- Display name -->
                     <li v-tooltip.top="t('user.displayName.tooltip')" class="profile-list-item cursor-pointer" @click="displayNameModal?.open()">
                         <div class="flex flex-col">

@@ -22,7 +22,7 @@
                 <!-- State complete -->
                 <p v-else>{{ t('profileStepper.invitationState.textComplete') }}</p>
 
-                <ul class="flex flex-col gap-2">
+                <ul class="flex flex-col divide-y">
                     <!-- Additional guests -->
                     <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="profile-list-item cursor-pointer" @click="additionalGuestsModal?.open()">
                         <div class="flex flex-col">
