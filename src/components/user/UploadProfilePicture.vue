@@ -15,6 +15,7 @@ const emit = defineEmits(['uploaded'])
 const toast = useToast()
 const { uploadFile } = useFirebaseStorage()
 const { setProfilePhotoUrl } = useFirebaseUserProfile()
+const { maxFileSize, maxFileSizeInMB } = useProfileChecker()
 
 // User store
 const userStore = useUserStore()
@@ -24,8 +25,6 @@ const user = computed(() => userStore.user)
 // Upload ref
 const loading = ref(false)
 const uploadLabel = t('user.profilePicture.submitButton')
-const maxFileSize = 10 * 1000 * 1000 // in bytes (10MB)
-const maxFileSizeInMB = maxFileSize / 1000000
 const invalidFileSizeMessage = t('user.profilePicture.invalidFileSizeMessage', { maxFilesize: `${maxFileSizeInMB}MB` })
 
 const onUpload = async(event: FileUploadUploaderEvent) => {

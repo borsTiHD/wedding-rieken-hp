@@ -248,6 +248,7 @@
         "profilePicture": {
             "modalHeader": "Profilbild ändern",
             "submitButton": "Foto hochladen",
+            "uploadDescription": "JPG, GIF or PNG. {maxFilesize} max.",
             "invalidFileSizeMessage": "Die Datei ist zu groß. Bitte wählen Sie eine Datei mit maximal {maxFilesize} aus.",
             "notLoggedInError": "Sie sind nicht eingeloggt",
             "notLoggedInDetail": "Bitte loggen Sie sich ein, um Ihr Profilbild zu ändern",

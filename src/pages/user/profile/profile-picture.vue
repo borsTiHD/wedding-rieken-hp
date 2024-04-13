@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <UploadProfilePicture />
-                            <p class="mt-2 text-xs leading-5 text-gray-400">JPG, GIF or PNG. 10MB max.</p>
+                            <p class="mt-2 text-xs leading-5 text-gray-400">{{ t('user.profilePicture.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}</p>
                         </div>
                     </div>
                 </div>
@@ -58,6 +58,9 @@ const navPage = (to: 'next' | 'prev') => emit(`${to}-page`)
 
 // Localisation
 const { t } = useI18n()
+
+// Composables
+const { maxFileSizeInMB } = useProfileChecker()
 
 // Check completion state of this page
 const { checker } = useProfileChecker()

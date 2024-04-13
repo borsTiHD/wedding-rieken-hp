@@ -62,5 +62,9 @@ export default function() {
         return Math.round((completedChecks / totalChecks) * 100)
     })
 
-    return { checker, allChecks, checkState }
+    // Max file size for profile picture
+    const maxFileSize = 10 * 1000 * 1000 // in bytes (10MB)
+    const maxFileSizeInMB = maxFileSize / 1000000
+
+    return { checker, allChecks, checkState, maxFileSize, maxFileSizeInMB }
 }
