@@ -16,6 +16,7 @@ import ProgressSpinner from 'primevue/progressspinner'
 import InlineMessage from 'primevue/inlinemessage'
 import Avatar from 'primevue/avatar'
 import FileUpload from 'primevue/fileupload'
+import ScrollTop from 'primevue/scrolltop'
 import Dialog from 'primevue/dialog'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
@@ -53,6 +54,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('InlineMessage', InlineMessage)
     nuxtApp.vueApp.component('Avatar', Avatar)
     nuxtApp.vueApp.component('FileUpload', FileUpload)
+    nuxtApp.vueApp.component('ScrollTop', ScrollTop)
     nuxtApp.vueApp.component('Dialog', Dialog)
     nuxtApp.vueApp.component('DataTable', DataTable)
     nuxtApp.vueApp.component('Column', Column)

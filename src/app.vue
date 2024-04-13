@@ -12,6 +12,9 @@
         <!-- Main content -->
         <NuxtPage class="pt-20 z-20" />
 
+        <!-- Scroll to top button -->
+        <ScrollTop />
+
         <!-- Footer -->
         <AppFooter />
     </div>
