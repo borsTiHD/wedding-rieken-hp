@@ -4,128 +4,132 @@
             <h2>{{ t('user.header') }}</h2>
         </template>
         <template #content>
-            <ul class="flex flex-col gap-2">
-                <!-- Display name -->
-                <li v-tooltip.top="t('user.displayName.tooltip')" class="profile-list-item cursor-pointer" @click="displayNameModal?.open()">
-                    <div class="flex flex-col">
-                        <h2 class="text-xl font-semibold">{{ t('user.displayName.header') }}</h2>
-                        <div class="flex items-center gap-2">
-                            <span>{{ userStore.displayName }}</span>
-                            <i v-if="!userStore.displayName" v-tooltip.right="t('user.displayName.tooltipNoName')" class="pi pi-question-circle text-yellow-300" />
+            <div class="flex flex-col gap-4">
+                <p class="mt-1 text-sm leading-6 text-gray-500">{{ t('user.description') }}</p>
+
+                <ul class="flex flex-col gap-2">
+                    <!-- Display name -->
+                    <li v-tooltip.top="t('user.displayName.tooltip')" class="profile-list-item cursor-pointer" @click="displayNameModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.displayName.header') }}</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ userStore.displayName }}</span>
+                                <i v-if="!userStore.displayName" v-tooltip.right="t('user.displayName.tooltipNoName')" class="pi pi-question-circle text-yellow-300" />
+                            </div>
+
+                            <!-- Display name change modal -->
+                            <DisplayModal ref="displayNameModal" :position="modalPosition" :header="t('user.displayName.headerModal')">
+                                <template #content>
+                                    <ChangeDisplayName @changed="displayNameModal?.close()" />
+                                </template>
+                            </DisplayModal>
                         </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
 
-                        <!-- Display name change modal -->
-                        <DisplayModal ref="displayNameModal" :position="modalPosition" :header="t('user.displayName.headerModal')">
-                            <template #content>
-                                <ChangeDisplayName @changed="displayNameModal?.close()" />
-                            </template>
-                        </DisplayModal>
-                    </div>
-                    <i class="pi pi-chevron-right" />
-                </li>
+                    <!-- Email -->
+                    <li v-tooltip.top="t('user.email.tooltip')" class="profile-list-item cursor-pointer" @click="emailModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.email.header') }}</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ email }}</span>
+                                <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
 
-                <!-- Email -->
-                <li v-tooltip.top="t('user.email.tooltip')" class="profile-list-item cursor-pointer" @click="emailModal?.open()">
-                    <div class="flex flex-col">
-                        <h2 class="text-xl font-semibold">{{ t('user.email.header') }}</h2>
-                        <div class="flex items-center gap-2">
-                            <span>{{ email }}</span>
-                            <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
+                                <!-- Email verification button -->
+                                <VerifyEmail v-if="!emailVerified" mode="small" />
+                            </div>
 
-                            <!-- Email verification button -->
-                            <VerifyEmail v-if="!emailVerified" mode="small" />
+                            <!-- Email change modal -->
+                            <DisplayModal ref="emailModal" :position="modalPosition" :header="t('user.email.headerModal')">
+                                <template #content>
+                                    <ChangeEmail @changed="emailModal?.close()" />
+                                </template>
+                            </DisplayModal>
                         </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
 
-                        <!-- Email change modal -->
-                        <DisplayModal ref="emailModal" :position="modalPosition" :header="t('user.email.headerModal')">
-                            <template #content>
-                                <ChangeEmail @changed="emailModal?.close()" />
-                            </template>
-                        </DisplayModal>
-                    </div>
-                    <i class="pi pi-chevron-right" />
-                </li>
+                    <!-- Phone -->
+                    <li v-tooltip.top="t('user.phone.tootlip')" class="profile-list-item cursor-pointer" @click="phoneModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.phone.header') }}</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ userProfile.phoneNumber }}</span>
+                                <i v-if="!userProfile.phoneNumber" v-tooltip.right="t('user.phone.tooltipMissingPhone')" class="pi pi-question-circle text-yellow-300" />
+                            </div>
 
-                <!-- Phone -->
-                <li v-tooltip.top="t('user.phone.tootlip')" class="profile-list-item cursor-pointer" @click="phoneModal?.open()">
-                    <div class="flex flex-col">
-                        <h2 class="text-xl font-semibold">{{ t('user.phone.header') }}</h2>
-                        <div class="flex items-center gap-2">
-                            <span>{{ userProfile.phoneNumber }}</span>
-                            <i v-if="!userProfile.phoneNumber" v-tooltip.right="t('user.phone.tooltipMissingPhone')" class="pi pi-question-circle text-yellow-300" />
+                            <!-- Phone change modal -->
+                            <DisplayModal ref="phoneModal" :position="modalPosition" :header="t('user.phone.headerModal')">
+                                <template #content>
+                                    <ChangePhone @changed="phoneModal?.close()" />
+                                </template>
+                            </DisplayModal>
                         </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
 
-                        <!-- Phone change modal -->
-                        <DisplayModal ref="phoneModal" :position="modalPosition" :header="t('user.phone.headerModal')">
-                            <template #content>
-                                <ChangePhone @changed="phoneModal?.close()" />
-                            </template>
-                        </DisplayModal>
-                    </div>
-                    <i class="pi pi-chevron-right" />
-                </li>
+                    <!-- Additional guests -->
+                    <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="profile-list-item cursor-pointer" @click="additionalGuestsModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.additionalGuests.header') }}</h2>
+                            <span>{{ userProfile.additionalGuests }}</span>
 
-                <!-- Additional guests -->
-                <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="profile-list-item cursor-pointer" @click="additionalGuestsModal?.open()">
-                    <div class="flex flex-col">
-                        <h2 class="text-xl font-semibold">{{ t('user.additionalGuests.header') }}</h2>
-                        <span>{{ userProfile.additionalGuests }}</span>
-
-                        <!-- Additional Guests change modal -->
-                        <DisplayModal ref="additionalGuestsModal" :position="modalPosition" :header="t('user.additionalGuests.headerModal')">
-                            <template #content>
-                                <ChangeAdditionalGuests @changed="additionalGuestsModal?.close()" />
-                            </template>
-                        </DisplayModal>
-                    </div>
-                    <i class="pi pi-chevron-right" />
-                </li>
-
-                <!-- Invitation status -->
-                <li v-tooltip.top="t('user.invitation.tooltip')" class="profile-list-item cursor-pointer" @click="invitationModal?.open()">
-                    <div class="flex flex-col">
-                        <h2 class="text-xl font-semibold">{{ t('user.invitation.header') }}</h2>
-                        <div class="flex items-center gap-2">
-                            <span>{{ invitationStatus }}</span>
-                            <i v-if="userProfile?.invitation === 'accepted'" v-tooltip.bottom="t('user.invitation.tooltipAccepted')" class="pi pi-verified text-green-600" />
-                            <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.bottom="t('user.invitation.tooltipDeclined')" class="pi pi-times-circle text-red-600" />
-                            <i v-else-if="userProfile?.invitation === 'pending'" v-tooltip.bottom="t('user.invitation.tooltipNoResponse')" class="pi pi-question-circle text-yellow-300" />
+                            <!-- Additional Guests change modal -->
+                            <DisplayModal ref="additionalGuestsModal" :position="modalPosition" :header="t('user.additionalGuests.headerModal')">
+                                <template #content>
+                                    <ChangeAdditionalGuests @changed="additionalGuestsModal?.close()" />
+                                </template>
+                            </DisplayModal>
                         </div>
+                        <i class="pi pi-chevron-right" />
+                    </li>
 
-                        <!-- Additional Guests change modal -->
-                        <DisplayModal ref="invitationModal" :position="modalPosition" :header="t('user.invitation.headerModal')">
-                            <template #content>
-                                <ChangeInvitation @changed="invitationModal?.close()" />
-                            </template>
-                        </DisplayModal>
-                    </div>
-                    <i class="pi pi-chevron-right" />
-                </li>
+                    <!-- Invitation status -->
+                    <li v-tooltip.top="t('user.invitation.tooltip')" class="profile-list-item cursor-pointer" @click="invitationModal?.open()">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.invitation.header') }}</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ invitationStatus }}</span>
+                                <i v-if="userProfile?.invitation === 'accepted'" v-tooltip.bottom="t('user.invitation.tooltipAccepted')" class="pi pi-verified text-green-600" />
+                                <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.bottom="t('user.invitation.tooltipDeclined')" class="pi pi-times-circle text-red-600" />
+                                <i v-else-if="userProfile?.invitation === 'pending'" v-tooltip.bottom="t('user.invitation.tooltipNoResponse')" class="pi pi-question-circle text-yellow-300" />
+                            </div>
 
-                <!-- User role -->
-                <li class="profile-list-item">
-                    <div class="flex flex-col">
-                        <h2 class="text-xl font-semibold">{{ t('user.userRole.header') }}</h2>
-                        <div class="flex items-center gap-2">
-                            <span>{{ userRole }}</span>
-                            <i v-if="userProfile.role === 'guest'" v-tooltip.bottom="t('user.userRole.tooltipGuest')" class="pi pi-exclamation-circle text-sky-600" />
-                            <i v-else-if="userProfile.role === 'invited'" v-tooltip.bottom="t('user.userRole.tooltipInvited')" class="pi pi-verified text-green-600" />
-                            <i v-else-if="userProfile.role === 'declined'" v-tooltip.bottom="t('user.userRole.tooltipDeclined')" class="pi pi-times text-red-600" />
+                            <!-- Additional Guests change modal -->
+                            <DisplayModal ref="invitationModal" :position="modalPosition" :header="t('user.invitation.headerModal')">
+                                <template #content>
+                                    <ChangeInvitation @changed="invitationModal?.close()" />
+                                </template>
+                            </DisplayModal>
                         </div>
-                    </div>
-                </li>
+                        <i class="pi pi-chevron-right" />
+                    </li>
 
-                <!-- User actions -->
-                <li v-if="userProfile.role === 'guest' && token && token !== ''" class="flex flex-col">
-                    <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
-                    <UpgradeUserRole class="basis-full" />
-                </li>
+                    <!-- User role -->
+                    <li class="profile-list-item">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-semibold">{{ t('user.userRole.header') }}</h2>
+                            <div class="flex items-center gap-2">
+                                <span>{{ userRole }}</span>
+                                <i v-if="userProfile.role === 'guest'" v-tooltip.bottom="t('user.userRole.tooltipGuest')" class="pi pi-exclamation-circle text-sky-600" />
+                                <i v-else-if="userProfile.role === 'invited'" v-tooltip.bottom="t('user.userRole.tooltipInvited')" class="pi pi-verified text-green-600" />
+                                <i v-else-if="userProfile.role === 'declined'" v-tooltip.bottom="t('user.userRole.tooltipDeclined')" class="pi pi-times text-red-600" />
+                            </div>
+                        </div>
+                    </li>
 
-                <!-- User actions -->
-                <li class="flex flex-col">
-                    <Button :label="t('user.account.button')" icon="pi pi-user" raised @click="router.push(localePath('/user/account'))" />
-                </li>
-            </ul>
+                    <!-- User actions -->
+                    <li v-if="userProfile.role === 'guest' && token && token !== ''" class="flex flex-col">
+                        <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
+                        <UpgradeUserRole class="basis-full" />
+                    </li>
+
+                    <!-- User actions -->
+                    <li class="flex flex-col">
+                        <Button :label="t('user.account.button')" icon="pi pi-user" raised @click="router.push(localePath('/user/account'))" />
+                    </li>
+                </ul>
+            </div>
         </template>
     </Card>
 </template>
