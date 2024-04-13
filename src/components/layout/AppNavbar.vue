@@ -23,7 +23,11 @@
                             'p-menuitem-link text-black/60', // default
                             'hover:text-primary/80', // hover - hover:text-black/80
                             {
-                                'active-link text-primary font-bold': isActive && (typeof item?.to === 'object' && item?.to?.hash ? item?.to?.hash === routeHash : true) , // active - text-black/60
+                                'active-link text-primary font-bold': isActive &&
+                                    (typeof item?.to === 'object' && item?.to?.hash // if link hash is provided
+                                        ? item?.to?.hash === routeHash // check if the link hash is the same as current route hash
+                                        : !routeHash // if no link hash is provided check if route hash is empty
+                                    ), // active link also checks if hash fits
                                 'active-link-exact': isExactActive // active-exact
                             }]"
                         @click="navigate"
