@@ -72,6 +72,11 @@ export default defineNuxtConfig({
         '@/assets/css/animation.css', // custom animations by borstihd
         '@/assets/css/animista.css' // animista animations
     ],
+    router: {
+        options: {
+            scrollBehaviorType: 'auto'
+        }
+    },
     build: {
         transpile: ['primevue', 'vue-i18n']
     },

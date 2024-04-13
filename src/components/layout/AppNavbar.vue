@@ -16,14 +16,14 @@
             }"
         >
             <template #item="{ item }">
-                <NuxtLink v-slot="{ href, navigate, isActive, isExactActive }" :to="item.path" custom>
+                <NuxtLink v-slot="{ href, navigate, isActive, isExactActive }" :to="item.path || item.to" custom>
                     <a
                         :href="href"
                         :class="[
                             'p-menuitem-link text-black/60', // default
                             'hover:text-primary/80', // hover - hover:text-black/80
                             {
-                                'active-link text-primary font-bold': isActive, // active - text-black/60
+                                'active-link text-primary font-bold': isActive && (typeof item?.to === 'object' && item?.to?.hash ? item?.to?.hash === routeHash : true) , // active - text-black/60
                                 'active-link-exact': isExactActive // active-exact
                             }]"
                         @click="navigate"
@@ -57,6 +57,10 @@ import { useWindowSize } from '@/composables/useWindowSize'
 import { useAppStore } from '@/stores/app'
 import { usePagesStore } from '@/stores/pages'
 import { useUserStore } from '@/stores/user'
+
+// Router
+const route = useRoute()
+const routeHash = computed(() => route.hash)
 
 // Navitems
 const pagesStore = usePagesStore()

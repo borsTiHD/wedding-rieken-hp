@@ -28,13 +28,13 @@
                         'motion-safe:animate-bounce motion-reduce:animate-none', // Animation
                         'cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg' // Hover
                     ]"
-                    @click="scrollToNextSection"
+                    @click="scrollToSection()"
                 />
             </div>
         </section>
 
         <!-- Countdown -->
-        <section class="bg-footer">
+        <section id="wedding" class="bg-footer">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <Card class="card-primary">
                     <template #content>
@@ -44,9 +44,13 @@
                         </div>
                     </template>
                 </Card>
+            </div>
+        </section>
 
+        <!-- Riddle & Gallery -->
+        <section id="test" class="bg-[#540B0E]">
+            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <ShowRiddle />
-
                 <GalleryAlbum />
             </div>
         </section>
@@ -121,13 +125,19 @@ const config = appStore.config
 const bride = computed(() => appStore.bride)
 const groom = computed(() => appStore.groom)
 
+// Router
+const route = useRoute()
+const routeHash = computed(() => route.hash)
+
 // Scroll event listener
 const { scrollY } = useWindowSize(undefined, true)
 const isScrolled = computed<boolean>(() => scrollY.value > 30)
 
 // Scroll to next section
-const scrollToNextSection = () => {
-    const nextSection = document.querySelector<HTMLElement>('section:nth-child(2)')
+const scrollToSection = (hash?: string) => {
+    const nextSection = hash ? document.querySelector<HTMLElement>(hash)
+        : document.querySelector<HTMLElement>('section:nth-child(2)')
+
     if (nextSection) {
         // Get navbar height for offset
         const navbar = document.querySelector<HTMLElement>('.navbar')
@@ -141,4 +151,17 @@ const scrollToNextSection = () => {
         window.scrollTo({ top: nextSectionY, behavior: 'smooth' })
     }
 }
+
+watch(routeHash, (newValue) => {
+    if (newValue) {
+        setTimeout(() => scrollToSection(newValue), 100)
+    }
+})
+
+onMounted(() => {
+    // Scroll to section if hash is present
+    if (window.location.hash) {
+        setTimeout(() => scrollToSection(window.location.hash), 100)
+    }
+})
 </script>

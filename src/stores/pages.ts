@@ -15,15 +15,17 @@ export const usePagesStore = defineStore('pages-store', () => {
     // Pages for the navigation bar
     const pages = computed<MenuItem[]>(() => {
         const pages = [
-            { name: t('pages.home'), path: localePath('/') }
+            { name: t('pages.home'), path: localePath('/') },
+            { name: t('pages.date'), to: { path: localePath('/'), hash: '#wedding' } },
+            { name: 'TEST', to: { path: localePath('/'), hash: '#test' } }
         ]
 
         // If the user is logged in
-        if (uid.value) {
-            pages.push(
-                { name: t('pages.user'), path: localePath('/user') }
-            )
-        }
+        // if (uid.value) {
+        //     pages.push(
+        //         { name: t('pages.user'), path: localePath('/user') }
+        //     )
+        // }
 
         // If the user is not logged in add the login and register pages
         if (!uid.value) {
