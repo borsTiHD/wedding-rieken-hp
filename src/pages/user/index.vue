@@ -19,7 +19,7 @@
         <!-- User Details -->
         <div v-else class="flex flex-col gap-4">
             <!-- User profile picture -->
-            <DisplayAvatar />
+            <DisplayAvatarWithInfo />
 
             <!-- User information -->
             <DisplayUserprofile />
@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
+import DisplayAvatarWithInfo from '@/components/user/DisplayAvatarWithInfo.vue'
 import DisplayUserprofile from '@/components/user/DisplayUserprofile.vue'
 import { useUserStore } from '@/stores/user'
 

@@ -1,26 +1,16 @@
 <template>
     <div class="flex">
         <!-- Avatar - click opens the overlay -->
-        <Avatar
-            :image="photoURL ? photoURL : undefined"
-            :icon="photoURL ? undefined : 'pi pi-user'"
+        <DisplayAvatar
             tabindex="0"
-            class="cursor-pointer !rounded-full hover:scale-110 hover:shadow-lg transition-all duration-300 ease-in-out"
-            size="large"
-            shape="circle"
+            mode="button"
             @click="showSearchPanel"
             @keydown.enter="showSearchPanel"
         />
 
         <OverlayPanel ref="op" :pt="{ root: { class: [ 'w-full sm:w-96 card-primary' ] } }">
             <div class="flex flex-col items-center gap-4">
-                <Avatar
-                    :image="photoURL ? photoURL : undefined"
-                    :icon="photoURL ? undefined : 'pi pi-user'"
-                    class="rounded-full"
-                    size="xlarge"
-                    shape="circle"
-                />
+                <DisplayAvatar />
 
                 <!-- If user is logged in -->
                 <template v-if="uid">
@@ -71,6 +61,7 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import OverlayPanel from 'primevue/overlaypanel'
+import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
 import DisplayProfileProgress from '@/components/user/DisplayProfileProgress.vue'
 import { useUserStore } from '@/stores/user'
 
@@ -86,11 +77,10 @@ const { checkState } = useProfileChecker()
 const userStore = useUserStore()
 const uid = computed(() => userStore.uid)
 const displayName = computed(() => userStore.displayName)
-const photoURL = computed(() => userStore.photoURL)
 
 // Overlay search panel
 const op = ref<OverlayPanel | null>(null)
-const showSearchPanel = (event: Event) => {
+const showSearchPanel = (event: PointerEvent | KeyboardEvent) => {
     op.value?.toggle(event)
 }
 
