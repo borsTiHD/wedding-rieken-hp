@@ -35,12 +35,12 @@
                     </div>
 
                     <!-- List  with links to profile, settings, logout, etc. -->
-                    <ul class="flex flex-col px-0 sm:px-8 w-full">
-                        <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange('/user')" @keydown.enter="routeChange('/user')">
+                    <ul class="flex flex-col divide-y px-0 sm:px-8 w-full">
+                        <li tabindex="0" class="quick-menu-list-item hover:text-neutral-400" @click="routeChange('/user')" @keydown.enter="routeChange('/user')">
                             <span>{{ t('pages.user') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
-                        <li tabindex="0" class="quick-menu-list-item border-b-2 hover:text-neutral-400" @click="routeChange('/user/account')" @keydown.enter="routeChange('/user/account')">
+                        <li tabindex="0" class="quick-menu-list-item hover:text-neutral-400" @click="routeChange('/user/account')" @keydown.enter="routeChange('/user/account')">
                             <span>{{ t('pages.account') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>

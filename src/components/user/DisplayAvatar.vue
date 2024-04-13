@@ -46,7 +46,7 @@ const photoURL = computed(() => userStore.photoURL)
 // Card pass-through props
 const ptCard = {
     body: {
-        class: 'p-4'
+        class: 'p-4 sm:p-2'
     },
     content: {
         class: 'p-0 sm:m-4'

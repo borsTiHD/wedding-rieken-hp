@@ -133,6 +133,6 @@ body, html {
 
 /* Profile list items */
 .profile-list-item {
-    @apply flex items-center justify-between border-b-2 mb-2 pb-2 !important;
+    @apply flex items-center justify-between py-2 !important;
 }
 </style>

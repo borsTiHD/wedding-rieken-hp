@@ -121,11 +121,11 @@
         "noName": "Kein Name",
         "welcome": "Willkommen {name}",
         "header": "Benutzerinformationen",
-        "description": "Hier können Sie Ihre Benutzerinformationen ändern.",
+        "description": "Ändern Sie hier Ihre Benutzerinformationen",
         "account": {
             "header": "Account",
             "button": "Account Einstellungen",
-            "description": "Hier können Sie Ihre Account-Einstellungen ändern.",
+            "description": "Ändern Sie hier Ihre Account-Einstellungen",
             "descriptions": {
                 "upgradeUserRole": "Sie haben einen Einladungstoken erhalten. Bitte aktivieren Sie diesen, um Ihre Einladung zu bestätigen und Ihre Rolle zu ändern.",
                 "password": "Ändern Sie Ihr Passwort hier, um die Sicherheit Ihres Kontos zu gewährleisten. Verwenden Sie ein starkes Passwort, das aus einer Kombination von Groß- und Kleinbuchstaben, Zahlen und Sonderzeichen besteht.",

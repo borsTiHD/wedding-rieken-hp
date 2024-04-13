@@ -2,12 +2,11 @@
     <Card class="card-primary">
         <template #title>
             <h2>{{ t('user.header') }}</h2>
+            <p class="text-sm font-normal text-gray-500">{{ t('user.description') }}</p>
         </template>
         <template #content>
-            <div class="flex flex-col gap-4">
-                <p class="mt-1 text-sm leading-6 text-gray-500">{{ t('user.description') }}</p>
-
-                <div class="col-span-full flex items-center gap-x-8">
+            <div class="flex flex-col divide-y">
+                <div class="col-span-full flex items-center gap-x-8 pb-4">
                     <img v-if="photoURL" class="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover" :src="photoURL" alt="Your profile picture">
                     <span v-else class="inline-block h-14 w-14 overflow-hidden rounded-full bg-gray-100" alt="No profile picture">
                         <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -20,12 +19,12 @@
                     </div>
                 </div>
 
-                <ul class="flex flex-col gap-2">
+                <ul class="flex flex-col divide-y">
                     <!-- Display name -->
                     <li v-tooltip.top="t('user.displayName.tooltip')" class="profile-list-item cursor-pointer" @click="displayNameModal?.open()">
                         <div class="flex flex-col">
                             <h2 class="text-xl font-semibold">{{ t('user.displayName.header') }}</h2>
-                            <div class="flex items-center gap-2">
+                            <div class="font-light sm:font-normal flex items-center gap-2">
                                 <span>{{ userStore.displayName }}</span>
                                 <i v-if="!userStore.displayName" v-tooltip.right="t('user.displayName.tooltipNoName')" class="pi pi-question-circle text-yellow-300" />
                             </div>
@@ -44,7 +43,7 @@
                     <li v-tooltip.top="t('user.email.tooltip')" class="profile-list-item cursor-pointer" @click="emailModal?.open()">
                         <div class="flex flex-col">
                             <h2 class="text-xl font-semibold">{{ t('user.email.header') }}</h2>
-                            <div class="flex items-center gap-2">
+                            <div class="font-light sm:font-normal flex items-center gap-2">
                                 <span>{{ email }}</span>
                                 <i v-if="emailVerified" v-tooltip.bottom="t('user.email.verified')" class="pi pi-verified text-green-600" />
 
@@ -66,7 +65,7 @@
                     <li v-tooltip.top="t('user.phone.tootlip')" class="profile-list-item cursor-pointer" @click="phoneModal?.open()">
                         <div class="flex flex-col">
                             <h2 class="text-xl font-semibold">{{ t('user.phone.header') }}</h2>
-                            <div class="flex items-center gap-2">
+                            <div class="font-light sm:font-normal flex items-center gap-2">
                                 <span>{{ userProfile.phoneNumber }}</span>
                                 <i v-if="!userProfile.phoneNumber" v-tooltip.right="t('user.phone.tooltipMissingPhone')" class="pi pi-question-circle text-yellow-300" />
                             </div>
@@ -85,7 +84,7 @@
                     <li v-tooltip.top="t('user.additionalGuests.tooltip')" class="profile-list-item cursor-pointer" @click="additionalGuestsModal?.open()">
                         <div class="flex flex-col">
                             <h2 class="text-xl font-semibold">{{ t('user.additionalGuests.header') }}</h2>
-                            <span>{{ userProfile.additionalGuests }}</span>
+                            <span class="font-light sm:font-normal">{{ userProfile.additionalGuests }}</span>
 
                             <!-- Additional Guests change modal -->
                             <DisplayModal ref="additionalGuestsModal" :position="modalPosition" :header="t('user.additionalGuests.headerModal')">
@@ -101,7 +100,7 @@
                     <li v-tooltip.top="t('user.invitation.tooltip')" class="profile-list-item cursor-pointer" @click="invitationModal?.open()">
                         <div class="flex flex-col">
                             <h2 class="text-xl font-semibold">{{ t('user.invitation.header') }}</h2>
-                            <div class="flex items-center gap-2">
+                            <div class="font-light sm:font-normal flex items-center gap-2">
                                 <span>{{ invitationStatus }}</span>
                                 <i v-if="userProfile?.invitation === 'accepted'" v-tooltip.bottom="t('user.invitation.tooltipAccepted')" class="pi pi-verified text-green-600" />
                                 <i v-else-if="userProfile?.invitation === 'declined'" v-tooltip.bottom="t('user.invitation.tooltipDeclined')" class="pi pi-times-circle text-red-600" />
@@ -122,7 +121,7 @@
                     <li class="profile-list-item">
                         <div class="flex flex-col">
                             <h2 class="text-xl font-semibold">{{ t('user.userRole.header') }}</h2>
-                            <div class="flex items-center gap-2">
+                            <div class="font-light sm:font-normal flex items-center gap-2">
                                 <span>{{ userRole }}</span>
                                 <i v-if="userProfile.role === 'guest'" v-tooltip.bottom="t('user.userRole.tooltipGuest')" class="pi pi-exclamation-circle text-sky-600" />
                                 <i v-else-if="userProfile.role === 'invited'" v-tooltip.bottom="t('user.userRole.tooltipInvited')" class="pi pi-verified text-green-600" />
@@ -132,14 +131,14 @@
                     </li>
 
                     <!-- User actions -->
-                    <li v-if="userProfile.role === 'guest' && token && token !== ''" class="flex flex-col">
+                    <li v-if="userProfile.role === 'guest' && token && token !== ''" class="profile-list-item">
                         <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
                         <UpgradeUserRole class="basis-full" />
                     </li>
 
                     <!-- User actions -->
-                    <li class="flex flex-col">
-                        <Button :label="t('user.account.button')" icon="pi pi-user" raised @click="router.push(localePath('/user/account'))" />
+                    <li class="profile-list-item">
+                        <Button :label="t('user.account.button')" class="w-full" icon="pi pi-user" raised @click="router.push(localePath('/user/account'))" />
                     </li>
                 </ul>
             </div>
