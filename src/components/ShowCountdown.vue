@@ -2,19 +2,19 @@
     <div class="flex justify-around text-xl w-full">
         <div class="text-center">
             <div class="text-3xl font-bold">{{ days }}</div>
-            <div class="text-sm">{{ t('countdown.days') }}</div>
+            <div class="text-sm">{{ t('countdown.days', days) }}</div>
         </div>
         <div class="text-center">
             <div class="text-3xl font-bold">{{ hours }}</div>
-            <div class="text-sm">{{ t('countdown.hours') }}</div>
+            <div class="text-sm">{{ t('countdown.hours', hours) }}</div>
         </div>
         <div class="text-center">
             <div class="text-3xl font-bold">{{ minutes }}</div>
-            <div class="text-sm">{{ t('countdown.minutes') }}</div>
+            <div class="text-sm">{{ t('countdown.minutes', minutes) }}</div>
         </div>
         <div class="text-center">
             <div class="text-3xl font-bold">{{ seconds }}</div>
-            <div class="text-sm">{{ t('countdown.seconds') }}</div>
+            <div class="text-sm">{{ t('countdown.seconds', seconds) }}</div>
         </div>
     </div>
 </template>

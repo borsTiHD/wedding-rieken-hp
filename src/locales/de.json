@@ -311,10 +311,10 @@
         }
     },
     "countdown":{
-        "days": "Tag(e)",
-        "hours": "Stunden",
-        "minutes": "Minuten",
-        "seconds": "Sekunden"
+        "days": "Tage | Tag | Tage",
+        "hours": "Stunden | Stunde | Stunden",
+        "minutes": "Minuten | Minute | Minuten",
+        "seconds": "Sekunden | Sekunde | Sekunden"
     },
     "admin": {
         "notAdminError": "Sie sind kein Administrator",

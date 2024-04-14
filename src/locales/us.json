@@ -18,9 +18,9 @@
         "welcome": "Welcome {name}"
     },
     "countdown":{
-        "days": "Days",
-        "hours": "Hours",
-        "minutes": "Minutes",
-        "seconds": "Seconds"
+        "days": "Days | Day | Days",
+        "hours": "Hours | Hour | Hours",
+        "minutes": "Minutes | Minute | Minutes",
+        "seconds": "Seconds | Second | Seconds"
     }
 }
