@@ -7,6 +7,8 @@
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
 
+// TODO: Add a Input prompt for the email address if no email is set
+
 // Refs
 const loading = ref(false)
 
