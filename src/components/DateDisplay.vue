@@ -1,17 +1,39 @@
 <template>
-    <span class="text-xl sm:text-2xl">{{ d(computedDate, 'long') }}</span>
+    <span class="text-xl sm:text-2xl">{{ timestampDate }}</span>
 </template>
 
 <script setup lang="ts">
-const { d } = useI18n()
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+import 'dayjs/locale/en'
+import 'dayjs/locale/de'
+
+// Use dayjs plugins
+dayjs.extend(localizedFormat)
 
 const props = defineProps<{
     timestamp?: number
 }>()
 
-// Format date based on timestamp
-const computedDate = computed(() => {
-    if (!props.timestamp) return 0
-    return new Date(props.timestamp * 1000)
+// Switch language based on locale
+const { locale } = useI18n()
+switch (locale.value) {
+    case 'de':
+        dayjs.locale('de')
+        break
+    case 'us':
+        dayjs.locale('en')
+        break
+    default:
+        dayjs.locale('de')
+        break
+}
+
+// Get date based on timestamp
+const timestampDate = computed(() => {
+    if (!props.timestamp) return '-'
+
+    // Return date based on timestamp and format it
+    return dayjs(props.timestamp * 1000).format('LLLL')
 })
 </script>
