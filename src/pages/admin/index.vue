@@ -36,6 +36,4 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 const user = computed(() => userStore.user)
 const userProfile = computed(() => userStore.userProfile)
-
-// TODO: Change the order of the components depending on the screen size
 </script>
