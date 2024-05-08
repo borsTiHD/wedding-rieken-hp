@@ -33,7 +33,7 @@ import { useUserStore } from '@/stores/user'
 
 type Props = {
     mode?: 'default' | 'button'
-    size?: 'sm' | 'md' | 'lg' | 'xl'
+    size?: 'xs' |'sm' | 'md' | 'lg' | 'xl'
     circle?: boolean
 }
 
@@ -49,8 +49,10 @@ const photoURL = computed(() => userStore.photoURL)
 
 const sizeClasses = computed(() => {
     switch (props.size) {
-        case 'sm':
+        case 'xs':
             return 'h-8 w-8'
+        case 'sm':
+            return 'h-12 w-12'
         case 'md':
             return 'h-14 w-14'
         case 'lg':
