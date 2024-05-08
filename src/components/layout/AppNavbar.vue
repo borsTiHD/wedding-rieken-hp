@@ -1,16 +1,21 @@
 <template>
     <nav
         class="navbar fixed top-0 left-0 w-full z-50"
-        :class="{ 'bg-white border-b border-gray-100': isScrolled }"
+        :class="{ 'bg-white': isScrolled }"
     >
         <Menubar
             :model="navItems"
-            class="bg-transparent border-none"
             :pt="{
+                root: {
+                    class: [
+                        'bg-transparent border-none rounded-none',
+                        { 'shadow-md': isScrolled }
+                    ]
+                },
                 menu: {
                     class: [
-                        'rounded-md transition-all duration-300 ease-in-out',
-                        { 'bg-white p-2': !isScrolled }
+                        'p-1 rounded-md transition-all duration-300 ease-in-out',
+                        { 'bg-white shadow-md': !isScrolled }
                     ]
                 }
             }"
