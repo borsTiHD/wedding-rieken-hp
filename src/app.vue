@@ -35,10 +35,6 @@ import '@fontsource/great-vibes'
 import '@fontsource/alex-brush'
 
 // TODO: Change favicon
-// TODO: Add a new date in admin panel - this date is an invite stop date
-//      - User should be able to read the date (from app config)
-//      - If the date is reached, the user should not be able to change the invitation
-//        or add new guests after this date
 
 // Localisation
 const { t } = useI18n()
