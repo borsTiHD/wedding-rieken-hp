@@ -34,8 +34,6 @@ import '@fontsource/montserrat'
 import '@fontsource/great-vibes'
 import '@fontsource/alex-brush'
 
-// TODO: Change favicon
-
 // Localisation
 const { t } = useI18n()
 
