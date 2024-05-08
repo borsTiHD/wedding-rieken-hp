@@ -4,6 +4,7 @@
         <DisplayAvatar
             tabindex="0"
             mode="button"
+            size="sm"
             @click="showSearchPanel"
             @keydown.enter="showSearchPanel"
         />
