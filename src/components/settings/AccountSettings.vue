@@ -5,30 +5,30 @@
             <p class="text-sm font-normal text-gray-500">{{ t('user.account.description') }}</p>
         </template>
         <template #content>
-            <dl class="divide-y text-sm">
+            <dl class="divide-y text-sm [&>*]:py-6 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0">
                 <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
-                <div v-if="userProfile.role === 'guest' && token && token !== ''" class="sm:flex py-6">
-                    <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none pb-2 sm:pb-0 sm:pr-6 content-center">
+                <div v-if="userProfile.role === 'guest' && token && token !== ''" class="sm:flex">
+                    <dt class="table-dt">
                         <UpgradeUserRole class="w-full" />
                     </dt>
-                    <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                        <div class="text-gray-900">{{ t('user.account.descriptions.upgradeUserRole') }}</div>
+                    <dd class="table-dd">
+                        <span>{{ t('user.account.descriptions.upgradeUserRole') }}</span>
                     </dd>
                 </div>
 
                 <!-- Verify Email -->
-                <div v-if="!emailVerified" class="sm:flex py-6">
-                    <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none pb-2 sm:pb-0 sm:pr-6 content-center">
+                <div v-if="!emailVerified" class="sm:flex">
+                    <dt class="table-dt">
                         <VerifyEmail />
                     </dt>
-                    <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                        <div class="text-gray-900">{{ t('user.account.descriptions.emailVerification') }}</div>
+                    <dd class="table-dd">
+                        <span>{{ t('user.account.descriptions.emailVerification') }}</span>
                     </dd>
                 </div>
 
                 <!-- Change Password -->
-                <div class="sm:flex py-6">
-                    <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none pb-2 sm:pb-0 sm:pr-6 content-center">
+                <div class="sm:flex">
+                    <dt class="table-dt">
                         <DisplayModal
                             ref="passwordModal"
                             :position="modalPosition"
@@ -44,24 +44,24 @@
                             </template>
                         </DisplayModal>
                     </dt>
-                    <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                        <div class="text-gray-900">{{ t('user.account.descriptions.password') }}</div>
+                    <dd class="table-dd">
+                        <span>{{ t('user.account.descriptions.password') }}</span>
                     </dd>
                 </div>
 
                 <!-- Password Reset -->
-                <div class="sm:flex py-6">
-                    <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none pb-2 sm:pb-0 sm:pr-6 content-center">
+                <div class="sm:flex">
+                    <dt class="table-dt">
                         <ResetPassword />
                     </dt>
-                    <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                        <div class="text-gray-900">{{ t('user.account.descriptions.passwordReset') }}</div>
+                    <dd class="table-dd">
+                        <span>{{ t('user.account.descriptions.passwordReset') }}</span>
                     </dd>
                 </div>
 
                 <!-- Delete User Account -->
-                <div class="sm:flex py-6">
-                    <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none pb-2 sm:pb-0 sm:pr-6 content-center">
+                <div class="sm:flex">
+                    <dt class="table-dt">
                         <DisplayModal
                             ref="deleteUserModal"
                             :position="modalPosition"
@@ -78,19 +78,24 @@
                             </template>
                         </DisplayModal>
                     </dt>
-                    <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                        <div class="text-gray-900">{{ t('user.account.descriptions.deleteUser') }}</div>
+                    <dd class="table-dd">
+                        <span>{{ t('user.account.descriptions.deleteUser') }}</span>
                     </dd>
                 </div>
 
                 <!-- Logout -->
-                <div class="sm:flex py-6">
-                    <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none pb-2 sm:pb-0 sm:pr-6 content-center">
+                <div class="sm:flex">
+                    <dt class="table-dt">
                         <LogoutUser />
                     </dt>
-                    <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                        <div class="text-gray-900">{{ t('user.account.descriptions.logout') }}</div>
+                    <dd class="table-dd">
+                        <span>{{ t('user.account.descriptions.logout') }}</span>
                     </dd>
+                </div>
+
+                <!-- Logout -->
+                <div class="sm:flex">
+                    <Button :label="t('user.profileButton')" class="w-full" icon="pi pi-user" raised @click="router.push(localePath('/user'))" />
                 </div>
             </dl>
         </template>
@@ -111,6 +116,8 @@ import { useUserStore } from '@/stores/user'
 
 // Composables
 const { t } = useI18n()
+const router = useRouter()
+const localePath = useLocalePath()
 const { modalPosition } = useModalPosition() // Modal position
 
 // Refs
@@ -126,3 +133,13 @@ const emailVerified = computed(() => userStore.emailVerified)
 const { getInvitationToken } = useInvitationToken()
 const token = computed(() => getInvitationToken())
 </script>
+
+<style scoped>
+.table-dt {
+    @apply font-medium text-gray-900 sm:w-64 sm:flex-none pb-2 sm:pb-0 sm:pr-6 content-center;
+}
+
+.table-dd {
+    @apply text-gray-900 mt-2 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto;
+}
+</style>

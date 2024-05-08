@@ -122,6 +122,7 @@
         "noName": "Kein Name",
         "welcome": "Willkommen {name}",
         "header": "Benutzerinformationen",
+        "profileButton": "Profil Einstellungen",
         "description": "Ändern Sie hier Ihre Benutzerinformationen",
         "account": {
             "header": "Account",
