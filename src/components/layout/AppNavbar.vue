@@ -67,8 +67,6 @@ import { useAppStore } from '@/stores/app'
 import { usePagesStore } from '@/stores/pages'
 import { useUserStore } from '@/stores/user'
 
-// TODO: Check navbar size on smaller mobile devices - maybe shrink the navbar on smaller devices
-
 // Router
 const route = useRoute()
 const routeHash = computed(() => route.hash)
