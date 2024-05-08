@@ -315,6 +315,9 @@
         }
     },
     "countdown":{
+        "until": "Bis zur Hochzeit",
+        "zero": "Die Hochzeit beginnt jetzt!",
+        "over": "Die Hochzeit ist vorbei",
         "days": "Tage | Tag | Tage",
         "hours": "Stunden | Stunde | Stunden",
         "minutes": "Minuten | Minute | Minuten",
