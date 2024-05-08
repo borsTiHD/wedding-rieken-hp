@@ -38,7 +38,7 @@ export const useAppStore = defineStore('app-store', () => {
     // Check if the current date/time is before the deadline
     const isBeforeDeadline = computed(() => {
         if (!config.value?.deadline) return false
-        return Date.now() < config.value?.deadline.toDate()
+        return new Date() < config.value?.deadline.toDate()
     })
 
     // Fetch config data
