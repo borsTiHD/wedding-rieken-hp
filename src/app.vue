@@ -34,6 +34,8 @@ import '@fontsource/montserrat'
 import '@fontsource/great-vibes'
 import '@fontsource/alex-brush'
 
+// TODO: Fix "toast" styling on mobile (toast is glitching)
+
 // Localisation
 const { t } = useI18n()
 
