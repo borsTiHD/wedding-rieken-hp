@@ -196,7 +196,7 @@
                     </Column>
                     <Column v-if="!isWidthSmall" :header="t('admin.listUsers.tableHeader.actions')">
                         <template #body="slotProps">
-                            <div class="flex items-center gap-2">
+                            <div v-if="slotProps.data.role !== 'admin'" class="flex items-center gap-2">
                                 <CheckGuest
                                     v-if="slotProps.data.role === 'guest'"
                                     :uid="slotProps.data.uid"
@@ -251,8 +251,6 @@ type User = {
 
 // Type definition for user type
 type UserRole = 'all' | UserProfile['role']
-
-// TODO: Prevent role changing if the user you want to change is an admin
 
 // Refs
 const createUserModal = ref<InstanceType<typeof DisplayModal>>()
