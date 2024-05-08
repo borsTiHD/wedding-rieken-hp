@@ -238,8 +238,11 @@
                 "modalButton": "Passwort ändern"
             },
             "resetPassword": {
+                "modalHeader": "Passwort zurücksetzen",
+                "askForMail": "Bitte geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen",
                 "submitButton": "Passwort zurücksetzen",
                 "forgotButton": "Passwort vergessen?",
+                "cancleButton": "Abbrechen",
                 "confirmMessage": "Sind Sie sicher, dass Sie Ihr Passwort zurücksetzen möchten?",
                 "error": "Fehler beim Zurücksetzen Ihres Passworts",
                 "noMail": "Keine E-Mail-Adresse angegeben",
