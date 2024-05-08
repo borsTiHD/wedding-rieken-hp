@@ -2,14 +2,14 @@
     <div class="flex">
         <Dropdown v-model="locale" :options="availableLocales" optionLabel="label" optionValue="code" @change="onLanguageChange">
             <template #value="slotProps">
-                <div v-if="slotProps.value" class="flex align-items-center gap-2">
+                <div v-if="slotProps.value" class="flex items-center gap-2">
                     <span :class="`fi fi-${slotProps.value}`" />
                     <!-- <div>{{ slotProps.value.label }}</div> -->
                 </div>
                 <span v-else>-</span>
             </template>
             <template #option="slotProps">
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <span :class="`fi fi-${slotProps.option.code}`" />
                     <div>{{ slotProps.option.label }}</div>
                 </div>
