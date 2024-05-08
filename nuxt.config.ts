@@ -103,5 +103,5 @@ export default defineNuxtConfig({
         },
         vueI18n: './i18n.config.ts'
     },
-    devtools: { enabled: true } // TODO: Activate only in dev mode
+    devtools: { enabled: process.env.NODE_ENV !== 'production' }
 })
