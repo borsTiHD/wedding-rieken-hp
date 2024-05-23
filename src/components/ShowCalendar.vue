@@ -11,13 +11,19 @@
                 type="button"
                 tabindex="-1"
                 :class="[
-                    'cursor-default', // base styles
-                    'py-1.5 hover:bg-gray-100 focus:z-10', day.isCurrentMonth ? 'bg-white' : 'bg-gray-50', // current month or not
+                    'relative inline-block cursor-default py-1.5 hover:bg-gray-100 focus:z-10', // base styles
+                    day.isSelected && !day.isToday
+                        ? 'bg-rose-100' // selected
+                        : day.isToday
+                            ? 'bg-indigo-100' // background for today
+                            : day.isCurrentMonth
+                                ? 'bg-white' // background for current month
+                                : 'bg-gray-50', // background for other months
                     (day.isSelected || day.isToday) && 'font-semibold', // selected or today
-                    day.isSelected && 'text-white', // selected
+                    // day.isSelected && 'text-white', // selected
                     !day.isSelected && day.isCurrentMonth && !day.isToday && 'text-gray-900', // current month and not today and not selected
                     !day.isSelected && !day.isCurrentMonth && !day.isToday && 'text-gray-400', // not current month and not today and not selected
-                    day.isToday && !day.isSelected && 'text-indigo-600 bg-indigo-100', // today and not selected
+                    day.isToday && 'text-indigo-600', // today and not selected
                     dayIdx === 0 && 'rounded-tl-lg', // first day
                     dayIdx === 6 && 'rounded-tr-lg', // last day
                     dayIdx === days.length - 7 && 'rounded-bl-lg', // first day of last row
@@ -25,15 +31,24 @@
                 ]"
             >
                 <time
+                    v-if="!day.isSelected"
                     :datetime="day.date"
+                    class="mx-auto flex h-7 w-7 items-center justify-center rounded-full"
                     :class="[
-                        'mx-auto flex h-7 w-7 items-center justify-center rounded-full',
-                        day.isSelected && day.isToday && 'bg-indigo-600',
-                        day.isSelected && !day.isToday && 'bg-gray-900'
+                        // day.isSelected && day.isToday && 'bg-indigo-600', // selected and today
+                        // day.isSelected && !day.isToday && 'bg-gray-900' // selected and not today
                     ]"
                 >
                     {{ dayjs(day.date).format('D') }}
                 </time>
+                <ShowCircle v-else>
+                    <time
+                        :datetime="day.date"
+                        class="mx-auto flex h-7 w-7 items-center justify-center rounded-full"
+                    >
+                        {{ dayjs(day.date).format('D') }}
+                    </time>
+                </ShowCircle>
             </button>
         </div>
     </div>
@@ -43,6 +58,7 @@
 import dayjs from 'dayjs'
 import isLeapYear from 'dayjs/plugin/isLeapYear'
 import weekday from 'dayjs/plugin/weekday'
+import ShowCircle from '@/components/animations/ShowCircle.vue'
 import 'dayjs/locale/en'
 import 'dayjs/locale/de'
 
