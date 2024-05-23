@@ -34,12 +34,16 @@
         </section>
 
         <!-- Countdown -->
-        <section id="wedding" class="bg-footer">
+        <section id="wedding" class="bg-[#540B0E]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <Card class="card-primary">
                     <template #content>
                         <div class="flex flex-col items-center gap-4">
-                            <span class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('general.weddingDay') }}</span>
+                            <div class="relative inline-block">
+                                <ShowUnderline>
+                                    <span class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('general.weddingDay') }}</span>
+                                </ShowUnderline>
+                            </div>
                             <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
                                 <ShowCalendar class="mx-auto" :timestamp="config?.weddingDate.seconds" />
                                 <div class="mx-auto flex flex-col items-center gap-4 order-first sm:order-last">
@@ -54,7 +58,7 @@
         </section>
 
         <!-- Riddle & Gallery -->
-        <section id="test" class="bg-[#540B0E]">
+        <section id="test" class="bg-[#E09F3E]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <ShowRiddle />
                 <GalleryAlbum />
@@ -122,6 +126,7 @@ import { useAppStore } from '@/stores/app'
 import ShowCalendar from '@/components/ShowCalendar.vue'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
+import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import GalleryAlbum from '@/components/content/GalleryAlbum.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
