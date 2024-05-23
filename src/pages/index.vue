@@ -38,11 +38,14 @@
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <Card class="card-primary">
                     <template #content>
-                        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                            <ShowCalendar class="mx-auto" :timestamp="config?.weddingDate.seconds" />
-                            <div class="mx-auto flex flex-col items-center gap-4 order-first sm:order-last">
-                                <ShowCountdown :timestamp="config?.weddingDate.seconds" />
-                                <DateDisplay :timestamp="config?.weddingDate.seconds" />
+                        <div class="flex flex-col items-center gap-4">
+                            <span class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('general.weddingDay') }}</span>
+                            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                                <ShowCalendar class="mx-auto" :timestamp="config?.weddingDate.seconds" />
+                                <div class="mx-auto flex flex-col items-center gap-4 order-first sm:order-last">
+                                    <ShowCountdown :timestamp="config?.weddingDate.seconds" />
+                                    <DateDisplay :timestamp="config?.weddingDate.seconds" />
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -122,6 +125,8 @@ import DateDisplay from '@/components/DateDisplay.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import GalleryAlbum from '@/components/content/GalleryAlbum.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
+
+const { t } = useI18n()
 
 // Fetch app config
 const appStore = useAppStore()

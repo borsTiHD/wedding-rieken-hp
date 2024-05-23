@@ -4,6 +4,7 @@
         "description": "Hochzeit von {bride} und {groom}"
     },
     "general": {
+        "weddingDay": "Hochzeitstag",
         "inputDateFormat": "dd.mm.yy"
     },
     "pages": {
