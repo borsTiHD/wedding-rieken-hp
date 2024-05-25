@@ -51,6 +51,7 @@
                     <ShowInfos />
                 </div>
                 <ShowQuote />
+                <ShowSpotify />
             </div>
         </section>
 
@@ -78,6 +79,7 @@ import RouteDescription from '@/components/content/RouteDescription.vue'
 import ShowProcedure from '@/components/content/ShowProcedure.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
+import ShowSpotify from '@/components/content/ShowSpotify.vue'
 import GalleryAlbum from '@/components/content/GalleryAlbum.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
 
