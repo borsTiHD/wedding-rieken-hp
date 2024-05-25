@@ -17,7 +17,7 @@ export const usePagesStore = defineStore('pages-store', () => {
         const pages = [
             { name: t('pages.home'), path: localePath('/') },
             { name: t('pages.date'), to: { path: localePath('/'), hash: '#wedding' } },
-            { name: 'TEST', to: { path: localePath('/'), hash: '#test' } }
+            { name: t('pages.infos'), to: { path: localePath('/'), hash: '#infos' } }
         ]
 
         // If the user is logged in

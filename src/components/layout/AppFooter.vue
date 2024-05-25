@@ -7,7 +7,7 @@
                     v-for="(item, index) in navItems"
                     :key="item.path"
                 >
-                    <NuxtLink :to="item.path" class="link link-hover hover:text-rose-500 px-1">
+                    <NuxtLink :to="item.path || item.to" class="link link-hover hover:text-rose-500 px-1">
                         {{ item.name }}
                     </NuxtLink>
                     <span v-if="index < navItems.length - 1">|</span>
