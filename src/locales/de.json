@@ -396,6 +396,14 @@
             "success": "Erfolgreich",
             "successDetail": "Die Dauer der Hochzeit wurde erfolgreich geändert"
         },
+        "changeSpotifyPlaylist": {
+            "header": "Spotify Playlist ändern",
+            "label": "Spotify Playlist URL",
+            "submit": "Speichern",
+            "error": "Fehler",
+            "success": "Erfolgreich",
+            "successDetail": "Die Spotify Playlist wurde erfolgreich geändert"
+        },
         "createUser": {
             "header": "Neuen Benutzer erstellen",
             "buttonLabel": "Neuen Benutzer erstellen",

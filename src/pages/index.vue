@@ -40,6 +40,7 @@
                     <ShowWeddingDay />
                     <ShowProcedure />
                 </div>
+                <ShowQuote />
             </div>
         </section>
 
@@ -51,19 +52,26 @@
                     <ShowInfos />
                 </div>
                 <ShowQuote />
+            </div>
+        </section>
+
+        <!-- Spotify Playlist -->
+        <section v-if="spotifyPlaylist" id="spotify" class="bg-[#335C67]">
+            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <ShowSpotify />
+                <ShowQuote />
             </div>
         </section>
 
         <!-- Gallery -->
-        <section id="infos" class="bg-[#335C67]">
+        <section id="infos" class="bg-[#540B0E]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <GalleryAlbum />
             </div>
         </section>
 
         <!-- Riddle -->
-        <section id="infos" class="bg-[#540B0E]">
+        <section id="infos" class="bg-[#E09F3E]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <ShowRiddle />
             </div>
@@ -85,8 +93,7 @@ import { useWindowSize } from '@/composables/useWindowSize'
 
 // App config
 const appStore = useAppStore()
-const bride = computed(() => appStore.bride)
-const groom = computed(() => appStore.groom)
+const { bride, groom, spotifyPlaylist } = appStore
 
 // Router
 const route = useRoute()

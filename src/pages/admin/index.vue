@@ -22,6 +22,10 @@
                 <ChangeWeddingDuration class="basis-80" />
                 <ChangeLocation class="basis-[40rem]" />
             </div>
+
+            <div class="flex flex-wrap gap-4 w-full">
+                <ChangeSpotifyPlaylist />
+            </div>
         </template>
 
         <!-- You are not an admin -->
@@ -36,6 +40,7 @@ import ShowQRCode from '@/components/admin/ShowQRCode.vue'
 import ChangeInviteToken from '@/components/admin/ChangeInviteToken.vue'
 import ChangeWeddingDuration from '@/components/admin/ChangeWeddingDuration.vue'
 import ChangeLocation from '@/components/admin/ChangeLocation.vue'
+import ChangeSpotifyPlaylist from '@/components/admin/ChangeSpotifyPlaylist.vue'
 import NoAdmin from '@/components/admin/NoAdmin.vue'
 import { useUserStore } from '@/stores/user'
 
