@@ -21,7 +21,7 @@
                         validation="required|min:0|max:48"
                         number
                     />
-                    <Button :label="t('admin.changeDuration.submit')" class="w-full" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="submitForm(formId)" />
+                    <Button :label="t('admin.changeDuration.submit')" class="w-full" icon="pi pi-clock" raised :loading="loading" :disabled="!valid" @click="submitForm(formId)" />
                 </div>
             </FormKit>
         </template>
@@ -56,8 +56,6 @@ const handleSubmit = async(form: { duration: number }) => {
 
 // Change wedding duration
 const changeWeddingDuraiton = async(form: { duration: number }) => {
-    console.log('Change wedding duration', form.duration)
-
     // Create config object
     const config: PartialConfig = {
         weddingDuration: form.duration
