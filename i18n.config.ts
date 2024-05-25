@@ -19,6 +19,10 @@ export default defineI18nConfig(() => ({
                 day: 'numeric',
                 hour: 'numeric',
                 minute: 'numeric'
+            },
+            timeOnly: {
+                hour: 'numeric',
+                minute: 'numeric'
             }
         },
         de: {
@@ -31,6 +35,10 @@ export default defineI18nConfig(() => ({
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric'
+            },
+            timeOnly: {
                 hour: 'numeric',
                 minute: 'numeric'
             }
