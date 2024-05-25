@@ -326,6 +326,15 @@
     },
     "admin": {
         "notAdminError": "Sie sind kein Administrator",
+        "changeLocation": {
+            "header": "Ort ändern",
+            "street": "Straße",
+            "city": "Stadt",
+            "submit": "Speichern",
+            "error": "Fehler",
+            "success": "Erfolgreich",
+            "successDetail": "Neue Adresse wurde erfolgreich geändert"
+        },
         "changeDate": {
             "header": "Hochzeitsdatum ändern",
             "label": "Gesetztes Datum",

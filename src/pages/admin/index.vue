@@ -19,7 +19,8 @@
             </div>
 
             <div class="flex flex-wrap gap-4 w-full">
-                <ChangeWeddingDuration />
+                <ChangeWeddingDuration class="basis-80" />
+                <ChangeLocation class="basis-[40rem]" />
             </div>
         </template>
 
@@ -34,6 +35,7 @@ import ChangeDeadline from '@/components/admin/ChangeDeadline.vue'
 import ShowQRCode from '@/components/admin/ShowQRCode.vue'
 import ChangeInviteToken from '@/components/admin/ChangeInviteToken.vue'
 import ChangeWeddingDuration from '@/components/admin/ChangeWeddingDuration.vue'
+import ChangeLocation from '@/components/admin/ChangeLocation.vue'
 import NoAdmin from '@/components/admin/NoAdmin.vue'
 import { useUserStore } from '@/stores/user'
 
