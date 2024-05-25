@@ -59,7 +59,6 @@
         <section v-if="spotifyPlaylist" id="spotify" class="bg-[#335C67]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <ShowSpotify />
-                <ShowQuote />
             </div>
         </section>
 
