@@ -32,6 +32,9 @@ export const useAppStore = defineStore('app-store', () => {
     // If config.value?.deadline is undefined, the function will compare the current date with itself, which will always be false
     const isBeforeDeadline = computed(() => new Date() < (config.value?.deadline?.toDate() || new Date()))
 
+    // Spotify playlist
+    const spotifyPlaylist = computed(() => config.value?.spotifyPlaylist)
+
     // Fetch config data
     async function fetchConfig() {
         const response = await queryByCollectionAndId('app', 'config').catch((error) => {
@@ -51,5 +54,5 @@ export const useAppStore = defineStore('app-store', () => {
         return updateByCollectionAndId('app', 'config', config)
     }
 
-    return { config, updateConfig, fetchConfig, bride, groom, street, city, weddingDate, weddingDuration, deadlineDate, isBeforeDeadline, setThemeColor, themeColor }
+    return { config, updateConfig, fetchConfig, bride, groom, street, city, weddingDate, weddingDuration, deadlineDate, isBeforeDeadline, spotifyPlaylist, setThemeColor, themeColor }
 })

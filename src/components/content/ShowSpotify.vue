@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center gap-4">
+    <div v-if="spotifyPlaylist" class="flex flex-col items-center gap-4">
         <iframe
             style="border-radius:12px"
             :src="spotifyUrl"
@@ -14,5 +14,25 @@
 </template>
 
 <script setup lang="ts">
-const spotifyUrl = 'https://open.spotify.com/embed/playlist/1YIe34rcmLjCYpY9wJoM2p?utm_source=generator'
+import { useAppStore } from '@/stores/app'
+
+// App config
+const appStore = useAppStore()
+const { spotifyPlaylist } = appStore
+
+// Computed property for the Spotify URL
+const spotifyUrl = computed(() => {
+    // Check if spotifyPlaylist is defined
+    if (!spotifyPlaylist) return ''
+
+    // Use a regular expression to extract the playlist ID from the URL
+    // This allows us to use the full URL or just the ID
+    // Example with url: https://open.spotify.com/playlist/1YIe34rcmLjCYpY9wJoM2p?si=49c71b4880f449e4
+    // Example id only: 1YIe34rcmLjCYpY9wJoM2p
+    const match = spotifyPlaylist.match(/playlist\/(\w+)\?/)
+    const playlistId = match ? match[1] : spotifyPlaylist
+
+    // Return the full URL
+    return `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`
+})
 </script>

@@ -7,6 +7,7 @@ export interface Config {
     deadline: Timestamp,
     street: string,
     city: string,
+    spotifyPlaylist: string,
 }
 
 // Type for the partial config
