@@ -48,13 +48,21 @@
 <script setup lang="ts">
 import { useIsVisible } from '@/composables/useIsVisible'
 
+type Props = {
+    color?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    color: 'text-lime-500'
+})
+
 const randomString = Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7)
 const containerClass = `container-${randomString}`
 
 const { isVisible } = useIsVisible(`.${containerClass}`)
 
 const marginOffset = 'mt-2'
-const strokeColor = 'text-lime-500'
+const strokeColor = props.color
 const strokeWidth = 34
 const strokeOpacity = 0.4
 
