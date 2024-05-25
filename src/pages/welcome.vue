@@ -7,10 +7,10 @@
             <template #content>
                 <i18n-t v-if="isBeforeDeadline" keypath="welcome.welcomeMessage" tag="p">
                     <template #weddingDate>
-                        <span class="font-bold whitespace-nowrap">{{ d(weddingDate, 'short') }}</span>
+                        <span class="font-bold whitespace-nowrap">{{ d(weddingDate || 0, 'short') }}</span>
                     </template>
                     <template #deadline>
-                        <span class="font-bold whitespace-nowrap">{{ d(deadlineDate, 'short') }}</span>
+                        <span class="font-bold whitespace-nowrap">{{ d(deadlineDate || 0, 'short') }}</span>
                     </template>
                     <template #action>
                         <NuxtLink :to="localePath('/register')" class="font-medium text-blue-600">{{ t('welcome.loginLinkTag') }}</NuxtLink>
@@ -19,7 +19,7 @@
 
                 <i18n-t v-else keypath="welcome.welcomeMessageAfterDeadline" tag="p">
                     <template #weddingDate>
-                        <span class="font-bold whitespace-nowrap">{{ d(weddingDate, 'short') }}</span>
+                        <span class="font-bold whitespace-nowrap">{{ d(weddingDate || 0, 'short') }}</span>
                     </template>
                 </i18n-t>
             </template>
@@ -39,9 +39,7 @@ const { getInvitationToken } = useInvitationToken()
 
 // App config
 const appStore = useAppStore()
-const weddingDate = computed(() => appStore.weddingDate)
-const deadlineDate = computed(() => appStore.deadlineDate)
-const isBeforeDeadline = computed(() => appStore.isBeforeDeadline)
+const { weddingDate, deadlineDate, isBeforeDeadline } = appStore
 
 // User store
 const userStore = useUserStore()
