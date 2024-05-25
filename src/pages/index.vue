@@ -54,28 +54,10 @@
             </div>
         </section>
 
-        <!-- Countdown -->
-        <section class="bg-[#335C67]">
-            <div class="p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
-                <Card class="card-primary">
-                    <template #content>
-                        <div class="flex flex-col items-center gap-4">
-                            <ShowCountdown :timestamp="config?.weddingDate.seconds" />
-                            <DateDisplay :timestamp="config?.weddingDate.seconds" />
-                        </div>
-                    </template>
-                </Card>
-
-                <Card class="card-primary">
-                    <template #title>
-                        <h2>What is Lorem Ipsum?</h2>
-                    </template>
-                    <template #content>
-                        <div class="flex flex-col items-center gap-4">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Phasellus egestas tellus rutrum tellus pellentesque eu. Accumsan lacus vel facilisis volutpat est. Amet consectetur adipiscing elit ut aliquam purus. Feugiat nisl pretium fusce id velit ut tortor. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Non odio euismod lacinia at. Sed felis eget velit aliquet sagittis id consectetur purus. Ornare lectus sit amet est. Porttitor eget dolor morbi non arcu risus quis varius quam. Integer vitae justo eget magna fermentum iaculis. Ipsum faucibus vitae aliquet nec ullamcorper sit. Egestas tellus rutrum tellus pellentesque eu tincidunt. Eget mauris pharetra et ultrices neque ornare aenean. In vitae turpis massa sed elementum tempus egestas sed sed. Mattis pellentesque id nibh tortor. Blandit cursus risus at ultrices mi. Ultrices neque ornare aenean euismod elementum.</p>
-                        </div>
-                    </template>
-                </Card>
+        <!-- Gallery -->
+        <section id="infos" class="bg-[#335C67]">
+            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
+                <GalleryAlbum />
             </div>
         </section>
 
@@ -85,19 +67,11 @@
                 <ShowRiddle />
             </div>
         </section>
-
-        <section class="bg-[#E09F3E]">
-            <div class="p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
-                <GalleryAlbum />
-            </div>
-        </section>
     </main>
 </template>
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
-import ShowCountdown from '@/components/ShowCountdown.vue'
-import DateDisplay from '@/components/DateDisplay.vue'
 import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import RouteDescription from '@/components/content/RouteDescription.vue'
@@ -109,7 +83,6 @@ import { useWindowSize } from '@/composables/useWindowSize'
 
 // App config
 const appStore = useAppStore()
-const config = appStore.config
 const bride = computed(() => appStore.bride)
 const groom = computed(() => appStore.groom)
 
