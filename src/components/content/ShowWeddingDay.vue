@@ -3,7 +3,7 @@
         <template #content>
             <div class="flex flex-col items-center gap-4">
                 <div class="relative inline-block">
-                    <ShowUnderline>
+                    <ShowUnderline color="text-yellow-400">
                         <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('general.weddingDay') }}</h2>
                     </ShowUnderline>
                 </div>
