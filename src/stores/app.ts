@@ -24,7 +24,6 @@ export const useAppStore = defineStore('app-store', () => {
     const street = computed(() => config.value?.street || '')
     const city = computed(() => config.value?.city || '')
 
-    // TODO: How long is the wedding running? Change the value to the actual duration in hours
     const weddingDuration = computed(() => config.value?.weddingDuration || 4) // Wedding Duration: Default 4 hours
     const weddingDate = computed(() => config.value?.weddingDate?.toDate()) // Wedding Date: Format date based on timestamp
     const deadlineDate = computed(() => config.value?.deadline?.toDate()) // Deadline Date: Format date based on timestamp
