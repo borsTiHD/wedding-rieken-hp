@@ -2,7 +2,7 @@
     <Card class="card-primary grow">
         <template #content>
             <div class="flex flex-col items-center gap-4">
-                <p class="italic">{{ quotes[props.number-1] }}</p>
+                <p class="italic">{{ getQuote }}</p>
             </div>
         </template>
     </Card>
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-    number: number
+    number?: number
 }>()
 
 // Localisation
@@ -29,4 +29,7 @@ const quotes = [
     t('quotes.quote9'),
     t('quotes.quote10')
 ]
+
+// Get specific or random quote
+const getQuote = computed(() => props.number ? quotes[props.number-1] : quotes[Math.floor(Math.random() * quotes.length)])
 </script>
