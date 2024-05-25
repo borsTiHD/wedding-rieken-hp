@@ -11,12 +11,14 @@
                     <dt class="text-base font-semibold leading-7 text-gray-900">{{ street }}</dt>
                     <dd class="text-base leading-7 text-gray-600">{{ city }}</dd>
                 </dl>
+                <img class="w-full h-auto rounded-lg" :src="locationPicture" alt="Location">
             </div>
         </template>
     </Card>
 </template>
 
 <script setup lang="ts">
+import locationPicture from '@/assets/img/location/location.jpg'
 import { useAppStore } from '@/stores/app'
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 
