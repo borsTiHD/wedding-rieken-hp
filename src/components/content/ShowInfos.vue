@@ -10,7 +10,20 @@
                 <dl class="space-y-4">
                     <div v-for="info in infos" :key="info.header">
                         <dt class="text-base font-semibold leading-7 text-gray-900">{{ info.header }}</dt>
-                        <dd class="text-base leading-7 text-gray-600">{{ info.text }}</dd>
+                        <dd class="text-base leading-7 text-gray-600">
+                            <!-- Witnesses: Text with a list of contacts -->
+                            <template v-if="info.header === t('general.infos.witnesses')">
+                                <span>{{ info.text }}</span>
+                                <ul class="list-none list-inside">
+                                    <li v-for="contact in info.contacts" :key="contact">{{ contact }}</li>
+                                </ul>
+                            </template>
+
+                            <!-- Default info text -->
+                            <template v-else>
+                                {{ info.text }}
+                            </template>
+                        </dd>
                     </div>
                 </dl>
             </div>
@@ -34,8 +47,12 @@ const infos = [
         text: t('general.infos.accommodationText')
     },
     {
-        header: t('general.infos.parking'),
-        text: t('general.infos.parkingText')
+        header: t('general.infos.witnesses'),
+        text: t('general.infos.witnessesText'),
+        contacts: [
+            'John Doe Tel.: 0123456789',
+            'Jane Doe Tel.: 0123456789'
+        ]
     }
 ]
 </script>
