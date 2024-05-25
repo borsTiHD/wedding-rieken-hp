@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary">
+    <Card class="card-primary grow">
         <template #content>
             <div class="flex flex-col items-center gap-4">
                 <p class="italic">{{ t('riddle.text') }}</p>

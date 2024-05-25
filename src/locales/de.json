@@ -4,13 +4,32 @@
         "description": "Hochzeit von {bride} und {groom}"
     },
     "general": {
+        "inputDateFormat": "dd.mm.yy",
         "weddingDay": "Hochzeitstag",
-        "inputDateFormat": "dd.mm.yy"
+        "address": {
+            "header": "Adresse"
+        },
+        "procedure": {
+            "header": "Ablauf",
+            "ceremony": "{time} Uhr Trauung",
+            "reception": "{time} Uhr Sektempfang",
+            "dinner": "{time} Uhr Abendessen"
+        },
+        "infos": {
+            "header": "Infos",
+            "gifts": "Geschenke",
+            "giftsText": "Wir freuen uns über Geldgeschenke",
+            "accommodation": "Unterkunft",
+            "accommodationText": "Für Übernachtungsmöglichkeiten ist gesorgt",
+            "parking": "Parkmöglichkeiten",
+            "parkingText": "Parkplätze sind vorhanden"
+        }
     },
     "pages": {
         "home": "Home",
         "admin": "Admin",
         "date": "Datum",
+        "infos": "Infos",
         "user-management": "Users",
         "login": "Login",
         "logout": "Logout",

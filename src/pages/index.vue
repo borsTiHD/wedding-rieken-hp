@@ -33,35 +33,24 @@
             </div>
         </section>
 
-        <!-- Countdown -->
+        <!-- WeddingDay -->
         <section id="wedding" class="bg-[#540B0E]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-                <Card class="card-primary">
-                    <template #content>
-                        <div class="flex flex-col items-center gap-4">
-                            <div class="relative inline-block">
-                                <ShowUnderline>
-                                    <span class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('general.weddingDay') }}</span>
-                                </ShowUnderline>
-                            </div>
-                            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                                <ShowCalendar class="mx-auto" :timestamp="config?.weddingDate.seconds" />
-                                <div class="mx-auto flex flex-col items-center gap-4 order-first sm:order-last">
-                                    <ShowCountdown :timestamp="config?.weddingDate.seconds" />
-                                    <DateDisplay :timestamp="config?.weddingDate.seconds" />
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                </Card>
+                <div class="flex flex-wrap gap-4">
+                    <ShowWeddingDay />
+                    <ShowProcedure />
+                </div>
             </div>
         </section>
 
-        <!-- Riddle & Gallery -->
-        <section id="test" class="bg-[#E09F3E]">
+        <!-- Infos -->
+        <section id="infos" class="bg-[#E09F3E]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-                <ShowRiddle />
-                <GalleryAlbum />
+                <div class="flex flex-wrap md:flex-nowrap gap-4">
+                    <ShowRiddle class="basis-full md:basis-1/4" />
+                    <RouteDescription />
+                    <ShowInfos />
+                </div>
             </div>
         </section>
 
@@ -92,30 +81,7 @@
 
         <section class="bg-[#540B0E]">
             <div class="p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
-                <Card class="card-primary">
-                    <template #title>
-                        <h2>Ipsum dolor sit amet consectetur</h2>
-                    </template>
-                    <template #content>
-                        <div class="flex flex-col items-center gap-4">
-                            <p>Et netus et malesuada fames ac turpis egestas. Id volutpat lacus laoreet non curabitur gravida. Ut aliquam purus sit amet luctus. Sed lectus vestibulum mattis ullamcorper velit. Sit amet dictum sit amet justo donec enim diam. Ut venenatis tellus in metus vulputate eu scelerisque felis. Elementum nibh tellus molestie nunc non. Imperdiet nulla malesuada pellentesque elit. Purus gravida quis blandit turpis cursus in hac. Nulla facilisi cras fermentum odio eu feugiat pretium.</p>
-                        </div>
-                    </template>
-                </Card>
-            </div>
-        </section>
-
-        <!-- Countdown -->
-        <section class="bg-[#E09F3E]">
-            <div class="p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
-                <Card class="card-primary">
-                    <template #content>
-                        <div class="flex flex-col items-center gap-4">
-                            <ShowCountdown :timestamp="config?.weddingDate.seconds" />
-                            <DateDisplay :timestamp="config?.weddingDate.seconds" />
-                        </div>
-                    </template>
-                </Card>
+                <GalleryAlbum />
             </div>
         </section>
     </main>
@@ -123,17 +89,17 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
-import ShowCalendar from '@/components/ShowCalendar.vue'
 import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
-import ShowUnderline from '@/components/animations/ShowUnderline.vue'
+import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
+import RouteDescription from '@/components/content/RouteDescription.vue'
+import ShowProcedure from '@/components/content/ShowProcedure.vue'
+import ShowInfos from '@/components/content/ShowInfos.vue'
 import GalleryAlbum from '@/components/content/GalleryAlbum.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
 
-const { t } = useI18n()
-
-// Fetch app config
+// App config
 const appStore = useAppStore()
 const config = appStore.config
 const bride = computed(() => appStore.bride)
