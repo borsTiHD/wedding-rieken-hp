@@ -6,6 +6,7 @@
     "general": {
         "inputDateFormat": "dd.mm.yy",
         "weddingDay": "Hochzeitstag",
+        "invitation": "Einladung",
         "address": {
             "header": "Adresse"
         },
@@ -20,11 +21,11 @@
             "gifts": "Geschenke",
             "giftsText": "Euer Kommen ist für uns das größte Geschenk. Wenn Ihr uns dennoch eine Freude machen möchtet, freuen wir uns über einen Beitrag zu unserer Flitterwochenkasse.",
             "accommodation": "Unterkunft",
-            "accommodationText": "Für Übernachtungsmöglichkeiten ist gesorgt",
+            "accommodationText": "Für Übernachtungsmöglichkeiten ist gesorgt. Bitte kontaktiert uns für weitere Informationen.",
             "parking": "Parkmöglichkeiten",
             "parkingText": "Parkplätze sind vorhanden",
             "witnesses": "Trauzeugen",
-            "witnessesText": "Unsere Trauzeugen haben Antworten auf weitere Fragen"
+            "witnessesText": "Unsere Trauzeugen haben Antworten auf weitere Fragen."
         }
     },
     "quotes": {
