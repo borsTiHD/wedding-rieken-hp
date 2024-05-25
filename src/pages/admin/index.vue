@@ -17,6 +17,10 @@
                 <!-- Change invite token -->
                 <ChangeInviteToken class="basis-80" />
             </div>
+
+            <div class="flex flex-wrap gap-4 w-full">
+                <ChangeWeddingDuration />
+            </div>
         </template>
 
         <!-- You are not an admin -->
@@ -29,6 +33,7 @@ import ChangeWeddingDate from '@/components/admin/ChangeWeddingDate.vue'
 import ChangeDeadline from '@/components/admin/ChangeDeadline.vue'
 import ShowQRCode from '@/components/admin/ShowQRCode.vue'
 import ChangeInviteToken from '@/components/admin/ChangeInviteToken.vue'
+import ChangeWeddingDuration from '@/components/admin/ChangeWeddingDuration.vue'
 import NoAdmin from '@/components/admin/NoAdmin.vue'
 import { useUserStore } from '@/stores/user'
 

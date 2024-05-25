@@ -344,6 +344,14 @@
             "success": "Erfolgreich",
             "successDetail": "Das Datum wurde erfolgreich geändert"
         },
+        "changeDuration": {
+            "header": "Dauer der Hochzeit ändern",
+            "label": "Dauer in Stunden",
+            "submit": "Speichern",
+            "error": "Fehler",
+            "success": "Erfolgreich",
+            "successDetail": "Die Dauer der Hochzeit wurde erfolgreich geändert"
+        },
         "createUser": {
             "header": "Neuen Benutzer erstellen",
             "buttonLabel": "Neuen Benutzer erstellen",
