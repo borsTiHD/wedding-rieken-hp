@@ -11,23 +11,29 @@
                 </div>
             </template>
             <template #content>
-                <i18n-t v-if="isBeforeDeadline" keypath="welcome.welcomeMessage" tag="p">
-                    <template #weddingDate>
-                        <span class="font-bold whitespace-nowrap">{{ d(weddingDate || 0, 'short') }}</span>
-                    </template>
-                    <template #deadline>
-                        <span class="font-bold whitespace-nowrap">{{ d(deadlineDate || 0, 'short') }}</span>
-                    </template>
-                    <template #action>
-                        <NuxtLink :to="localePath('/register')" class="font-medium text-blue-600">{{ t('welcome.loginLinkTag') }}</NuxtLink>
-                    </template>
-                </i18n-t>
+                <!-- Subheader -->
+                <h3 class="font-bold text-xl md:text-2xl">{{ t('welcome.subheader') }}</h3>
 
-                <i18n-t v-else keypath="welcome.welcomeMessageAfterDeadline" tag="p">
-                    <template #weddingDate>
-                        <span class="font-bold whitespace-nowrap">{{ d(weddingDate || 0, 'short') }}</span>
-                    </template>
-                </i18n-t>
+                <!-- Welcome message -->
+                <div class="flex flex-col items-center gap-4">
+                    <i18n-t v-if="isBeforeDeadline" keypath="welcome.welcomeMessage" tag="p">
+                        <template #weddingDate>
+                            <span class="font-bold whitespace-nowrap">{{ d(weddingDate || 0, 'short') }}</span>
+                        </template>
+                        <template #deadline>
+                            <span class="font-bold whitespace-nowrap">{{ d(deadlineDate || 0, 'short') }}</span>
+                        </template>
+                        <template #action>
+                            <NuxtLink :to="localePath('/register')" class="font-medium text-blue-600">{{ t('welcome.loginLinkTag') }}</NuxtLink>
+                        </template>
+                    </i18n-t>
+
+                    <i18n-t v-else keypath="welcome.welcomeMessageAfterDeadline" tag="p">
+                        <template #weddingDate>
+                            <span class="font-bold whitespace-nowrap">{{ d(weddingDate || 0, 'short') }}</span>
+                        </template>
+                    </i18n-t>
+                </div>
             </template>
         </Card>
     </main>

@@ -68,6 +68,7 @@
     },
     "welcome": {
         "header": "Willkommen",
+        "subheader": "Einladung zur Hochzeit",
         "welcomeMessage": "Zu unserer Hochzeit am {weddingDate} möchten wir Euch herzlich einladen. Bitte registriert Euch {action} und nehmt die Einladung bis zum {deadline} an oder lehnt sie ab. Wir freuen uns auf Euch.",
         "welcomeMessageAfterDeadline": "Zu unserer Hochzeit am {weddingDate} möchten wir Euch herzlich einladen. Leider ist die Deadline zur Einladungsannahme bereits abgelaufen. Bitte kontaktieren Sie uns, falls Sie noch kommen möchten.",
         "loginLinkTag": "hier"
