@@ -68,8 +68,8 @@
     },
     "welcome": {
         "header": "Willkommen",
-        "welcomeMessage": "Wir haben Sie zu unserer Hochzeit am {weddingDate} eingeladen. Wir bitten Sie sich {action} zu registrieren und bis zum {deadline} die Einladung anzunehmen, oder abzulehnen.",
-        "welcomeMessageAfterDeadline": "Wir haben Sie zu unserer Hochzeit am {weddingDate} eingeladen. Leider ist die Deadline zur Einladungsannahme bereits abgelaufen. Bitte kontaktieren Sie uns, falls Sie noch kommen möchten.",
+        "welcomeMessage": "Zu unserer Hochzeit am {weddingDate} möchten wir Euch herzlich einladen. Bitte registriert Euch {action} und nehmt die Einladung bis zum {deadline} an oder lehnt sie ab. Wir freuen uns auf Euch.",
+        "welcomeMessageAfterDeadline": "Zu unserer Hochzeit am {weddingDate} möchten wir Euch herzlich einladen. Leider ist die Deadline zur Einladungsannahme bereits abgelaufen. Bitte kontaktieren Sie uns, falls Sie noch kommen möchten.",
         "loginLinkTag": "hier"
     },
     "riddle": {

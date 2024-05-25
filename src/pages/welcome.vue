@@ -2,7 +2,13 @@
     <main class="content-flex w-full sm:max-w-xl">
         <Card class="card-primary">
             <template #title>
-                <h2>{{ t('welcome.header') }}</h2>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="relative inline-block">
+                        <ShowUnderline color="text-purple-400">
+                            <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('welcome.header') }}</h2>
+                        </ShowUnderline>
+                    </div>
+                </div>
             </template>
             <template #content>
                 <i18n-t v-if="isBeforeDeadline" keypath="welcome.welcomeMessage" tag="p">
@@ -28,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
 
