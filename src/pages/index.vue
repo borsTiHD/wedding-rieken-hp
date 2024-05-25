@@ -47,10 +47,10 @@
         <section id="infos" class="bg-[#E09F3E]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <div class="flex flex-wrap md:flex-nowrap gap-4">
-                    <ShowRiddle class="basis-full md:basis-1/4" />
-                    <RouteDescription />
+                    <RouteDescription class="basis-6/12" />
                     <ShowInfos />
                 </div>
+                <ShowQuote />
             </div>
         </section>
 
@@ -79,7 +79,14 @@
             </div>
         </section>
 
-        <section class="bg-[#540B0E]">
+        <!-- Riddle -->
+        <section id="infos" class="bg-[#540B0E]">
+            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
+                <ShowRiddle />
+            </div>
+        </section>
+
+        <section class="bg-[#E09F3E]">
             <div class="p-4 sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto flex flex-col gap-4">
                 <GalleryAlbum />
             </div>
@@ -96,6 +103,7 @@ import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import RouteDescription from '@/components/content/RouteDescription.vue'
 import ShowProcedure from '@/components/content/ShowProcedure.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
+import ShowQuote from '@/components/content/ShowQuote.vue'
 import GalleryAlbum from '@/components/content/GalleryAlbum.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
 
