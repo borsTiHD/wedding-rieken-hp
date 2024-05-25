@@ -8,7 +8,7 @@
         <div v-if="isBeforeDeadline" class="flex flex-col gap-2">
             <i18n-t keypath="user.additionalGuests.deadlineInfo" tag="p" class="max-w-xl mb-4">
                 <template #date>
-                    <span class="font-bold whitespace-nowrap">{{ d(deadlineDate, 'short') }}</span>
+                    <span class="font-bold whitespace-nowrap">{{ d(deadlineDate || 0, 'short') }}</span>
                 </template>
             </i18n-t>
 
@@ -58,8 +58,7 @@ const additionalGuests = computed(() => userProfile.value.additionalGuests)
 
 // App config
 const appStore = useAppStore()
-const deadlineDate = computed(() => appStore.deadlineDate)
-const isBeforeDeadline = computed(() => appStore.isBeforeDeadline)
+const { deadlineDate, isBeforeDeadline } = appStore
 
 // Data
 const loading = ref(false)

@@ -3,7 +3,7 @@
         <template v-if="isBeforeDeadline">
             <i18n-t keypath="user.invitation.deadlineInfo" tag="p" class="max-w-xl">
                 <template #date>
-                    <span class="font-bold whitespace-nowrap">{{ d(deadlineDate, 'short') }}</span>
+                    <span class="font-bold whitespace-nowrap">{{ d(deadlineDate || 0, 'short') }}</span>
                 </template>
             </i18n-t>
 
@@ -39,8 +39,7 @@ const userStore = useUserStore()
 
 // App config
 const appStore = useAppStore()
-const deadlineDate = computed(() => appStore.deadlineDate)
-const isBeforeDeadline = computed(() => appStore.isBeforeDeadline)
+const { deadlineDate, isBeforeDeadline } = appStore
 
 // Data
 const loading = ref(false)

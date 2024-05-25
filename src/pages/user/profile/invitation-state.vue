@@ -13,7 +13,7 @@
                 <div v-if="!checkState">
                     <i18n-t v-if="isBeforeDeadline" keypath="profileStepper.invitationState.text" tag="p">
                         <template #date>
-                            <span class="font-bold whitespace-nowrap">{{ d(deadlineDate, 'short') }}</span>
+                            <span class="font-bold whitespace-nowrap">{{ d(deadlineDate || 0, 'short') }}</span>
                         </template>
                     </i18n-t>
                     <p v-else>{{ t('profileStepper.invitationState.textDeadlinePassed') }}</p>
@@ -112,8 +112,7 @@ const { modalPosition } = useModalPosition()
 
 // App config
 const appStore = useAppStore()
-const deadlineDate = computed(() => appStore.deadlineDate)
-const isBeforeDeadline = computed(() => appStore.isBeforeDeadline)
+const { deadlineDate, isBeforeDeadline } = appStore
 
 // Check completion state of this page
 const { checker } = useProfileChecker()
