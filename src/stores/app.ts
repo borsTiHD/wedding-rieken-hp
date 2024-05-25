@@ -21,8 +21,8 @@ export const useAppStore = defineStore('app-store', () => {
     }
 
     // Address
-    const street = computed(() => config.value?.street || '')
-    const city = computed(() => config.value?.city || '')
+    const street = computed(() => config.value?.street)
+    const city = computed(() => config.value?.city)
 
     const weddingDuration = computed(() => config.value?.weddingDuration || 4) // Wedding Duration: Default 4 hours
     const weddingDate = computed(() => config.value?.weddingDate?.toDate()) // Wedding Date: Format date based on timestamp
