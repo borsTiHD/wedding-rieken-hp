@@ -134,3 +134,32 @@ onMounted(() => {
     }
 })
 </script>
+
+<style scoped>
+/* https://10015.io/tools/css-background-pattern-generator */
+#wedding {
+    background:
+      radial-gradient(at 80% 80%,rgba(255, 61, 61, 0.23) 25.4%,#0000 26%),
+      radial-gradient(at 20% 80%,rgba(255, 61, 61, 0.23) 25.4%,#0000 26%),
+      conic-gradient(from -45deg at 50% 41%,rgba(255, 61, 61, 0.23) 90deg,rgba(255, 255, 255, 0) 0)
+        15px 0;
+background-size: 30px 30px;
+}
+
+#infos {
+    background:
+      conic-gradient(from -45deg at calc(100%/3) calc(100%/3), rgba(255, 255, 255, 0) 90deg, #0000 0),
+      conic-gradient(from -135deg at calc(100%/3) calc(2*100%/3), rgba(255, 255, 255, 0) 90deg, rgba(255, 255, 255, 0.1) 0 135deg, #0000 0),
+      conic-gradient(from 135deg at calc(2*100%/3) calc(2*100%/3), rgba(255, 255, 255, 0) 90deg, rgba(255, 255, 255, 0.1) 0 135deg, #0000 0),
+      conic-gradient(from 45deg at calc(2*100%/3) calc(100%/3), rgba(255, 255, 255, 0) 90deg, rgba(255, 255, 255, 0.1) 0 135deg, #0000 0,rgba(255, 255, 255, 0) 0 225deg,rgba(255, 255, 255, 0.1) 0);
+background-size: 64px 64px;
+}
+
+#spotify {
+    background:
+      conic-gradient(from -45deg,rgba(255, 255, 255, 0.1) 90deg,#0000 0 180deg,rgba(204,204,204,0.1) 0 270deg,#0000 0)
+        0 calc(30px/2)/30px 30px,
+      conic-gradient(from 135deg at 50% 0,rgba(255, 255, 255, 0.1) 90deg,rgba(204,204,204,0.1) 0)
+        0 0/calc(2*30px) 30px;
+}
+</style>
