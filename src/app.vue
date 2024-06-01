@@ -1,5 +1,6 @@
 <template>
-    <AppLoadingOverlay v-if="loading" :progress="progress" />
+    <AppCookieConsent v-if="true" />
+    <AppLoadingOverlay v-else-if="loading" :progress="progress" />
     <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
         <Toast position="bottom-right" />
 
@@ -21,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import AppCookieConsent from '@/components/layout/AppCookieConsent.vue'
 import AppLoadingOverlay from '@/components/layout/AppLoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -39,6 +41,14 @@ import '@fontsource/alex-brush'
 
 // Localisation
 const { t } = useI18n()
+
+// Cookie consent
+const { $CookieConsent } = useNuxtApp()
+const cookie = computed(() => $CookieConsent?.getCookie())
+const preferences = computed(() => $CookieConsent?.getUserPreferences())
+
+console.log('App Cookie:', cookie.value)
+console.log('App Preferences:', preferences.value)
 
 // Language options for i18n
 // Set language based on cookie or browser language

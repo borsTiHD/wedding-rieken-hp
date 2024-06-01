@@ -5,7 +5,7 @@
         "acceptAllBtn": "Accept",
         "acceptNecessaryBtn": "Reject",
         "showPreferencesBtn": "Manage preferences",
-        "footer": "<a href=\"#link\">Privacy Policy</a><a href=\"#link\">Impressum</a>"
+        "footer": "<a href='/impressum'>Privacy Policy & Impressum</a>"
     },
     "preferencesModal": {
         "title": "Cookie preferences",

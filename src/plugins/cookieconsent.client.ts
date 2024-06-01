@@ -11,13 +11,24 @@ const config: CookieConsentConfig = {
 
     onConsent: () => {
         console.log('onConsent fired ...')
+        const cookie = CookieConsent.getCookie()
+        const preferences = CookieConsent.getUserPreferences()
+
+        console.log('Cookie:', cookie)
+        console.log('Preferences:', preferences)
     },
 
     onChange: () => {
         console.log('onChange fired ...')
     },
 
-    // Global options
+    // Options
+    disablePageInteraction: true,
+    cookie: {
+        useLocalStorage: true
+    },
+
+    // GUI Options
     guiOptions: {
         consentModal: {
             layout: 'box',
@@ -31,8 +42,13 @@ const config: CookieConsentConfig = {
     // Categories
     categories: {
         necessary: {
-            readOnly: true,
-            enabled: true
+            autoClear: {
+                cookies: [
+                    {
+                        name: /^(_ga|_gid)/
+                    }
+                ]
+            }
         },
         firebase: {
             autoClear: {

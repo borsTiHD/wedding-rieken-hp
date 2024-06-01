@@ -23,7 +23,7 @@ export default function useLocale() {
         // Set language in cookie consent
         // Timeout is needed to wait for the cookie consent to be initialized
         setTimeout(() => {
-            $CookieConsent.setLanguage(newLocale)
+            if ($CookieConsent) $CookieConsent.setLanguage(newLocale)
         }, 0)
     }
 

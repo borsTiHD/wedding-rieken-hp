@@ -1,11 +1,11 @@
 {
     "consentModal": {
-        "title": "Hallo Reisender, es ist Zeit für Cookies!",
-        "description": "Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen, und Tracking-Cookies, um zu verstehen, wie Sie damit interagieren. Letztere werden nur nach Einwilligung gesetzt.",
+        "title": "Cookie-Einstellungen",
+        "description": "Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen.",
         "acceptAllBtn": "Akzeptieren",
         "acceptNecessaryBtn": "Ablehnen",
         "showPreferencesBtn": "Einstellungen verwalten",
-        "footer": "<a href='#link'>Datenschutzrichtlinie</a><a href='#link'>Impressum</a>"
+        "footer": "<a href='/impressum'>Datenschutzrichtlinie & Impressum</a>"
     },
     "preferencesModal": {
         "title": "Cookie-Einstellungen",
@@ -18,12 +18,12 @@
                 "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Weitere Informationen finden Sie in unserer <a href='#' class='cc__link'>Datenschutzrichtlinie</a>."
             },
             {
-                "title": "Unbedingt erforderliche Cookies",
+                "title": "Eigene Cookies",
                 "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 "linkedCategory": "necessary"
             },
             {
-                "title": "Performance- und Analyse-Cookies",
+                "title": "Firebase Cookies",
                 "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 "linkedCategory": "firebase",
                 "cookieTable": {
