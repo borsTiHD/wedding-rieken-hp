@@ -1,0 +1,55 @@
+{
+    "consentModal": {
+        "title": "Hallo Reisender, es ist Zeit für Cookies!",
+        "description": "Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen, und Tracking-Cookies, um zu verstehen, wie Sie damit interagieren. Letztere werden nur nach Einwilligung gesetzt.",
+        "acceptAllBtn": "Akzeptieren",
+        "acceptNecessaryBtn": "Ablehnen",
+        "showPreferencesBtn": "Einstellungen verwalten",
+        "footer": "<a href='#link'>Datenschutzrichtlinie</a><a href='#link'>Impressum</a>"
+    },
+    "preferencesModal": {
+        "title": "Cookie-Einstellungen",
+        "acceptAllBtn": "Alles akzeptieren",
+        "acceptNecessaryBtn": "Alles ablehnen",
+        "savePreferencesBtn": "Einstellungen speichern",
+        "sections": [
+            {
+                "title": "Cookie-Nutzung",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Weitere Informationen finden Sie in unserer <a href='#' class='cc__link'>Datenschutzrichtlinie</a>."
+            },
+            {
+                "title": "Unbedingt erforderliche Cookies",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "linkedCategory": "necessary"
+            },
+            {
+                "title": "Performance- und Analyse-Cookies",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "linkedCategory": "firebase",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Cookie",
+                        "domain": "Domain",
+                        "desc": "Beschreibung"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga",
+                            "domain": "ihredomain.com",
+                            "desc": "Beschreibung ..."
+                        },
+                        {
+                            "name": "_gid",
+                            "domain": "ihredomain.com",
+                            "desc": "Beschreibung ..."
+                        }
+                    ]
+                }
+            },
+            {
+                "title": "Weitere Informationen",
+                "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten wenden Sie sich bitte an <a class='cc__link' href='#ihredomain.com'>mich</a>."
+            }
+        ]
+    }
+}
