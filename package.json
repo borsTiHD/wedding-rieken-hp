@@ -50,6 +50,7 @@
         "primeicons": "^6.0.1",
         "primevue": "^3.38.1",
         "qrcode": "^1.5.3",
+        "vanilla-cookieconsent": "^3.0.1",
         "vue-boo-bash": "^0.0.8"
     }
 }
