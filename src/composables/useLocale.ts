@@ -19,7 +19,12 @@ export default function useLocale() {
     function setLanguage(newLocale: string) {
         setLocale(newLocale)
         setCookie(newLocale)
-        $CookieConsent.setLanguage(newLocale)
+
+        // Set language in cookie consent
+        // Timeout is needed to wait for the cookie consent to be initialized
+        setTimeout(() => {
+            $CookieConsent.setLanguage(newLocale)
+        }, 0)
     }
 
     // Set locale cookie
