@@ -26,9 +26,9 @@ import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import useLocale from '@/composables/useLocale'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
-import useInvitationToken from '@/composables/useInvitationToken'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
+import { useTokenStore } from '@/stores/token'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
@@ -56,6 +56,7 @@ const { loading, progress, stoptLoading } = useLoadingSpinner(true)
 // Stores
 const appStore = useAppStore() // App store
 const userStore = useUserStore() // User store
+const tokenStore = useTokenStore() // Token store
 
 // Refs
 const bride = computed(() => appStore.bride)
@@ -84,14 +85,12 @@ useHead({
     ]
 })
 
-// Save invitation token from route if provided
-const { getInvitationToken } = useInvitationToken()
-
 // Fetch user data and app config
 onMounted(async() => {
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error
-    getInvitationToken() // Check if token is provided in route and save it in localStorage
+    const token = tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
+    console.log('Token:', token)
     stoptLoading() // Stop loading spinner
 })
 </script>

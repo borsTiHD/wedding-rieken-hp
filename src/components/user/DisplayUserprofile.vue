@@ -152,9 +152,9 @@ import ChangePhone from '@/components/user/ChangePhone.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
 import ChangeInvitation from '@/components/user/ChangeInvitation.vue'
 import ChangeDisplayName from '@/components/user/ChangeDisplayName.vue'
-import useInvitationToken from '@/composables/useInvitationToken'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
+import { useTokenStore } from '@/stores/token'
 
 // Composables
 const router = useRouter()
@@ -201,6 +201,6 @@ const userRole = computed(() => {
 })
 
 // Invitation token
-const { getInvitationToken } = useInvitationToken()
-const token = computed(() => getInvitationToken())
+const tokenStore = useTokenStore()
+const token = computed(() => tokenStore.token)
 </script>

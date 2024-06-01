@@ -110,9 +110,9 @@ import VerifyEmail from '@/components/user/VerifyEmail.vue'
 import ChangePassword from '@/components/user/ChangePassword.vue'
 import ResetPassword from '@/components/user/ResetPassword.vue'
 import DeleteUser from '@/components/user/DeleteUser.vue'
-import useInvitationToken from '@/composables/useInvitationToken'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
+import { useTokenStore } from '@/stores/token'
 
 // Composables
 const { t } = useI18n()
@@ -130,8 +130,8 @@ const userProfile = computed(() => userStore.userProfile)
 const emailVerified = computed(() => userStore.emailVerified)
 
 // Invitation token
-const { getInvitationToken } = useInvitationToken()
-const token = computed(() => getInvitationToken())
+const tokenStore = useTokenStore()
+const token = computed(() => tokenStore.token)
 </script>
 
 <style scoped>

@@ -1,9 +1,9 @@
 import { updateProfile, updateEmail, updatePassword, deleteUser } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import { useUserStore } from '@/stores/user'
+import { useTokenStore } from '@/stores/token'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import useBackendApi from '@/composables/useBackendApi'
-import useInvitationToken from '@/composables/useInvitationToken'
 import type { UserProfile, PartialUserProfile } from '@/types/UserProfile'
 
 export default function() {
@@ -12,11 +12,13 @@ export default function() {
     const { sendUserEmailVerification } = useFirebaseAuth() // Firebase auth composable
     const { deleteUserFolder } = useFirebaseStorage() // FirebaseStorage composable
     const { updateUserRoleToInvited } = useBackendApi() // Backend API composable
-    const { deleteInvitationToken } = useInvitationToken() // Invitation token composable
 
     // User store
     const userStore = useUserStore()
     const { setUser, setUserProfile, refreshUserProfile } = userStore
+
+    // Invitation token
+    const { deleteInvitationToken } = useTokenStore()
 
     // Localisation
     const { t } = useI18n()

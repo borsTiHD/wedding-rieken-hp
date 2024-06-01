@@ -71,6 +71,7 @@ import { useWindowSize } from '@/composables/useWindowSize'
 import { useAppStore } from '@/stores/app'
 import { usePagesStore } from '@/stores/pages'
 import { useUserStore } from '@/stores/user'
+import { useTokenStore } from '@/stores/token'
 
 const { t } = useI18n()
 
@@ -88,8 +89,9 @@ const uid = computed(() => userStore.uid)
 const userProfile = computed(() => userStore.userProfile)
 
 // Invitation token
-const { getInvitationToken } = useInvitationToken()
-const token = computed(() => getInvitationToken())
+const tokenStore = useTokenStore()
+const token = computed(() => tokenStore.token)
+console.log('token', token.value)
 
 // Scroll event listener
 const { scrollY } = useWindowSize(100)

@@ -8,8 +8,8 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import useInvitationToken from '@/composables/useInvitationToken'
 import { useUserStore } from '@/stores/user'
+import { useTokenStore } from '@/stores/token'
 
 type Props = { small?: boolean }
 const props = withDefaults(defineProps<Props>(), {
@@ -22,11 +22,14 @@ const { t } = useI18n()
 const router = useRouter()
 const localePath = useLocalePath()
 const { changeRoleToInvited } = useFirebaseUserProfile()
-const { getInvitationToken } = useInvitationToken()
 
 // User store
 const userStore = useUserStore()
 const uid = computed(() => userStore.uid)
+
+// Invitation token
+const tokenStore = useTokenStore()
+const token = computed(() => tokenStore.token)
 
 // Data
 const loading = ref(false)
@@ -46,9 +49,8 @@ const handleSubmit = async() => {
     // Check if user has an invitation token
     // And change profile role to 'invited'
     // Firebase will check if the token is valid
-    const token = getInvitationToken()
-    if (token && token !== '') {
-        const check = await changeRoleToInvited(token).catch((error: { message: string }) => {
+    if (token.value && token.value !== '') {
+        const check = await changeRoleToInvited(token.value).catch((error: { message: string }) => {
             toast.add({
                 severity: 'error',
                 summary: t('user.upgradeUserRole.error'),

@@ -43,12 +43,12 @@
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
+import { useTokenStore } from '@/stores/token'
 
 // Composables
 const router = useRouter()
 const { t, d } = useI18n()
 const localePath = useLocalePath()
-const { getInvitationToken } = useInvitationToken()
 
 // App config
 const appStore = useAppStore()
@@ -58,6 +58,10 @@ const { weddingDate, deadlineDate, isBeforeDeadline } = appStore
 const userStore = useUserStore()
 const uid = computed(() => userStore.uid)
 
+// Invitation token
+const tokenStore = useTokenStore()
+const token = computed(() => tokenStore.token)
+
 // Watch uid and push to home if user is logged in
 watch(uid, (newUid) => {
     if (newUid) { router.push(localePath('/user')) }
@@ -66,7 +70,7 @@ watch(uid, (newUid) => {
 // On mount
 onMounted(() => {
     // If user got no invitation token -> push to home
-    if (!getInvitationToken()) { router.push(localePath('/')) }
+    if (!token.value || token.value === '') { router.push(localePath('/')) }
     // If user is logged in -> push to user
     else if (uid.value) { router.push(localePath('/user')) }
 })

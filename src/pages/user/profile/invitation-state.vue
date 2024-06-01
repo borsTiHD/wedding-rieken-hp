@@ -91,10 +91,10 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import ChangeInvitation from '@/components/user/ChangeInvitation.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
-import useInvitationToken from '@/composables/useInvitationToken'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useUserStore } from '@/stores/user'
 import { useAppStore } from '@/stores/app'
+import { useTokenStore } from '@/stores/token'
 
 definePageMeta({
     key: (route) => route.fullPath
@@ -114,13 +114,13 @@ const { modalPosition } = useModalPosition()
 const appStore = useAppStore()
 const { deadlineDate, isBeforeDeadline } = appStore
 
+// Invitation token
+const tokenStore = useTokenStore()
+const token = computed(() => tokenStore.token)
+
 // Check completion state of this page
 const { checker } = useProfileChecker()
 const checkState = computed(() => checker(t('profileStepper.invitationState.header')))
-
-// Invitation token
-const { getInvitationToken } = useInvitationToken()
-const token = computed(() => getInvitationToken())
 
 // Refs
 const invitationModal = ref<InstanceType<typeof DisplayModal>>()
