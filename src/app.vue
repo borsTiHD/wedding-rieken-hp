@@ -89,8 +89,7 @@ useHead({
 onMounted(async() => {
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error
-    const token = tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
-    console.log('Token:', token)
+    tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
     stoptLoading() // Stop loading spinner
 })
 </script>

@@ -91,7 +91,6 @@ const userProfile = computed(() => userStore.userProfile)
 // Invitation token
 const tokenStore = useTokenStore()
 const token = computed(() => tokenStore.token)
-console.log('token', token.value)
 
 // Scroll event listener
 const { scrollY } = useWindowSize(100)
