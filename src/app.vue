@@ -1,5 +1,5 @@
 <template>
-    <LoadingOverlay v-if="loading" :progress="progress" />
+    <AppLoadingOverlay v-if="loading" :progress="progress" />
     <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
         <Toast position="bottom-right" />
 
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import LoadingOverlay from '@/components/LoadingOverlay.vue'
+import AppLoadingOverlay from '@/components/layout/AppLoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import useLocale from '@/composables/useLocale'
