@@ -24,6 +24,7 @@
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
+import useLocale from '@/composables/useLocale'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import useInvitationToken from '@/composables/useInvitationToken'
 import { useAppStore } from '@/stores/app'
@@ -38,6 +39,10 @@ import '@fontsource/alex-brush'
 
 // Localisation
 const { t } = useI18n()
+
+// Language options for i18n
+// Set language based on cookie or browser language
+useLocale()
 
 // Router
 const route = useRoute()
@@ -81,22 +86,6 @@ useHead({
 
 // Save invitation token from route if provided
 const { getInvitationToken } = useInvitationToken()
-
-// Language options for i18n
-// Also set language based on cookie or browser language
-const { getLocaleCookie, setLocaleCookie, getBrowserLocale, setLocale } = useI18n()
-const browserLocale = getBrowserLocale()
-const cookieLocale = getLocaleCookie()
-if (cookieLocale) {
-    setLocaleCookie(cookieLocale)
-    setLocale(cookieLocale)
-} else if (browserLocale) {
-    setLocaleCookie(browserLocale)
-    setLocale(browserLocale)
-} else {
-    setLocaleCookie('de')
-    setLocale('de')
-}
 
 // Fetch user data and app config
 onMounted(async() => {

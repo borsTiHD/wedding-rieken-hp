@@ -19,10 +19,12 @@
 </template>
 
 <script setup lang="ts">
+import useLocale from '@/composables/useLocale'
 import type { DropdownChangeEvent } from 'primevue/dropdown'
 
 // Language options
-const { locale, locales, setLocale, setLocaleCookie } = useI18n()
+const { locale, locales } = useI18n()
+const { setLanguage } = useLocale()
 const availableLocales = computed(() => {
     return locales.value.map((locale) => {
         return {
@@ -35,7 +37,6 @@ const availableLocales = computed(() => {
 // On language change
 const onLanguageChange = (event: DropdownChangeEvent) => {
     const selectedLocale = event.value
-    setLocaleCookie(selectedLocale)
-    setLocale(selectedLocale)
+    setLanguage(selectedLocale)
 }
 </script>
