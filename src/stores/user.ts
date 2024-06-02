@@ -4,7 +4,7 @@ import clearNestedObject from '@/composables/clearNestedObject'
 import type { UserProfile } from '@/types/UserProfile'
 
 export const useUserStore = defineStore('user-store', () => {
-    const { $auth } = useNuxtApp() // From firebase.client.ts
+    const { $auth, $CookieConsentActions } = useNuxtApp() // From firebase.client.ts
     const { fetchAdditionalUserProfile } = useFirebaseUserProfile() // FirebaseUserProfile composable
     const { t } = useI18n() // Localisation
 
@@ -21,6 +21,9 @@ export const useUserStore = defineStore('user-store', () => {
 
     // Fetch config data
     async function fetchUserData() {
+        // Check if the user has accepted the cookie consent
+        if (!$CookieConsentActions?.consentCheck(['app', 'firebase'])) return null
+
         const cookie = useCookie('user-id-token')
 
         // This will update the user state when the user logs in or out
@@ -55,6 +58,9 @@ export const useUserStore = defineStore('user-store', () => {
 
     // Fetch user profile data
     async function fetchUserProfile(uid: string) {
+        // Check if the user has accepted the cookie consent
+        if (!$CookieConsentActions?.consentCheck(['app', 'firebase'])) return null
+
         if (!uid) { throw new Error(t('firebase.custom.noUserId')) }
 
         // Get additional userprofile data

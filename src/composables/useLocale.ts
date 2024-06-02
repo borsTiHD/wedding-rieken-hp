@@ -4,7 +4,7 @@ export default function useLocale() {
     const { locale, getLocaleCookie, setLocaleCookie, getBrowserLocale, setLocale } = useI18n()
     const browserLocale = getBrowserLocale()
     const cookieLocale = getLocaleCookie()
-    const { $CookieConsent } = useNuxtApp()
+    const { $CookieConsent, $CookieConsentActions } = useNuxtApp()
 
     // Set locale on startup
     if (cookieLocale) {
@@ -28,8 +28,8 @@ export default function useLocale() {
     }
 
     // Set locale cookie
-    // TODO: Add cookie consent check
     function setCookie(newLocale: string) {
+        if (!$CookieConsentActions?.consentCheck(['app'])) return null
         setLocaleCookie(newLocale)
     }
 

@@ -69,7 +69,7 @@ export default defineNuxtPlugin(async() => {
                     cookies: [
                         // TODO: Add cookies here - firebase
                         {
-                            name: /^(_ga|_gid|firebase)/
+                            name: /^(_ga|_gid|firebase|user-id-token)/
                         }
                     ]
                 }
@@ -99,6 +99,16 @@ export default defineNuxtPlugin(async() => {
                 reset: (eraseCookie?: boolean) => {
                     CookieConsent.reset(eraseCookie) // Reset the cookie consent and delete own cookies
                     window.location.reload() // Reload page to apply changes
+                },
+                consentCheck: (categories: string[] = ['app', 'firebase']) => {
+                    // Loop through categories and check if they are accepted
+                    const acceptedCategories = categories.map((category) => CookieConsent?.acceptedCategory(category))
+                    const checkedConsent = acceptedCategories.every((category) => category)
+                    if (!checkedConsent) {
+                        console.warn('Cookie consent not accepted for all categories:', categories)
+                    }
+
+                    return checkedConsent
                 }
             }
         }
