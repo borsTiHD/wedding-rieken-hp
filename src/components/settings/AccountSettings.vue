@@ -59,6 +59,26 @@
                     </dd>
                 </div>
 
+                <!-- Cookie Consent Settings -->
+                <div class="sm:flex">
+                    <dt class="table-dt">
+                        <Button :label="t('consent.preferences')" severity="info" icon="pi pi-search" class="whitespace-nowrap w-full" raised @click="$CookieConsent.showPreferences()" />
+                    </dt>
+                    <dd class="table-dd">
+                        <span>{{ t('user.account.descriptions.cookieConsentPreferences') }}</span>
+                    </dd>
+                </div>
+
+                <!-- Cookie Consent delete -->
+                <div class="sm:flex">
+                    <dt class="table-dt">
+                        <Button :label="t('consent.deleteme')" severity="danger" icon="pi pi-trash" class="whitespace-nowrap w-full" outlined @click="$CookieConsentActions.reset(true)" />
+                    </dt>
+                    <dd class="table-dd">
+                        <span>{{ t('user.account.descriptions.cookieConsentDelete') }}</span>
+                    </dd>
+                </div>
+
                 <!-- Delete User Account -->
                 <div class="sm:flex">
                     <dt class="table-dt">
