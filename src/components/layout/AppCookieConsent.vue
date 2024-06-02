@@ -16,7 +16,12 @@
                     <!-- Message -->
                     <div class="flex flex-col items-center gap-4">
                         Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen.
-                        <Button @click="$CookieConsent.showPreferences()">Show preferences modal</Button>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col items-center gap-4">
+                        <Button label="Show preferences modal" severity="info" icon="pi pi-check" class="w-full md:w-1/2" @click="$CookieConsent.showPreferences()" />
+                        <Button label="Delete Consent Stuff" severity="danger" icon="pi pi-check" class="w-full md:w-1/2" @click="$CookieConsentActions.reset(true)" />
                     </div>
 
                     <div class="flex flex-col gap-4">
@@ -32,15 +37,17 @@
 </template>
 
 <script setup lang="ts">
+import { useCookieStore } from '@/stores/cookieconsent'
+
 const { t } = useI18n()
 
 // Cookie consent
 const { $CookieConsent } = useNuxtApp()
-const cookie = computed(() => $CookieConsent?.getCookie())
-const preferences = computed(() => $CookieConsent?.getUserPreferences())
+const cookieStore = useCookieStore()
 
-console.log('App Cookie:', cookie.value)
-console.log('App Preferences:', preferences.value)
+// Computed
+const cookie = computed(() => cookieStore.cookie)
+const preferences = computed(() => cookieStore.preferences)
 
 // TODO: Add text in language files
 </script>

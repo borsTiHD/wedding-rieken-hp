@@ -31,6 +31,7 @@ import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
+import { useCookieStore } from '@/stores/cookieconsent'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
@@ -43,12 +44,12 @@ import '@fontsource/alex-brush'
 const { t } = useI18n()
 
 // Cookie consent
-const { $CookieConsent } = useNuxtApp()
-const cookie = computed(() => $CookieConsent?.getCookie())
-const preferences = computed(() => $CookieConsent?.getUserPreferences())
+const cookieStore = useCookieStore()
+const cookie = computed(() => cookieStore.cookie)
+const preferences = computed(() => cookieStore.preferences)
 
-console.log('App Cookie:', cookie.value)
-console.log('App Preferences:', preferences.value)
+console.log('DEV: App Cookie:', cookie.value)
+console.log('DEV: App Preferences:', preferences.value)
 
 // Language options for i18n
 // Set language based on cookie or browser language
