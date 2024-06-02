@@ -45,12 +45,7 @@
             <template #end>
                 <div class="flex items-center gap-2 mr-2">
                     <!-- Upgrade User Role - only visible if user is 'guest' and he has a invitation token -->
-                    <div v-if="(!uid || userProfile.role === 'guest') && token && token !== ''" class="flex items-center gap-2">
-                        <div class="p-2 flex gap-1 items-center text-sm bg-green-200 rounded-lg">
-                            <span class="text-green-600">{{ `${t('general.invitation')} >` }}</span>
-                        </div>
-                        <UpgradeUserRole small />
-                    </div>
+                    <UpgradeUserRole v-if="(!uid || userProfile.role === 'guest') && token && token !== ''" pill />
 
                     <!-- Language selector -->
                     <ChangeLanguage />
@@ -72,8 +67,6 @@ import { useAppStore } from '@/stores/app'
 import { usePagesStore } from '@/stores/pages'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
-
-const { t } = useI18n()
 
 // Router
 const route = useRoute()

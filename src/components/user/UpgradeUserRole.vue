@@ -1,9 +1,12 @@
 <template>
-    <!-- Normal size -->
-    <Button v-if="!props.small" :label="t('user.upgradeUserRole.submit')" class="pulse-green" severity="success" icon="pi pi-gift" raised :loading="loading" @click="handleSubmit" />
-
     <!-- Small size -->
-    <Button v-else v-tooltip.bottom="t('user.upgradeUserRole.submit')" class="pulse-green" severity="success" icon="pi pi-gift" raised rounded :loading="loading" @click="handleSubmit" />
+    <Button v-if="props.small" v-tooltip.bottom="t('user.upgradeUserRole.submit')" class="pulse-green" severity="success" icon="pi pi-gift" raised rounded :loading="loading" @click="handleSubmit" />
+
+    <!-- Pill button for navbar -->
+    <Button v-else-if="props.pill" :label="t('user.upgradeUserRole.smallSubmit')" class="pulse-green" severity="success" icon="pi pi-gift" rounded :loading="loading" @click="handleSubmit" />
+
+    <!-- Normal size -->
+    <Button v-else :label="t('user.upgradeUserRole.submit')" class="pulse-green" severity="success" icon="pi pi-gift" raised :loading="loading" @click="handleSubmit" />
 </template>
 
 <script setup lang="ts">
@@ -11,9 +14,10 @@ import { useToast } from 'primevue/usetoast'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
 
-type Props = { small?: boolean }
+type Props = { small?: boolean, pill?: boolean}
 const props = withDefaults(defineProps<Props>(), {
-    small: false
+    small: false,
+    pill: false
 })
 
 // Composables
