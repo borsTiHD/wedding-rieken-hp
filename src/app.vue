@@ -1,6 +1,6 @@
 <template>
-    <AppCookieConsent v-if="true" />
-    <AppLoadingOverlay v-else-if="loading" :progress="progress" />
+    <AppLoadingOverlay v-if="loading" :progress="progress" />
+    <AppCookieConsent v-else-if="!cookieConsentAccepted" />
     <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
         <Toast position="bottom-right" />
 
@@ -45,11 +45,8 @@ const { t } = useI18n()
 
 // Cookie consent
 const cookieStore = useCookieStore()
-const cookie = computed(() => cookieStore.cookie)
 const preferences = computed(() => cookieStore.preferences)
-
-console.log('DEV: App Cookie:', cookie.value)
-console.log('DEV: App Preferences:', preferences.value)
+const cookieConsentAccepted = computed(() => preferences.value?.acceptType === 'all')
 
 // Language options for i18n
 // Set language based on cookie or browser language

@@ -23,12 +23,6 @@ export default defineNuxtPlugin(async() => {
             // Update the cookie store
             cookieStore.cookie = CookieConsent.getCookie()
             cookieStore.preferences = CookieConsent.getUserPreferences()
-
-            // Check services
-            const app = CookieConsent.acceptedCategory('app')
-            const firebase = CookieConsent.acceptedCategory('firebase')
-            console.log('App:', app)
-            console.log('Firebase:', firebase)
         },
 
         // Will be called after the user has updated his preferences
@@ -37,16 +31,10 @@ export default defineNuxtPlugin(async() => {
             // Update the cookie store
             cookieStore.cookie = CookieConsent.getCookie()
             cookieStore.preferences = CookieConsent.getUserPreferences()
-
-            // Check services
-            const app = CookieConsent.acceptedCategory('app')
-            const firebase = CookieConsent.acceptedCategory('firebase')
-            console.log('App:', app)
-            console.log('Firebase:', firebase)
         },
 
         // Options
-        disablePageInteraction: true,
+        disablePageInteraction: false,
         cookie: {
             useLocalStorage: true
         },

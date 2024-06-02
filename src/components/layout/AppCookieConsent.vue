@@ -1,55 +1,44 @@
 <template>
     <div class="background-wrapper background-image">
         <div class="background-wrapper flex items-center justify-center bg-opacity-70 bg-body z-50">
-            <Card class="card-primary">
-                <template #title>
-                    <div class="flex flex-col items-center gap-4">
-                        <div class="relative inline-block">
-                            <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('welcome.header') }}</h2>
+            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
+                <Card class="card-primary">
+                    <template #title>
+                        <div class="flex items-center">
+                            <div class="ml-auto flex flex-col items-center gap-4">
+                                <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('consent.header') }}</h2>
+                            </div>
+                            <!-- Language selector -->
+                            <ChangeLanguage class="ml-auto" />
                         </div>
-                    </div>
-                </template>
-                <template #content>
-                    <!-- Subheader -->
-                    <h3 class="font-bold text-xl md:text-2xl">COOKIE EINSTELLUNGEN NICHT AKZEPTIERT!!!</h3>
+                    </template>
+                    <template #content>
+                        <div class="flex flex-col gap-4">
+                            <!-- Subheader -->
+                            <h3 class="font-bold text-xl md:text-2xl">{{ t('consent.subheader') }}</h3>
 
-                    <!-- Message -->
-                    <div class="flex flex-col items-center gap-4">
-                        Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen.
-                    </div>
+                            <!-- Message -->
+                            <p>{{ t('consent.message') }}</p>
 
-                    <!-- Actions -->
-                    <div class="flex flex-col items-center gap-4">
-                        <Button label="Show preferences modal" severity="info" icon="pi pi-check" class="w-full md:w-1/2" @click="$CookieConsent.showPreferences()" />
-                        <Button label="Delete Consent Stuff" severity="danger" icon="pi pi-check" class="w-full md:w-1/2" @click="$CookieConsentActions.reset(true)" />
-                    </div>
-
-                    <div class="flex flex-col gap-4">
-                        <span class="font-bold text-xl">Cookie:</span>
-                        <pre>{{ cookie }}</pre>
-                        <span class="font-bold text-xl">Preferences:</span>
-                        <pre>{{ preferences }}</pre>
-                    </div>
-                </template>
-            </Card>
+                            <!-- Actions -->
+                            <div class="flex flex-wrap gap-4">
+                                <Button :label="t('consent.preferences')" severity="info" icon="pi pi-search" class="min-w-fit flex-1" outlined @click="$CookieConsent.showPreferences()" />
+                            </div>
+                        </div>
+                    </template>
+                </Card>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useCookieStore } from '@/stores/cookieconsent'
+import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
 
 const { t } = useI18n()
 
 // Cookie consent
 const { $CookieConsent } = useNuxtApp()
-const cookieStore = useCookieStore()
-
-// Computed
-const cookie = computed(() => cookieStore.cookie)
-const preferences = computed(() => cookieStore.preferences)
-
-// TODO: Add text in language files
 </script>
 
 <style scoped>
