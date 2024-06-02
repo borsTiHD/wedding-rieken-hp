@@ -1,7 +1,7 @@
 {
     "consentModal": {
         "title": "Cookie-Einstellungen",
-        "description": "Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen.",
+        "description": "Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen. Dabei werden zudem Cookies von Drittanbietern angelegt.",
         "acceptAllBtn": "Akzeptieren",
         "acceptNecessaryBtn": "Ablehnen",
         "showPreferencesBtn": "Einstellungen verwalten",
@@ -15,40 +15,40 @@
         "sections": [
             {
                 "title": "Cookie-Nutzung",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Weitere Informationen finden Sie in unserer <a href='#' class='cc__link'>Datenschutzrichtlinie</a>."
+                "description": "Hier können Sie die Cookie-Nutzung einsehen und anpassen. Die Änderungen werden automatisch gespeichert. Weitere Informationen finden Sie in unserer <a href='/impressum'>Datenschutzerklärung</a>."
             },
             {
                 "title": "Eigene Cookies",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "description": "Diese Cookies sind für die Funktion der Website erforderlich. In der Regel werden diese nur als Reaktion auf von Ihnen durchgeführte Aktionen festgelegt, wie etwa dem Festlegen der genutzten Sprache, oder über einen Token auf die Webseite gelangte URL. Fast alle Bereiche der Website funktionieren ohne die Zustimmung nicht. Diese Cookies speichern keine personenbezogenen Daten.",
                 "linkedCategory": "app"
             },
             {
                 "title": "Firebase Cookies",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "description": "Firebase ist ein von Google entwickeltes Produkt, das verschiedene Dienste für die Entwicklung von Apps und Webseiten bereitstellt. Dieser Dienst wird verwendet, um eine Userverwaltung (speichern von Usern sowie deren Einstellungen, zb. angenomme / abgelehnte Einladung) zu ermöglichen und um Informationen darüber zu sammeln, wie Besucher unsere Website nutzen. Weitere Informationen werden durch Google anonym gesammelt. Google sammelt Informationen in anonymisierter Form, einschließlich der Anzahl der Besucher der Website, woher die Besucher auf die Website gekommen sind und die Seiten, die sie besucht haben. Weitere Informationen finden Sie in der <a href='https://policies.google.com/privacy?hl=de' target='_blank'>Datenschutzerklärung</a> von Google.",
                 "linkedCategory": "firebase",
                 "cookieTable": {
                     "headers": {
-                        "name": "Cookie",
-                        "domain": "Domain",
+                        "name": "Dienst",
+                        "domain": "Endnutzerdaten",
                         "desc": "Beschreibung"
                     },
                     "body": [
                         {
-                            "name": "_ga",
-                            "domain": "ihredomain.com",
-                            "desc": "Beschreibung ..."
+                            "name": "Cloud-Funktionen für Firebase",
+                            "domain": "IP-Adressen",
+                            "desc": "So hilft es: Cloud Functions verwendet IP-Adressen, um Ereignisverarbeitungsfunktionen und HTTP-Funktionen basierend auf Endbenutzeraktionen auszuführen. Aufbewahrung: Cloud-Funktionen speichern IP-Adressen nur vorübergehend, um den Dienst bereitzustellen."
                         },
                         {
-                            "name": "_gid",
-                            "domain": "ihredomain.com",
-                            "desc": "Beschreibung ..."
+                            "name": "Firebase-Authentifizierung",
+                            "domain": "Passwörter, E-mailadressen, Telefonnummern, Benutzeragenten,IP-Adressen",
+                            "desc": "So hilft es: Firebase Authentication nutzt die Daten, um die Authentifizierung von Endbenutzern zu ermöglichen und die Verwaltung von Endbenutzerkonten zu erleichtern. Außerdem werden User-Agent-Strings und IP-Adressen verwendet, um zusätzliche Sicherheit zu bieten und Missbrauch bei der Anmeldung und Authentifizierung zu verhindern. Aufbewahrung: Firebase Authentication speichert protokollierte IP-Adressen einige Wochen lang. Es behält andere Authentifizierungsinformationen bei, bis der Firebase-Kunde die Löschung des zugehörigen Benutzers veranlasst. Anschließend werden die Daten innerhalb von 180 Tagen aus Live- und Backup-Systemen entfernt."
                         }
                     ]
                 }
             },
             {
                 "title": "Weitere Informationen",
-                "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten wenden Sie sich bitte an <a class='cc__link' href='#ihredomain.com'>mich</a>."
+                "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten wenden Sie sich bitte an die Webseiten Betreiber."
             }
         ]
     }

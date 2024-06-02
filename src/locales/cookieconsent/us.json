@@ -1,54 +1,54 @@
 {
     "consentModal": {
-        "title": "Hello traveller, it's cookie time!",
-        "description": "Our website uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will be set only after consent.",
+        "title": "Cookie Settings",
+        "description": "Our website uses strictly necessary cookies to ensure its proper function. Additionally, third-party cookies are set.",
         "acceptAllBtn": "Accept",
         "acceptNecessaryBtn": "Reject",
-        "showPreferencesBtn": "Manage preferences",
-        "footer": "<a href='/impressum'>Privacy Policy & Impressum</a>"
+        "showPreferencesBtn": "Manage Settings",
+        "footer": "<a href='/impressum'>Privacy Policy & Imprint</a>"
     },
     "preferencesModal": {
-        "title": "Cookie preferences",
-        "acceptAllBtn": "Accept all",
-        "acceptNecessaryBtn": "Reject all",
-        "savePreferencesBtn": "Save preferences",
+        "title": "Cookie Settings",
+        "acceptAllBtn": "Accept All",
+        "acceptNecessaryBtn": "Reject All",
+        "savePreferencesBtn": "Save Settings",
         "sections": [
             {
-                "title": "Cookie usage",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. For more details, refer to our <a href=\"#\" class=\"cc__link\">privacy policy</a>."
+                "title": "Cookie Usage",
+                "description": "Here you can view and adjust the cookie usage. Changes will be saved automatically. For more information, see our <a href='/impressum'>Privacy Policy</a>."
             },
             {
-                "title": "Strictly necessary cookies",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "title": "Own Cookies",
+                "description": "These cookies are necessary for the functionality of the website. They are usually only set in response to actions taken by you, such as setting the language used, or accessing the website via a URL containing a token. Almost all areas of the website will not function without consent. These cookies do not store any personal data.",
                 "linkedCategory": "app"
             },
             {
-                "title": "Performance and analytics cookies",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "title": "Firebase Cookies",
+                "description": "Firebase is a product developed by Google that provides various services for app and website development. This service is used to enable user management (storing users and their settings, e.g., accepted/rejected invitation) and to collect information about how visitors use our website. Further information is collected anonymously by Google. Google collects information in an anonymized form, including the number of visitors to the website, where visitors came from to the website, and the pages they visited. For more information, see Google's <a href='https://policies.google.com/privacy?hl=en' target='_blank'>Privacy Policy</a>.",
                 "linkedCategory": "firebase",
                 "cookieTable": {
                     "headers": {
-                        "name": "Cookie",
-                        "domain": "Domain",
+                        "name": "Service",
+                        "domain": "End User Data",
                         "desc": "Description"
                     },
                     "body": [
                         {
-                            "name": "_ga",
-                            "domain": "yourdomain.com",
-                            "desc": "description ..."
+                            "name": "Cloud Functions for Firebase",
+                            "domain": "IP Addresses",
+                            "desc": "How it helps: Cloud Functions uses IP addresses to execute event processing functions and HTTP functions based on end-user actions. Retention: Cloud Functions temporarily stores IP addresses to provide the service."
                         },
                         {
-                            "name": "_gid",
-                            "domain": "yourdomain.com",
-                            "desc": "description ..."
+                            "name": "Firebase Authentication",
+                            "domain": "Passwords, Email addresses, Phone numbers, User agents, IP addresses",
+                            "desc": "How it helps: Firebase Authentication uses the data to enable the authentication of end users and facilitate the management of end user accounts. User agent strings and IP addresses are also used to provide additional security and prevent abuse during sign-in and authentication. Retention: Firebase Authentication logs IP addresses for a few weeks. It retains other authentication information until the Firebase customer initiates the deletion of the associated user. The data is then removed from live and backup systems within 180 days."
                         }
                     ]
                 }
             },
             {
-                "title": "More information",
-                "description": "For any queries in relation to our policy on cookies and your choices, please <a class=\"cc__link\" href=\"#yourdomain.com\">contact me</a>."
+                "title": "Further Information",
+                "description": "If you have any questions about our cookie policy and your choices, please contact the website operators."
             }
         ]
     }
