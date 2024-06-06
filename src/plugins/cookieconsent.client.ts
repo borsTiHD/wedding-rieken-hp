@@ -8,6 +8,7 @@ import type { CookieConsentConfig } from 'vanilla-cookieconsent'
 export default defineNuxtPlugin(async() => {
     // Create the cookie store
     const cookieStore = useCookieStore()
+    const categories = cookieStore.categories
 
     const config: CookieConsentConfig = {
         // Will be called after the user has given first consent (accept/reject)
@@ -100,12 +101,12 @@ export default defineNuxtPlugin(async() => {
                     CookieConsent.reset(eraseCookie) // Reset the cookie consent and delete own cookies
                     window.location.reload() // Reload page to apply changes
                 },
-                isConsentAccepted: (categories: string[] = ['app', 'firebase']) => {
+                isConsentAccepted: (categoryList: string[] = categories) => {
                     // Loop through categories and check if they are accepted
-                    const acceptedCategories = categories.map((category) => CookieConsent?.acceptedCategory(category))
+                    const acceptedCategories = categoryList.map((category) => CookieConsent?.acceptedCategory(category))
                     const checkedConsent = acceptedCategories.every((category) => category)
                     if (!checkedConsent) {
-                        console.warn('Cookie consent not accepted for all categories:', categories)
+                        console.warn('Cookie consent not accepted for all categories:', categoryList)
                     }
 
                     return checkedConsent
