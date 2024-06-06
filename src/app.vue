@@ -1,6 +1,5 @@
 <template>
     <AppLoadingOverlay v-if="loading" :progress="progress" />
-    <AppCookieConsent v-else-if="!cookieConsentAccepted" />
     <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
         <Toast position="bottom-right" />
 
@@ -11,7 +10,8 @@
         <div v-if="!isIndex" class="background-image fixed top-0 left-0 w-full h-full" />
 
         <!-- Main content -->
-        <NuxtPage class="pt-20 z-20" />
+        <AppCookieConsent v-if="!cookieConsentAccepted && !isImprint" />
+        <NuxtPage v-else class="pt-20 z-20" />
 
         <!-- Scroll to top button -->
         <ScrollTop />
@@ -43,11 +43,6 @@ import '@fontsource/alex-brush'
 // Localisation
 const { t } = useI18n()
 
-// Cookie consent
-const cookieStore = useCookieStore()
-const preferences = computed(() => cookieStore.preferences)
-const cookieConsentAccepted = computed(() => preferences.value?.acceptType === 'all')
-
 // Language options for i18n
 // Set language based on cookie or browser language
 useLocale()
@@ -55,7 +50,21 @@ useLocale()
 // Router
 const route = useRoute()
 const routeName = computed(() => route.name as string)
+const routePath = computed(() => route.path)
 const isIndex = computed(() => routeName.value.includes('index'))
+const isImprint = computed(() => {
+    console.log('isImprint', route, routeName.value, routePath.value.includes('imprint'))
+    return routeName.value.includes('imprint')
+})
+
+// Cookie consent
+const cookieStore = useCookieStore()
+const preferences = computed(() => cookieStore.preferences)
+const cookieConsentAccepted = computed(() => {
+    // Check if cookie consent is accepted for 'app' and 'firebase' categories
+    return preferences.value?.acceptedCategories.includes('app')
+        && preferences.value?.acceptedCategories.includes('firebase')
+})
 
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
