@@ -68,13 +68,16 @@ import { usePagesStore } from '@/stores/pages'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
 
+// Localisation
+const { t } = useI18n()
+
 // Router
 const route = useRoute()
 const routeHash = computed(() => route.hash)
 
 // Navitems
 const pagesStore = usePagesStore()
-const navItems = computed(() => pagesStore.pages)
+const navItems = computed(() => pagesStore.pages.filter((page) => ![t('pages.imprint')].includes(page.name)))
 
 // User store
 const userStore = useUserStore()
