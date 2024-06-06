@@ -100,7 +100,7 @@ export default defineNuxtPlugin(async() => {
                     CookieConsent.reset(eraseCookie) // Reset the cookie consent and delete own cookies
                     window.location.reload() // Reload page to apply changes
                 },
-                consentCheck: (categories: string[] = ['app', 'firebase']) => {
+                isConsentAccepted: (categories: string[] = ['app', 'firebase']) => {
                     // Loop through categories and check if they are accepted
                     const acceptedCategories = categories.map((category) => CookieConsent?.acceptedCategory(category))
                     const checkedConsent = acceptedCategories.every((category) => category)

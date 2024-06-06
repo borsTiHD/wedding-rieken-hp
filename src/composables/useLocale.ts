@@ -29,7 +29,7 @@ export default function useLocale() {
 
     // Set locale cookie
     function setCookie(newLocale: string) {
-        if (!$CookieConsentActions?.consentCheck(['app'])) return null
+        if (!$CookieConsentActions?.isConsentAccepted(['app'])) return null
         setLocaleCookie(newLocale)
     }
 

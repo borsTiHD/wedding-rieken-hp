@@ -22,7 +22,7 @@ export const useUserStore = defineStore('user-store', () => {
     // Fetch config data
     async function fetchUserData() {
         // Check if the user has accepted the cookie consent
-        if (!$CookieConsentActions?.consentCheck(['app', 'firebase'])) return null
+        if (!$CookieConsentActions?.isConsentAccepted(['app', 'firebase'])) return null
 
         const cookie = useCookie('user-id-token')
 
@@ -59,7 +59,7 @@ export const useUserStore = defineStore('user-store', () => {
     // Fetch user profile data
     async function fetchUserProfile(uid: string) {
         // Check if the user has accepted the cookie consent
-        if (!$CookieConsentActions?.consentCheck(['app', 'firebase'])) return null
+        if (!$CookieConsentActions?.isConsentAccepted(['app', 'firebase'])) return null
 
         if (!uid) { throw new Error(t('firebase.custom.noUserId')) }
 
