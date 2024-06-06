@@ -1,5 +1,5 @@
 <template>
-    <div v-if="spotifyPlaylist" class="flex flex-col items-center gap-4">
+    <div v-if="spotifyPlaylist && cookieConsentSpotify" class="flex flex-col items-center gap-4">
         <iframe
             style="border-radius:12px"
             :src="spotifyUrl"
@@ -15,10 +15,19 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
+import { useCookieStore } from '@/stores/cookieconsent'
 
 // App config
 const appStore = useAppStore()
 const { spotifyPlaylist } = appStore
+
+// Cookie consent
+const cookieStore = useCookieStore()
+const preferences = computed(() => cookieStore.preferences)
+const cookieConsentSpotify = computed(() => {
+    // Check if cookie consent is accepted for 'spotify' category
+    return preferences.value?.acceptedCategories.includes('spotify')
+})
 
 // Computed property for the Spotify URL
 const spotifyUrl = computed(() => {

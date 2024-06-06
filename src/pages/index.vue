@@ -56,7 +56,7 @@
         </section>
 
         <!-- Spotify Playlist -->
-        <section v-if="spotifyPlaylist" id="spotify" class="bg-[#335C67]">
+        <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify" class="bg-[#335C67]">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <ShowSpotify />
             </div>
@@ -80,6 +80,7 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
+import { useCookieStore } from '@/stores/cookieconsent'
 import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import RouteDescription from '@/components/content/RouteDescription.vue'
@@ -93,6 +94,14 @@ import { useWindowSize } from '@/composables/useWindowSize'
 // App config
 const appStore = useAppStore()
 const { bride, groom, spotifyPlaylist } = appStore
+
+// Cookie consent
+const cookieStore = useCookieStore()
+const preferences = computed(() => cookieStore.preferences)
+const cookieConsentSpotify = computed(() => {
+    // Check if cookie consent is accepted for 'spotify' category
+    return preferences.value?.acceptedCategories.includes('spotify')
+})
 
 // Router
 const route = useRoute()
