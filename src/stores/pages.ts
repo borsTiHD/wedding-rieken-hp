@@ -43,6 +43,11 @@ export const usePagesStore = defineStore('pages-store', () => {
             )
         }
 
+        // Push the imprint and privacy policy pages
+        pages.push(
+            { name: t('pages.imprint'), path: localePath('/imprint') }
+        )
+
         return pages
     })
 

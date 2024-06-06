@@ -4,12 +4,8 @@
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <Card class="card-primary">
                     <template #title>
-                        <div class="flex items-center">
-                            <div class="ml-auto flex flex-col items-center gap-4">
-                                <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('consent.header') }}</h2>
-                            </div>
-                            <!-- Language selector -->
-                            <ChangeLanguage class="ml-auto" />
+                        <div class="flex flex-col text-center">
+                            <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('consent.header') }}</h2>
                         </div>
                     </template>
                     <template #content>
@@ -22,6 +18,7 @@
 
                             <!-- Actions -->
                             <div class="flex flex-wrap gap-4">
+                                <Button :label="t('imprint.header')" icon="pi pi-users" class="min-w-fit flex-1" outlined @click="goToImprint" />
                                 <Button :label="t('consent.preferences')" severity="info" icon="pi pi-search" class="min-w-fit flex-1" outlined @click="$CookieConsent.showPreferences()" />
                             </div>
                         </div>
@@ -33,12 +30,14 @@
 </template>
 
 <script setup lang="ts">
-import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
-
 const { t } = useI18n()
-
-// Cookie consent
+const router = useRouter()
+const localePath = useLocalePath()
 const { $CookieConsent } = useNuxtApp()
+
+function goToImprint() {
+    router.push(localePath('imprint'))
+}
 </script>
 
 <style scoped>

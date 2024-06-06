@@ -35,6 +35,10 @@
             "witnessesText": "Unsere Trauzeugen haben Antworten auf weitere Fragen."
         }
     },
+    "imprint": {
+        "header": "Impressum",
+        "content": "Angaben gemäß § 5 TMG: {bride} und {groom} {street} {city} {phone} {email} {vatId} {disclaimer} {privacyPolicy} {source}"
+    },
     "quotes": {
         "quote1": "Liebe ist nicht nur ein Wort, sondern ein Gefühl, das unsere Herzen tief berührt und uns zusammenhält.",
         "quote2": "Liebe ist der Anfang aller Dinge, der Grund und das Ziel unseres Lebens.",
@@ -49,6 +53,7 @@
     },
     "pages": {
         "home": "Home",
+        "imprint": "Impressum",
         "admin": "Admin",
         "date": "Datum",
         "infos": "Infos",
@@ -177,7 +182,7 @@
                 "password": "Ändern Sie Ihr Passwort hier, um die Sicherheit Ihres Kontos zu gewährleisten. Verwenden Sie ein starkes Passwort, das aus einer Kombination von Groß- und Kleinbuchstaben, Zahlen und Sonderzeichen besteht.",
                 "passwordReset": "Falls Sie Ihr Passwort vergessen haben, können Sie es hier zurücksetzen. Wir senden Ihnen Anweisungen zur Wiederherstellung an die mit Ihrem Konto verknüpfte E-Mail-Adresse.",
                 "cookieConsentPreferences": "Ändern Sie hier Ihre Cookie-Einstellungen. Sie können Ihre Zustimmung jederzeit widerrufen.",
-                "cookieConsentDelete": "Löschen Sie hier alle Cookies, die auf Ihrem Gerät gespeichert sind. Bitte beachten Sie, dass dadurch sämtliche Funktionen der Website deaktiviert werden.",
+                "cookieConsentDelete": "Löschen Sie hier alle Cookie-Einstellungen. Bitte beachten Sie, dass dadurch sämtliche Funktionen der Website deaktiviert werden und Sie erneut die Zustimmung erteilen müssen.",
                 "deleteUser": "Möchten Sie Ihr Konto dauerhaft löschen? Diese Aktion kann nicht rückgängig gemacht werden und alle Ihre gespeicherten Daten werden unwiderruflich gelöscht. Bitte seien Sie sicher, bevor Sie fortfahren.",
                 "logout": "Möchten Sie sich ausloggen? Sie können sich jederzeit wieder einloggen, um auf Ihr Konto zuzugreifen."
             }
