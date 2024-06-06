@@ -5,7 +5,7 @@
         "acceptAllBtn": "Akzeptieren",
         "acceptNecessaryBtn": "Ablehnen",
         "showPreferencesBtn": "Einstellungen verwalten",
-        "footer": "<a href='/impressum'>Datenschutzrichtlinie & Impressum</a>"
+        "footer": "<a href='/imprint'>Datenschutzrichtlinie & Impressum</a>"
     },
     "preferencesModal": {
         "title": "Cookie-Einstellungen",
@@ -15,7 +15,7 @@
         "sections": [
             {
                 "title": "Cookie-Nutzung",
-                "description": "Hier können Sie die Cookie-Nutzung einsehen und anpassen. Die Änderungen werden automatisch gespeichert. Weitere Informationen finden Sie in unserer <a href='/impressum'>Datenschutzerklärung</a>."
+                "description": "Hier können Sie die Cookie-Nutzung einsehen und anpassen. Die Änderungen werden automatisch gespeichert. Weitere Informationen finden Sie in unserer <a href='/imprint'>Datenschutzerklärung</a>."
             },
             {
                 "title": "Eigene Cookies",
@@ -23,7 +23,7 @@
                 "linkedCategory": "app"
             },
             {
-                "title": "Firebase Cookies",
+                "title": "Firebase",
                 "description": "Firebase ist ein von Google entwickeltes Produkt, das verschiedene Dienste für die Entwicklung von Apps und Webseiten bereitstellt. Dieser Dienst wird verwendet, um eine Userverwaltung (speichern von Usern sowie deren Einstellungen, zb. angenomme / abgelehnte Einladung) zu ermöglichen und um Informationen darüber zu sammeln, wie Besucher unsere Website nutzen. Weitere Informationen werden durch Google anonym gesammelt. Google sammelt Informationen in anonymisierter Form, einschließlich der Anzahl der Besucher der Website, woher die Besucher auf die Website gekommen sind und die Seiten, die sie besucht haben. Weitere Informationen finden Sie in der <a href='https://policies.google.com/privacy?hl=de' target='_blank'>Datenschutzerklärung</a> von Google.",
                 "linkedCategory": "firebase",
                 "cookieTable": {
@@ -45,6 +45,11 @@
                         }
                     ]
                 }
+            },
+            {
+                "title": "Spotify",
+                "description": "Unsere Webseite bindet eine Playlist von Spotify als iFrame ein, dabei werden durch Spotify diverse Cookies angelegt und Daten gesammelt. Wenn Sie nicht zustimmen, wird keine Spotify Instanz angeboten. Spotify ist ein externer Musik-Streaming-Dienst, der es Benutzern ermöglicht, Musik von Millionen von Künstlern zu hören. Weitere Informationen finden Sie in der <a href='https://www.spotify.com/de/legal/privacy-policy/' target='_blank'>Datenschutzerklärung</a> von Spotify.",
+                "linkedCategory": "spotify"
             },
             {
                 "title": "Weitere Informationen",

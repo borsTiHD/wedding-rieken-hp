@@ -5,7 +5,7 @@
         "acceptAllBtn": "Accept",
         "acceptNecessaryBtn": "Reject",
         "showPreferencesBtn": "Manage Settings",
-        "footer": "<a href='/impressum'>Privacy Policy & Imprint</a>"
+        "footer": "<a href='/imprint'>Privacy Policy & Imprint</a>"
     },
     "preferencesModal": {
         "title": "Cookie Settings",
@@ -15,7 +15,7 @@
         "sections": [
             {
                 "title": "Cookie Usage",
-                "description": "Here you can view and adjust the cookie usage. Changes will be saved automatically. For more information, see our <a href='/impressum'>Privacy Policy</a>."
+                "description": "Here you can view and adjust the cookie usage. Changes will be saved automatically. For more information, see our <a href='/imprint'>Privacy Policy</a>."
             },
             {
                 "title": "Own Cookies",
