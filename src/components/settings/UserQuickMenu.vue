@@ -35,6 +35,10 @@
                             <span>{{ t('pages.account') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
+                        <li class="quick-menu-list-item hover:text-neutral-400" @click="$CookieConsent.showPreferences()" @keydown.enter="$CookieConsent.showPreferences()">
+                            <span>{{ t('consent.preferences') }}</span>
+                            <i class="pi pi-chevron-right" />
+                        </li>
                         <li tabindex="0" class="quick-menu-list-item hover:text-red-400" @click="logout" @keydown.enter="logout">
                             <span>{{ t('logout.submit') }}</span>
                         </li>
@@ -50,6 +54,10 @@
                     <ul tabindex="0" class="flex flex-col px-0 sm:px-8 w-full">
                         <li class="quick-menu-list-item hover:text-neutral-400" @click="routeChange('/login')" @keydown.enter="routeChange('/login')">
                             <span>{{ t('login.submit') }}</span>
+                            <i class="pi pi-chevron-right" />
+                        </li>
+                        <li class="quick-menu-list-item hover:text-neutral-400" @click="$CookieConsent.showPreferences()" @keydown.enter="$CookieConsent.showPreferences()">
+                            <span>{{ t('consent.preferences') }}</span>
                             <i class="pi pi-chevron-right" />
                         </li>
                     </ul>
@@ -71,6 +79,7 @@ const toast = useToast()
 const { t } = useI18n()
 const router = useRouter()
 const localePath = useLocalePath()
+const { $CookieConsent } = useNuxtApp()
 const { logoutUser } = useFirebaseAuth()
 const { checkState } = useProfileChecker()
 

@@ -6,7 +6,7 @@
     "consent": {
         "header": "Willkommen",
         "subheader": "Cookies & Datenschutz",
-        "preferences" : "Cookie-Einstellungen",
+        "preferences" : "Datenschutzeinstellungen",
         "deleteme": "Cookies löschen",
         "message": "Wir verwenden Cookies, sowie den Dienst Firebase von Google um eine Benutzerverwaltung zu ermöglichen. Unsere Partner führen diese Informationen möglicherweise mit weiteren Daten zusammen, die Sie ihnen bereitgestellt haben oder die sie im Rahmen Ihrer Nutzung der Dienste gesammelt haben. Ohne Ihre Zustimmung können wir Ihnen diese Webseite nicht bereitstellen. Bitte stimmen Sie der Verwendung von Cookies und dem Dienst Firebase zu."
     },
@@ -36,8 +36,7 @@
         }
     },
     "imprint": {
-        "header": "Impressum",
-        "content": "Angaben gemäß § 5 TMG: {bride} und {groom} {street} {city} {phone} {email} {vatId} {disclaimer} {privacyPolicy} {source}"
+        "header": "Impressum und Datenschutz"
     },
     "quotes": {
         "quote1": "Liebe ist nicht nur ein Wort, sondern ein Gefühl, das unsere Herzen tief berührt und uns zusammenhält.",
