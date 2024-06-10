@@ -1,6 +1,6 @@
 {
     "consentModal": {
-        "title": "Cookie-Einstellungen",
+        "title": "Datenschutzeinstellungen",
         "description": "Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen. Dabei werden zudem Cookies von Drittanbietern angelegt.",
         "acceptAllBtn": "Akzeptieren",
         "acceptNecessaryBtn": "Ablehnen",
@@ -8,7 +8,7 @@
         "footer": "<a href='/imprint'>Datenschutzrichtlinie & Impressum</a>"
     },
     "preferencesModal": {
-        "title": "Cookie-Einstellungen",
+        "title": "Datenschutzeinstellungen",
         "acceptAllBtn": "Alles akzeptieren",
         "acceptNecessaryBtn": "Alles ablehnen",
         "savePreferencesBtn": "Einstellungen speichern",
