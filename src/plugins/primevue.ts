@@ -29,7 +29,14 @@ import Knob from 'primevue/knob'
 import OverlayPanel from 'primevue/overlaypanel'
 
 export default defineNuxtPlugin((nuxtApp) => {
-    nuxtApp.vueApp.use(PrimeVue, { ripple: true })
+    nuxtApp.vueApp.use(PrimeVue, {
+        ripple: true,
+        pt: {
+            button: {
+                label: 'truncate'
+            }
+        }
+    })
 
     // Toast service
     nuxtApp.vueApp.use(ToastService)
