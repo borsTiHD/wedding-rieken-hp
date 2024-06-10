@@ -1,6 +1,6 @@
 <template>
     <div class="flex">
-        <Dropdown v-model="locale" :options="availableLocales" optionLabel="label" optionValue="code" @change="onLanguageChange">
+        <Dropdown v-model="locale" :options="availableLocales" optionLabel="label" optionValue="code" :pt="{ trigger: 'w-fit mr-3' }" @change="onLanguageChange">
             <template #value="slotProps">
                 <div v-if="slotProps.value" class="flex items-center gap-2">
                     <span :class="`fi fi-${slotProps.value}`" />
