@@ -275,6 +275,8 @@
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 
+// TODO: Page not working correctly on mobile - fix it
+
 // Composables
 const { t } = useI18n()
 </script>

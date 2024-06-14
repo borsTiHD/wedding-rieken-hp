@@ -1,5 +1,5 @@
 <template>
-    <footer ref="footer" class="mt-auto flex justify-center items-center h-56 bg-footer text-primary z-50">
+    <footer ref="footer" class="mt-auto flex justify-center items-center h-56 bg-footer text-primary font-great-vibes z-50">
         <div class="flex flex-col justify-center items-center gap-2 z-50">
             <span>{{ t('footer.description', { bride, groom }) }}</span>
             <div class="flex gap-2">
@@ -10,7 +10,7 @@
                     <NuxtLink :to="item.path || item.to" class="link link-hover hover:text-rose-500 px-1">
                         {{ item.name }}
                     </NuxtLink>
-                    <span v-if="index < navItems.length - 1">|</span>
+                    <span v-if="index < navItems.length - 1" class="font-roboto">|</span>
                 </template>
             </div>
             <p class="flex items-end gap-2 font-weight-thin">
