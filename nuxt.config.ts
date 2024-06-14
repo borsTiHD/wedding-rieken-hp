@@ -58,19 +58,23 @@ export default defineNuxtConfig({
     },
     srcDir: 'src/',
     modules: [
+        '@primevue/nuxt-module',
         '@pinia/nuxt',
         '@formkit/nuxt',
         '@nuxtjs/i18n'
     ],
+    primevue: {
+        // Use PrimeVue Plugin for configuration
+        // https://primevue.org/nuxt/#useprimevue
+        usePrimeVue: false
+    },
     css: [
         'flag-icons/css/flag-icons.min.css', // https://github.com/lipis/flag-icons/tree/main
-        // 'primevue/resources/themes/lara-light-blue/theme.css',
-        'primevue/resources/primevue.min.css',
         'primeicons/primeicons.css',
-        '@/assets/css/theme.css', // custom primevue theme -> look at primevue-designer-colors.md
         '@/assets/css/tailwindcss.css', // tailwindcss
         '@/assets/css/animation.css', // custom animations by borstihd
-        '@/assets/css/animista.css' // animista animations
+        '@/assets/css/animista.css', // animista animations
+        '@/assets/css/main.css' // custom css
     ],
     router: {
         options: {
@@ -78,14 +82,10 @@ export default defineNuxtConfig({
         }
     },
     build: {
-        transpile: ['primevue', 'vue-i18n']
+        transpile: ['vue-i18n']
     },
     postcss: {
         plugins: {
-            // tailwindcss: {},
-            // autoprefixer: {}
-            'postcss-import': {},
-            'tailwindcss/nesting': {},
             tailwindcss: {},
             autoprefixer: {}
         }

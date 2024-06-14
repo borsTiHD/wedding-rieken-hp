@@ -3,13 +3,21 @@ import formKitTailwind from '@formkit/themes/tailwindcss'
 
 module.exports = {
     content: [
-        './index.html',
+        './src/components/**/*.{js,vue,ts}',
+        './src/layouts/**/*.vue',
+        './src/pages/**/*.vue',
+        './src/plugins/**/*.{js,ts}',
+        './src/app.vue',
+        './src/error.vue',
+        // './src/**/*.{vue,js,ts,jsx,tsx} !./src/server/**/*.ts', // Workaround for not including server files - nuxt/tailwind bug since 3.9.2
+        // './src/**/*.{vue,js,ts,jsx,tsx}',
+        // './index.html',
         './nuxt.config.{js,ts}',
-        './src/**/*.{vue,js,ts,jsx,tsx}',
         './node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}',
         './tailwind-formkit-theme.js'
     ],
     important: true,
+    darkMode: 'selector',
     theme: {
         extend: {
             fontFamily: {

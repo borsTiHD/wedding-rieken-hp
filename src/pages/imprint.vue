@@ -1,5 +1,5 @@
 <template>
-    <main class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
+    <main class="content-wrapper">
         <Card class="card-primary">
             <template #title>
                 <div class="flex flex-col items-center gap-4">
@@ -274,6 +274,8 @@
 
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
+
+// TODO: Page not working correctly on mobile - fix it
 
 // Composables
 const { t } = useI18n()

@@ -6,18 +6,16 @@
         <Menubar
             :model="navItems"
             :pt="{
-                root: {
+                root: 'bg-transparent border-none rounded-none',
+                rootList: {
                     class: [
-                        'bg-transparent border-none rounded-none',
-                        { 'shadow-md': isScrolled }
+                        'rounded-md bg-white',
+                        'transition-all duration-300 ease-in-out',
+                        { 'shadow-md': !isScrolled },
                     ]
                 },
-                menu: {
-                    class: [
-                        'p-1 rounded-md transition-all duration-300 ease-in-out',
-                        { 'bg-white shadow-md': !isScrolled }
-                    ]
-                }
+                item: 'p-1',
+                itemContent: 'p-3',
             }"
         >
             <template #item="{ item }">
@@ -25,7 +23,7 @@
                     <a
                         :href="href"
                         :class="[
-                            'p-menuitem-link text-black/60', // default
+                            'text-black/60', // default
                             'hover:text-primary/80', // hover - hover:text-black/80
                             {
                                 'active-link text-primary font-bold': isActive &&

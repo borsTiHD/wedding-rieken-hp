@@ -7,6 +7,7 @@ export default function(beginLoading?: boolean, endAutomaticly?: boolean) {
 
     // Start loading function
     const startLoading = () => {
+        loading.value = true
         const intervalTime = 50 // 5 seconds to 100%
         const maxProgress = 99 // Max progress
         interval.value = setInterval(() => {

@@ -53,7 +53,8 @@ const routeName = computed(() => route.name as string)
 const routePath = computed(() => route.path)
 const isIndex = computed(() => routeName.value.includes('index'))
 const isImprint = computed(() => {
-    console.log('isImprint', route, routeName.value, routePath.value.includes('imprint'))
+    // TODO: Fix imprint detection - should work with a middleware
+    console.log('DEBUG : isImprint', route, routeName.value, routePath.value.includes('imprint'))
     return routeName.value.includes('imprint')
 })
 
@@ -68,7 +69,7 @@ const cookieConsentAccepted = computed(() => {
 
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
-const { loading, progress, stoptLoading } = useLoadingSpinner(true)
+const { loading, progress, startLoading, stoptLoading } = useLoadingSpinner()
 
 // Stores
 const appStore = useAppStore() // App store
@@ -103,39 +104,11 @@ useHead({
 })
 
 // Fetch user data and app config
-onMounted(async() => {
+onNuxtReady(async() => {
+    startLoading() // Start loading spinner
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error
-    tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
+    await tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
     stoptLoading() // Stop loading spinner
 })
 </script>
-
-<style>
-/* Background color */
-body, html {
-    /* background: linear-gradient(to bottom, #ff0000, #0000ff); */
-    /* @apply bg-gradient-to-b from-body to-footer !important; */
-    @apply bg-body font-great-vibes -z-50 !important;
-}
-
-/* Background image */
-.background-image {
-    @apply bg-background-wallpaper bg-center bg-cover bg-no-repeat !important;
-}
-
-/* Main content wrapper */
-.content-sizer { @apply w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-6/12 !important; }
-.content-flex { @apply mx-auto flex flex-col gap-4 p-4 !important; }
-.content-wrapper { @apply content-flex content-sizer !important; }
-
-/* Styling for all cards */
-.card-primary {
-    @apply bg-white rounded-3xl ring-1 ring-slate-900/5 shadow-xl !important; /* bg-[#FFF3B0] */
-}
-
-/* Profile list items */
-.profile-list-item {
-    @apply flex items-center justify-between py-2 !important;
-}
-</style>

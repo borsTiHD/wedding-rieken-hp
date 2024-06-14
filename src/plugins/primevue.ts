@@ -1,75 +1,68 @@
 import { defineNuxtPlugin } from '#app'
 import PrimeVue from 'primevue/config'
-import ToastService from 'primevue/toastservice'
-import ConfirmationService from 'primevue/confirmationservice'
-import Tooltip from 'primevue/tooltip'
-import Card from 'primevue/card'
-import Button from 'primevue/button'
-import Calendar from 'primevue/calendar'
-import Toast from 'primevue/toast'
-import InputText from 'primevue/inputtext'
-import Password from 'primevue/password'
-import Skeleton from 'primevue/skeleton'
-import TabView from 'primevue/tabview'
-import TabPanel from 'primevue/tabpanel'
-import ProgressSpinner from 'primevue/progressspinner'
-import InlineMessage from 'primevue/inlinemessage'
-import Avatar from 'primevue/avatar'
-import FileUpload from 'primevue/fileupload'
-import ScrollTop from 'primevue/scrolltop'
-import Dialog from 'primevue/dialog'
-import DataTable from 'primevue/datatable'
-import Column from 'primevue/column'
-import Tag from 'primevue/tag'
-import Dropdown from 'primevue/dropdown'
-import ConfirmPopup from 'primevue/confirmpopup'
-import Steps from 'primevue/steps'
-import Menubar from 'primevue/menubar'
-import Knob from 'primevue/knob'
-import OverlayPanel from 'primevue/overlaypanel'
+import { definePreset, palette } from '@primevue/themes'
+import Aura from '@primevue/themes/aura'
+
+type ColorPalette = Record<number, string>
+
+// Create a primary color palette
+const primaryColor: ColorPalette = palette('#335C67')
+
+// Define a new preset based on Aura
+const AppPreset = definePreset(Aura, {
+    semantic: {
+        primary: {
+            // 50: '{amber.50}',
+            // 100: '{amber.100}',
+            // 200: '{amber.200}',
+            // 300: '{amber.300}',
+            // 400: '{amber.400}',
+            // 500: '{amber.500}',
+            // 600: '{amber.600}',
+            // 700: '{amber.700}',
+            // 800: '{amber.800}',
+            // 900: '{amber.900}',
+            // 950: '{amber.950}'
+
+            50: primaryColor[50],
+            100: primaryColor[100],
+            200: primaryColor[200],
+            300: primaryColor[300],
+            400: primaryColor[400],
+            500: primaryColor[500],
+            600: primaryColor[600],
+            700: primaryColor[700],
+            800: primaryColor[800],
+            900: primaryColor[900],
+            950: primaryColor[950]
+        }
+    }
+})
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, {
         ripple: true,
+        theme: {
+            preset: AppPreset,
+            options: {
+                prefix: 'p',
+                darkModeSelector: 'dark',
+                cssLayer: {
+                    name: 'primevue',
+                    order: 'tailwind-base, primevue, tailwind-utilities'
+                }
+            }
+        },
         pt: {
             button: {
                 label: 'truncate'
             }
+        },
+        components: {
+            include: '*' // Include all components
+        },
+        directives: {
+            include: ['Tooltip']
         }
     })
-
-    // Toast service
-    nuxtApp.vueApp.use(ToastService)
-
-    // Tooltip directive
-    nuxtApp.vueApp.directive('tooltip', Tooltip)
-
-    // Confirmation service
-    nuxtApp.vueApp.use(ConfirmationService)
-
-    // PrimeVue components
-    nuxtApp.vueApp.component('Card', Card)
-    nuxtApp.vueApp.component('Button', Button)
-    nuxtApp.vueApp.component('Calendar', Calendar)
-    nuxtApp.vueApp.component('Toast', Toast)
-    nuxtApp.vueApp.component('InputText', InputText)
-    nuxtApp.vueApp.component('Password', Password)
-    nuxtApp.vueApp.component('Skeleton', Skeleton)
-    nuxtApp.vueApp.component('TabView', TabView)
-    nuxtApp.vueApp.component('TabPanel', TabPanel)
-    nuxtApp.vueApp.component('ProgressSpinner', ProgressSpinner)
-    nuxtApp.vueApp.component('InlineMessage', InlineMessage)
-    nuxtApp.vueApp.component('Avatar', Avatar)
-    nuxtApp.vueApp.component('FileUpload', FileUpload)
-    nuxtApp.vueApp.component('ScrollTop', ScrollTop)
-    nuxtApp.vueApp.component('Dialog', Dialog)
-    nuxtApp.vueApp.component('DataTable', DataTable)
-    nuxtApp.vueApp.component('Column', Column)
-    nuxtApp.vueApp.component('Tag', Tag)
-    nuxtApp.vueApp.component('Dropdown', Dropdown)
-    nuxtApp.vueApp.component('ConfirmPopup', ConfirmPopup)
-    nuxtApp.vueApp.component('Steps', Steps)
-    nuxtApp.vueApp.component('Menubar', Menubar)
-    nuxtApp.vueApp.component('Knob', Knob)
-    nuxtApp.vueApp.component('OverlayPanel', OverlayPanel)
 })
