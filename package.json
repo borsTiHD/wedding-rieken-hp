@@ -1,5 +1,5 @@
 {
-    "name": "nuxt-app",
+    "name": "wedding-rieken-hp",
     "private": true,
     "scripts": {
         "build": "nuxt build",
