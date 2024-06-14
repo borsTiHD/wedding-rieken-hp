@@ -2,10 +2,9 @@
     "name": "wedding-rieken-hp",
     "private": true,
     "scripts": {
+        "start": "node .output/server/index.mjs",
         "build": "nuxt build",
         "dev": "nuxt dev --host",
-        "generate": "nuxt generate",
-        "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
         "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore ."
     },
