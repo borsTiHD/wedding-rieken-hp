@@ -73,7 +73,8 @@ export default defineNuxtConfig({
         'primeicons/primeicons.css',
         '@/assets/css/tailwindcss.css', // tailwindcss
         '@/assets/css/animation.css', // custom animations by borstihd
-        '@/assets/css/animista.css' // animista animations
+        '@/assets/css/animista.css', // animista animations
+        '@/assets/css/main.css' // custom css
     ],
     router: {
         options: {
@@ -81,12 +82,10 @@ export default defineNuxtConfig({
         }
     },
     build: {
-        transpile: ['primevue', 'vue-i18n']
+        transpile: ['vue-i18n']
     },
     postcss: {
         plugins: {
-            'postcss-import': {},
-            'tailwindcss/nesting': {},
             tailwindcss: {},
             autoprefixer: {}
         }
