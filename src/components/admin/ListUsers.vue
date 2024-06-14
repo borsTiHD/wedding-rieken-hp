@@ -219,7 +219,7 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import { FilterMatchMode } from 'primevue/api'
+import { FilterMatchMode } from '@primevue/core/api'
 import DisplayModal from '@/components/DisplayModal.vue'
 import CreateUser from '@/components/admin/CreateUser.vue'
 import CheckGuest from '@/components/admin/CheckGuest.vue'

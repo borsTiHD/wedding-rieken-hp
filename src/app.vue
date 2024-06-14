@@ -116,7 +116,7 @@ onMounted(async() => {
 body, html {
     /* background: linear-gradient(to bottom, #ff0000, #0000ff); */
     /* @apply bg-gradient-to-b from-body to-footer !important; */
-    @apply bg-body font-great-vibes -z-50 !important;
+    @apply bg-body -z-50 !important;
 }
 
 /* Background image */
@@ -137,5 +137,9 @@ body, html {
 /* Profile list items */
 .profile-list-item {
     @apply flex items-center justify-between py-2 !important;
+}
+
+h2 {
+    @apply text-xl text-gray-700 !important;
 }
 </style>
