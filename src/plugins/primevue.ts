@@ -3,8 +3,10 @@ import PrimeVue from 'primevue/config'
 import { definePreset, palette } from '@primevue/themes'
 import Aura from '@primevue/themes/aura'
 
+type ColorPalette = Record<number, string>
+
 // Create a primary color palette
-const primaryColor = palette('#335C67')
+const primaryColor: ColorPalette = palette('#335C67')
 
 // Define a new preset based on Aura
 const AppPreset = definePreset(Aura, {
