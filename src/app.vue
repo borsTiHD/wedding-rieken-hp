@@ -53,7 +53,8 @@ const routeName = computed(() => route.name as string)
 const routePath = computed(() => route.path)
 const isIndex = computed(() => routeName.value.includes('index'))
 const isImprint = computed(() => {
-    console.log('isImprint', route, routeName.value, routePath.value.includes('imprint'))
+    // TODO: Fix imprint detection - should work with a middleware
+    console.log('DEBUG : isImprint', route, routeName.value, routePath.value.includes('imprint'))
     return routeName.value.includes('imprint')
 })
 
@@ -107,7 +108,7 @@ onNuxtReady(async() => {
     startLoading() // Start loading spinner
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error
-    tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
+    await tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
     stoptLoading() // Stop loading spinner
 })
 </script>

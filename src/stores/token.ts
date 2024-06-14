@@ -58,7 +58,7 @@ export const useTokenStore = defineStore('token-store', () => {
     // Delete invitation token from localStorage
     function deleteInvitationToken() {
         const tokenLocalStorage = useStorage('invitation-token', undefined, localStorage, { mergeDefaults: true })
-        tokenLocalStorage.value = null
+        if (tokenLocalStorage.value !== undefined) { tokenLocalStorage.value = null }
         token.value = undefined
         return true
     }
