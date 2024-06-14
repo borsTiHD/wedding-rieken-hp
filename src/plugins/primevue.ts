@@ -9,7 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             preset: Aura,
             options: {
                 prefix: 'p',
-                darkModeSelector: 'system',
+                darkModeSelector: 'dark',
                 cssLayer: {
                     name: 'primevue',
                     order: 'tailwind-base, primevue, tailwind-utilities'

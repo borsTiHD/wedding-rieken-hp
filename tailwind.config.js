@@ -17,6 +17,7 @@ module.exports = {
         './tailwind-formkit-theme.js'
     ],
     important: true,
+    darkMode: 'selector',
     theme: {
         extend: {
             fontFamily: {
