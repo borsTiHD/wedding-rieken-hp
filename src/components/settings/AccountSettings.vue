@@ -113,9 +113,9 @@
                     </dd>
                 </div>
 
-                <!-- Logout -->
+                <!-- Back to profile settings -->
                 <div class="sm:flex">
-                    <Button :label="t('user.profileButton')" class="w-full" icon="pi pi-user" raised @click="router.push(localePath('/user'))" />
+                    <Button :label="t('user.profileButton')" severity="secondary" class="w-full" icon="pi pi-user" @click="router.push(localePath('/user'))" />
                 </div>
             </dl>
         </template>

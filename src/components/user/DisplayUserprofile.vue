@@ -131,9 +131,9 @@
                         <UpgradeUserRole class="basis-full" />
                     </li>
 
-                    <!-- User actions -->
-                    <li class="profile-list-item">
-                        <Button :label="t('user.account.button')" class="w-full" icon="pi pi-user" raised @click="router.push(localePath('/user/account'))" />
+                    <!-- Go to account settings -->
+                    <li class="profile-list-item pt-4">
+                        <Button :label="t('user.account.button')" severity="secondary" class="w-full" icon="pi pi-user" @click="router.push(localePath('/user/account'))" />
                     </li>
                 </ul>
             </div>
