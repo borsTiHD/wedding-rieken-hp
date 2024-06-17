@@ -23,8 +23,6 @@ export default defineNuxtPlugin(async() => {
 
     // Function to clear all cookies, local storage, session storage and indexedDB
     function clearAll() {
-        console.log('Clearing all data')
-
         // Clear all cookies
         const cookies = document.cookie.split(';')
         for (const cookie of cookies) {
@@ -90,7 +88,6 @@ export default defineNuxtPlugin(async() => {
     function checkAppConsent() {
         const appConsent = isConsentAccepted(['app'])
         if (!appConsent) {
-            console.log('App consent not accepted - ^clearing all app data')
             clearSpecificLocalStorageKeys(['token'])
             clearSpecificSessionStorageKeys(['token'])
             clearSpecificCookies(['i18n_redirected'])
@@ -103,7 +100,6 @@ export default defineNuxtPlugin(async() => {
     function checkFirebaseConsent() {
         const firebaseConsent = isConsentAccepted(['firebase'])
         if (!firebaseConsent) {
-            console.log('Firebase consent not accepted - clearing all firebase data')
             clearIndexedDB(['firebaseLocalStorageDb', 'firebase-heartbeat-database'])
             clearSpecificCookies(['user-id-token'])
         }
@@ -114,9 +110,6 @@ export default defineNuxtPlugin(async() => {
     // Check consent for spotify category
     function checkSpotifyConsent() {
         const spotifyConsent = isConsentAccepted(['spotify'])
-        if (!spotifyConsent) {
-            console.log('Spotify consent not accepted')
-        }
 
         return spotifyConsent
     }
