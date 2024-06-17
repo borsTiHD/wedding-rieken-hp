@@ -1,6 +1,6 @@
 <template>
     <AppLoadingOverlay v-if="loading" :progress="progress" />
-    <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
+    <div class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
         <Toast position="bottom-right" />
 
         <!-- Navbar -->
