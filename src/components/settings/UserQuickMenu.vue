@@ -9,7 +9,7 @@
             @keydown.enter="showSearchPanel"
         />
 
-        <OverlayPanel ref="op" :pt="{ root: { class: [ 'w-full sm:w-96 card-primary' ] } }">
+        <Popover ref="op" :pt="{ root: { class: [ 'w-full sm:w-96 card-primary' ] } }">
             <div class="flex flex-col items-center gap-4">
                 <DisplayAvatar />
 
@@ -63,13 +63,13 @@
                     </ul>
                 </template>
             </div>
-        </OverlayPanel>
+        </Popover>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import OverlayPanel from 'primevue/overlaypanel'
+import Popover from 'primevue/popover'
 import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
 import DisplayProfileProgress from '@/components/user/DisplayProfileProgress.vue'
 import { useUserStore } from '@/stores/user'
@@ -89,7 +89,7 @@ const uid = computed(() => userStore.uid)
 const displayName = computed(() => userStore.displayName)
 
 // Overlay search panel
-const op = ref<OverlayPanel | null>(null)
+const op = ref<typeof Popover | null>(null)
 const showSearchPanel = (event: PointerEvent | KeyboardEvent) => {
     op.value?.toggle(event)
 }

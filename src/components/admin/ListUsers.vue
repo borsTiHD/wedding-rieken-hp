@@ -64,7 +64,7 @@
                             </DisplayModal>
 
                             <!-- Filter users -->
-                            <Dropdown
+                            <Select
                                 v-model="selectedType"
                                 :options="types"
                                 optionLabel="name"
