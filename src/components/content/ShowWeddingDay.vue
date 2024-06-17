@@ -29,5 +29,5 @@ const { t } = useI18n()
 
 // App config
 const appStore = useAppStore()
-const config = appStore.config
+const config = computed(() => appStore.config)
 </script>

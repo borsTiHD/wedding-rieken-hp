@@ -2,44 +2,48 @@
     <main class="mx-auto flex flex-col">
         <!-- Main content -->
         <section class="h-screen flex justify-center relative overflow-hidden -mt-20">
-            <!-- Background image -->
-            <div
-                class="background-image absolute w-full h-full"
-                :style="{ transform: `translateY(${scrollY / 2}px)` }"
-            />
-
-            <!-- Content wrapper -->
-            <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
+            <ClientOnly>
+                <!-- Background image -->
                 <div
-                    class="mt-auto flex flex-col justify-center text-white"
-                    :style="{ transform: `translateY(${scrollY / 4}px)` }"
-                >
-                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
-                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
-                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
-                </div>
-
-                <!-- Scroll down icon -->
-                <i
-                    :class="[
-                        isScrolled ? 'opacity-0' : 'opacity-100',
-                        'mt-auto mb-20 text-3xl md:text-5xl self-center ', // Sizes
-                        'text-white drop-shadow-sm pi pi-angle-down', // Icon
-                        'motion-safe:animate-bounce motion-reduce:animate-none', // Animation
-                        'cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg' // Hover
-                    ]"
-                    @click="scrollToSection()"
+                    class="background-image absolute w-full h-full"
+                    :style="{ transform: `translateY(${scrollY / 2}px)` }"
                 />
-            </div>
+
+                <!-- Content wrapper -->
+                <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
+                    <div
+                        class="mt-auto flex flex-col justify-center text-white"
+                        :style="{ transform: `translateY(${scrollY / 4}px)` }"
+                    >
+                        <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
+                        <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
+                        <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
+                    </div>
+
+                    <!-- Scroll down icon -->
+                    <i
+                        :class="[
+                            isScrolled ? 'opacity-0' : 'opacity-100',
+                            'mt-auto mb-20 text-3xl md:text-5xl self-center ', // Sizes
+                            'text-white drop-shadow-sm pi pi-angle-down', // Icon
+                            'motion-safe:animate-bounce motion-reduce:animate-none', // Animation
+                            'cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg' // Hover
+                        ]"
+                        @click="scrollToSection()"
+                    />
+                </div>
+            </ClientOnly>
         </section>
 
         <!-- WeddingDay -->
         <section id="wedding" class="bg-accent-3">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-                <div class="flex flex-wrap gap-4">
-                    <ShowWeddingDay />
-                    <ShowProcedure />
-                </div>
+                <ClientOnly>
+                    <div class="flex flex-wrap gap-4">
+                        <ShowWeddingDay />
+                        <ShowProcedure />
+                    </div>
+                </ClientOnly>
                 <ShowQuote />
             </div>
         </section>
@@ -93,7 +97,8 @@ import { useWindowSize } from '@/composables/useWindowSize'
 
 // App config
 const appStore = useAppStore()
-const { bride, groom, spotifyPlaylist } = appStore
+const { bride, groom } = appStore
+const spotifyPlaylist = computed(() => appStore.spotifyPlaylist)
 
 // Cookie consent
 const cookieStore = useCookieStore()

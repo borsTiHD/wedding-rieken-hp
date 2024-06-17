@@ -1,35 +1,37 @@
 <template>
     <main class="mx-auto flex flex-wrap gap-4 p-4 w-full sm:w-11/12 md:w-10/12 lg:w-8/12">
-        <!-- You are an admin -->
-        <template v-if="user.uid && userProfile?.role === 'admin'">
-            <div class="flex flex-wrap gap-4 w-full">
-                <!-- Change date -->
-                <ChangeWeddingDate class="basis-[40rem]" />
+        <ClientOnly>
+            <!-- You are an admin -->
+            <template v-if="user.uid && userProfile?.role === 'admin'">
+                <div class="flex flex-wrap gap-4 w-full">
+                    <!-- Change date -->
+                    <ChangeWeddingDate class="basis-[40rem]" />
 
-                <!-- QR Code -->
-                <ShowQRCode class="basis-80" />
-            </div>
+                    <!-- QR Code -->
+                    <ShowQRCode class="basis-80" />
+                </div>
 
-            <div class="flex flex-wrap gap-4 w-full">
-                <!-- Change deadline -->
-                <ChangeDeadline class="basis-[40rem]" />
+                <div class="flex flex-wrap gap-4 w-full">
+                    <!-- Change deadline -->
+                    <ChangeDeadline class="basis-[40rem]" />
 
-                <!-- Change invite token -->
-                <ChangeInviteToken class="basis-80" />
-            </div>
+                    <!-- Change invite token -->
+                    <ChangeInviteToken class="basis-80" />
+                </div>
 
-            <div class="flex flex-wrap gap-4 w-full">
-                <ChangeWeddingDuration class="basis-80" />
-                <ChangeLocation class="basis-[40rem]" />
-            </div>
+                <div class="flex flex-wrap gap-4 w-full">
+                    <ChangeWeddingDuration class="basis-80" />
+                    <ChangeLocation class="basis-[40rem]" />
+                </div>
 
-            <div class="flex flex-wrap gap-4 w-full">
-                <ChangeSpotifyPlaylist />
-            </div>
-        </template>
+                <div class="flex flex-wrap gap-4 w-full">
+                    <ChangeSpotifyPlaylist />
+                </div>
+            </template>
 
-        <!-- You are not an admin -->
-        <NoAdmin v-else />
+            <!-- You are not an admin -->
+            <NoAdmin v-else />
+        </ClientOnly>
     </main>
 </template>
 

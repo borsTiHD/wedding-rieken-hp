@@ -1,5 +1,9 @@
 <template>
-    <div v-if="!countdownFinished" class="flex justify-around text-xl w-full">
+    <!-- Countdown is not updated yet -->
+    <span v-if="!updated" class="text-3xl font-bold">-</span>
+
+    <!-- Countdown is running -->
+    <div v-else-if="!countdownFinished" class="flex justify-around text-xl w-full">
         <div class="text-center">
             <div class="text-3xl font-bold">{{ days }}</div>
             <div class="text-sm">{{ t('countdown.days', days) }}</div>
@@ -38,6 +42,7 @@ const appStore = useAppStore()
 const weddingDuration = computed(() => appStore.weddingDuration)
 
 // Refs
+const updated = ref(false) // True if countdown was updated
 const interval = ref<null | ReturnType<typeof setInterval>>(null) // Interval for updating countdown
 const timeLeft = ref(0) // Time left in seconds or negative
 
@@ -58,6 +63,7 @@ const updateCountdown = () => {
 
     const currentTime = Math.floor(Date.now() / 1000)
     timeLeft.value = props.timestamp - currentTime
+    updated.value = true
 }
 
 onMounted(() => {

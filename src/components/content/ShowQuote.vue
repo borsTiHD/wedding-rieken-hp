@@ -1,9 +1,11 @@
 <template>
     <Card class="card-primary grow">
         <template #content>
-            <div class="flex flex-col items-center gap-4">
-                <p class="italic">{{ getQuote }}</p>
-            </div>
+            <ClientOnly fallback-tag="p" fallback="Loading quote...">
+                <div class="flex flex-col items-center gap-4">
+                    <p class="italic">{{ getQuote }}</p>
+                </div>
+            </ClientOnly>
         </template>
     </Card>
 </template>

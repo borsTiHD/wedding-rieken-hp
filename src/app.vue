@@ -4,17 +4,20 @@
         <Toast position="bottom-right" />
 
         <!-- Navbar -->
-        <AppNavbar />
+        <ClientOnly>
+            <AppNavbar />
+        </ClientOnly>
 
         <!-- Background image -->
         <div v-if="!isIndex" class="background-image fixed top-0 left-0 w-full h-full" />
 
         <!-- Main content -->
-        <AppCookieConsent v-if="!cookieConsentAccepted && !isImprint" />
-        <NuxtPage v-else class="pt-20 z-20" />
+        <NuxtPage class="pt-20 z-20" />
 
         <!-- Scroll to top button -->
-        <ScrollTop />
+        <ClientOnly>
+            <ScrollTop />
+        </ClientOnly>
 
         <!-- Footer -->
         <AppFooter />
@@ -22,7 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import AppCookieConsent from '@/components/layout/AppCookieConsent.vue'
 import AppLoadingOverlay from '@/components/layout/AppLoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -31,7 +33,6 @@ import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
-import { useCookieStore } from '@/stores/cookieconsent'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
@@ -49,23 +50,8 @@ useLocale()
 
 // Router
 const route = useRoute()
-const routeName = computed(() => route.name as string)
-const routePath = computed(() => route.path)
+const routeName = computed(() => route.name as string || '')
 const isIndex = computed(() => routeName.value.includes('index'))
-const isImprint = computed(() => {
-    // TODO: Fix imprint detection - should work with a middleware
-    console.log('DEBUG : isImprint', route, routeName.value, routePath.value.includes('imprint'))
-    return routeName.value.includes('imprint')
-})
-
-// Cookie consent
-const cookieStore = useCookieStore()
-const preferences = computed(() => cookieStore.preferences)
-const cookieConsentAccepted = computed(() => {
-    // Check if cookie consent is accepted for 'app' and 'firebase' categories
-    return preferences.value?.acceptedCategories.includes('app')
-        && preferences.value?.acceptedCategories.includes('firebase')
-})
 
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
