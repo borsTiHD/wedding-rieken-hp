@@ -4,6 +4,7 @@ import handleFirebaseError from '@/composables/handleFirebaseError'
 import type { Config, PartialConfig } from '@/types/Config'
 
 export const useAppStore = defineStore('app-store', () => {
+    const appConfig = useAppConfig()
     const { queryByCollectionAndId, updateByCollectionAndId } = useFirestore()
     const { t } = useI18n()
 
@@ -15,7 +16,7 @@ export const useAppStore = defineStore('app-store', () => {
     const groom = ref<string>('Marcel')
 
     // Theme color -> sets the background color of the app
-    const themeColor = ref<string>('#cbc8c6')
+    const themeColor = ref<string>(appConfig.theme.body)
     function setThemeColor(color: string) {
         themeColor.value = color
     }

@@ -34,7 +34,7 @@
         </section>
 
         <!-- WeddingDay -->
-        <section id="wedding" class="bg-[#540B0E]">
+        <section id="wedding" class="bg-accent-3">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     <ShowWeddingDay />
@@ -45,7 +45,7 @@
         </section>
 
         <!-- Infos -->
-        <section id="infos" class="bg-[#E09F3E]">
+        <section id="infos" class="bg-accent">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <div class="flex flex-wrap md:flex-nowrap gap-4">
                     <RouteDescription class="basis-6/12" />
@@ -56,21 +56,21 @@
         </section>
 
         <!-- Spotify Playlist -->
-        <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify" class="bg-[#335C67]">
+        <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify" class="bg-primary">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <ShowSpotify />
             </div>
         </section>
 
         <!-- Gallery -->
-        <section id="infos" class="bg-[#540B0E]">
+        <section id="infos" class="bg-accent-2">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <GalleryAlbum />
             </div>
         </section>
 
         <!-- Riddle -->
-        <section id="infos" class="bg-[#E09F3E]">
+        <section id="infos" class="bg-accent">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
                 <ShowRiddle />
             </div>

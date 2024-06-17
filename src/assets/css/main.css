@@ -17,7 +17,7 @@ body, html {
 
 /* Styling for all cards */
 .card-primary {
-    @apply bg-white rounded-3xl ring-1 ring-slate-900/5 shadow-xl !important; /* bg-[#FFF3B0] */
+    @apply bg-white rounded-3xl ring-1 ring-slate-900/5 shadow-xl !important; /* bg-secondary */
 }
 
 /* Profile list items */

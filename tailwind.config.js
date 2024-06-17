@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import formKitTailwind from '@formkit/themes/tailwindcss'
+import { theme } from './src/config/theme'
 
 module.exports = {
     content: [
@@ -7,8 +8,10 @@ module.exports = {
         './src/layouts/**/*.vue',
         './src/pages/**/*.vue',
         './src/plugins/**/*.{js,ts}',
+        './src/config/**/*.{js,ts}',
         './src/app.vue',
         './src/error.vue',
+        './src/app.config.ts',
         // './src/**/*.{vue,js,ts,jsx,tsx} !./src/server/**/*.ts', // Workaround for not including server files - nuxt/tailwind bug since 3.9.2
         // './src/**/*.{vue,js,ts,jsx,tsx}',
         // './index.html',
@@ -27,14 +30,13 @@ module.exports = {
                 'alex-brush': ['Alex Brush']
             },
             colors: {
-                // Colors: read more in 'primevue-designer-colors.md'
-                body: '#cbc8c6', // body background color - also set on AppNavbar component for theme color (stored in app store)
-                footer: '#FFFFFF', // footer background color, '#E8E8F0' old, '#0f172a' for dark theme
-                primary: '#335C67', // primary color
-                secondary: '#FFF3B0', // secondary color
-                accent: '#E09F3E', // accent color
-                'accent-2': '#9E2A2B', // accent color 2
-                'accent-3': '#540B0E' // accent color 3
+                body: theme.body,
+                surface: theme.surface,
+                primary: theme.primary,
+                secondary: theme.secondary,
+                accent: theme.accent,
+                'accent-2': theme['accent-2'],
+                'accent-3': theme['accent-3']
             },
             backgroundImage: {
                 'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/pexels-photo-2253870.jpeg\')'

@@ -1,5 +1,5 @@
 <template>
-    <footer ref="footer" class="mt-auto flex justify-center items-center h-56 bg-footer text-primary font-great-vibes z-50">
+    <footer ref="footer" class="mt-auto flex justify-center items-center h-56 bg-surface text-primary font-great-vibes z-50">
         <div class="flex flex-col justify-center items-center gap-2 z-50">
             <span>{{ t('footer.description', { bride, groom }) }}</span>
             <div class="flex gap-2">
@@ -25,7 +25,7 @@
         <!-- Background overlay - used to overlay the background image -->
         <div
             ref="backgroundOverlay"
-            class="bg-footer fixed w-full bottom-0 left-0 z-0 pointer-events-none"
+            class="bg-surface fixed w-full bottom-0 left-0 z-0 pointer-events-none"
             :style="{ height: `${backgroundOverlayHeight}px` }"
         />
     </footer>

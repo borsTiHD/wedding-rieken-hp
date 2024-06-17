@@ -66,6 +66,8 @@ import { usePagesStore } from '@/stores/pages'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
 
+const appConfig = useAppConfig()
+
 // Localisation
 const { t } = useI18n()
 
@@ -96,11 +98,11 @@ const appStore = useAppStore() // App store
 // Change theme color on scroll
 watch(isScrolled, (newValue) => {
     if (newValue) {
-        // After scroll to match navbar background
-        appStore.setThemeColor('#fff')
+        // After scroll to match navbar background color with footer color
+        appStore.setThemeColor(appConfig.theme.surface)
     } else {
         // Default theme color
-        appStore.setThemeColor('#cbc8c6')
+        appStore.setThemeColor(appConfig.theme.body)
     }
 })
 </script>
