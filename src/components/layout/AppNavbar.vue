@@ -9,13 +9,12 @@
                 root: 'bg-transparent border-none rounded-none',
                 rootList: {
                     class: [
-                        'rounded-md bg-white',
+                        'p-1 rounded-md bg-white',
                         'transition-all duration-300 ease-in-out',
                         { 'shadow-md': !isScrolled },
                     ]
                 },
-                item: 'p-1',
-                itemContent: 'p-3',
+                itemContent: 'flex items-center justify-center',
             }"
         >
             <template #item="{ item }">
@@ -23,6 +22,7 @@
                     <a
                         :href="href"
                         :class="[
+                            'p-2 px-3 w-full text-center',
                             'text-black/60', // default
                             'hover:text-primary/80', // hover - hover:text-black/80
                             {
