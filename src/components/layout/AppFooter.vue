@@ -59,7 +59,7 @@ useEventListener(window, 'scroll', () => { backgroundOverlayHeight.value = calcu
 // This function is called on scroll event
 const footer = ref<HTMLElement | null>(null)
 const calculateHeight = () => {
-    if (footer.value) {
+    if (!!footer.value) {
         const rect = footer.value.getBoundingClientRect()
         const scrollPosition = window.innerHeight - rect.top
 
