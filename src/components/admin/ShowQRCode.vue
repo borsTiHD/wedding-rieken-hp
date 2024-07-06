@@ -61,6 +61,8 @@ const getOptions = () => {
     const baseUrl = window.location.origin
     const url = `${baseUrl}/?token=${invitationToken.value}`
 
+    // QR code options for styling
+    // See https://qr-code-styling.com/
     const options = {
         width: 300,
         height: 300,
