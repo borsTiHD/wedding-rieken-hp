@@ -11,7 +11,7 @@
                 </div>
                 <!-- Download button -->
                 <div class="flex justify-center gap-4">
-                    <Select v-model="selectedExtension" :options="extensions" placeholder="Select a City" class="w-full md:w-56" />
+                    <Select v-model="selectedExtension" :options="extensions" placeholder="Select a Extension" class="w-full md:w-56" />
                     <Button
                         :label="t('admin.qrcode.download')"
                         icon="pi pi-download"
