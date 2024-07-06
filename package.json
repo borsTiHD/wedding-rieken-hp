@@ -40,7 +40,6 @@
         "@formkit/themes": "^1.2.2",
         "@pinia/nuxt": "^0.4.11",
         "@primevue/themes": "^4.0.0",
-        "@types/qrcode": "^1.5.5",
         "@vueuse/core": "^10.11.0",
         "dayjs": "^1.11.11",
         "firebase": "^10.12.3",
@@ -49,7 +48,7 @@
         "pinia": "^2.1.7",
         "primeicons": "^6.0.1",
         "primevue": "^4.0.0-rc.1",
-        "qrcode": "^1.5.3",
+        "qr-code-styling": "^1.6.0-rc.1",
         "vanilla-cookieconsent": "^3.0.1",
         "vue-boo-bash": "^0.0.8"
     }

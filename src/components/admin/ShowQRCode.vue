@@ -4,26 +4,39 @@
             <h2>{{ t('admin.qrcode.header') }}</h2>
         </template>
         <template #content>
-            <div class="flex flex-col">
+            <div class="flex flex-col gap-4">
                 <div class="flex justify-center">
                     <Skeleton v-if="loading" width="10rem" height="10rem" />
-                    <canvas :id="canvasId" />
+                    <div id="qr-code" ref="canvasDiv" />
                 </div>
                 <!-- Download button -->
-                <Button
-                    :label="t('admin.qrcode.download')"
-                    icon="pi pi-download"
-                    raised
-                    @click="downloadQRCode"
-                />
+                <div class="flex justify-center gap-4">
+                    <Select v-model="selectedExtension" :options="extensions" placeholder="Select a City" class="w-full md:w-56" />
+                    <Button
+                        :label="t('admin.qrcode.download')"
+                        icon="pi pi-download"
+                        raised
+                        @click="downloadQRCode"
+                    />
+                </div>
             </div>
         </template>
     </Card>
 </template>
 
 <script setup lang="ts">
-import QRCode from 'qrcode'
+import QRCodeStyling from 'qr-code-styling'
 import { useUserStore } from '@/stores/user'
+import type {
+    DrawType,
+    TypeNumber,
+    Mode,
+    ErrorCorrectionLevel,
+    DotType,
+    CornerSquareType,
+    CornerDotType,
+    GradientType
+} from 'qr-code-styling'
 
 // Composables
 const { t } = useI18n()
@@ -36,48 +49,86 @@ const userProfile = computed(() => userStore.userProfile)
 
 // Data
 const loading = ref(false)
-const canvasId = 'invitationTokenCanvas'
+const qrCode = ref()
+const canvasDiv = ref()
 const invitationToken = ref()
+const extensions = ['png', 'svg', 'jpeg']
+const selectedExtension = ref('svg')
 
-// Clear canvas
-const clearCanvas = () => {
-    const canvas = document.getElementById(canvasId) as HTMLCanvasElement
-    const context = canvas.getContext('2d')
-    if (!context) return false
-    context.clearRect(0, 0, canvas.width, canvas.height)
+// QR code options
+const getOptions = () => {
+    // Create url for QR code based on current url and token
+    const baseUrl = window.location.origin
+    const url = `${baseUrl}/?token=${invitationToken.value}`
+
+    const options = {
+        width: 300,
+        height: 300,
+        type: 'svg' as DrawType, // 'canvas' or 'svg'
+        image: '/favicon.ico',
+        margin: 0,
+        qrOptions: {
+            typeNumber: 0 as TypeNumber, // 0 to 40
+            mode: 'Byte' as Mode, // Numeric, Alphanumeric, Byte, Kanji
+            errorCorrectionLevel: 'M' as ErrorCorrectionLevel // L, M, Q, H
+        },
+        imageOptions: {
+            hideBackgroundDots: true,
+            imageSize: 0.4,
+            margin: 5,
+            crossOrigin: 'anonymous' // 'anonymous' or 'use-credentials'
+        },
+        dotsOptions: {
+            type: 'rounded' as DotType,
+            color: '#6a1a4c',
+            gradient: {
+                type: 'linear' as GradientType, // 'radial'
+                rotation: 0.8,
+                colorStops: [{ offset: 0, color: '#cf0ac0' }, { offset: 1, color: '#6a1a4c' }]
+            }
+        },
+        backgroundOptions: {
+            color: '#ffffff'
+        // gradient: {...}
+        },
+        cornersSquareOptions: {
+            color: '#35495E',
+            type: 'extra-rounded' as CornerSquareType,
+            gradient: {
+                type: 'linear' as GradientType, // 'radial'
+                rotation: 0.8,
+                colorStops: [{ offset: 0, color: '#cf0ac0' }, { offset: 1, color: '#6a1a4c' }]
+            }
+        },
+        cornersDotOptions: {
+            color: '#35495E',
+            type: 'dot' as CornerDotType
+        // gradient: {...}
+        }
+    }
+
+    return { ...options, data: url }
 }
 
-// Create QR code from token
-// Returns a promise and resolves true if successful
+// Create QR code and append to div
 const createQRCode = async() => {
-    return new Promise((resolve, reject) => {
-        // TODO: Check later if the url is correct and valid
+    const options = getOptions()
+    qrCode.value = new QRCodeStyling(options)
+    qrCode.value.append(canvasDiv.value)
+}
 
-        // Create url for QR code
-        const baseUrl = window.location.origin
-        const url = `${baseUrl}/?token=${invitationToken.value}`
-
-        // Create QR code
-        const canvas = document.getElementById(canvasId) as HTMLCanvasElement
-        const errorCorrectionLevel = 'M' // L, M, Q, H - default: M - https://github.com/soldair/node-qrcode#error-correction-level
-        QRCode.toCanvas(canvas, url, { errorCorrectionLevel, color: { dark: '#000000ff', light: '#ffffffff' } }, (error: Error) => {
-            if (error) {
-                console.error(error)
-                reject(error)
-            } else {
-                resolve(true)
-            }
-        })
-    })
+// Update QR code
+const updateQRCode = async() => {
+    const options = getOptions()
+    qrCode.value.update(options)
 }
 
 // Download QR code
 const downloadQRCode = () => {
-    const canvas = document.getElementById(canvasId) as HTMLCanvasElement
-    const link = document.createElement('a')
-    link.download = 'inviteQrCode.png'
-    link.href = canvas.toDataURL()
-    link.click()
+    qrCode.value.download({
+        name: 'wedding-invitation-qrcode',
+        extension: selectedExtension.value
+    })
 }
 
 // Get invite token
@@ -115,9 +166,6 @@ const getInviteToken = async() => {
 const init = async() => {
     loading.value = true
 
-    // Clear canvas
-    clearCanvas()
-
     // Get invite token
     const checkToken = await getInviteToken().catch((error) => {
         console.error(error)
@@ -130,8 +178,14 @@ const init = async() => {
         return false
     }
 
-    // Create QR code if token is valid
-    await createQRCode()
+    // Create or update QR code if qr code exists
+    if (qrCode.value) {
+        await updateQRCode()
+    } else {
+        await createQRCode()
+    }
+
+
     loading.value = false
 }
 
