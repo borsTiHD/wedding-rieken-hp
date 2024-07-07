@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary" :pt="ptCard">
+    <Card :pt="ptCard">
         <template #content>
             <div class="flex items-center gap-4">
                 <div class="flex items-center">

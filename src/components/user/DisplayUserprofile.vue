@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary">
+    <Card>
         <template #title>
             <h2>{{ t('user.header') }}</h2>
             <p class="text-sm font-normal text-gray-500">{{ t('user.description') }}</p>

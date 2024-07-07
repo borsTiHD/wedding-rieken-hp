@@ -1,6 +1,6 @@
 <template>
     <main class="content-flex w-full sm:max-w-xl">
-        <Card class="card-primary">
+        <Card>
             <template #title>
                 <h2>{{ t('login.header') }}</h2>
             </template>

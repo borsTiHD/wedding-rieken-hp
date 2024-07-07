@@ -1,7 +1,7 @@
 <template>
     <main class="content-wrapper">
         <!-- User not logged in -->
-        <Card v-if="!uid" class="card-primary">
+        <Card v-if="!uid">
             <template #title>
                 <h2>{{ t('login.notLoggedIn') }}</h2>
             </template>

@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary grow">
+    <Card class="grow">
         <template #content>
             <div class="flex flex-col items-center gap-4">
                 <div class="relative inline-block">

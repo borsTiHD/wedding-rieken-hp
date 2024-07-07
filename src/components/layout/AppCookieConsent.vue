@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary">
+    <Card>
         <template #title>
             <div class="flex flex-col items-center">
                 <div class="relative inline-block">

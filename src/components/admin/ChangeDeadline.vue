@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary grow">
+    <Card class="grow">
         <template #title>
             <h2>{{ t('admin.changeDeadline.header') }}</h2>
         </template>

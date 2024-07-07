@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary">
+    <Card>
         <template #title>
             <h2>{{ t('profileStepper.index.header') }}</h2>
         </template>

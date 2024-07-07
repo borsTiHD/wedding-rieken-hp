@@ -1,6 +1,6 @@
 <template>
     <main class="content-wrapper">
-        <Card class="card-primary">
+        <Card>
             <template #title>
                 <div class="flex flex-col items-center gap-4">
                     <div class="relative inline-block">

@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary grow" :pt="{ content: { class: 'p-0' } }">
+    <Card class="grow" :pt="{ content: { class: 'p-0' } }">
         <template #title>
             <h2>{{ t('admin.qrcode.header') }}</h2>
         </template>

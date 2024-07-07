@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary">
+    <Card>
         <template #content>
             <div class="flex flex-col items-center gap-4">
                 <h2 class="text-2xl text-center whitespace-pre-line">Gallery 1</h2>
@@ -26,7 +26,7 @@
         </template>
     </Card>
 
-    <Card class="card-primary">
+    <Card>
         <template #content>
             <div class="flex flex-col items-center gap-4">
                 <h2 class="text-2xl text-center whitespace-pre-line">Gallery 2</h2>
@@ -45,7 +45,7 @@
         </template>
     </Card>
 
-    <Card class="card-primary">
+    <Card>
         <template #content>
             <div class="flex flex-col items-center gap-4">
                 <h2 class="text-2xl text-center whitespace-pre-line">Gallery 3</h2>
@@ -68,7 +68,7 @@
         </template>
     </Card>
 
-    <Card class="card-primary">
+    <Card>
         <template #content>
             <div class="flex flex-col items-center gap-4">
                 <h2 class="text-2xl text-center whitespace-pre-line">Gallery 4</h2>

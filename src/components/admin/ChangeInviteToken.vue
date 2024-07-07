@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary grow" :pt="{ content: { class: 'pb-0' } }">
+    <Card class="grow" :pt="{ content: { class: 'pb-0' } }">
         <template #title>
             <h2>{{ t('admin.inviteToken.header') }}</h2>
         </template>

@@ -1,5 +1,5 @@
 <template>
-    <Card class="card-primary">
+    <Card>
         <template #title>
             <div class="flex gap-4">
                 <h2>{{ t('profileStepper.profilePicture.header') }}</h2>

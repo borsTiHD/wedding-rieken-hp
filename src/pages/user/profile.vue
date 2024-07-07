@@ -1,6 +1,6 @@
 <template>
     <main class="content-wrapper">
-        <Card class="card-primary" :pt="ptCard">
+        <Card :pt="ptCard">
             <template #content>
                 <Steps
                     :model="items"

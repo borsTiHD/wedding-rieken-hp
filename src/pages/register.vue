@@ -1,7 +1,7 @@
 <template>
     <main class="content-flex w-full sm:max-w-xl">
         <!-- Not logged in -->
-        <Card v-if="!uid" class="card-primary">
+        <Card v-if="!uid">
             <template #title>
                 <h2>{{ t('register.header') }}</h2>
             </template>
