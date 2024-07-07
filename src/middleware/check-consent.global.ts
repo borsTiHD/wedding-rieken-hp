@@ -16,6 +16,7 @@ export default defineNuxtRouteMiddleware((to) => {
     const cookieStore = useCookieStore()
     const cookieConsentAccepted = cookieStore?.preferences?.acceptedCategories.includes('app') && cookieStore?.preferences?.acceptedCategories.includes('firebase')
     if (!cookieConsentAccepted) {
+        cookieStore.redirectPath = to.path // Save current path in store to redirect after consent
         return navigateTo('/consent')
     }
 

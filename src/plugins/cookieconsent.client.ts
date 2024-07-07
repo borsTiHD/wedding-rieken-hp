@@ -114,6 +114,22 @@ export default defineNuxtPlugin(async() => {
         return spotifyConsent
     }
 
+    // Check redirect path
+    function redirectPath() {
+        // Check if cookie consent is accepted for 'app' and 'firebase' categories
+        // If not, don't check the redirect path
+        if (!isConsentAccepted(['app', 'firebase'])) {
+            return false
+        }
+
+        // Redirect to saved path after consent if it exists
+        if (cookieStore.redirectPath) {
+            const redirectPath = cookieStore.redirectPath
+            cookieStore.redirectPath = undefined
+            return navigateTo(redirectPath)
+        }
+    }
+
     // Configuration for the cookie consent
     const config: CookieConsentConfig = {
         // Will be called after the user has given first consent (accept/reject)
@@ -127,6 +143,9 @@ export default defineNuxtPlugin(async() => {
             if (!checkFirebaseConsent() && !checkAppConsent() && !checkSpotifyConsent()) {
                 clearAll()
             }
+
+            // Redirect to saved path after consent if it exists
+            redirectPath()
         },
 
         // Will be called after the user has given consent
@@ -141,6 +160,9 @@ export default defineNuxtPlugin(async() => {
             if (!checkFirebaseConsent() && !checkAppConsent() && !checkSpotifyConsent()) {
                 clearAll()
             }
+
+            // Redirect to saved path after consent if it exists
+            redirectPath()
         },
 
         // Will be called after the user has updated his preferences
@@ -155,6 +177,9 @@ export default defineNuxtPlugin(async() => {
             if (!checkFirebaseConsent() && !checkAppConsent() && !checkSpotifyConsent()) {
                 clearAll()
             }
+
+            // Redirect to saved path after consent if it exists
+            redirectPath()
         },
 
         // Options

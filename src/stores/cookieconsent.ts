@@ -5,6 +5,7 @@ export const useCookieStore = defineStore('cookie-consent-store', () => {
     const categories = ['app', 'firebase', 'spotify']
     const cookie = ref<CookieValue | undefined>()
     const preferences = ref<UserPreferences | undefined>()
+    const redirectPath = ref<string | undefined>()
 
-    return { categories, cookie, preferences }
+    return { categories, cookie, preferences, redirectPath }
 })
