@@ -1,8 +1,6 @@
 <template>
     <main>
-        <ClientOnly>
-            <AppCookieConsent />
-        </ClientOnly>
+        <AppCookieConsent />
     </main>
 </template>
 

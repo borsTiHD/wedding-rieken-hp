@@ -1,14 +1,7 @@
 <template>
-    <ClientOnly fallback-tag="div">
-        <ShowUnderlineClient :color="props.color">
-            <slot />
-        </ShowUnderlineClient>
-
-        <!-- this will be rendered on server side as fallback -->
-        <template #fallback>
-            <slot />
-        </template>
-    </ClientOnly>
+    <ShowUnderlineClient :color="props.color">
+        <slot />
+    </ShowUnderlineClient>
 </template>
 
 <script setup lang="ts">

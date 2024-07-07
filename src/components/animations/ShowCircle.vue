@@ -1,9 +1,7 @@
 <template>
-    <ClientOnly>
-        <ShowCircleClient>
-            <slot />
-        </ShowCircleClient>
-    </ClientOnly>
+    <ShowCircleClient>
+        <slot />
+    </ShowCircleClient>
 </template>
 
 <script setup lang="ts">

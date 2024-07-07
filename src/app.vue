@@ -1,12 +1,10 @@
 <template>
     <AppLoadingOverlay v-if="loading" :progress="progress" />
-    <div class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
+    <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
         <Toast position="bottom-right" />
 
         <!-- Navbar -->
-        <ClientOnly>
-            <AppNavbar />
-        </ClientOnly>
+        <AppNavbar />
 
         <!-- Background image -->
         <div v-if="!isIndex" class="background-image fixed top-0 left-0 w-full h-full" />
@@ -15,9 +13,7 @@
         <NuxtPage class="pt-20 z-20" />
 
         <!-- Scroll to top button -->
-        <ClientOnly>
-            <ScrollTop />
-        </ClientOnly>
+        <ScrollTop />
 
         <!-- Footer -->
         <AppFooter />
