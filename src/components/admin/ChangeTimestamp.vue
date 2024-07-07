@@ -1,13 +1,7 @@
 <template>
     <div class="flex flex-col sm:flex-row gap-4">
-        <span class="p-input-icon-right">
-            <i class="pi pi-calendar" />
-            <Calendar v-model="date" :date-format="t('general.inputDateFormat')" :minDate="minDate" />
-        </span>
-        <span class="p-input-icon-right">
-            <i class="pi pi-clock" />
-            <Calendar v-model="time" timeOnly />
-        </span>
+        <DatePicker v-model="date" :date-format="t('general.inputDateFormat')" showIcon showButtonBar />
+        <DatePicker v-model="time" timeOnly hourFormat="24" showIcon />
         <Button type="submit" :label="t('buttons.submit')" raised @click="handleSubmit" />
     </div>
 </template>
@@ -26,7 +20,6 @@ const { t } = useI18n()
 // Data
 const date = ref()
 const time = ref()
-const minDate = ref(new Date())
 
 // Events
 const emit = defineEmits(['change'])

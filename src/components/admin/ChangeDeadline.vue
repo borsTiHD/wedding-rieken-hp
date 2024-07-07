@@ -5,7 +5,7 @@
         </template>
         <template #content>
             <div class="flex flex-col gap-4">
-                <ChangeTimestamp :timestamp="config?.deadline.seconds" @change="changeWeddingTimestamp" />
+                <ChangeTimestamp :timestamp="config?.deadline.seconds" @change="changeDeadlineTimestamp" />
                 <div class="flex gap-4">
                     <span class="text-2xl">{{ t('admin.changeDeadline.label') }}:</span>
                     <DateDisplay :timestamp="config?.deadline.seconds" />
@@ -34,7 +34,7 @@ const appStore = useAppStore()
 const config = computed(() => appStore.config)
 
 // Change wedding date
-const changeWeddingTimestamp = async(newTimestamp: Date) => {
+const changeDeadlineTimestamp = async(newTimestamp: Date) => {
     // Convert timestamp to firestore timestamp
     const firestoreTimestamp = Timestamp.fromDate(newTimestamp)
 
