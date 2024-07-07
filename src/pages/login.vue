@@ -6,14 +6,24 @@
             </template>
             <template #content>
                 <div v-if="!user.uid" class="flex flex-col gap-4">
-                    <TabView v-model:activeIndex="activeIndex">
-                        <TabPanel :header="t('login.header')">
-                            <LoginForm />
-                        </TabPanel>
-                        <TabPanel :header="t('login.wihtoutPassword')">
-                            <LoginWithEmailLink />
-                        </TabPanel>
-                    </TabView>
+                    <Tabs :value="activeTab">
+                        <TabList>
+                            <Tab value="0">
+                                {{ t('login.header') }}
+                            </Tab>
+                            <Tab value="1">
+                                {{ t('login.wihtoutPassword') }}
+                            </Tab>
+                        </TabList>
+                        <TabPanels>
+                            <TabPanel value="0">
+                                <LoginForm />
+                            </TabPanel>
+                            <TabPanel value="1">
+                                <LoginWithEmailLink />
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
                 </div>
             </template>
         </Card>
@@ -38,7 +48,7 @@ const user = computed(() => userStore.user)
 const uid = computed(() => userStore.uid)
 
 // Tab Menu
-const activeIndex = ref(0)
+const activeTab = ref('0')
 
 // Watch uid and push to home if user is logged in
 watch(uid, (newUid) => {
@@ -47,10 +57,10 @@ watch(uid, (newUid) => {
 
 // On mount
 onMounted(() => {
-    // Get 'tab' query and set activeIndex
+    // Get 'tab' query and set activeTab
     const query = useRouter().currentRoute.value.query
     if (query?.tab && query.tab === 'email') {
-        activeIndex.value = 1
+        activeTab.value = '1'
     }
 
     // If user is logged in, push to home
