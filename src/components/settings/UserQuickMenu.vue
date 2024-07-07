@@ -5,12 +5,12 @@
             tabindex="0"
             mode="button"
             size="sm"
-            @click="showSearchPanel"
-            @keydown.enter="showSearchPanel"
+            @click="showOverlayPanel"
+            @keydown.enter="showOverlayPanel"
         />
 
-        <Popover ref="op" :pt="{ root: { class: [ 'w-full sm:w-96 card-primary' ] } }">
-            <div class="flex flex-col items-center gap-4">
+        <Popover ref="op">
+            <div class="w-full sm:w-96 flex flex-col items-center gap-4">
                 <DisplayAvatar />
 
                 <!-- If user is logged in -->
@@ -88,9 +88,9 @@ const userStore = useUserStore()
 const uid = computed(() => userStore.uid)
 const displayName = computed(() => userStore.displayName)
 
-// Overlay search panel
+// Overlay panel
 const op = ref<typeof Popover | null>(null)
-const showSearchPanel = (event: PointerEvent | KeyboardEvent) => {
+const showOverlayPanel = (event: PointerEvent | KeyboardEvent) => {
     op.value?.toggle(event)
 }
 

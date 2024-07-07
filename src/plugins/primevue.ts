@@ -91,6 +91,9 @@ export default defineNuxtPlugin((nuxtApp) => {
             card: {
                 root: 'rounded-3xl ring-1 ring-slate-900/5 shadow-xl'
             },
+            popover: {
+                root: 'rounded-3xl ring-1 ring-slate-900/5 shadow-xl'
+            },
             button: {
                 label: 'truncate'
             }
