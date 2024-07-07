@@ -103,5 +103,6 @@ export default defineNuxtConfig({
         },
         vueI18n: './i18n.config.ts'
     },
-    devtools: { enabled: process.env.NODE_ENV !== 'production' }
+    devtools: { enabled: process.env.NODE_ENV !== 'production' },
+    compatibilityDate: '2024-07-07'
 })
