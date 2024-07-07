@@ -99,7 +99,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             }
         },
         components: {
-            include: '*' // Include all components
+            include: '*' // Include all components - TODO: Optimize this
         },
         directives: {
             include: ['Tooltip']
