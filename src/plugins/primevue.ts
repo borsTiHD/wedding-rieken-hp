@@ -88,6 +88,9 @@ export default defineNuxtPlugin((nuxtApp) => {
             }
         },
         pt: {
+            card: {
+                root: 'rounded-3xl ring-1 ring-slate-900/5 shadow-xl'
+            },
             button: {
                 label: 'truncate'
             }
