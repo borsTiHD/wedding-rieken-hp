@@ -12,12 +12,12 @@
         <!-- Main content -->
         <NuxtPage class="pt-20 z-20" />
 
-        <!-- Scroll to top button -->
-        <ScrollTop />
-
         <!-- Footer -->
         <AppFooter />
     </div>
+
+    <!-- Scroll to top button -->
+    <ScrollTop />
 </template>
 
 <script setup lang="ts">
@@ -94,3 +94,10 @@ onNuxtReady(async() => {
     stoptLoading() // Stop loading spinner
 })
 </script>
+
+<style>
+/* Fixing the scroll to top button position - bug since primevue v4.0.0 - something sets it to position 'relative' */
+.p-scrolltop.p-button {
+    position: fixed !important;
+}
+</style>
