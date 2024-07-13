@@ -134,6 +134,10 @@
                                 <Button icon="pi pi-copy" class="" size="small" severity="primary" text rounded aria-label="Copy" @click="copyToClipboard(slotProps.data.phoneNumber)" />
                             </li>
                             <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.highscore') }}:</span>
+                                <span>{{ slotProps.data.highscore }}</span>
+                            </li>
+                            <li class="user-list-item">
                                 <span class="font-bold">UID:</span>
                                 <span class="truncate max-w-[12rem]">{{ slotProps.data.uid }}</span>
                                 <Button icon="pi pi-copy" class="" size="small" severity="primary" text rounded aria-label="Copy" @click="copyToClipboard(slotProps.data.uid)" />
@@ -194,6 +198,11 @@
                             <span>{{ slotProps.data.phoneNumber }}</span>
                         </template>
                     </Column>
+                    <Column v-if="!isWidthSmall" field="highscore" :header="t('admin.listUsers.tableHeader.highscore')" sortable>
+                        <template #body="slotProps">
+                            <span>{{ slotProps.data.highscore }}</span>
+                        </template>
+                    </Column>
                     <Column v-if="!isWidthSmall" :header="t('admin.listUsers.tableHeader.actions')">
                         <template #body="slotProps">
                             <div v-if="slotProps.data.role !== 'admin'" class="flex items-center gap-2">
@@ -242,6 +251,7 @@ type DataTableUser = {
     photoURL: string;
     additionalGuests: number;
     invitation: string;
+    highscore?: number;
 }
 
 // Type definition for user
@@ -314,7 +324,8 @@ const usersData = computed(() => {
         phoneNumber: user.profile.phoneNumber,
         photoURL: user.account.photoURL,
         additionalGuests: user.profile.additionalGuests,
-        invitation: user.profile.invitation
+        invitation: user.profile.invitation,
+        highscore: user.profile.highscore
     }) as DataTableUser)
 
     // Function to convert a user and switch fields to the i18n string

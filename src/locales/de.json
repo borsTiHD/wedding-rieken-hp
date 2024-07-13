@@ -489,6 +489,7 @@
                 "name": "Name",
                 "role": "Rolle",
                 "phone": "Telefon",
+                "highscore": "Highscore",
                 "additionalGuests": "Zusätzliche Gäste",
                 "invitationState": "Einladung",
                 "actions": "Aktionen"
