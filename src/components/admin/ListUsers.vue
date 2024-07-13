@@ -75,10 +75,10 @@
                             />
 
                             <!-- Search -->
-                            <span class="p-input-icon-left w-full sm:w-fit">
-                                <i class="pi pi-search" />
-                                <InputText v-model="globalSearch" class="w-full" :placeholder="t('admin.listUsers.userSearch.placeholder')" />
-                            </span>
+                            <IconField>
+                                <InputIcon class="pi pi-search" />
+                                <InputText v-model="globalSearch" fluid :placeholder="t('admin.listUsers.userSearch.placeholder')" />
+                            </IconField>
                         </div>
                     </template>
 
