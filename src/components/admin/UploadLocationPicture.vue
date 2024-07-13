@@ -1,6 +1,9 @@
 <template>
-    <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
-    <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :chooseLabel="uploadLabel" accept="image/*" :maxFileSize="maxFileSize" :invalidFileSizeMessage="invalidFileSizeMessage" auto customUpload @uploader="onUpload" />
+    <div class="flex flex-col">
+        <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
+        <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :chooseLabel="uploadLabel" accept="image/*" :maxFileSize="maxFileSize" :invalidFileSizeMessage="invalidFileSizeMessage" auto customUpload @uploader="onUpload" />
+        <p class="mt-2 text-xs leading-5 text-gray-400">{{ t('user.profilePicture.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}</p>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -59,7 +62,8 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
 
     // Upload file
     loading.value = true
-    const downloadLink = await uploadFile(`app/location-preview-${file.name}`, file).catch((error) => {
+    const fileName = `location-preview-${file.name}`
+    const downloadLink = await uploadFile(`app/${fileName}`, file).catch((error) => {
         console.error(error)
         toast.add({
             severity: 'error',
@@ -70,10 +74,10 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
         return false
     })
 
-    // If response is false, return
+    // If download link exists and is a string update the location preview filename in the app config
     if (downloadLink && typeof downloadLink === 'string') {
         // Update preview url
-        await update('app', 'config', 'locationPreview', downloadLink).catch((error: { message: string }) => {
+        await update('app', 'config', 'locationPreview', fileName).catch((error: { message: string }) => {
             toast.add({
                 severity: 'error',
                 summary: t('admin.changeLocation.error'),

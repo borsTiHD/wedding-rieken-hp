@@ -544,6 +544,7 @@
             "resetMailCouldNotSend": "E-Mail zum Zurücksetzen des Passworts konnte nicht gesendet werden",
             "verifyMailCouldNotSend": "E-Mail zum Verifizieren der E-Mail-Adresse konnte nicht gesendet werden",
             "authFailed": "Authentifizierung fehlgeschlagen",
+            "fileNotFound": "Datei nicht gefunden",
             "fileNotUploaded": "Datei konnte nicht hochgeladen werden",
             "fileNotDeleted": "Datei konnte nicht gelöscht werden",
             "filesNotDeleted": "Dateien konnten nicht gelöscht werden",

@@ -13,7 +13,8 @@
                         <Button as="a" severity="info" :label="t('general.address.viewOnGoogleMap')" :href="googleMapsLink" target="_blank" rel="noopener noreferrer" />
                     </div>
                 </div>
-                <Image :src="locationPreview" alt="Location Preview" imageClass="w-full h-auto rounded-lg" preview />
+                <Image v-if="locationPreviewUrl" :src="locationPreviewUrl" alt="Location Preview" width="250" imageClass="rounded-lg" preview />
+                <Skeleton v-else size="12rem" />
             </div>
         </template>
     </Card>
@@ -25,17 +26,29 @@ import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 
 // Localisation
 const { t } = useI18n()
+const { getFileUrl } = useFirebaseStorage()
 
 // Fetch app config
 const appStore = useAppStore()
 const street = computed(() => appStore.street)
 const city = computed(() => appStore.city)
-const locationPreview = computed(() => appStore.locationPreview)
+const locationPreviewFileName = computed(() => appStore.locationPreviewFileName)
+const locationPreviewUrl = ref<string | null>(null)
 
 // URL encoded Google maps link for location by street and city
 const googleMapsLink = computed(() => {
     const googleMapsLink = 'https://www.google.com/maps'
     if (!street.value || !city.value) return googleMapsLink
     return `${googleMapsLink}/search/?api=1&query=${encodeURIComponent(street.value + ',' + city.value)}`
+})
+
+// Watch for changes in location preview file name
+watchEffect(async() => {
+    if (locationPreviewFileName.value) {
+        const path = `app/${locationPreviewFileName.value}`
+        locationPreviewUrl.value = await getFileUrl(path)
+    } else {
+        locationPreviewUrl.value = null
+    }
 })
 </script>
