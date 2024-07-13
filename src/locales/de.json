@@ -406,7 +406,7 @@
         },
         "changeDeadline": {
             "header": "Deadline ändern",
-            "infoText": "Bitte beachten Sie, dass nach der gesetzten Deadline die Gäste keine Änderungen mehr an Ihrer Einladung oder der Anzahl an zusätzlichen Gästen durchführen können.",
+            "infoText": "Bitte beachten, nach der gesetzten Deadline können die Gäste keine Änderungen mehr an Ihrer Einladung oder der Anzahl an zusätzlichen Gästen durchführen.",
             "label": "Gesetztes Datum",
             "error": "Fehler",
             "success": "Erfolgreich",
@@ -415,6 +415,7 @@
         "changeDuration": {
             "header": "Dauer der Hochzeit ändern",
             "label": "Dauer in Stunden",
+            "infoText": "Der Countdown zeigt in dieser Spanne das Event als \"laufend\" an.",
             "submit": "Speichern",
             "error": "Fehler",
             "success": "Erfolgreich",
@@ -491,6 +492,7 @@
         },
         "inviteToken": {
             "header": "Einladungs Token ändern",
+            "infoText": "Durch das Ändern des Einladungs Tokens werden alte Einladungs Links ungültig.",
             "confirmMessage": "Achtung, dadurch werden ältere Einladungs Links ungültig.",
             "success": "Erfolgreich",
             "successDetail": "Der Einladungs Token wurde erfolgreich geändert",

@@ -13,18 +13,20 @@
             >
                 <div class="flex flex-col sm:flex-col lg:flex-col items-center gap-4">
                     <Skeleton v-if="loading" width="14rem" height="3rem" />
-                    <FormKit
-                        v-else
-                        v-model="defaultToken"
-                        type="text"
-                        name="token"
-                        outer-class="w-full"
-                        :label="t('admin.inviteToken.formkit.label')"
-                        validation="required|length:15"
-                    />
+                    <template v-else>
+                        <Message severity="warn" class="w-full">{{ t('admin.inviteToken.infoText') }}</Message>
+                        <FormKit
+                            v-model="defaultToken"
+                            type="text"
+                            name="token"
+                            outer-class="w-full"
+                            :label="t('admin.inviteToken.formkit.label')"
+                            validation="required|length:15"
+                        />
 
-                    <ConfirmPopup />
-                    <Button :label="t('admin.inviteToken.formkit.submit')" class="w-full" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="confirmDialog($event)" />
+                        <ConfirmPopup />
+                        <Button :label="t('admin.inviteToken.formkit.submit')" class="w-full" icon="pi pi-user-plus" raised :loading="loading" :disabled="!valid" @click="confirmDialog($event)" />
+                    </template>
                 </div>
             </FormKit>
         </template>

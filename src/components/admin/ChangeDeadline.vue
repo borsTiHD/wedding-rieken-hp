@@ -10,7 +10,7 @@
                     <span class="text-2xl">{{ t('admin.changeDeadline.label') }}:</span>
                     <DateDisplay :timestamp="config?.deadline.seconds" />
                 </div>
-                <p class="whitespace-normal">{{ t('admin.changeDeadline.infoText') }}</p>
+                <Message severity="warn" class="w-full">{{ t('admin.changeDeadline.infoText') }}</Message>
             </div>
         </template>
     </Card>

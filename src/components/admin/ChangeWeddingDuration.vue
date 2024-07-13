@@ -12,6 +12,7 @@
                 @submit="handleSubmit"
             >
                 <div class="flex flex-col items-center gap-4">
+                    <Message severity="info" class="w-full">{{ t('admin.changeDuration.infoText') }}</Message>
                     <FormKit
                         v-model="defaultDuration"
                         type="number"
