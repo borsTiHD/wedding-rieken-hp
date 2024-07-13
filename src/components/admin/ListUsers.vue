@@ -428,6 +428,7 @@ const setExpandedRow = (event: DataTableRowClickEvent) => {
 // Copy to clipboard
 const copyToClipboard = async(value: string) => {
     try {
+        // Copy to clipboard - only works in secure context (https)
         await navigator.clipboard.writeText(value)
         toast.add({ severity: 'success', summary: 'Success', detail: t('buttons.copyToClipboardSuccess'), life: 3000 })
     } catch (err) {
