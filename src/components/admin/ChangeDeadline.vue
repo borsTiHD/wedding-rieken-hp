@@ -5,12 +5,12 @@
         </template>
         <template #content>
             <div class="flex flex-col gap-4">
+                <Message severity="warn" class="w-full">{{ t('admin.changeDeadline.infoText') }}</Message>
                 <ChangeTimestamp :timestamp="config?.deadline.seconds" @change="changeDeadlineTimestamp" />
                 <div class="flex gap-4">
                     <span class="text-2xl">{{ t('admin.changeDeadline.label') }}:</span>
                     <DateDisplay :timestamp="config?.deadline.seconds" />
                 </div>
-                <Message severity="warn" class="w-full">{{ t('admin.changeDeadline.infoText') }}</Message>
             </div>
         </template>
     </Card>

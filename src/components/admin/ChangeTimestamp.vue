@@ -1,8 +1,8 @@
 <template>
-    <div class="flex flex-col sm:flex-row gap-4">
-        <DatePicker v-model="date" :date-format="t('general.inputDateFormat')" showIcon showButtonBar />
-        <DatePicker v-model="time" timeOnly hourFormat="24" showIcon />
-        <Button type="submit" :label="t('buttons.submit')" raised @click="handleSubmit" />
+    <div class="flex flex-wrap gap-4">
+        <DatePicker v-model="date" class="grow" :date-format="t('general.inputDateFormat')" showIcon showButtonBar />
+        <DatePicker v-model="time" class="grow" timeOnly hourFormat="24" showIcon />
+        <Button type="submit" class="grow" :label="t('buttons.submit')" raised @click="handleSubmit" />
     </div>
 </template>
 
