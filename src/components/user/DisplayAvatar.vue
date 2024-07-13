@@ -11,7 +11,7 @@
                 sizeClasses
             ]"
             :src="photoURL"
-            alt="Profile picture"
+            :alt="props.alt ? props.alt : 'Profile picture'"
             :preview="props.preview"
         />
         <span
@@ -23,7 +23,7 @@
                 { 'rounded-lg': !props.circle, 'rounded-full': props.circle },
                 sizeClasses
             ]"
-            alt="No profile picture"
+            :alt="props.alt ? props.alt : 'No profile picture'"
         >
             <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -38,6 +38,8 @@ import { useUserStore } from '@/stores/user'
 type Props = {
     mode?: 'default' | 'button'
     size?: 'xs' |'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
+    src?: string | null
+    alt?: string | null
     circle?: boolean
     shadow?: boolean
     cover?: boolean
@@ -47,6 +49,8 @@ type Props = {
 const props = withDefaults(defineProps<Props>(), {
     mode: 'default',
     size: 'md',
+    src: null,
+    alt: null,
     circle: false,
     shadow: false,
     cover: true,
@@ -55,7 +59,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 // User store
 const userStore = useUserStore()
-const photoURL = computed(() => userStore.photoURL)
+const photoURL = computed(() => props.src ? props.src : userStore.photoURL)
 
 const sizeClasses = computed(() => {
     switch (props.size) {
