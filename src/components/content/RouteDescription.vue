@@ -7,18 +7,19 @@
                         <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('general.address.header') }}</h2>
                     </ShowUnderline>
                 </div>
-                <dl>
-                    <dt class="text-base font-semibold leading-7 text-gray-900">{{ street }}</dt>
-                    <dd class="text-base leading-7 text-gray-600">{{ city }}</dd>
-                </dl>
-                <img class="w-full h-auto rounded-lg" :src="locationPicture" alt="Location">
+                <div class="flex flex-col gap-2">
+                    <div class="text-center font-medium text-lg">{{ street }}, {{ city }}</div>
+                    <div class="text-center">
+                        <Button as="a" severity="info" :label="t('general.address.viewOnGoogleMap')" :href="googleMapsLink" target="_blank" rel="noopener noreferrer" />
+                    </div>
+                </div>
+                <Image :src="locationPreview" alt="Location Preview" imageClass="w-full h-auto rounded-lg" preview />
             </div>
         </template>
     </Card>
 </template>
 
 <script setup lang="ts">
-import locationPicture from '@/assets/img/location/location.jpg'
 import { useAppStore } from '@/stores/app'
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 
@@ -29,4 +30,12 @@ const { t } = useI18n()
 const appStore = useAppStore()
 const street = computed(() => appStore.street)
 const city = computed(() => appStore.city)
+const locationPreview = computed(() => appStore.locationPreview)
+
+// URL encoded Google maps link for location by street and city
+const googleMapsLink = computed(() => {
+    const googleMapsLink = 'https://www.google.com/maps'
+    if (!street.value || !city.value) return googleMapsLink
+    return `${googleMapsLink}/search/?api=1&query=${encodeURIComponent(street.value + ',' + city.value)}`
+})
 </script>
