@@ -4,28 +4,13 @@
             <!-- You are an admin -->
             <template v-if="user.uid && userProfile?.role === 'admin'">
                 <div class="flex flex-wrap gap-4 w-full">
-                    <!-- Change date -->
                     <ChangeWeddingDate class="basis-[40rem]" />
-
-                    <!-- QR Code -->
                     <ShowQRCode class="basis-80" />
-                </div>
-
-                <div class="flex flex-wrap gap-4 w-full">
-                    <!-- Change deadline -->
                     <ChangeDeadline class="basis-[40rem]" />
-
-                    <!-- Change invite token -->
                     <ChangeInviteToken class="basis-80" />
-                </div>
-
-                <div class="flex flex-wrap gap-4 w-full">
                     <ChangeWeddingDuration class="basis-80" />
                     <ChangeLocation class="basis-80" />
                     <ChangeLocationPreview />
-                </div>
-
-                <div class="flex flex-wrap gap-4 w-full">
                     <ChangeSpotifyPlaylist />
                 </div>
             </template>
