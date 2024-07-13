@@ -1,5 +1,6 @@
 <template>
     <nav
+        v-if="showNavbar"
         class="navbar fixed top-0 left-0 w-full z-50"
         :class="{ 'bg-white': isScrolled }"
     >
@@ -75,6 +76,9 @@ const { t } = useI18n()
 const route = useRoute()
 const routeHash = computed(() => route.hash)
 
+// Refs
+const showNavbar = ref(true)
+
 // Navitems
 const pagesStore = usePagesStore()
 const navItems = computed(() => pagesStore.pages.filter((page) => ![t('pages.imprint')].includes(page.name)))
@@ -104,5 +108,10 @@ watch(isScrolled, (newValue) => {
         // Default theme color
         appStore.setThemeColor(appConfig.theme.body)
     }
+})
+
+// Hide navbar on BooBash game start
+useRegisterEvent('boo-bash', (running: Event) => {
+    showNavbar.value = !running
 })
 </script>

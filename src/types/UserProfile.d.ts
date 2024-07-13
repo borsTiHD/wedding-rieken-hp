@@ -5,6 +5,7 @@ export interface UserProfile {
     phoneNumber: string
     invitation: 'pending' | 'accepted' | 'declined' // 'pending' if the user has not confirmed the invitation
     additionalGuests: number
+    highscore: number
 }
 
 // Type for the partial user profile

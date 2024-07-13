@@ -1,5 +1,5 @@
 <template>
-    <footer ref="footer" class="mt-auto flex justify-center items-center h-56 bg-surface text-primary font-great-vibes z-50">
+    <footer v-if="showFooter" ref="footer" class="mt-auto flex justify-center items-center h-56 bg-surface text-primary font-great-vibes z-50">
         <div class="flex flex-col justify-center items-center gap-2 z-50">
             <span>{{ t('footer.description', { bride, groom }) }}</span>
             <div class="flex gap-2">
@@ -39,6 +39,9 @@ import { useEventListener } from '@/composables/useEventListener'
 // Localisation
 const { t } = useI18n()
 
+// Refs
+const showFooter = ref(true)
+
 // Navitems
 const pagesStore = usePagesStore()
 const navItems = computed(() => pagesStore.pages)
@@ -77,4 +80,9 @@ const calculateHeight = () => {
     // If the footer is not set, return 0
     return 0
 }
+
+// Hide footer on BooBash game start
+useRegisterEvent('boo-bash', (running: Event) => {
+    showFooter.value = !running
+})
 </script>

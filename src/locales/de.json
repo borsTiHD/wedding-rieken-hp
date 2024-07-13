@@ -513,10 +513,15 @@
     },
     "ghostGame": {
         "secret": "Sie haben das Geisterspiel gefunden. Viel Spaß!",
+        "scoreboard": "Punktestand",
         "score": "Punkte",
         "time": "Zeit",
-        "gameover": "Spiel vorbei",
-        "highscore": "All Time Highscore"
+        "gameover": "Game Over",
+        "highscore": "Highscore",
+        "close": "Schließen",
+        "error": "Fehler beim Updaten des Highscores",
+        "success": "Highscore aktualisiert",
+        "successDetail": "Neuer Highscore wurde gespeichert"
     },
     "api": {
         "roleNotChanged": "Rolle konnte nicht geändert werden"
