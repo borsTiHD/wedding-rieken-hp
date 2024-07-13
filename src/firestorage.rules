@@ -51,6 +51,11 @@ service firebase.storage {
       allow read, write: if isAdmin();
     }
 
+    // Allow all users to read files in the "app" collection
+    match /app/{allPaths=**} {
+      allow read;
+    }
+
     // Allow the user to access folder in the "users" collection
     match /users/{userId}/{allPaths=**} {
       // User can read their own files
