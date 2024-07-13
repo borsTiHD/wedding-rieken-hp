@@ -379,6 +379,7 @@
         "notAdminError": "Sie sind kein Administrator",
         "changeLocation": {
             "header": "Ort ändern",
+            "previewHeader": "Vorschau ändern",
             "street": "Straße",
             "city": "Stadt",
             "submit": "Speichern",

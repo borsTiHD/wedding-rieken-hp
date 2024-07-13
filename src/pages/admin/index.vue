@@ -21,7 +21,8 @@
 
                 <div class="flex flex-wrap gap-4 w-full">
                     <ChangeWeddingDuration class="basis-80" />
-                    <ChangeLocation class="basis-[40rem]" />
+                    <ChangeLocation class="basis-80" />
+                    <ChangeLocationPreview />
                 </div>
 
                 <div class="flex flex-wrap gap-4 w-full">
@@ -42,6 +43,7 @@ import ShowQRCode from '@/components/admin/ShowQRCode.vue'
 import ChangeInviteToken from '@/components/admin/ChangeInviteToken.vue'
 import ChangeWeddingDuration from '@/components/admin/ChangeWeddingDuration.vue'
 import ChangeLocation from '@/components/admin/ChangeLocation.vue'
+import ChangeLocationPreview from '@/components/admin/ChangeLocationPreview.vue'
 import ChangeSpotifyPlaylist from '@/components/admin/ChangeSpotifyPlaylist.vue'
 import NoAdmin from '@/components/admin/NoAdmin.vue'
 import { useUserStore } from '@/stores/user'
