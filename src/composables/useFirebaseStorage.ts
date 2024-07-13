@@ -12,8 +12,6 @@ export function useFirebaseStorage() {
     // Firebase paths
     const usersPath = 'users'
 
-    // TODO: Define security rules for storage in firebase
-
     // Upload a file
     const uploadFile = async(path: string, file: File): Promise<string> => {
         // Create a storage reference from our storage service
@@ -29,6 +27,20 @@ export function useFirebaseStorage() {
         const downloadURL = await getDownloadURL(snapshot.ref).catch((error: FirebaseError) => {
             console.error(error)
             throw new Error(t('firebase.custom.fileNotUploaded'))
+        })
+
+        return downloadURL
+    }
+
+    // Get file URL
+    const getFileUrl = async(path: string): Promise<string> => {
+        // Create a storage reference from our storage service
+        const storageRef = ref($storage, path)
+
+        // Get file URL
+        const downloadURL = await getDownloadURL(storageRef).catch((error: FirebaseError) => {
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.fileNotFound')
+            throw new Error(errorMessage)
         })
 
         return downloadURL
@@ -71,6 +83,7 @@ export function useFirebaseStorage() {
 
     return {
         uploadFile,
+        getFileUrl,
         deleteFile,
         deleteUserFolder
     }
