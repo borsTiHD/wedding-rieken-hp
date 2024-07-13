@@ -1,21 +1,25 @@
 <template>
     <div :class="{ 'cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out': props.mode === 'button' }">
-        <img
+        <Image
             v-if="photoURL"
-            class="inline-block"
-            :class="[
+            :imageClass="[
+                'inline-block',
                 { 'hover:shadow-lg transition-all duration-300 ease-in-out': props.mode === 'button' },
+                { 'shadow-md': props.shadow },
+                { 'object-cover': props.cover },
                 { 'rounded-lg': !props.circle, 'rounded-full': props.circle },
                 sizeClasses
             ]"
             :src="photoURL"
-            alt="Your profile picture"
-        >
+            alt="Profile picture"
+            :preview="props.preview"
+        />
         <span
             v-else
             class="inline-block overflow-hidden bg-gray-100"
             :class="[
                 { 'hover:shadow-lg transition-all duration-300 ease-in-out': props.mode === 'button' },
+                { 'shadow-lg': props.shadow },
                 { 'rounded-lg': !props.circle, 'rounded-full': props.circle },
                 sizeClasses
             ]"
@@ -33,14 +37,20 @@ import { useUserStore } from '@/stores/user'
 
 type Props = {
     mode?: 'default' | 'button'
-    size?: 'xs' |'sm' | 'md' | 'lg' | 'xl'
+    size?: 'xs' |'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
     circle?: boolean
+    shadow?: boolean
+    cover?: boolean
+    preview?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
     mode: 'default',
     size: 'md',
-    circle: true
+    circle: false,
+    shadow: false,
+    cover: true,
+    preview: false
 })
 
 // User store
@@ -59,6 +69,10 @@ const sizeClasses = computed(() => {
             return 'h-20 w-20'
         case 'xl':
             return 'h-24 w-24'
+        case '2xl':
+            return 'h-48 w-48'
+        case '3xl':
+            return 'h-64 w-64'
     }
 })
 </script>

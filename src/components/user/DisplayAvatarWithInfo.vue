@@ -3,7 +3,7 @@
         <template #content>
             <div class="flex items-center gap-4">
                 <div class="flex items-center">
-                    <DisplayAvatar />
+                    <DisplayAvatar circle />
                     <div class="ml-3">
                         <!-- Display name - second one is on mobile -->
                         <h1 class="text-2xl font-semibold text-gray-700 hidden md:inline">{{ displayName ? t('user.welcome', { name: displayName }) : t('user.noName') }}</h1>

@@ -7,7 +7,7 @@
         <template #content>
             <div class="flex flex-col divide-y">
                 <div class="col-span-full flex items-center gap-x-8 pb-4">
-                    <DisplayAvatar size="xl" :circle="false" />
+                    <DisplayAvatar size="xl" preview />
                     <UploadProfilePicture />
                 </div>
 

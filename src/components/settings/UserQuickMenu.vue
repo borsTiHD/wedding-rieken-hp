@@ -5,13 +5,14 @@
             tabindex="0"
             mode="button"
             size="sm"
+            circle
             @click="showOverlayPanel"
             @keydown.enter="showOverlayPanel"
         />
 
         <Popover ref="op">
             <div class="w-full sm:w-96 flex flex-col items-center gap-4">
-                <DisplayAvatar />
+                <DisplayAvatar circle />
 
                 <!-- If user is logged in -->
                 <template v-if="uid">
