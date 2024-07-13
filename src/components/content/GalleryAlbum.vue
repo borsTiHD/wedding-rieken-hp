@@ -2,7 +2,9 @@
     <Card>
         <template #content>
             <div class="flex flex-col items-center gap-4">
-                <h2 class="text-2xl text-center whitespace-pre-line">Gallery 1</h2>
+                <ShowUnderline color="text-lime-400">
+                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 1</h2>
+                </ShowUnderline>
                 <div class="flex flex-col items-center gap-4">
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex flex-col items-center gap-4">
@@ -29,7 +31,9 @@
     <Card>
         <template #content>
             <div class="flex flex-col items-center gap-4">
-                <h2 class="text-2xl text-center whitespace-pre-line">Gallery 2</h2>
+                <ShowUnderline color="text-blue-400">
+                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 2</h2>
+                </ShowUnderline>
                 <div class="container mx-auto">
                     <div class="flex flex-wrap -mx-4">
                         <div
@@ -48,7 +52,9 @@
     <Card>
         <template #content>
             <div class="flex flex-col items-center gap-4">
-                <h2 class="text-2xl text-center whitespace-pre-line">Gallery 3</h2>
+                <ShowUnderline color="text-rose-400">
+                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 3</h2>
+                </ShowUnderline>
                 <div class="container mx-auto">
                     <div class="flex flex-wrap -mx-4">
                         <div
@@ -94,6 +100,7 @@
 </template>
 
 <script setup lang="ts">
+import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import pic1 from '@/assets/img/pexels-photo-2253870.jpeg'
 import pic2 from '@/assets/img/pexels-photo-371312.jpeg'
 import pic3 from '@/assets/img/pexels-photo-752842.jpeg'

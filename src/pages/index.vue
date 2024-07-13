@@ -1,5 +1,5 @@
 <template>
-    <main class="mx-auto flex flex-col">
+    <main class="flex flex-col">
         <!-- Main content -->
         <section class="h-screen flex justify-center relative overflow-hidden -mt-20">
             <!-- Background image -->
@@ -62,13 +62,6 @@
             </div>
         </section>
 
-        <!-- Gallery -->
-        <section id="infos" class="bg-accent-2">
-            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-                <GalleryAlbum />
-            </div>
-        </section>
-
         <!-- Riddle -->
         <section id="infos" class="bg-accent">
             <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
@@ -88,7 +81,6 @@ import ShowProcedure from '@/components/content/ShowProcedure.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
-import GalleryAlbum from '@/components/content/GalleryAlbum.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
 
 // App config
