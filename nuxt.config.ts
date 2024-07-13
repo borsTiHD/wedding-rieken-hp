@@ -63,6 +63,11 @@ export default defineNuxtConfig({
         '@formkit/nuxt',
         '@nuxtjs/i18n'
     ],
+    vue: {
+        compilerOptions: {
+            isCustomElement: (tag) => tag.startsWith('add-')
+        }
+    },
     primevue: {
         // Use PrimeVue Plugin for configuration
         // https://primevue.org/nuxt/#useprimevue

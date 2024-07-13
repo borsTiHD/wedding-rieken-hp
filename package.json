@@ -41,6 +41,7 @@
         "@pinia/nuxt": "^0.5.1",
         "@primevue/themes": "^4.0.0",
         "@vueuse/core": "^10.11.0",
+        "add-to-calendar-button": "^2.6.18",
         "dayjs": "^1.11.11",
         "firebase": "^10.12.3",
         "firebase-admin": "^12.2.0",

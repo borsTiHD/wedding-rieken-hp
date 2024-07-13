@@ -13,6 +13,8 @@
     "general": {
         "inputDateFormat": "dd.mm.yy",
         "weddingDay": "Hochzeitstag",
+        "eventTitle": "Hochzeit von {bride} und {groom}",
+        "eventDescription": "Weitere Informationen finden Sie hier: {url}",
         "invitation": "Einladung",
         "address": {
             "header": "Adresse",
@@ -417,7 +419,7 @@
         "changeDuration": {
             "header": "Dauer der Hochzeit ändern",
             "label": "Dauer in Stunden",
-            "infoText": "Der Countdown zeigt in dieser Spanne das Event als \"laufend\" an.",
+            "infoText": "Bestimmt den Termin zum Downloaden und der Countdown zeigt in dieser Spanne das Event als \"laufend\" an.",
             "submit": "Speichern",
             "error": "Fehler",
             "success": "Erfolgreich",
