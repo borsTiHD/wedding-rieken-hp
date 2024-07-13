@@ -144,9 +144,9 @@
                     <Column field="photoURL" :header="t('admin.listUsers.tableHeader.avatar')">
                         <template #body="slotProps">
                             <div class="cursor-pointer">
-                                <img v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" class="h-16 w-16 object-cover shadow-md rounded-md">
-                                <div v-else class="h-16 w-16 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
-                                    <span class="text-gray-400 text-center select-none">No Avatar</span>
+                                <DisplayAvatar v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" shadow cover preview />
+                                <div v-else class="h-14 w-14 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
+                                    <span class="text-gray-500 text-center select-none">No Avatar</span>
                                 </div>
                             </div>
                         </template>
@@ -220,6 +220,7 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import { FilterMatchMode } from '@primevue/core/api'
+import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
 import DisplayModal from '@/components/DisplayModal.vue'
 import CreateUser from '@/components/admin/CreateUser.vue'
 import CheckGuest from '@/components/admin/CheckGuest.vue'
