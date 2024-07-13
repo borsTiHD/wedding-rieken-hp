@@ -36,6 +36,9 @@ export const useAppStore = defineStore('app-store', () => {
     // Spotify playlist
     const spotifyPlaylist = computed(() => config.value?.spotifyPlaylist)
 
+    // Location Preview url
+    const locationPreview = computed(() => config.value?.locationPreview)
+
     // Fetch config data
     async function fetchConfig() {
         const response = await queryByCollectionAndId('app', 'config').catch((error) => {
@@ -55,5 +58,5 @@ export const useAppStore = defineStore('app-store', () => {
         return updateByCollectionAndId('app', 'config', config)
     }
 
-    return { config, updateConfig, fetchConfig, bride, groom, street, city, weddingDate, weddingDuration, deadlineDate, isBeforeDeadline, spotifyPlaylist, setThemeColor, themeColor }
+    return { config, updateConfig, fetchConfig, bride, groom, street, city, weddingDate, weddingDuration, deadlineDate, isBeforeDeadline, spotifyPlaylist, locationPreview, setThemeColor, themeColor }
 })

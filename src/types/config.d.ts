@@ -8,6 +8,7 @@ export interface Config {
     street: string,
     city: string,
     spotifyPlaylist: string,
+    locationPreview: string,
 }
 
 // Type for the partial config

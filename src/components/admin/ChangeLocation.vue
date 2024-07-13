@@ -4,33 +4,45 @@
             <h2>{{ t('admin.changeLocation.header') }}</h2>
         </template>
         <template #content>
-            <FormKit
-                :id="formId"
-                v-slot="{ state: { valid } }"
-                type="form"
-                :actions="false"
-                @submit="handleSubmit"
-            >
-                <div class="flex flex-wrap items-center gap-4">
-                    <FormKit
-                        v-model="defaultStreet"
-                        type="text"
-                        name="street"
-                        outer-class="flex-1 w-full"
-                        :label="t('admin.changeLocation.street')"
-                        validation="required|length:5"
-                    />
-                    <FormKit
-                        v-model="defaultCity"
-                        type="text"
-                        name="city"
-                        outer-class="flex-1 w-full"
-                        :label="t('admin.changeLocation.city')"
-                        validation="required|length:5"
-                    />
-                    <Button :label="t('admin.changeLocation.submit')" class="basis-full" icon="pi pi-map-marker" raised :loading="loading" :disabled="!valid" @click="submitForm(formId)" />
+            <div class="flex flex-col gap-4">
+                <FormKit
+                    :id="formId"
+                    v-slot="{ state: { valid } }"
+                    type="form"
+                    :actions="false"
+                    @submit="handleSubmit"
+                >
+                    <div class="flex flex-wrap items-center gap-4">
+                        <FormKit
+                            v-model="defaultStreet"
+                            type="text"
+                            name="street"
+                            outer-class="flex-1 w-full"
+                            :label="t('admin.changeLocation.street')"
+                            validation="required|length:5"
+                        />
+                        <FormKit
+                            v-model="defaultCity"
+                            type="text"
+                            name="city"
+                            outer-class="flex-1 w-full"
+                            :label="t('admin.changeLocation.city')"
+                            validation="required|length:5"
+                        />
+                        <Button :label="t('admin.changeLocation.submit')" class="basis-full" icon="pi pi-map-marker" raised :loading="loading" :disabled="!valid" @click="submitForm(formId)" />
+                    </div>
+                </FormKit>
+
+                <div class="flex flex-col gap-4">
+                    <div class="col-span-full flex items-center gap-x-8 pb-4">
+                        <Image :src="locationPreview" alt="Location Preview" width="250" imageClass="rounded-lg" preview />
+                        <div>
+                            <UploadLocationPicture @uploaded="appStore.fetchConfig()" />
+                            <p class="mt-2 text-xs leading-5 text-gray-400">{{ t('user.profilePicture.uploadDescription', { maxFilesize: `xx MB` }) }}</p>
+                        </div>
+                    </div>
                 </div>
-            </FormKit>
+            </div>
         </template>
     </Card>
 </template>
@@ -40,6 +52,7 @@ import { useToast } from 'primevue/usetoast'
 import { submitForm } from '@formkit/core'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import { useAppStore } from '@/stores/app'
+import UploadLocationPicture from '@/components/admin/UploadLocationPicture.vue'
 import type { PartialConfig } from '@/types/Config'
 
 // Composables
@@ -53,6 +66,7 @@ const appStore = useAppStore()
 const loading = ref(false)
 const defaultStreet = ref(appStore.street)
 const defaultCity = ref(appStore.city)
+const locationPreview = computed(() => appStore.locationPreview)
 const formId = 'changeLocationForm'
 
 type FormValues = {
