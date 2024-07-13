@@ -33,48 +33,61 @@
             </div>
         </section>
 
-        <!-- WeddingDay -->
-        <section id="wedding" class="bg-accent-3">
-            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-                <div class="flex flex-wrap gap-4">
-                    <ShowWeddingDay />
-                    <ShowProcedure />
+        <template v-if="user?.uid">
+            <!-- WeddingDay -->
+            <section id="wedding" class="bg-accent-3">
+                <div class="section-style">
+                    <div class="flex flex-wrap gap-4">
+                        <ShowWeddingDay />
+                        <ShowProcedure />
+                    </div>
+                    <ShowQuote />
                 </div>
-                <ShowQuote />
-            </div>
-        </section>
+            </section>
 
-        <!-- Infos -->
-        <section id="infos" class="bg-accent">
-            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-                <div class="flex flex-wrap md:flex-nowrap gap-4">
-                    <RouteDescription class="basis-6/12" />
-                    <ShowInfos />
+            <!-- Infos -->
+            <section id="infos" class="bg-accent">
+                <div class="section-style">
+                    <div class="flex flex-wrap md:flex-nowrap gap-4">
+                        <RouteDescription class="basis-6/12" />
+                        <ShowInfos />
+                    </div>
+                    <ShowQuote />
                 </div>
-                <ShowQuote />
-            </div>
-        </section>
+            </section>
 
-        <!-- Spotify Playlist -->
-        <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify" class="bg-primary">
-            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-                <ShowSpotify />
-            </div>
-        </section>
+            <!-- Spotify Playlist -->
+            <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify" class="bg-primary">
+                <div class="section-style">
+                    <ShowSpotify />
+                </div>
+            </section>
 
-        <!-- Riddle -->
-        <section id="riddle" class="">
-            <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-                <ShowRiddle />
-            </div>
-        </section>
+            <!-- Riddle -->
+            <section id="riddle" class="">
+                <div class="section-style">
+                    <ShowRiddle />
+                </div>
+            </section>
+        </template>
+
+        <template v-else>
+            <!-- User is not logged in -->
+            <section id="not-logged-in" class="bg-accent-3">
+                <div class="section-style">
+                    <ShowGuestInfo />
+                </div>
+            </section>
+        </template>
     </main>
 </template>
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
+import { useUserStore } from '@/stores/user'
 import { useCookieStore } from '@/stores/cookieconsent'
 import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
+import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import RouteDescription from '@/components/content/RouteDescription.vue'
 import ShowProcedure from '@/components/content/ShowProcedure.vue'
@@ -87,6 +100,10 @@ import { useWindowSize } from '@/composables/useWindowSize'
 const appStore = useAppStore()
 const { bride, groom } = appStore
 const spotifyPlaylist = computed(() => appStore.spotifyPlaylist)
+
+// User store
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
 
 // Cookie consent
 const cookieStore = useCookieStore()
@@ -138,8 +155,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.section-style {
+    @apply p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4;
+}
+
 /* https://10015.io/tools/css-background-pattern-generator */
-#wedding {
+#not-logged-in, #wedding {
     background:
         radial-gradient(at 80% 80%,rgba(255, 61, 61, 0.23) 25.4%,#0000 26%),
         radial-gradient(at 20% 80%,rgba(255, 61, 61, 0.23) 25.4%,#0000 26%),
