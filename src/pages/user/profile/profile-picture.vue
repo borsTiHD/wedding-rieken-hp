@@ -26,10 +26,7 @@
                         <div v-else class="h-48 w-48 sm:h-64 sm:w-64 flex text-center justify-center items-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                             <i class="pi pi-image text-6xl text-gray-300" />
                         </div>
-                        <div>
-                            <UploadProfilePicture />
-                            <p class="mt-2 text-xs leading-5 text-gray-400">{{ t('user.profilePicture.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}</p>
-                        </div>
+                        <UploadProfilePicture />
                     </div>
                 </div>
 
@@ -56,9 +53,6 @@ const navPage = (to: 'next' | 'prev') => emit(`${to}-page`)
 
 // Localisation
 const { t } = useI18n()
-
-// Composables
-const { maxFileSizeInMB } = useProfileChecker()
 
 // Check completion state of this page
 const { checker } = useProfileChecker()

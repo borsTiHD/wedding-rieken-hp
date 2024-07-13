@@ -1,6 +1,9 @@
 <template>
-    <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
-    <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :chooseLabel="uploadLabel" accept="image/*" :maxFileSize="maxFileSize" :invalidFileSizeMessage="invalidFileSizeMessage" auto customUpload @uploader="onUpload" />
+    <div class="flex flex-col">
+        <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
+        <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :chooseLabel="uploadLabel" accept="image/*" :maxFileSize="maxFileSize" :invalidFileSizeMessage="invalidFileSizeMessage" auto customUpload @uploader="onUpload" />
+        <p class="mt-2 text-xs leading-5 text-gray-400">{{ t('user.profilePicture.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}</p>
+    </div>
 </template>
 
 <script setup lang="ts">

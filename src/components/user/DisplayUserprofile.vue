@@ -8,10 +8,7 @@
             <div class="flex flex-col divide-y">
                 <div class="col-span-full flex items-center gap-x-8 pb-4">
                     <DisplayAvatar size="xl" :circle="false" />
-                    <div>
-                        <UploadProfilePicture />
-                        <p class="mt-2 text-xs leading-5 text-gray-400">{{ t('user.profilePicture.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}</p>
-                    </div>
+                    <UploadProfilePicture />
                 </div>
 
                 <ul class="flex flex-col divide-y">
@@ -161,7 +158,6 @@ const router = useRouter()
 const { t } = useI18n()
 const localePath = useLocalePath()
 const { modalPosition } = useModalPosition() // Modal position
-const { maxFileSizeInMB } = useProfileChecker()
 
 // TODO: Create a hover effect for the list items
 // TODO: Create a step by step guide for the user profile, with a progress bar at the top and a button to skip the guide
