@@ -2,7 +2,7 @@
     <footer v-if="showFooter" ref="footer" class="mt-auto flex justify-center items-center h-56 bg-surface text-primary font-great-vibes z-50">
         <div class="flex flex-col justify-center items-center gap-2 z-50">
             <span>{{ t('footer.description', { bride, groom }) }}</span>
-            <div class="flex gap-2">
+            <div class="mx-auto flex flex-wrap justify-center gap-2">
                 <template
                     v-for="(item, index) in navItems"
                     :key="item.path"
