@@ -453,9 +453,10 @@ const getUsers = async() => {
 
     // Get all users
     const response = await getAllUsers().catch((error: { statusMessage: string }) => {
+        console.error(error)
         toast.add({ severity: 'error', summary: 'Error', detail: error.statusMessage, life: 10000 })
         loading.value = false
-        throw error
+        return undefined
     })
 
     // Check if response is ok
