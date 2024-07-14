@@ -29,7 +29,7 @@ export default function useBackendApi() {
         }
 
         // Get list of all users
-        return useFetch(`${apiBaseUrl}/users`)
+        return $fetch(`${apiBaseUrl}/users`)
     }
 
     // Create a new user

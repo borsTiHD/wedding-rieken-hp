@@ -459,14 +459,14 @@ const getUsers = async() => {
     })
 
     // Check if response is ok
-    if (!response || !response.data) {
+    if (!response || !response.result) {
         toast.add({ severity: 'error', summary: 'Error', detail: 'Could not get users', life: 10000 })
         loading.value = false
         throw new Error('Could not get users.')
     }
 
     // Set users
-    users.value = response?.data?.value?.result as User[] || []
+    users.value = response?.result as User[] || []
     loading.value = false
 }
 
