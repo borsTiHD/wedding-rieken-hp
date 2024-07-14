@@ -85,20 +85,18 @@
                     <template #expansion="slotProps">
                         <ul class="flex flex-col gap-2">
                             <li class="user-list-item">
-                                <div class="flex items-center gap-2">
-                                    <span>{{ t('admin.listUsers.tableHeader.actions') }}:</span>
-                                    <CheckGuest
-                                        v-if="slotProps.data.role === 'guest'"
-                                        :uid="slotProps.data.uid"
-                                        @changed="getUsers"
-                                    />
-                                    <CheckGuest
-                                        v-else
-                                        :uid="slotProps.data.uid"
-                                        mode="changeInvitation"
-                                        @changed="getUsers"
-                                    />
-                                </div>
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.actions') }}:</span>
+                                <CheckGuest
+                                    v-if="slotProps.data.role === 'guest'"
+                                    :uid="slotProps.data.uid"
+                                    @changed="getUsers"
+                                />
+                                <CheckGuest
+                                    v-else
+                                    :uid="slotProps.data.uid"
+                                    mode="changeInvitation"
+                                    @changed="getUsers"
+                                />
                             </li>
                             <li class="user-list-item">
                                 <span class="font-bold">{{ t('admin.listUsers.tableHeader.email') }}:</span>
@@ -135,6 +133,18 @@
                             <li class="user-list-item">
                                 <span class="font-bold">{{ t('admin.listUsers.tableHeader.highscore') }}:</span>
                                 <span>{{ slotProps.data.highscore }}</span>
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.creationTime') }}:</span>
+                                <span>{{ createReadableDate(slotProps.data.creationTime) }}</span>
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.lastRefreshTime') }}:</span>
+                                <span>{{ createReadableDate(slotProps.data.lastRefreshTime) }}</span>
+                            </li>
+                            <li class="user-list-item">
+                                <span class="font-bold">{{ t('admin.listUsers.tableHeader.lastSignInTime') }}:</span>
+                                <span>{{ createReadableDate(slotProps.data.lastSignInTime) }}</span>
                             </li>
                             <li class="user-list-item">
                                 <span class="font-bold">UID:</span>
@@ -234,6 +244,8 @@ import CheckGuest from '@/components/admin/CheckGuest.vue'
 import useBackendApi from '@/composables/useBackendApi'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useWindowSize } from '@/composables/useWindowSize'
+import createReadableDate from '@/composables/dateHelper'
+import { useUserStore } from '@/stores/user'
 import type admin from 'firebase-admin'
 import type { UserProfile } from '@/types/UserProfile'
 import type { DataTableRowClickEvent } from 'primevue/datatable'
@@ -249,6 +261,9 @@ type DataTableUser = {
     photoURL: string;
     additionalGuests: number;
     invitation: string;
+    creationTime: string;
+    lastRefreshTime: string;
+    lastSignInTime: string;
     highscore?: number;
 }
 
@@ -281,6 +296,9 @@ watch(windowWidth, () => {
         expandedRows.value = []
     }
 })
+
+// User store
+const userStore = useUserStore()
 
 // Data
 const users = ref<User[]>([])
@@ -323,6 +341,9 @@ const usersData = computed(() => {
         photoURL: user.account.photoURL,
         additionalGuests: user.profile.additionalGuests,
         invitation: user.profile.invitation,
+        creationTime: user.account.metadata.creationTime,
+        lastRefreshTime: user.account.metadata.lastRefreshTime,
+        lastSignInTime: user.account.metadata.lastSignInTime,
         highscore: user.profile.highscore
     }) as DataTableUser)
 
@@ -447,9 +468,14 @@ const copyToClipboard = async(value: string) => {
     }
 }
 
+// Create a readable date from timestamp
+
 // Fetch users
 const getUsers = async() => {
     loading.value = true
+
+    // Fetch User data and refresh user token
+    await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
 
     // Get all users
     const response = await getAllUsers().catch((error: { statusMessage: string }) => {
