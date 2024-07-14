@@ -266,9 +266,9 @@
             "tooltipNoResponse": "Sie haben noch nicht auf die Einladung geantwortet",
             "deadlineInfo": "Bitte treffen Sie Ihre Entscheidung bis zum {date}, ob Sie die Einladung annehmen oder ablehnen möchten. Nach dieser Deadline können Sie Ihre Entscheidung nicht mehr ändern.",
             "deadlinePassedInfo": "Die Deadline ist bereits abgelaufen. Sie können Ihre Entscheidung nicht mehr ändern. Sollten Sie eine Änderung vornehmen wollen, kontaktieren Sie uns bitte.",
-            "stateAccepted": "Einladung angenommen",
-            "stateDeclined": "Einladung abgelehnt",
-            "stateNoReponse": "Einladung ausstehend",
+            "stateAccepted": "Einladung wurde angenommen",
+            "stateDeclined": "Einladung wurde abgelehnt",
+            "stateNoReponse": "Einladung ist noch ausstehend",
             "stateNoInvitation": "Keine Einladung",
             "labelAccept": "Annehmen",
             "labelDecline": "Ablehnen",
@@ -492,6 +492,9 @@
                 "highscore": "Highscore",
                 "additionalGuests": "Zusätzliche Gäste",
                 "invitationState": "Einladung",
+                "creationTime": "Erstellungszeitpunkt",
+                "lastRefreshTime": "Letzter Refresh",
+                "lastSignInTime": "Letzter Login",
                 "actions": "Aktionen"
             }
         },
