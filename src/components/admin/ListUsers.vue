@@ -34,13 +34,12 @@
                     :value="usersData"
                     :loading="loading"
                     :rowClass="rowClass"
-                    stripedRows
                     paginator
                     size="small"
                     removableSort
                     :rows="10"
                     :rowsPerPageOptions="[5, 10, 20, 50]"
-                    @row-click="setExpandedRow"
+                    @row-click-BAK="setExpandedRow"
                 >
                     <template #header>
                         <div class="flex flex-wrap sm:items-center gap-2">
@@ -145,13 +144,12 @@
                         </ul>
                     </template>
 
+                    <Column expander style="width: 5rem" />
                     <Column field="photoURL" :header="t('admin.listUsers.tableHeader.avatar')">
                         <template #body="slotProps">
-                            <div class="cursor-pointer">
-                                <DisplayAvatar v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" shadow cover preview />
-                                <div v-else class="h-14 w-14 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
-                                    <span class="text-gray-500 text-center select-none">No Avatar</span>
-                                </div>
+                            <DisplayAvatar v-if="slotProps.data.photoURL" :src="slotProps.data.photoURL" :alt="`Avatar from ${slotProps.data.displayName}`" shadow cover preview />
+                            <div v-else class="h-14 w-14 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
+                                <span class="text-gray-500 text-center select-none">No Avatar</span>
                             </div>
                         </template>
                     </Column>
@@ -346,6 +344,7 @@ const rowClass = (data: DataTableUser) => roleClassMap[data.role] || ''
 const roleClassMap: { [role: string]: string } = {
     'admin': 'bg-blue-100',
     'guest': 'bg-yellow-100'
+    // 'declined': 'bg-red-100'
 }
 
 // Calculate total guests with additional guests
