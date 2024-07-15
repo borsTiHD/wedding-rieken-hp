@@ -2,21 +2,24 @@
     <main class="mx-auto flex flex-wrap gap-4 p-4 w-full sm:w-11/12 md:w-10/12 lg:w-8/12">
         <ClientOnly>
             <!-- You are an admin -->
-            <template v-if="user.uid && userProfile?.role === 'admin'">
-                <div class="flex flex-wrap gap-4 w-full">
-                    <ChangeWeddingDate class="basis-[40rem]" />
-                    <ShowQRCode class="basis-80" />
-                    <ChangeDeadline class="basis-[40rem]" />
-                    <ChangeInviteToken class="basis-80" />
-                    <ChangeWeddingDuration class="basis-80" />
-                    <ChangeLocation class="basis-80" />
-                    <ChangeLocationPreview />
-                    <ChangeSpotifyPlaylist />
-                </div>
-            </template>
+            <div
+                v-if="user.uid && userProfile?.role === 'admin'"
+                class="flex flex-wrap gap-4 w-full"
+            >
+                <ChangeWeddingDate class="basis-[40rem]" />
+                <ShowQRCode class="basis-80" />
+                <ChangeDeadline class="basis-[40rem]" />
+                <ChangeInviteToken class="basis-80" />
+                <ChangeWeddingDuration class="basis-80" />
+                <ChangeLocation class="basis-80" />
+                <ChangeLocationPreview />
+                <ChangeSpotifyPlaylist />
+            </div>
 
             <!-- You are not an admin -->
-            <NoAdmin v-else />
+            <div v-else class="flex flex-wrap gap-4 w-full">
+                <NoAdmin />
+            </div>
         </ClientOnly>
     </main>
 </template>

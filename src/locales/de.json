@@ -11,6 +11,7 @@
         "message": "Wir verwenden Cookies, sowie den Dienst Firebase von Google um eine Benutzerverwaltung zu ermöglichen. Unsere Partner führen diese Informationen möglicherweise mit weiteren Daten zusammen, die Sie ihnen bereitgestellt haben oder die sie im Rahmen Ihrer Nutzung der Dienste gesammelt haben. Ohne Ihre Zustimmung können wir Ihnen diese Webseite nicht bereitstellen. Bitte stimmen Sie der Verwendung von Cookies und dem Dienst Firebase zu."
     },
     "general": {
+        "404": "Seite nicht gefunden",
         "inputDateFormat": "dd.mm.yy",
         "weddingDay": "Hochzeitstag",
         "eventTitle": "Hochzeit von {bride} und {groom}",
@@ -91,9 +92,6 @@
         "welcomeMessageAfterDeadline": "Zu unserer Hochzeit am {weddingDate} möchten wir Dich herzlich einladen. Leider ist die Deadline zur Einladungsannahme bereits abgelaufen. Bitte kontaktiere uns, falls Du noch kommen möchten.",
         "loginLinkTag": "hier"
     },
-    "riddle": {
-        "text": "Ich bin der Schlüssel zu Erinnerungen, ein Hüter von Geschichten. In mir findet man Vergangenes, Gegenwärtiges und Zukünftiges. Was bin ich?"
-    },
     "login": {
         "header": "Einloggen",
         "wihtoutPassword": "Ohne Passwort",
@@ -126,6 +124,7 @@
     "register": {
         "header": "Registrieren",
         "submit": "Registrieren",
+        "alreadyRegistered": "Sind Sie bereits registriert?",
         "success": "User erstellt",
         "successDetail": "Der User wurde erfolgreich erstellt",
         "error": "Fehler beim Registrieren",
@@ -358,7 +357,7 @@
             "guestRole": "Selbstregistrierter Gast",
             "declinedRole": "Abgelehnter Gast",
             "noRole": "Keine Rolle",
-            "notAdmin": "Sie sollten nicht hier sein, Sie sind kein Administrator... 🤓✌️\nBooooooh! {ghost}",
+            "notAdmin": "Sie sollten nicht hier sein, Sie sind kein Administrator... 🤓✌️\nBoooooo! {ghost}",
             "ghost": "👻"
         },
         "upgradeUserRole": {
@@ -516,7 +515,9 @@
         }
     },
     "ghostGame": {
-        "secret": "Sie haben das Geisterspiel gefunden. Viel Spaß!",
+        "header": "Geisterspiel",
+        "secret": "Du hast das Rätsel gelöst und das Geisterspiel gefunden. Klicke auf den Geist, um Punkte zu sammeln. Viel Spaß!",
+        "secretWrong": "Oje, hier spukt es nicht! Versuche es noch einmal und denke daran, Geister sagen es kurz und knapp!",
         "scoreboard": "Punktestand",
         "score": "Punkte",
         "time": "Zeit",
