@@ -27,7 +27,7 @@
 
                 <!-- Register link -->
                 <NuxtLink :to="localePath('/register')">
-                    <Button class="whitespace-nowrap p-0 sm:p-2" :label="t('register.submit')" text size="small" />
+                    <Button class="whitespace-nowrap p-2" :label="t('register.submit')" text size="small" />
                 </NuxtLink>
             </div>
 

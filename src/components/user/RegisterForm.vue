@@ -20,6 +20,13 @@
                 validation="required"
             />
 
+            <div class="flex justify-between mb-4">
+                <!-- Register link -->
+                <NuxtLink :to="localePath('/login')">
+                    <Button class="whitespace-nowrap p-2" :label="t('register.alreadyRegistered')" text size="small" />
+                </NuxtLink>
+            </div>
+
             <Button :label="t('register.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
         </div>
     </FormKit>
