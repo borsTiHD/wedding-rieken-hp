@@ -56,9 +56,8 @@ const secret = computed(() => route.params.secret as string)
 // Refs
 const showSecret = ref(false)
 
-// Check if secret is correct with a few variations
-// Original secret is 'boo'
-if (secret.value === 'boo' || secret.value === 'Boo' || secret.value === 'BOO') {
+// Check if secret is correct with a few variations - secret is 'boo'
+if (/^boo$/i.test(secret.value)) {
     showSecret.value = true
 }
 </script>
