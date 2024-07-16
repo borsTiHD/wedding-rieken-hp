@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DataResults, Pages } from '@/types/pages'
+import type { DataResults, Pages } from '@/types/Pages'
 
 const data = ref<Pages[]>([])
 
