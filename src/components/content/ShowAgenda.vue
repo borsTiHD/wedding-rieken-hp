@@ -34,6 +34,7 @@
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import { useContentStore } from '@/stores/content'
+import type { DailyAgenda } from '@/types/AppContent'
 
 // Localisation
 const { t } = useI18n()
@@ -42,7 +43,7 @@ const { t } = useI18n()
 const contentStore = useContentStore()
 const dailyAgenda = computed(() => {
     // Sort by time
-    const items = contentStore.dailyAgenda?.sort((a, b) => {
+    const items: DailyAgenda[] = contentStore.dailyAgenda?.sort((a: DailyAgenda, b: DailyAgenda) => {
         return a.time.localeCompare(b.time)
     })
     return items || []
