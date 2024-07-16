@@ -9,7 +9,8 @@ import {
     // query,
     // where,
     setDoc,
-    arrayUnion
+    arrayUnion,
+    arrayRemove
     // collectionGroup,
     // Timestamp
 } from 'firebase/firestore'
@@ -71,6 +72,14 @@ export function useFirestore() {
         })
     }
 
+    // Remove an item from an array field of a document by collection and ID
+    const removeArrayFieldByCollectionAndId = async(col: string, id: string, key: string, value: Value) => {
+        const docRef = doc($firestore, col, id)
+        return await updateDoc(docRef, {
+            [key]: arrayRemove(value)
+        })
+    }
+
     // Add a document with a specified collection and ID
     const addByCollectionAndId = async(col: string, id: string, document: unknown) => {
         const colRef = collection($firestore, col)
@@ -110,6 +119,7 @@ export function useFirestore() {
         deleteByCollectionAndId,
         updateByCollectionAndId,
         updateArrayFieldByCollectionAndId,
+        removeArrayFieldByCollectionAndId,
         addByCollectionAndId,
         set,
         update,
