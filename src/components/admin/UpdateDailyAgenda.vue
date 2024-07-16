@@ -5,7 +5,12 @@
         </template>
         <template #content>
             <div class="flex flex-col gap-4">
-                <DataTable :value="dailyAgenda" tableStyle="min-width: 50rem">
+                <DataTable
+                    :value="dailyAgenda"
+                    tableStyle="min-width: 50rem"
+                    :loading="loading"
+                    size="small"
+                >
                     <template #header>
                         <div class="flex flex-wrap sm:items-center gap-2">
                             <!-- Refresh content -->
@@ -69,6 +74,7 @@ const dailyAgenda = computed(() => {
 
 // Refs
 const createEventModal = ref<InstanceType<typeof DisplayModal>>()
+const loading = ref(false)
 
 // Delete item
 const deleteItem = async(item: DailyAgenda) => {
@@ -83,8 +89,10 @@ const deleteItem = async(item: DailyAgenda) => {
 
 // Fetch content
 const fetchContent = async() => {
+    loading.value = true
     await contentStore.fetchContent().catch(() => {
         toast.add({ severity: 'error', summary: 'Error', detail: t('admin.dailyAgenda.error'), life: 10000 })
     })
+    loading.value = false
 }
 </script>
