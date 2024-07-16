@@ -39,7 +39,6 @@
                     removableSort
                     :rows="10"
                     :rowsPerPageOptions="[5, 10, 20, 50]"
-                    @row-click-BAK="setExpandedRow"
                 >
                     <template #header>
                         <div class="flex flex-wrap sm:items-center gap-2">
@@ -248,7 +247,6 @@ import createReadableDate from '@/composables/dateHelper'
 import { useUserStore } from '@/stores/user'
 import type admin from 'firebase-admin'
 import type { UserProfile } from '@/types/UserProfile'
-import type { DataTableRowClickEvent } from 'primevue/datatable'
 
 // Type definition for DataTableUser
 type DataTableUser = {
@@ -440,19 +438,6 @@ const getUserRoleIcon = (role: string) => {
             return 'pi pi-times'
         default:
             return 'pi pi-exclamation-triangle'
-    }
-}
-
-// Set expanded row
-const setExpandedRow = (event: DataTableRowClickEvent) => {
-    const data: DataTableUser = event.data
-    const exists = expandedRows.value.findIndex((row) => row.uid === data.uid)
-    if (exists !== -1) {
-        // Remove index from expanded rows
-        expandedRows.value.splice(exists, 1)
-    } else {
-        // Add row to expanded rows
-        expandedRows.value.push(data)
     }
 }
 
