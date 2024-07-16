@@ -8,7 +8,8 @@ import {
     doc,
     // query,
     // where,
-    setDoc
+    setDoc,
+    arrayUnion
     // collectionGroup,
     // Timestamp
 } from 'firebase/firestore'
@@ -62,6 +63,14 @@ export function useFirestore() {
         return await updateDoc(docRef, document)
     }
 
+    // Update an array field of a document by collection and ID
+    const updateArrayFieldByCollectionAndId = async(col: string, id: string, key: string, value: Value) => {
+        const docRef = doc($firestore, col, id)
+        return await updateDoc(docRef, {
+            [key]: arrayUnion(value)
+        })
+    }
+
     // Add a document with a specified collection and ID
     const addByCollectionAndId = async(col: string, id: string, document: unknown) => {
         const colRef = collection($firestore, col)
@@ -100,6 +109,7 @@ export function useFirestore() {
         queryByCollectionAndId,
         deleteByCollectionAndId,
         updateByCollectionAndId,
+        updateArrayFieldByCollectionAndId,
         addByCollectionAndId,
         set,
         update,
