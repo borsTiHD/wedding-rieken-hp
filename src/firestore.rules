@@ -116,7 +116,12 @@ service cloud.firestore {
     // Allow access to the "config" document
     match /app/config {
       allow read: if true; // Everyone can read
-      // Allow write only if user role from /users/{userId} is "admin"
+      allow write: if isAdmin();
+    }
+
+    // Allow access to the "content" document
+    match /app/content {
+      allow read: if true; // Everyone can read
       allow write: if isAdmin();
     }
 
