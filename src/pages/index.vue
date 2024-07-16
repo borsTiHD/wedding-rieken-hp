@@ -39,7 +39,7 @@
                 <div class="section-style">
                     <div class="flex flex-wrap gap-4">
                         <ShowWeddingDay />
-                        <ShowProcedure />
+                        <ShowAgenda />
                     </div>
                     <ShowQuote />
                 </div>
@@ -90,7 +90,7 @@ import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
 import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import RouteDescription from '@/components/content/RouteDescription.vue'
-import ShowProcedure from '@/components/content/ShowProcedure.vue'
+import ShowAgenda from '@/components/content/ShowAgenda.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
