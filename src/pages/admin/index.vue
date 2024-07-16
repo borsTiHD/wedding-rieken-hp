@@ -14,6 +14,7 @@
                 <ChangeLocation class="basis-80" />
                 <ChangeLocationPreview />
                 <ChangeSpotifyPlaylist />
+                <UpdateDailyAgenda />
             </div>
 
             <!-- You are not an admin -->
@@ -33,6 +34,7 @@ import ChangeWeddingDuration from '@/components/admin/ChangeWeddingDuration.vue'
 import ChangeLocation from '@/components/admin/ChangeLocation.vue'
 import ChangeLocationPreview from '@/components/admin/ChangeLocationPreview.vue'
 import ChangeSpotifyPlaylist from '@/components/admin/ChangeSpotifyPlaylist.vue'
+import UpdateDailyAgenda from '@/components/admin/UpdateDailyAgenda.vue'
 import NoAdmin from '@/components/admin/NoAdmin.vue'
 import { useUserStore } from '@/stores/user'
 

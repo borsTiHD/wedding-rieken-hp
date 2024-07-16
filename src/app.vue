@@ -29,6 +29,7 @@ import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
+import { useContentStore } from '@/stores/content'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
@@ -57,6 +58,7 @@ const { loading, progress, startLoading, stoptLoading } = useLoadingSpinner()
 const appStore = useAppStore() // App store
 const userStore = useUserStore() // User store
 const tokenStore = useTokenStore() // Token store
+const contentStore = useContentStore() // Content store
 
 // Refs
 const bride = computed(() => appStore.bride)
@@ -91,6 +93,7 @@ onNuxtReady(async() => {
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error
     await tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
+    await contentStore.fetchContent().catch((error) => console.warn(error)) // Fetch content, don't need to handle error
     stoptLoading() // Stop loading spinner
 })
 </script>

@@ -448,6 +448,27 @@
             "success": "Erfolgreich",
             "successDetail": "Benutzer wurde erstellt"
         },
+        "dailyAgenda": {
+            "header": "Tagesablauf",
+            "deleteEvent": "Event löschen",
+            "error": "Fehler beim Laden des Tagesablaufs",
+            "errorDeleteEvent": "Fehler beim Löschen des Events",
+            "successDeleteEvent": "Event wurde erfolgreich gelöscht",
+            "time": "Uhrzeit",
+            "event": "Event",
+            "actions": "Aktionen",
+            "newEvent": {
+                "header": "Neues Event hinzufügen",
+                "addEvent": "Event hinzufügen",
+                "error": "Fehler beim Hinzufügen des Events",
+                "success": "Event wurde erfolgreich hinzugefügt",
+                "formkit": {
+                    "labelEvent": "Event",
+                    "labelEventHelp": "Bitte geben Sie den Namen des Events ein",
+                    "submit": "Event hinzufügen"
+                }
+            }
+        },
         "listUsers": {
             "header": "Benutzerverwaltung",
             "noUsers": "Keine Benutzer gefunden",
@@ -534,6 +555,7 @@
     "firebase": {
         "custom": {
             "appConfigNotFound": "App-Konfiguration nicht gefunden",
+            "appContentNotFound": "App-Inhalte nicht gefunden",
             "confirmMailAddress": "Bitte bestätigen Sie Ihre E-Mail-Adresse",
             "noMailProvided": "Login fehlgeschlagen - Keine E-Mail-Adresse angegeben",
             "noUserLoggedIn": "Sie sind nicht eingeloggt",
