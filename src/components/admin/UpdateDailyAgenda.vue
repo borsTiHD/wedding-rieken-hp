@@ -66,7 +66,7 @@ const { modalPosition } = useModalPosition() // Modal position
 const contentStore = useContentStore()
 const dailyAgenda = computed(() => {
     // Sort by time
-    const items = contentStore.dailyAgenda?.sort((a, b) => {
+    const items: DailyAgenda[] = contentStore.dailyAgenda?.sort((a: DailyAgenda, b: DailyAgenda) => {
         return a.time.localeCompare(b.time)
     })
     return items || []
