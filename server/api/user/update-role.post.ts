@@ -1,5 +1,5 @@
-import { db } from '@/server/lib/firebaseAdmin'
-import checkUser from '@/server/lib/checkUser'
+import { db } from '@@/server/lib/firebaseAdmin'
+import checkUser from '@@/server/lib/checkUser'
 import type { PartialUserProfile } from '@/types/UserProfile'
 
 export default defineEventHandler(async(event) => {

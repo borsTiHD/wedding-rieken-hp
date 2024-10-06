@@ -1,5 +1,5 @@
-import de from './src/locales/de.json'
-import us from './src/locales/us.json'
+import de from './app/locales/de.json'
+import us from './app/locales/us.json'
 
 export default defineI18nConfig(() => ({
     legacy: false,

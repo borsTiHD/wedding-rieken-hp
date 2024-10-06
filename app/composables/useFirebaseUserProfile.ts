@@ -101,7 +101,8 @@ export default function() {
             email: email ? email : '',
             phoneNumber: '',
             invitation: 'pending',
-            additionalGuests: 0
+            additionalGuests: 0,
+            highscore: 0
         }
 
         // Add default user profile

@@ -2,7 +2,7 @@
 // Read more in 'primevue-designer-colors.md'
 // Will be used by PrimeVue and Tailwind CSS
 // - Tailwind: ./tailwind.config.js
-// - PrimeVue: ./src/plugins/primevue.ts
+// - PrimeVue: ./app/plugins/primevue.ts
 export const theme = {
     body: '#cbc8c6', // body background color - also set on AppNavbar component for theme color (stored in app store) with tailwind
     surface: '#fff', // surface background color - also set on AppNavbar component for theme color (stored in app store) with tailwind after scrolling

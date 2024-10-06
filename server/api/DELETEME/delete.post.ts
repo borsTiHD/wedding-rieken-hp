@@ -1,4 +1,4 @@
-import { del } from '@/server/lib/firestore'
+import { del } from '@@/server/lib/firestore'
 
 export default defineEventHandler(async(event) => {
     try {
