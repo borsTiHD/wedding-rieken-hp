@@ -1,19 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 import formKitTailwind from '@formkit/themes/tailwindcss'
-import { theme } from './src/config/theme'
+import { theme } from './app/config/theme'
 
 module.exports = {
     content: [
-        './src/components/**/*.{js,vue,ts}',
-        './src/layouts/**/*.vue',
-        './src/pages/**/*.vue',
-        './src/plugins/**/*.{js,ts}',
-        './src/config/**/*.{js,ts}',
-        './src/app.vue',
-        './src/error.vue',
-        './src/app.config.ts',
-        // './src/**/*.{vue,js,ts,jsx,tsx} !./src/server/**/*.ts', // Workaround for not including server files - nuxt/tailwind bug since 3.9.2
-        // './src/**/*.{vue,js,ts,jsx,tsx}',
+        './app/components/**/*.{js,vue,ts}',
+        './app/layouts/**/*.vue',
+        './app/pages/**/*.vue',
+        './app/plugins/**/*.{js,ts}',
+        './app/config/**/*.{js,ts}',
+        './app/app.vue',
+        './app/error.vue',
+        './app/app.config.ts',
+        // './app/**/*.{vue,js,ts,jsx,tsx} !./app/server/**/*.ts', // Workaround for not including server files - nuxt/tailwind bug since 3.9.2
+        // './app/**/*.{vue,js,ts,jsx,tsx}',
         // './index.html',
         './nuxt.config.{js,ts}',
         './node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}',

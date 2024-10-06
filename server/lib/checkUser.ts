@@ -1,7 +1,7 @@
-import { auth, db } from '@/server/lib/firebaseAdmin'
+import { auth } from '@@/server/lib/firebaseAdmin'
 import type { H3Event } from 'h3'
 
-export default async function checkAdmin(event: H3Event) {
+export default async function checkUser(event: H3Event) {
     const idToken = getCookie(event, 'user-id-token')
     if (!idToken) {
         throw createError({
@@ -24,19 +24,11 @@ export default async function checkAdmin(event: H3Event) {
         })
     })
 
-    // Get user profile under /users/{userId}
-    const userDoc = await db.collection('users').doc(user.uid).get().catch((error) => {
+    // If no user exists throw error
+    if (!user) {
         throw createError({
-            statusMessage: error.message
-        })
-    })
-
-    // Check if user profile exists and if role is admin
-    const userProfile = userDoc.data()
-    if (!userProfile || userProfile.role !== 'admin') {
-        throw createError({
-            statusCode: 403,
-            statusMessage: 'You must be an admin to access.'
+            statusCode: 401,
+            statusMessage: 'You must be signed in to access.'
         })
     }
 

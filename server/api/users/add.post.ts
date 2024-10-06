@@ -1,5 +1,5 @@
-import { auth, db } from '@/server/lib/firebaseAdmin'
-import checkAdmin from '@/server/lib/checkAdmin'
+import { auth, db } from '@@/server/lib/firebaseAdmin'
+import checkAdmin from '@@/server/lib/checkAdmin'
 import type { UserProfile } from '@/types/UserProfile'
 
 export default defineEventHandler(async(event) => {

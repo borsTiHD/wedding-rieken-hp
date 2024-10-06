@@ -1,4 +1,4 @@
-import { add } from '@/server/lib/firestore'
+import { add } from '@@/server/lib/firestore'
 
 export default defineEventHandler(async(event) => {
     try {

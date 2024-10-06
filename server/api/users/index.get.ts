@@ -1,7 +1,7 @@
-import { auth, db } from '@/server/lib/firebaseAdmin'
-import checkAdmin from '@/server/lib/checkAdmin'
+import { auth, db } from '@@/server/lib/firebaseAdmin'
+import checkAdmin from '@@/server/lib/checkAdmin'
 import type admin from 'firebase-admin'
-import type { UserProfile } from '@/types/UserProfile'
+import type { UserProfile } from '@@/types/UserProfile'
 
 // Type definition for user
 type User = {

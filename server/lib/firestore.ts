@@ -12,7 +12,7 @@ import {
     // collectionGroup,
     // Timestamp
 } from 'firebase/firestore'
-import { firestoreDb } from '@/server/lib/firebase'
+import { firestoreDb } from '@@/server/lib/firebase'
 
 // Types for firestore documents
 type Value = string | number | boolean | null | undefined | Document | Array<string | number | boolean | null | undefined | Document>
