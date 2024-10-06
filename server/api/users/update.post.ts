@@ -1,6 +1,6 @@
 import { db } from '@@/server/lib/firebaseAdmin'
 import checkAdmin from '@@/server/lib/checkAdmin'
-import type { UserProfile, PartialUserProfile } from '@@/types/UserProfile'
+import type { UserProfile, PartialUserProfile } from '@/types/UserProfile'
 
 export default defineEventHandler(async(event) => {
     // Check if user is admin
