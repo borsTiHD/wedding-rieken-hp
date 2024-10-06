@@ -30,6 +30,9 @@ isValidEnvironment()
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    future: {
+        compatibilityVersion: 4
+    },
     runtimeConfig: {
         // Server-side runtime config
         firebaseAdmin: {
@@ -56,7 +59,6 @@ export default defineNuxtConfig({
             }
         }
     },
-    srcDir: 'src/',
     modules: [
         '@primevue/nuxt-module',
         '@pinia/nuxt',
