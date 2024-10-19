@@ -18,9 +18,12 @@
 
     <!-- Scroll to top button -->
     <ScrollTop />
+
+    <VueQueryDevtools />
 </template>
 
 <script setup lang="ts">
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
 import AppLoadingOverlay from '@/components/layout/AppLoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
@@ -30,11 +33,15 @@ import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
 import { useContentStore } from '@/stores/content'
+// import { useConfigQuery } from '@/queries/config'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
 import '@fontsource/great-vibes'
 import '@fontsource/alex-brush'
+
+// TODO: Rebuild with tanstack/vue-query
+// const { data: configData, isFetching, isLoading, error, isSuccess, refetch } = useConfigQuery()
 
 // TODO: Fix "toast" styling on mobile (toast is glitching)
 
