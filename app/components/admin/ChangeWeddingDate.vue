@@ -24,7 +24,7 @@ import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import { useAppStore } from '@/stores/app'
-import type { PartialConfig } from '@/types/Config'
+import type { PartialConfig } from '@/queries/config/model'
 
 // Composables
 const { t } = useI18n() // Localisation

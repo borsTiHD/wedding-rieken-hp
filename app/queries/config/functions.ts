@@ -2,7 +2,7 @@ import { useFirestore } from '@/composables/useFirestore'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import type { Config } from './model'
 
-export async function getConfig() {
+export async function getConfig(): Promise<Config> {
     const { t } = useI18n()
     const { queryByCollectionAndId } = useFirestore()
 
@@ -15,5 +15,5 @@ export async function getConfig() {
         throw new Error(t('firebase.custom.appConfigNotFound'))
     }
 
-    return response as unknown as Config
+    return response as Config
 }

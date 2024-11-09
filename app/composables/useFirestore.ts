@@ -14,11 +14,12 @@ import {
     // collectionGroup,
     // Timestamp
 } from 'firebase/firestore'
-import type { PartialConfig } from '@/types/Config'
+import type { Timestamp } from '@firebase/firestore-types'
+import type { PartialConfig } from '@/queries/config/model'
 
 // Types for firestore documents
-type Value = string | number | boolean | null | undefined | Document | Array<string | number | boolean | null | undefined | Document>
-interface Document {
+export type Value = string | number | boolean | null | undefined | Document | Timestamp | Array<string | number | boolean | null | undefined | Document>
+export interface Document {
     [key: string]: Value
 }
 

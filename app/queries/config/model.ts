@@ -1,7 +1,8 @@
 import type { Timestamp } from '@firebase/firestore-types'
+import type { Document } from '@/composables/useFirestore'
 
 // Config types
-export interface Config {
+export interface Config extends Document {
     weddingDuration: number,
     weddingDate: Timestamp,
     deadline: Timestamp,
