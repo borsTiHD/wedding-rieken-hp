@@ -49,10 +49,10 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
     let errorMessage: string = t(defaultCode)
 
     // Check if error code is in the mapping
-    if (errorTranslations.hasOwnProperty(error.code)) {
-        errorMessage = t(errorTranslations[error.code])
-    } else if (errorTranslations.hasOwnProperty(error.message)) {
-        errorMessage = t(errorTranslations[error.message])
+    if (error.code && errorTranslations.hasOwnProperty(error.code)) {
+        errorMessage = t(errorTranslations[error.code] || defaultCode)
+    } else if (error.message && errorTranslations.hasOwnProperty(error.message)) {
+        errorMessage = t(errorTranslations[error.message] || defaultCode)
     }
 
     // Log error message
