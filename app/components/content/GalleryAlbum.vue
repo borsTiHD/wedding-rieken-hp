@@ -2,46 +2,27 @@
     <Card>
         <template #content>
             <div class="flex flex-col items-center gap-4">
-                <ShowUnderline color="text-lime-400">
-                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 1</h2>
-                </ShowUnderline>
-                <div class="flex flex-col items-center gap-4">
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <div class="flex flex-col items-center gap-4">
-                            <img :src="pic1" alt="pic1">
-                            <img :src="pic2" alt="pic2">
-                            <img :src="pic3" alt="pic3">
-                        </div>
-
-                        <div class="flex flex-col items-center gap-4">
-                            <img :src="pic4" alt="pic4">
-                            <img :src="pic5" alt="pic5">
-                            <img :src="pic6" alt="pic6">
-                        </div>
-
-                        <div class="flex flex-col items-center gap-4">
-                            <img :src="pic7" alt="pic7">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </Card>
-
-    <Card>
-        <template #content>
-            <div class="flex flex-col items-center gap-4">
                 <ShowUnderline color="text-blue-400">
-                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 2</h2>
+                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 1</h2>
                 </ShowUnderline>
                 <div class="container mx-auto">
                     <div class="flex flex-wrap -mx-4">
                         <div
-                            v-for="(picture, index) in pictures"
+                            v-for="(picture, index) in images"
                             :key="index"
                             class="md:w-1/3 p-4"
                         >
-                            <img :src="picture" alt="XXX" class="w-full h-full object-cover rounded shadow-lg zoom-in-2">
+                            <Image :alt="picture.alt" preview class="w-full h-full object-cover rounded shadow-lg zoom-in-2" :pt="{ originalContainer: 'm-12 p-12' }">
+                                <template #previewicon>
+                                    <i class="pi pi-search" />
+                                </template>
+                                <template #image>
+                                    <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover">
+                                </template>
+                                <template #original="slotProps">
+                                    <img :src="picture.itemImageSrc" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                                </template>
+                            </Image>
                         </div>
                     </div>
                 </div>
@@ -53,20 +34,42 @@
         <template #content>
             <div class="flex flex-col items-center gap-4">
                 <ShowUnderline color="text-rose-400">
-                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 3</h2>
+                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 2</h2>
                 </ShowUnderline>
                 <div class="container mx-auto">
                     <div class="flex flex-wrap -mx-4">
                         <div
-                            v-for="(picture, index) in pictures"
+                            v-for="(picture, index) in images"
                             :key="index"
-                            class="w-full md:w-1/3 p-4"
+                            class="md:w-1/3 p-4"
                         >
-                            <div class="relative w-full h-full overflow-hidden rounded hover:shadow-xl transform transition-transform duration-300 ease-in-out overlay cursor-pointer">
-                                <img :src="picture" alt="XXX" class="w-full h-full object-cover rounded shadow-lg zoom-in">
+                            <Image
+                                :alt="picture.alt"
+                                preview
+                                :pt="{
+                                    root: 'w-full h-full overflow-hidden rounded hover:shadow-xl overlay',
+                                    originalContainer: 'm-12 p-12'
+                                }"
+                            >
+                                <template #previewicon>
+                                    <div class="relative w-full h-full overflow-hidden">
+                                        <span class="overlay-text">Look</span>
+                                        <div class="pulse-circle" />
+                                    </div>
+                                </template>
+                                <template #image>
+                                    <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover zoom-in">
+                                </template>
+                                <template #original="slotProps">
+                                    <img :src="picture.itemImageSrc" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                                </template>
+                            </Image>
+
+                            <!-- <div class="relative w-full h-full overflow-hidden rounded hover:shadow-xl transform transition-transform duration-300 ease-in-out overlay cursor-pointer">
+                                <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover rounded shadow-lg zoom-in">
                                 <span class="overlay-text">Look</span>
                                 <div class="pulse-circle" />
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -81,16 +84,57 @@
                 <div class="container mx-auto">
                     <div class="flex flex-wrap -mx-4">
                         <div
-                            v-for="(picture, index) in pictures"
+                            v-for="(picture, index) in images"
                             :key="index"
                             class="w-full md:w-1/3 p-4"
                         >
                             <div class="relative w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl effect-zoom cursor-pointer">
                                 <a class="img-loading" href="">
-                                    <img :src="picture" alt="XXX" class="w-full h-full object-cover rounded">
+                                    <img :src="picture.itemImageSrc" alt="XXX" class="w-full h-full object-cover rounded">
                                     <span class="kk-n">Anschauen</span>
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </Card>
+
+
+    <Card>
+        <template #content>
+            <div class="flex flex-col items-center gap-4">
+                <h2 class="text-2xl text-center whitespace-pre-line">Gallery 4 (Primevue)</h2>
+                <div class="container mx-auto">
+                    <div class="flex flex-wrap -mx-4">
+                        <div
+                            v-for="(picture, index) in images"
+                            :key="index"
+                            class="w-full md:w-1/3 p-4"
+                        >
+
+                            <Image
+                                :alt="picture.alt"
+                                preview
+                                :pt="{
+                                    root: 'w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl effect-zoom cursor-pointer',
+                                    originalContainer: 'm-12 p-12'
+                                }"
+                            >
+                                <template #previewicon>
+                                    <div class="img-loading">
+                                        <span class="kk-n">Anschauen</span>
+                                    </div>
+                                    <span class="kk-n">Anschauen</span>
+                                </template>
+                                <template #image>
+                                    <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover zoom-in">
+                                </template>
+                                <template #original="slotProps">
+                                    <img :src="picture.itemImageSrc" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                                </template>
+                            </Image>
                         </div>
                     </div>
                 </div>
@@ -101,15 +145,28 @@
 
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
-import pic1 from '@/assets/img/pexels-photo-2253870.jpeg'
-import pic2 from '@/assets/img/pexels-photo-371312.jpeg'
-import pic3 from '@/assets/img/pexels-photo-752842.jpeg'
-import pic4 from '@/assets/img/pexels-photo-1295995.jpeg'
-import pic5 from '@/assets/img/pexels-photo-1630860.jpeg'
-import pic6 from '@/assets/img/pexels-photo-1779491.jpeg'
-import pic7 from '@/assets/img/pexels-photo-2959196.jpeg'
 
-const pictures = [pic1, pic2, pic3, pic4, pic5, pic6, pic7]
+import pic1 from '@/assets/img/1-IMG_8097.jpeg'
+import pic2 from '@/assets/img/1-IMG_8139.jpeg'
+import pic3 from '@/assets/img/1-IMG_8232.jpeg'
+import pic4 from '@/assets/img/1-IMG_8400.jpeg'
+
+// import pic1 from '@/assets/img/pexels-photo-2253870.jpeg'
+// import pic2 from '@/assets/img/pexels-photo-371312.jpeg'
+// import pic3 from '@/assets/img/pexels-photo-752842.jpeg'
+// import pic4 from '@/assets/img/pexels-photo-1295995.jpeg'
+// import pic5 from '@/assets/img/pexels-photo-1630860.jpeg'
+// import pic6 from '@/assets/img/pexels-photo-1779491.jpeg'
+// import pic7 from '@/assets/img/pexels-photo-2959196.jpeg'
+
+const pictures = [pic1, pic2, pic3, pic4]
+
+const images = [
+    { itemImageSrc: pic1, thumbnailImageSrc: pic1, alt: 'Description for Image 1', title: 'Title 1' },
+    { itemImageSrc: pic2, thumbnailImageSrc: pic2, alt: 'Description for Image 2', title: 'Title 2' },
+    { itemImageSrc: pic3, thumbnailImageSrc: pic3, alt: 'Description for Image 3', title: 'Title 3' },
+    { itemImageSrc: pic4, thumbnailImageSrc: pic4, alt: 'Description for Image 4', title: 'Title 4' }
+]
 </script>
 
 <style scoped>
