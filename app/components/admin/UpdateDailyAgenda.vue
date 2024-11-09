@@ -8,13 +8,13 @@
                 <DataTable
                     :value="dailyAgenda"
                     tableStyle="min-width: 50rem"
-                    :loading="loading"
+                    :loading="isFetching"
                     size="small"
                 >
                     <template #header>
                         <div class="flex flex-wrap sm:items-center gap-2">
                             <!-- Refresh content -->
-                            <Button icon="pi pi-refresh" rounded raised @click="fetchContent" />
+                            <Button icon="pi pi-refresh" rounded raised @click="refetch()" />
 
                             <!-- Create Event modal -->
                             <DisplayModal
@@ -39,7 +39,7 @@
                     <Column field="actions" :header="t('admin.dailyAgenda.actions')">
                         <template #body="slotProps">
                             <div class="flex gap-1">
-                                <Button icon="pi pi-trash" severity="danger" rounded @click="deleteItem(slotProps.data as DailyAgenda)" />
+                                <Button icon="pi pi-trash" severity="danger" :loading="isFetching" rounded @click="deleteItem(slotProps.data as DailyAgenda)" />
                             </div>
                         </template>
                     </Column>
@@ -54,27 +54,21 @@ import { useToast } from 'primevue/usetoast'
 import DisplayModal from '@/components/DisplayModal.vue'
 import CreateDailyAgendaEvent from '@/components/admin/CreateDailyAgendaEvent.vue'
 import { useModalPosition } from '@/composables/useModalPosition'
+import { useContent } from '@/composables/useContent'
 import { useContentStore } from '@/stores/content'
-import type { DailyAgenda } from '@/types/AppContent'
+import type { DailyAgenda } from '@/queries/content/model'
 
 // Composables
 const { t } = useI18n()
 const toast = useToast()
 const { modalPosition } = useModalPosition() // Modal position
 
-// Store
-const contentStore = useContentStore()
-const dailyAgenda = computed(() => {
-    // Sort by time
-    const items: DailyAgenda[] | undefined = contentStore.dailyAgenda?.sort((a: DailyAgenda, b: DailyAgenda) => {
-        return a.time.localeCompare(b.time)
-    })
-    return items || []
-})
+// Content
+const { dailyAgenda, isFetching, refetch } = useContent()
+const contentStore = useContentStore() // TODO: Refactore to tanstack mutation
 
 // Refs
 const createEventModal = ref<InstanceType<typeof DisplayModal>>()
-const loading = ref(false)
 
 // Delete item
 const deleteItem = async(item: DailyAgenda) => {
@@ -82,17 +76,10 @@ const deleteItem = async(item: DailyAgenda) => {
         toast.add({ severity: 'error', summary: 'Error', detail: t('admin.dailyAgenda.errorDeleteEvent'), life: 10000 })
     })
 
-    await fetchContent()
-
-    toast.add({ severity: 'success', summary: t('admin.dailyAgenda.successDeleteEvent'), life: 3000 })
-}
-
-// Fetch content
-const fetchContent = async() => {
-    loading.value = true
-    await contentStore.fetchContent().catch(() => {
+    await refetch().catch(() => {
         toast.add({ severity: 'error', summary: 'Error', detail: t('admin.dailyAgenda.error'), life: 10000 })
     })
-    loading.value = false
+
+    toast.add({ severity: 'success', summary: t('admin.dailyAgenda.successDeleteEvent'), life: 3000 })
 }
 </script>

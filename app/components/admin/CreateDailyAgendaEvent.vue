@@ -17,7 +17,7 @@
             />
 
             <div class="flex gap-2">
-                <Button :label="t('admin.dailyAgenda.newEvent.formkit.submit')" icon="pi pi-user-plus" type="submit" raised :loading="loading" :disabled="!valid" />
+                <Button :label="t('admin.dailyAgenda.newEvent.formkit.submit')" icon="pi pi-user-plus" type="submit" raised :loading="loading || isFetching" :disabled="!valid" />
             </div>
         </div>
     </FormKit>
@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { useToast } from 'primevue/usetoast'
+import { useContent } from '@/composables/useContent'
 import { useContentStore } from '@/stores/content'
 
 type FormData = {
@@ -39,8 +40,9 @@ const { t } = useI18n()
 // Emit event
 const emit = defineEmits(['created'])
 
-// Store
-const contentStore = useContentStore()
+// Content
+const { isFetching, refetch } = useContent()
+const contentStore = useContentStore() // TODO: Refactore to use query mutation
 
 // Data
 const loading = ref(false)
@@ -63,7 +65,7 @@ const createNewEvent = async(form: FormData) => {
     }
 
     await contentStore.addDailyAgendaItem(newItem).then(async() => {
-        await contentStore.fetchContent() // Refresh content
+        await refetch() // Refresh content
         toast.add({ severity: 'success', summary: t('admin.dailyAgenda.newEvent.success'), life: 3000 })
     }).catch((error) => {
         const errorMessage = handleFirebaseError(error, 'admin.dailyAgenda.newEvent.error')

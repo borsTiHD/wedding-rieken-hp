@@ -16,9 +16,10 @@ import {
 } from 'firebase/firestore'
 import type { Timestamp } from '@firebase/firestore-types'
 import type { PartialConfig } from '@/queries/config/model'
+import type { DailyAgenda } from '@/queries/content/model'
 
 // Types for firestore documents
-export type Value = string | number | boolean | null | undefined | Document | Timestamp | Array<string | number | boolean | null | undefined | Document>
+export type Value = string | number | boolean | null | undefined | Document | Timestamp | DailyAgenda | Array<string | number | boolean | null | undefined | Document | DailyAgenda>
 export interface Document {
     [key: string]: Value
 }

@@ -9,7 +9,8 @@
                 </div>
 
                 <!-- Time schedule -->
-                <ul role="list" class="space-y-6">
+                <ProgressSpinner v-if="isFetching" class="size-12" />
+                <ul v-else role="list" class="space-y-6">
                     <li v-for="(event, index) in dailyAgenda" :key="index" class="relative flex gap-x-4">
                         <!-- Seperator line -->
                         <div :class="[index === dailyAgenda.length - 1 ? 'h-6' : '-bottom-6', 'absolute left-0 top-0 flex w-6 justify-center']">
@@ -33,19 +34,11 @@
 
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
-import { useContentStore } from '@/stores/content'
-import type { DailyAgenda } from '@/types/AppContent'
+import { useContent } from '@/composables/useContent'
 
 // Localisation
 const { t } = useI18n()
 
-// Content store
-const contentStore = useContentStore()
-const dailyAgenda = computed(() => {
-    // Sort by time
-    const items: DailyAgenda[] | undefined = contentStore.dailyAgenda?.sort((a: DailyAgenda, b: DailyAgenda) => {
-        return a.time.localeCompare(b.time)
-    })
-    return items || []
-})
+// Content
+const { dailyAgenda, isFetching } = useContent()
 </script>

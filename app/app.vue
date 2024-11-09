@@ -29,11 +29,11 @@ import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import useLocale from '@/composables/useLocale'
 import { useConfig } from '@/composables/useConfig'
+import { useContent } from '@/composables/useContent'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
-import { useContentStore } from '@/stores/content'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
@@ -59,13 +59,13 @@ const isIndex = computed(() => routeName.value.includes('index'))
 const { loading, progress, startLoading, stoptLoading } = useLoadingSpinner()
 
 // Queries
-const { suspense: suspenseAppConfig } = useConfig()
+const { suspense: suspenseConfig } = useConfig()
+const { suspense: suspenseContent } = useContent()
 
 // Stores
 const appStore = useAppStore() // App store
 const userStore = useUserStore() // User store
 const tokenStore = useTokenStore() // Token store
-const contentStore = useContentStore() // Content store
 
 // Refs
 const bride = computed(() => appStore.bride)
@@ -97,12 +97,18 @@ useHead({
 // Fetch user data and app config
 onNuxtReady(async() => {
     startLoading() // Start loading spinner
-    await suspenseAppConfig() // Wait for app config to be fetched
+
+    // Check if token is provided in route and save it in localStorage
+    tokenStore.getInvitationToken()
+
+    // Fetch data on page load
+    await Promise.allSettled([
+        suspenseConfig(),
+        suspenseContent()
+    ])
 
     // TODO: NEEDS TO BE REBUILT WITH TANSTACK/VUE-QUERY
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
-    await tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
-    await contentStore.fetchContent().catch((error) => console.warn(error)) // Fetch content, don't need to handle error
     stoptLoading() // Stop loading spinner
 })
 </script>
