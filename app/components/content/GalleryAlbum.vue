@@ -123,10 +123,9 @@
                                 }"
                             >
                                 <template #previewicon>
-                                    <div class="img-loading">
-                                        <span class="kk-n">Anschauen</span>
+                                    <div class="w-full h-full flex items-center justify-center group">
+                                        <span class="group-hover:motion-preset-slide-up text-xl uppercase">Anschauen</span>
                                     </div>
-                                    <span class="kk-n">Anschauen</span>
                                 </template>
                                 <template #image>
                                     <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover zoom-in">

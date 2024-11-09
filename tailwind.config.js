@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import formKitTailwind from '@formkit/themes/tailwindcss'
+import tailwindcssMotion from 'tailwindcss-motion'
 import { theme } from './app/config/theme'
 
 module.exports = {
@@ -50,7 +51,8 @@ module.exports = {
         }
     },
     plugins: [
-        formKitTailwind
+        formKitTailwind,
+        tailwindcssMotion
     ]
     // Tailwind - Disable preflight to avoid conflicts
     // corePlugins: {
