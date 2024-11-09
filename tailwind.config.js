@@ -39,7 +39,12 @@ module.exports = {
                 'accent-3': theme['accent-3']
             },
             backgroundImage: {
-                'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/pexels-photo-2253870.jpeg\')'
+                // 1-IMG_8097.jpeg
+                // 1-IMG_8139.jpeg
+                // 1-IMG_8232.jpeg
+                // 1-IMG_8400.jpeg
+
+                'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/1-IMG_8232.jpeg\')'
                 // 'background-wallpaper': 'url(\'@/assets/img/pexels-photo-2253870.jpeg\')'
             }
         }
