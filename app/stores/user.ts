@@ -130,5 +130,19 @@ export const useUserStore = defineStore('user-store', () => {
         }
     }
 
-    return { user, userProfile, uid, displayName, email, emailVerified, photoURL, fetchUserData, setUser, setUserProfile, fetchUserProfile, refreshUserProfile }
+    return {
+        user,
+        userProfile,
+        uid,
+        displayName,
+        email,
+        emailVerified,
+        photoURL,
+
+        fetchUserData,
+        setUser,
+        setUserProfile,
+        fetchUserProfile,
+        refreshUserProfile
+    }
 })
