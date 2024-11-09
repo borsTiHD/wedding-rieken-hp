@@ -2,6 +2,11 @@ import { useConfigQuery } from '@/queries/config'
 
 export function useConfig() {
     const { data: configData, isFetching, isLoading, error, isSuccess, refetch, suspense } = useConfigQuery()
+    const { getFileUrl } = useFirebaseStorage()
+
+    // Bride and groom names
+    const bride = computed(() => configData.value?.bride)
+    const groom = computed(() => configData.value?.groom)
 
     // Address
     const street = computed(() => configData.value?.street)
@@ -21,6 +26,17 @@ export function useConfig() {
 
     // Location Preview file name
     const locationPreviewFileName = computed(() => configData.value?.locationPreview)
+    const locationPreviewUrl = ref<string | null>(null)
+
+    // Watch for changes in location preview file name
+    watchEffect(async() => {
+        if (locationPreviewFileName.value) {
+            const path = `app/${locationPreviewFileName.value}`
+            locationPreviewUrl.value = await getFileUrl(path)
+        } else {
+            locationPreviewUrl.value = null
+        }
+    })
 
     return {
         // Query
@@ -33,6 +49,8 @@ export function useConfig() {
         suspense,
 
         // Computed values
+        bride,
+        groom,
         street,
         city,
         weddingDuration,
@@ -40,6 +58,7 @@ export function useConfig() {
         deadlineDate,
         isBeforeDeadline,
         spotifyPlaylist,
-        locationPreviewFileName
+        locationPreviewFileName,
+        locationPreviewUrl
     }
 }
