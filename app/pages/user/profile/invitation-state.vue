@@ -92,8 +92,8 @@ import ChangeInvitation from '@/components/user/ChangeInvitation.vue'
 import ChangeAdditionalGuests from '@/components/user/ChangeAdditionalGuests.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import { useModalPosition } from '@/composables/useModalPosition'
+import { useConfig } from '@/composables/useConfig'
 import { useUserStore } from '@/stores/user'
-import { useAppStore } from '@/stores/app'
 import { useTokenStore } from '@/stores/token'
 
 definePageMeta({
@@ -110,9 +110,8 @@ const { t, d } = useI18n()
 // Modal position
 const { modalPosition } = useModalPosition()
 
-// App config
-const appStore = useAppStore()
-const { deadlineDate, isBeforeDeadline } = appStore
+// Config
+const { deadlineDate, isBeforeDeadline } = useConfig()
 
 // Invitation token
 const tokenStore = useTokenStore()

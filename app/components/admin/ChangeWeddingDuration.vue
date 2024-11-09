@@ -33,19 +33,20 @@
 import { useToast } from 'primevue/usetoast'
 import { submitForm } from '@formkit/core'
 import handleFirebaseError from '@/composables/handleFirebaseError'
+import { useConfig } from '@/composables/useConfig'
 import { useAppStore } from '@/stores/app'
 import type { PartialConfig } from '@/queries/config/model'
 
-// Composables
-const { t } = useI18n() // Localisation
+const { t } = useI18n()
 const toast = useToast()
 
-// App config
-const appStore = useAppStore()
+// Config
+const { weddingDuration, refetch } = useConfig()
+const appStore = useAppStore() // TODO: Refactor to useConfig Mutation
 
 // Data
 const loading = ref(false)
-const defaultDuration = ref(appStore.weddingDuration)
+const defaultDuration = ref(weddingDuration.value)
 const formId = 'changeDurationForm'
 
 // Submit button
@@ -83,6 +84,6 @@ const changeWeddingDuraiton = async(form: { duration: number }) => {
     })
 
     // Update app config
-    appStore.fetchConfig()
+    await refetch()
 }
 </script>

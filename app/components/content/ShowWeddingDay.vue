@@ -8,10 +8,10 @@
                     </ShowUnderline>
                 </div>
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-8">
-                    <ShowCalendar :timestamp="config?.weddingDate.seconds" />
+                    <ShowCalendar :timestamp="configData?.weddingDate.seconds" />
                     <div class="flex flex-col items-center gap-4 order-first sm:order-last">
-                        <ShowCountdown :timestamp="config?.weddingDate.seconds" />
-                        <DateDisplay :timestamp="config?.weddingDate.seconds" />
+                        <ShowCountdown :timestamp="configData?.weddingDate.seconds" />
+                        <DateDisplay :timestamp="configData?.weddingDate.seconds" />
                         <add-to-calendar-button
                             :name="eventTitel"
                             :description="eventDescription"
@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import 'add-to-calendar-button'
 import dayjs from 'dayjs'
-import { useAppStore } from '@/stores/app'
+import { useConfig } from '@/composables/useConfig'
 import ShowCalendar from '@/components/ShowCalendar.vue'
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import ShowCountdown from '@/components/ShowCountdown.vue'
@@ -43,16 +43,11 @@ import DateDisplay from '@/components/DateDisplay.vue'
 // Localisation
 const { t } = useI18n()
 
-// App config
-const appStore = useAppStore()
-const config = computed(() => appStore.config)
-const bride = computed(() => appStore.bride)
-const groom = computed(() => appStore.groom)
+// Config
+const { configData, bride, groom, street, city, weddingDate, weddingDuration } = useConfig()
 const eventTitel = computed(() => t('general.eventTitle', { bride: bride.value, groom: groom.value }))
 const eventDescription = computed(() => t('general.eventDescription', { bride: bride.value, groom: groom.value, url: window.location.href }))
-const date = computed(() => dayjs(appStore.weddingDate).format('YYYY-MM-DD'))
-const startTime = computed(() => dayjs(appStore.weddingDate).format('HH:mm'))
-const endTime = computed(() => dayjs(appStore.weddingDate).add(appStore.weddingDuration, 'hour').format('HH:mm'))
-const street = computed(() => appStore.street)
-const city = computed(() => appStore.city)
+const date = computed(() => dayjs(weddingDate.value).format('YYYY-MM-DD'))
+const startTime = computed(() => dayjs(weddingDate.value).format('HH:mm'))
+const endTime = computed(() => dayjs(weddingDate.value).add(weddingDuration.value, 'hour').format('HH:mm'))
 </script>

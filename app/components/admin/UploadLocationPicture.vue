@@ -80,7 +80,7 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
         await update('app', 'config', 'locationPreview', fileName).catch((error: { message: string }) => {
             toast.add({
                 severity: 'error',
-                summary: t('admin.changeLocation.error'),
+                summary: t('admin.changeLocation.errorFoto'),
                 detail: error.message,
                 life: 10000
             })
@@ -91,8 +91,8 @@ const onUpload = async(event: FileUploadUploaderEvent) => {
         // Show success toast
         toast.add({
             severity: 'success',
-            summary: t('admin.changeLocation.success'),
-            detail: t('admin.changeLocation.successDetail'),
+            summary: t('admin.changeLocation.successFoto'),
+            detail: t('admin.changeLocation.successFotoDetail'),
             life: 3000
         })
 

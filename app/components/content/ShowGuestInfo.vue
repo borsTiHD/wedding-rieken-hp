@@ -32,14 +32,10 @@
 </template>
 
 <script setup lang="ts">
+import { useConfig } from '@/composables/useConfig'
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
-import { useAppStore } from '@/stores/app'
 
-// Composables
 const { t, d } = useI18n()
 const localePath = useLocalePath()
-
-// App config
-const appStore = useAppStore()
-const { weddingDate, deadlineDate, isBeforeDeadline } = appStore
+const { weddingDate, deadlineDate, isBeforeDeadline } = useConfig()
 </script>

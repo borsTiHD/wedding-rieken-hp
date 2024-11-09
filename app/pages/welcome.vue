@@ -41,8 +41,8 @@
 
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
+import { useConfig } from '@/composables/useConfig'
 import { useUserStore } from '@/stores/user'
-import { useAppStore } from '@/stores/app'
 import { useTokenStore } from '@/stores/token'
 
 // Composables
@@ -50,9 +50,8 @@ const router = useRouter()
 const { t, d } = useI18n()
 const localePath = useLocalePath()
 
-// App config
-const appStore = useAppStore()
-const { weddingDate, deadlineDate, isBeforeDeadline } = appStore
+// Config
+const { weddingDate, deadlineDate, isBeforeDeadline } = useConfig()
 
 // User store
 const userStore = useUserStore()

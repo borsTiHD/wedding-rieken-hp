@@ -28,20 +28,17 @@ import AppLoadingOverlay from '@/components/layout/AppLoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import useLocale from '@/composables/useLocale'
+import { useConfig } from '@/composables/useConfig'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
 import { useContentStore } from '@/stores/content'
-// import { useConfigQuery } from '@/queries/config'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
 import '@fontsource/great-vibes'
 import '@fontsource/alex-brush'
-
-// TODO: Rebuild with tanstack/vue-query
-// const { data: configData, isFetching, isLoading, error, isSuccess, refetch } = useConfigQuery()
 
 // TODO: Fix "toast" styling on mobile (toast is glitching)
 
@@ -60,6 +57,9 @@ const isIndex = computed(() => routeName.value.includes('index'))
 // Props for 'loading' and 'progress'
 // Also starts loading spinner
 const { loading, progress, startLoading, stoptLoading } = useLoadingSpinner()
+
+// Queries
+const { suspense: suspenseAppConfig } = useConfig()
 
 // Stores
 const appStore = useAppStore() // App store
@@ -97,8 +97,10 @@ useHead({
 // Fetch user data and app config
 onNuxtReady(async() => {
     startLoading() // Start loading spinner
+    await suspenseAppConfig() // Wait for app config to be fetched
+
+    // TODO: NEEDS TO BE REBUILT WITH TANSTACK/VUE-QUERY
     await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
-    await appStore.fetchConfig().catch((error) => console.warn(error)) // Fetch app config, don't need to handle error
     await tokenStore.getInvitationToken() // Check if token is provided in route and save it in localStorage
     await contentStore.fetchContent().catch((error) => console.warn(error)) // Fetch content, don't need to handle error
     stoptLoading() // Stop loading spinner

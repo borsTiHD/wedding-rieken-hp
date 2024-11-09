@@ -21,34 +21,16 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/app'
+import { useConfig } from '@/composables/useConfig'
+import { useGoogleMaps } from '@/composables/useGoogleMaps'
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 
-// Localisation
 const { t } = useI18n()
-const { getFileUrl } = useFirebaseStorage()
 
-// Fetch app config
-const appStore = useAppStore()
-const street = computed(() => appStore.street)
-const city = computed(() => appStore.city)
-const locationPreviewFileName = computed(() => appStore.locationPreviewFileName)
-const locationPreviewUrl = ref<string | null>(null)
+// Config
+const { street, city, locationPreviewUrl } = useConfig()
 
-// URL encoded Google maps link for location by street and city
-const googleMapsLink = computed(() => {
-    const googleMapsLink = 'https://www.google.com/maps'
-    if (!street.value || !city.value) return googleMapsLink
-    return `${googleMapsLink}/search/?api=1&query=${encodeURIComponent(street.value + ',' + city.value)}`
-})
-
-// Watch for changes in location preview file name
-watchEffect(async() => {
-    if (locationPreviewFileName.value) {
-        const path = `app/${locationPreviewFileName.value}`
-        locationPreviewUrl.value = await getFileUrl(path)
-    } else {
-        locationPreviewUrl.value = null
-    }
-})
+// Google Maps
+const address = computed(() => `${street.value}, ${city.value}`)
+const { link: googleMapsLink } = useGoogleMaps(address)
 </script>

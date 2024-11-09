@@ -37,8 +37,8 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
+import { useConfig } from '@/composables/useConfig'
 import { useUserStore } from '@/stores/user'
-import { useAppStore } from '@/stores/app'
 import type { PartialUserProfile } from '@/types/UserProfile'
 
 // Localisation
@@ -56,9 +56,8 @@ const userStore = useUserStore()
 const userProfile = computed(() => userStore.userProfile)
 const additionalGuests = computed(() => userProfile.value.additionalGuests)
 
-// App config
-const appStore = useAppStore()
-const { deadlineDate, isBeforeDeadline } = appStore
+// Config
+const { deadlineDate, isBeforeDeadline } = useConfig()
 
 // Data
 const loading = ref(false)

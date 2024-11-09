@@ -41,20 +41,21 @@
 import { useToast } from 'primevue/usetoast'
 import { submitForm } from '@formkit/core'
 import handleFirebaseError from '@/composables/handleFirebaseError'
+import { useConfig } from '@/composables/useConfig'
 import { useAppStore } from '@/stores/app'
 import type { PartialConfig } from '@/queries/config/model'
 
-// Composables
-const { t } = useI18n() // Localisation
+const { t } = useI18n()
 const toast = useToast()
 
-// App config
-const appStore = useAppStore()
+// Config
+const { street, city, refetch } = useConfig()
+const appStore = useAppStore() // TODO: Refactor to useConfig Mutation
 
 // Data
 const loading = ref(false)
-const defaultStreet = ref(appStore.street)
-const defaultCity = ref(appStore.city)
+const defaultStreet = ref(street.value)
+const defaultCity = ref(city.value)
 const formId = 'changeLocationForm'
 
 type FormValues = {
@@ -98,6 +99,6 @@ const changeLocation = async(form: FormValues) => {
     })
 
     // Update app config
-    appStore.fetchConfig()
+    await refetch()
 }
 </script>

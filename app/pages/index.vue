@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/app'
+import { useConfig } from '@/composables/useConfig'
 import { useUserStore } from '@/stores/user'
 import { useCookieStore } from '@/stores/cookieconsent'
 import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
@@ -96,10 +96,8 @@ import ShowQuote from '@/components/content/ShowQuote.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
 
-// App config
-const appStore = useAppStore()
-const { bride, groom } = appStore
-const spotifyPlaylist = computed(() => appStore.spotifyPlaylist)
+// Config
+const { bride, groom, spotifyPlaylist } = useConfig()
 
 // User store
 const userStore = useUserStore()

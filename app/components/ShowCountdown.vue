@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores/app'
+import { useConfig } from '@/composables/useConfig'
 
 const props = defineProps<{
     timestamp?: number
@@ -37,9 +37,8 @@ const props = defineProps<{
 // Localisation
 const { t } = useI18n()
 
-// App config
-const appStore = useAppStore()
-const weddingDuration = computed(() => appStore.weddingDuration)
+// Config
+const { weddingDuration } = useConfig()
 
 // Refs
 const updated = ref(false) // True if countdown was updated
@@ -70,5 +69,9 @@ onMounted(() => {
     updateCountdown()
     if (interval.value) { clearInterval(interval.value) }
     interval.value = setInterval(updateCountdown, 1000)
+})
+
+onUnmounted(() => {
+    if (interval.value) { clearInterval(interval.value) }
 })
 </script>

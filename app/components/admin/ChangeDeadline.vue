@@ -6,10 +6,10 @@
         <template #content>
             <div class="flex flex-col gap-4">
                 <Message severity="warn" class="w-full">{{ t('admin.changeDeadline.infoText') }}</Message>
-                <ChangeTimestamp :timestamp="config?.deadline.seconds" @change="changeDeadlineTimestamp" />
+                <ChangeTimestamp :timestamp="configData?.deadline.seconds" :loading="isFetching" @change="changeDeadlineTimestamp" />
                 <div class="flex gap-4">
                     <span class="text-2xl">{{ t('admin.changeDeadline.label') }}:</span>
-                    <DateDisplay :timestamp="config?.deadline.seconds" />
+                    <DateDisplay :timestamp="configData?.deadline.seconds" />
                 </div>
             </div>
         </template>
@@ -22,16 +22,16 @@ import { Timestamp } from '@firebase/firestore'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
 import handleFirebaseError from '@/composables/handleFirebaseError'
+import { useConfig } from '@/composables/useConfig'
 import { useAppStore } from '@/stores/app'
 import type { PartialConfig } from '@/queries/config/model'
 
-// Composables
-const { t } = useI18n() // Localisation
+const { t } = useI18n()
 const toast = useToast()
 
-// App config
-const appStore = useAppStore()
-const config = computed(() => appStore.config)
+// Config
+const { configData, isFetching, refetch } = useConfig()
+const appStore = useAppStore() // TODO: Refactor to useConfig Mutation
 
 // Change wedding date
 const changeDeadlineTimestamp = async(newTimestamp: Date) => {
@@ -63,6 +63,6 @@ const changeDeadlineTimestamp = async(newTimestamp: Date) => {
     })
 
     // Update app config
-    appStore.fetchConfig()
+    refetch()
 }
 </script>

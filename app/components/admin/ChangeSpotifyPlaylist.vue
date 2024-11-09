@@ -20,7 +20,15 @@
                         :label="t('admin.changeSpotifyPlaylist.label')"
                         validation="required|length:5"
                     />
-                    <Button :label="t('admin.changeLocation.submit')" class="basis-full" icon="pi pi-map-marker" raised :loading="loading" :disabled="!valid" @click="submitForm(formId)" />
+                    <Button
+                        :label="t('admin.changeLocation.submit')"
+                        class="basis-full"
+                        icon="pi pi-map-marker"
+                        raised
+                        :loading="loading"
+                        :disabled="!valid"
+                        @click="submitForm(formId)"
+                    />
                 </div>
             </FormKit>
         </template>
@@ -30,6 +38,7 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import { submitForm } from '@formkit/core'
+import { useConfig } from '@/composables/useConfig'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import { useAppStore } from '@/stores/app'
 import type { PartialConfig } from '@/queries/config/model'
@@ -38,12 +47,13 @@ import type { PartialConfig } from '@/queries/config/model'
 const { t } = useI18n() // Localisation
 const toast = useToast()
 
-// App config
-const appStore = useAppStore()
+// Config
+const { spotifyPlaylist, refetch } = useConfig()
+const appStore = useAppStore() // TODO: Refactor to useConfig Mutation
 
 // Data
 const loading = ref(false)
-const defaultPlaylist = ref(appStore.spotifyPlaylist)
+const defaultPlaylist = ref(spotifyPlaylist.value)
 const formId = 'changePlaylistForm'
 
 type FormValues = {
@@ -85,6 +95,6 @@ const changeSpotifyPlaylist = async(form: FormValues) => {
     })
 
     // Update app config
-    appStore.fetchConfig()
+    await refetch()
 }
 </script>

@@ -5,12 +5,12 @@
         </template>
         <template #content>
             <div class="flex flex-col gap-4">
-                <ChangeTimestamp :timestamp="config?.weddingDate.seconds" @change="changeWeddingTimestamp" />
+                <ChangeTimestamp :timestamp="weddingDate?.seconds" :loading="isFetching" @change="changeWeddingTimestamp" />
                 <div class="flex gap-4">
                     <span class="text-2xl">{{ t('admin.changeDate.label') }}:</span>
-                    <DateDisplay :timestamp="config?.weddingDate.seconds" />
+                    <DateDisplay :timestamp="weddingDate?.seconds" />
                 </div>
-                <ShowCountdown :timestamp="config?.weddingDate.seconds" />
+                <ShowCountdown :timestamp="weddingDate?.seconds" />
             </div>
         </template>
     </Card>
@@ -23,16 +23,17 @@ import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 import ChangeTimestamp from '@/components/admin/ChangeTimestamp.vue'
 import handleFirebaseError from '@/composables/handleFirebaseError'
+import { useConfig } from '@/composables/useConfig'
 import { useAppStore } from '@/stores/app'
 import type { PartialConfig } from '@/queries/config/model'
 
-// Composables
-const { t } = useI18n() // Localisation
+const { t } = useI18n()
 const toast = useToast()
 
-// App config
-const appStore = useAppStore()
-const config = computed(() => appStore.config)
+// Config
+const { configData, isFetching, refetch } = useConfig()
+const weddingDate = computed(() => configData.value?.weddingDate)
+const appStore = useAppStore() // TODO: Refactor to useConfig Mutation
 
 // Change wedding date
 const changeWeddingTimestamp = async(newTimestamp: Date) => {
@@ -65,6 +66,6 @@ const changeWeddingTimestamp = async(newTimestamp: Date) => {
     })
 
     // Update app config
-    appStore.fetchConfig()
+    refetch()
 }
 </script>
