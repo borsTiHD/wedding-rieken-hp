@@ -41,6 +41,7 @@ import '@fontsource/great-vibes'
 import '@fontsource/alex-brush'
 
 // TODO: Fix "toast" styling on mobile (toast is glitching)
+// TODO: Delete stock fotos from assets
 
 // Localisation
 const { t } = useI18n()
@@ -104,11 +105,10 @@ onNuxtReady(async() => {
     // Fetch data on page load
     await Promise.allSettled([
         suspenseConfig(),
-        suspenseContent()
+        suspenseContent(),
+        userStore.fetchUserData()
     ])
 
-    // TODO: NEEDS TO BE REBUILT WITH TANSTACK/VUE-QUERY
-    await userStore.fetchUserData().catch((error) => console.warn(error)) // Fetch user data, don't need to handle error
     stoptLoading() // Stop loading spinner
 })
 </script>
