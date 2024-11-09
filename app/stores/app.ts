@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useFirestore } from '@/composables/useFirestore'
 import handleFirebaseError from '@/composables/handleFirebaseError'
-import type { Config, PartialConfig } from '@/types/Config'
+import type { Config, PartialConfig } from '@/queries/config/model'
 
 export const useAppStore = defineStore('app-store', () => {
     const appConfig = useAppConfig()
