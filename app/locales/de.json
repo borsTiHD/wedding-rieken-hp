@@ -393,9 +393,9 @@
             "invalidFileSizeMessage": "Die Datei ist zu groß. Bitte wählen Sie eine Datei mit maximal {maxFilesize} aus.",
             "noPictureSelected": "Kein Bild ausgewählt",
             "noPictureSelectedDetail": "Bitte wählen Sie ein Bild aus, um es hochzuladen",
-            "error": "Foto konnte nicht hochgeladen werden",
-            "success": "Foto hochgeladen",
-            "successDetail": "Sie haben die Vorschau erfolgreich geändert"
+            "errorFoto": "Foto konnte nicht hochgeladen werden",
+            "successFoto": "Foto hochgeladen",
+            "successFotoDetail": "Sie haben die Vorschau erfolgreich geändert"
         },
         "changeDate": {
             "header": "Hochzeitsdatum ändern",
