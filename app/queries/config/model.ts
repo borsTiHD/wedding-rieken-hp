@@ -3,6 +3,8 @@ import type { Document } from '@/composables/useFirestore'
 
 // Config types
 export interface Config extends Document {
+    bride: string,
+    groom: string,
     weddingDuration: number,
     weddingDate: Timestamp,
     deadline: Timestamp,
