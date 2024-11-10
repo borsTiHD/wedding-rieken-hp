@@ -52,7 +52,7 @@
                                 }"
                             >
                                 <template #previewicon>
-                                    <div class="relative w-full h-full overflow-hidden">
+                                    <div class="relative w-full h-full">
                                         <span class="overlay-text">Look</span>
                                         <div class="pulse-circle" />
                                     </div>
@@ -89,8 +89,9 @@
                             class="w-full md:w-1/3 p-4"
                         >
                             <div class="relative w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl effect-zoom cursor-pointer">
-                                <a class="img-loading" href="">
+                                <a class="img-loading">
                                     <img :src="picture.itemImageSrc" alt="XXX" class="w-full h-full object-cover rounded">
+                                    <!-- <Image :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover rounded" /> -->
                                     <span class="kk-n">Anschauen</span>
                                 </a>
                             </div>
@@ -113,22 +114,21 @@
                             :key="index"
                             class="w-full md:w-1/3 p-4"
                         >
-
                             <Image
                                 :alt="picture.alt"
                                 preview
                                 :pt="{
-                                    root: 'w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl effect-zoom cursor-pointer',
+                                    root: 'w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl cursor-pointer group',
                                     originalContainer: 'm-12 p-12'
                                 }"
                             >
                                 <template #previewicon>
-                                    <div class="w-full h-full flex items-center justify-center group">
-                                        <span class="group-hover:motion-preset-slide-up text-xl uppercase">Anschauen</span>
+                                    <div class="w-full h-full flex items-center justify-center">
+                                        <span class="text-xl uppercase group-hover:motion-opacity-in-[0%] group-hover:motion-translate-y-in-[105%] motion-duration-[0.8s]">Anschauen</span>
                                     </div>
                                 </template>
                                 <template #image>
-                                    <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover zoom-in">
+                                    <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]">
                                 </template>
                                 <template #original="slotProps">
                                     <img :src="picture.itemImageSrc" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
@@ -144,28 +144,14 @@
 
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
+import type { Image } from '@/types/Image'
 
-import pic1 from '@/assets/img/1-IMG_8097.jpeg'
-import pic2 from '@/assets/img/1-IMG_8139.jpeg'
-import pic3 from '@/assets/img/1-IMG_8232.jpeg'
-import pic4 from '@/assets/img/1-IMG_8400.jpeg'
+type Props = {
+    images: Image[]
+}
 
-// import pic1 from '@/assets/img/pexels-photo-2253870.jpeg'
-// import pic2 from '@/assets/img/pexels-photo-371312.jpeg'
-// import pic3 from '@/assets/img/pexels-photo-752842.jpeg'
-// import pic4 from '@/assets/img/pexels-photo-1295995.jpeg'
-// import pic5 from '@/assets/img/pexels-photo-1630860.jpeg'
-// import pic6 from '@/assets/img/pexels-photo-1779491.jpeg'
-// import pic7 from '@/assets/img/pexels-photo-2959196.jpeg'
-
-const pictures = [pic1, pic2, pic3, pic4]
-
-const images = [
-    { itemImageSrc: pic1, thumbnailImageSrc: pic1, alt: 'Description for Image 1', title: 'Title 1' },
-    { itemImageSrc: pic2, thumbnailImageSrc: pic2, alt: 'Description for Image 2', title: 'Title 2' },
-    { itemImageSrc: pic3, thumbnailImageSrc: pic3, alt: 'Description for Image 3', title: 'Title 3' },
-    { itemImageSrc: pic4, thumbnailImageSrc: pic4, alt: 'Description for Image 4', title: 'Title 4' }
-]
+const props = defineProps<Props>()
+const { images } = toRefs(props)
 </script>
 
 <style scoped>
