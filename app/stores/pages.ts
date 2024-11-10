@@ -14,19 +14,23 @@ export const usePagesStore = defineStore('pages-store', () => {
 
     // Pages for the navigation bar
     const pages = computed<MenuItem[]>(() => {
-        const pages = [
-            { name: t('pages.home'), path: localePath('/') },
-            { name: t('pages.date'), to: { path: localePath('/'), hash: '#wedding' } },
-            { name: t('pages.infos'), to: { path: localePath('/'), hash: '#infos' } },
-            { name: t('pages.gallery'), to: { path: localePath('/gallery') } }
+        const pages: MenuItem[] = [
+            { name: t('pages.home'), path: localePath('/') }
         ]
 
-        // If the user is logged in
-        // if (uid.value) {
-        //     pages.push(
-        //         { name: t('pages.user'), path: localePath('/user') }
-        //     )
-        // }
+        // Check for normal user pages
+        const whitelistedRoles = ['admin', 'invited'] // User is invited or admin
+        if (uid.value && // User is logged in
+            userProfile.value && // User profile is loaded
+            whitelistedRoles.includes(userProfile.value.role) && // Checking allowed roles
+            userProfile.value.invitation !== 'declined' // User has not declined the invitation
+        ) {
+            pages.push(
+                { name: t('pages.date'), to: { path: localePath('/'), hash: '#wedding' } },
+                { name: t('pages.infos'), to: { path: localePath('/'), hash: '#infos' } },
+                { name: t('pages.gallery'), to: { path: localePath('/gallery') } }
+            )
+        }
 
         // If the user is not logged in add the login and register pages
         if (!uid.value) {
