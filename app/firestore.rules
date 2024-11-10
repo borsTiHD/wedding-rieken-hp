@@ -19,6 +19,12 @@ service cloud.firestore {
       return role == 'admin'
     }
 
+    // Check if user is "invited"
+    function isInvited() {
+      let role = get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+      return role == 'invited';
+    }
+
     // Check if action is before deadline
     function isBeforeDeadline() {
       let deadlineTimestamp = get(/databases/$(database)/documents/app/config).data.deadline;
@@ -115,13 +121,13 @@ service cloud.firestore {
 
     // Allow access to the "config" document
     match /app/config {
-      allow read: if true; // Everyone can read
+      allow read: if isInvited(); // Only "invited" users can read
       allow write: if isAdmin();
     }
 
     // Allow access to the "content" document
     match /app/content {
-      allow read: if true; // Everyone can read
+      allow read: if isInvited(); // Only "invited" users can read
       allow write: if isAdmin();
     }
 
