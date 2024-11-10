@@ -13,6 +13,7 @@ export default async function checkAdmin(event: H3Event) {
     // Verify ID token
     const decodedToken = await auth.verifyIdToken(idToken).catch((error) => {
         throw createError({
+            statusCode: 401,
             statusMessage: error.message
         })
     })
@@ -20,6 +21,7 @@ export default async function checkAdmin(event: H3Event) {
     // Check if user exists
     const user = await auth.getUser(decodedToken.uid).catch((error) => {
         throw createError({
+            statusCode: 404,
             statusMessage: error.message
         })
     })
@@ -27,6 +29,7 @@ export default async function checkAdmin(event: H3Event) {
     // Get user profile under /users/{userId}
     const userDoc = await db.collection('users').doc(user.uid).get().catch((error) => {
         throw createError({
+            statusCode: 500,
             statusMessage: error.message
         })
     })
