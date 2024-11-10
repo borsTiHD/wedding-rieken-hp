@@ -33,7 +33,7 @@
             </div>
         </section>
 
-        <template v-if="user?.uid">
+        <template v-if="user?.uid && whitelistedRoles.includes(userProfile?.role) && userProfile?.invitation !== 'declined'">
             <!-- WeddingDay -->
             <section id="wedding" class="bg-accent-3">
                 <div class="section-style">
@@ -84,6 +84,7 @@
 
 <script setup lang="ts">
 import { useConfig } from '@/composables/useConfig'
+import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useCookieStore } from '@/stores/cookieconsent'
 import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
@@ -95,13 +96,20 @@ import ShowInfos from '@/components/content/ShowInfos.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
+import { whitelistedRoles } from '@/composables/whitelistedRoles'
 
 // Config
-const { bride, groom, spotifyPlaylist } = useConfig()
+const { spotifyPlaylist } = useConfig()
+
+// App store
+const appStore = useAppStore() // App store
+const bride = computed(() => appStore.bride)
+const groom = computed(() => appStore.groom)
 
 // User store
 const userStore = useUserStore()
 const user = computed(() => userStore.user)
+const userProfile = computed(() => userStore.userProfile)
 
 // Cookie consent
 const cookieStore = useCookieStore()

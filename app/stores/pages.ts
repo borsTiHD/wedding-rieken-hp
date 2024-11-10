@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useUserStore } from '@/stores/user'
+import { whitelistedRoles } from '@/composables/whitelistedRoles'
 import type { MenuItem } from 'primevue/menuitem'
 
 export const usePagesStore = defineStore('pages-store', () => {
@@ -19,7 +20,6 @@ export const usePagesStore = defineStore('pages-store', () => {
         ]
 
         // Check for normal user pages
-        const whitelistedRoles = ['admin', 'invited'] // User is invited or admin
         if (uid.value && // User is logged in
             userProfile.value && // User profile is loaded
             whitelistedRoles.includes(userProfile.value.role) && // Checking allowed roles

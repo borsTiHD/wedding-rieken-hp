@@ -12,6 +12,13 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
         throw new Error(error.code)
     }
 
+    // Exception for 'permission-denied'
+    // This error is thrown when the user's role does not have the required permissions
+    // This error code will be handled in the calling function
+    if (error.code === 'permission-denied') {
+        throw error
+    }
+
     // Localisation
     // const { t } = useI18n() // Can't use i18n here, because it's only available in the setup() function
     const { $i18n } = useNuxtApp()
@@ -20,6 +27,7 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
     // Mapping Firebase error translations
     const errorTranslations: { [key: string]: string }  = {
         // Firebase error messages
+        'permission-denied': 'firebase.permission-denied',
         'auth/email-already-in-use': 'firebase.email-already-in-use',
         'auth/invalid-email': 'firebase.invalid-email',
         'auth/weak-password': 'firebase.weak-password',
