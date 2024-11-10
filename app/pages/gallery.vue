@@ -22,6 +22,8 @@ import pic4 from '@/assets/img/1-IMG_8400.jpeg'
 // import pic6 from '@/assets/img/pexels-photo-1779491.jpeg'
 // import pic7 from '@/assets/img/pexels-photo-2959196.jpeg'
 
+// TODO: Add thumbnails for images and descriptions
+
 const images = [
     { itemImageSrc: pic1, thumbnailImageSrc: pic1, alt: 'Description for Image 1', title: 'Title 1' },
     { itemImageSrc: pic2, thumbnailImageSrc: pic2, alt: 'Description for Image 2', title: 'Title 2' },
