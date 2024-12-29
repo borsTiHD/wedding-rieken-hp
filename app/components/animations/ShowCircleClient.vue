@@ -6,13 +6,13 @@
 
         <svg
             class="absolute left-0 bottom-0 w-full h-full stroke-current"
-            :class="[strokeColor, isVisible ? 'animate-scribble' : '']"
+            :class="[strokeColor, isVisible ? (prefersReducedMotion ? 'no-animate-scribble' : 'animate-scribble') : '']"
             :viewBox="viewBox"
             preserveAspectRatio="none"
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-dasharray="500"
-            stroke-dashoffset="500"
+            :stroke-dashoffset="prefersReducedMotion ? '0' : '500'"
             :stroke-width="strokeWidth"
             :stroke-opacity="strokeOpacity"
             fill="none"
@@ -37,11 +37,17 @@ const strokeWidth = 4
 const strokeOpacity = 1
 
 const viewBox = ref('0 0 176 55') // 0 0 176 55 - 0 0 500 150
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 </script>
 
 <style scoped>
 .animate-scribble {
     animation: scribble .8s ease-in forwards;
+}
+
+.no-animate-scribble {
+    stroke-dashoffset: 0;
 }
 
 @keyframes scribble {
