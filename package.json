@@ -52,7 +52,7 @@
         "pinia": "^2.3.0",
         "primeicons": "^7.0.0",
         "primevue": "^4.2.1",
-        "qr-code-styling": "^1.6.0-rc.1",
+        "qr-code-styling": "^1.8.4",
         "vanilla-cookieconsent": "^3.0.1",
         "vue-boo-bash": "^0.0.8"
     }
