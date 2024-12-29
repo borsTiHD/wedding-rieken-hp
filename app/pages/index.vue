@@ -35,7 +35,7 @@
 
         <template v-if="user?.uid && whitelistedRoles.includes(userProfile?.role) && userProfile?.invitation !== 'declined'">
             <!-- WeddingDay -->
-            <section id="wedding" class="bg-accent-3">
+            <section id="wedding">
                 <div class="section-style">
                     <div class="flex flex-wrap gap-4">
                         <ShowWeddingDay />
@@ -46,7 +46,7 @@
             </section>
 
             <!-- Infos -->
-            <section id="infos" class="bg-accent">
+            <section id="infos">
                 <div class="section-style">
                     <div class="flex flex-wrap md:flex-nowrap gap-4">
                         <RouteDescription class="basis-6/12" />
@@ -57,14 +57,14 @@
             </section>
 
             <!-- Spotify Playlist -->
-            <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify" class="bg-primary">
+            <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify">
                 <div class="section-style">
                     <ShowSpotify />
                 </div>
             </section>
 
             <!-- Riddle -->
-            <section id="riddle" class="">
+            <section id="riddle">
                 <div class="section-style">
                     <ShowRiddle />
                 </div>
@@ -72,9 +72,9 @@
         </template>
 
         <template v-else>
-            <!-- User is not logged in -->
-            <section id="not-logged-in" class="bg-accent-3">
-                <div class="section-style">
+            <!-- User is not whitelisted - e.p. not logged in, or not invited -->
+            <section id="not-whitelisted">
+                <div class="section-style max-w-2xl">
                     <ShowGuestInfo />
                 </div>
             </section>
@@ -158,43 +158,54 @@ onMounted(() => {
         setTimeout(() => scrollToSection(window.location.hash), 100)
     }
 })
+
+// ❤️ 💍 💐 🎵 ❓
 </script>
 
 <style scoped>
 .section-style {
-    @apply p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4;
+    @apply p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4 z-10;
 }
 
-/* https://10015.io/tools/css-background-pattern-generator */
-#not-logged-in, #wedding {
-    background:
-        radial-gradient(at 80% 80%,rgba(255, 61, 61, 0.23) 25.4%,#0000 26%),
-        radial-gradient(at 20% 80%,rgba(255, 61, 61, 0.23) 25.4%,#0000 26%),
-        conic-gradient(from -45deg at 50% 41%,rgba(255, 61, 61, 0.23) 90deg,rgba(255, 255, 255, 0) 0) 15px 0;
-    background-size: 30px 30px;
+#not-whitelisted {
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
+}
+
+#wedding {
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
 }
 
 #infos {
-    background:
-        conic-gradient(from -45deg at calc(100%/3) calc(100%/3), rgba(255, 255, 255, 0) 90deg, #0000 0),
-        conic-gradient(from -135deg at calc(100%/3) calc(2*100%/3), rgba(255, 255, 255, 0) 90deg, rgba(255, 255, 255, 0.1) 0 135deg, #0000 0),
-        conic-gradient(from 135deg at calc(2*100%/3) calc(2*100%/3), rgba(255, 255, 255, 0) 90deg, rgba(255, 255, 255, 0.1) 0 135deg, #0000 0),
-        conic-gradient(from 45deg at calc(2*100%/3) calc(100%/3), rgba(255, 255, 255, 0) 90deg, rgba(255, 255, 255, 0.1) 0 135deg, #0000 0,rgba(255, 255, 255, 0) 0 225deg,rgba(255, 255, 255, 0.1) 0);
-    background-size: 64px 64px;
+    background: linear-gradient(to right, #ff9a9e, #fecfef);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
 }
 
 #spotify {
-    background:
-        conic-gradient(from -45deg,rgba(255, 255, 255, 0.1) 90deg,#0000 0 180deg,rgba(204,204,204,0.1) 0 270deg,#0000 0)
-            0 calc(30px/2)/30px 30px,
-        conic-gradient(from 135deg at 50% 0,rgba(255, 255, 255, 0.1) 90deg,rgba(204,204,204,0.1) 0)
-            0 0/calc(2*30px) 30px;
+    background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
 }
 
 #riddle {
-    background-image: radial-gradient(#ff4763 2px, transparent 2px), radial-gradient(#ff4763 2px, transparent 2px);
-    background-size: 32px 32px;
-    background-position: 0 0, 16px 16px;
-    background-color: #d23242;
+    background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 </style>
