@@ -30,7 +30,8 @@ export default defineEventHandler(async(event) => {
         email,
         phoneNumber: '',
         invitation: 'pending',
-        additionalGuests: 0
+        additionalGuests: 0,
+        highscore: 0
     }
 
     // Add user profile to users collection
