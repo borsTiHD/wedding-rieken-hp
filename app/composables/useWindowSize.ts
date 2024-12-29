@@ -21,8 +21,7 @@ export function useWindowSize(timer = 500, noTimeout = false) {
     let timeoutResize: ReturnType<typeof setTimeout> | null = null
     let timeoutScroll: ReturnType<typeof setTimeout> | null = null
 
-    // On resize window handler - sets the current window size
-    useEventListener(window, 'resize', () => {
+    const onResize = () => {
         // If no timeout is set, update the values immediately
         if (noTimeout) {
             windowWidth.value = window.innerWidth
@@ -38,10 +37,9 @@ export function useWindowSize(timer = 500, noTimeout = false) {
                 windowHeight.value = window.innerHeight
             }, timer)
         }
-    })
+    }
 
-    // On scroll window handler - sets the current scroll position
-    useEventListener(window, 'scroll', () => {
+    const onScroll = () => {
         // If no timeout is set, update the values immediately
         if (noTimeout) {
             scrollX.value = window.scrollX
@@ -57,7 +55,11 @@ export function useWindowSize(timer = 500, noTimeout = false) {
                 scrollY.value = window.scrollY
             }, timer)
         }
-    })
+    }
+
+    // Add event listeners
+    useEventListener(window, 'resize', onResize)
+    useEventListener(window, 'scroll', onScroll)
 
     return { windowWidth, windowHeight, scrollX, scrollY }
 }
