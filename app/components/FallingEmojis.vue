@@ -18,6 +18,7 @@ const emojis = ref<Emoji[]>([])
 // Generate random emojis
 const generateEmoji = () => {
     const emojiChars = ['❤️', '💍', '💐', '🎵', '❓', '🎉', '🥂', '👰', '🤵', '💒', '🎂', '💌', '🚗']
+    const duration = Math.random() * 10 + 6 // Fall duration between 6 and 16 seconds
     const emoji: Emoji = {
         id: Date.now() + Math.random(),
         char: emojiChars[Math.floor(Math.random() * emojiChars.length)] || '❤️',
@@ -26,7 +27,7 @@ const generateEmoji = () => {
             top: '-50px',
             left: `${Math.random() * 100}vw`,
             fontSize: `${Math.random() * 24 + 16}px`,
-            animationDuration: `${Math.random() * 5 + 3}s`,
+            animationDuration: `${duration}s`, // Fall duration between 6 and 16 seconds
             opacity: Math.random() * 0.5 + 0.5,
             transform: 'translateY(0)',
             transition: 'opacity 1s, transform 1s',
@@ -37,14 +38,21 @@ const generateEmoji = () => {
     }
     emojis.value.push(emoji)
 
-    // Set a timeout to remove the emoji after a random time between 5 and 10 seconds
+    // Change opacity to 0 in the last second
     setTimeout(() => {
-        if (!emojis.value.some((e) => e.id === emoji.id)) return
-        emoji.style.opacity = 0
-        setTimeout(() => {
-            emojis.value = emojis.value.filter((e) => e.id !== emoji.id)
-        }, 1000)
-    }, Math.random() * 5000 + 5000)
+        if (emoji) { emoji.style.opacity = 0 }
+    }, (duration - 2) * 1000)
+
+    // Remove the emoji after the animation ends
+    const removeEmoji = () => {
+        emojis.value = emojis.value.filter((e) => e.id !== emoji.id)
+    }
+
+    // Add event listener for animation end
+    const emojiElement = document.querySelector(`[key="${emoji.id}"]`)
+    if (emojiElement) {
+        emojiElement.addEventListener('animationend', removeEmoji)
+    }
 }
 
 // Continuously generate emojis
@@ -94,7 +102,13 @@ const popEmoji = (emoji: Emoji) => {
 
 @keyframes fall {
     to {
-        transform: translateY(100vh) translateX(var(--random-translate-x)) rotate(calc(var(--initial-rotate) * var(--rotate-direction)));
+        transform: translateY(200vh) translateX(var(--random-translate-x)) rotate(calc(var(--initial-rotate) * var(--rotate-direction)));
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
     }
 }
 
