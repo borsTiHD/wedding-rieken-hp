@@ -6,6 +6,8 @@ interface RequestError extends Error {
 }
 
 export function useContentQuery() {
+    const { $firestore } = useNuxtApp()
+
     return useQuery({
         queryKey: ['app', 'content'],
         queryFn: () => getContent(),
@@ -15,6 +17,7 @@ export function useContentQuery() {
                 return false
             }
             return failureCount < 3 // Retry up to 3 times for other errors
-        }
+        },
+        enabled: !!$firestore
     })
 }
