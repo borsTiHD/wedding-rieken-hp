@@ -592,7 +592,9 @@
             "fileNotUploaded": "Datei konnte nicht hochgeladen werden",
             "fileNotDeleted": "Datei konnte nicht gelöscht werden",
             "filesNotDeleted": "Dateien konnten nicht gelöscht werden",
-            "documentDoesNotExist": "Dokument in Firebase existiert nicht"
+            "documentDoesNotExist": "Dokument in Firebase existiert nicht",
+            "invalidArguments": "Ungültige Argumente",
+            "firestoreNotInitialized": "Firestore nicht initialisiert"
         },
         "storage": {
             "unauthorized": "Sie haben keine Berechtigung, diese Datei hochzuladen",

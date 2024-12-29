@@ -50,7 +50,9 @@ export default function handleFirebaseError(error: FirebaseError, defaultCode: s
         'storage/unknown': 'firebase.storage.unknown',
 
         // Custom error messages
-        'custom/document-does-not-exist': 'firebase.custom.documentDoesNotExist'
+        'custom/document-does-not-exist': 'firebase.custom.documentDoesNotExist',
+        'custom/invalid-arguments': 'firebase.custom.invalidArguments',
+        'custom/firestore-not-initialized': 'firebase.custom.firestoreNotInitialized'
     }
 
     // Set default error message
