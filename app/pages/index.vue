@@ -5,14 +5,14 @@
             <!-- Background image -->
             <div
                 class="background-image absolute w-full h-full"
-                :style="{ transform: `translateY(${scrollY / 2}px)` }"
+                :style="{ transform: `translateY(${scrollY / 1.5}px)` }"
             />
 
             <!-- Content wrapper -->
             <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
                 <div
                     class="wedding-text mt-auto flex flex-col justify-center text-white"
-                    :style="{ transform: `translateY(${scrollY / 4}px)` }"
+                    :style="{ transform: `translateY(${scrollY / 2}px)` }"
                 >
                     <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
                     <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
