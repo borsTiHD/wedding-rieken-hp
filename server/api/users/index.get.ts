@@ -42,12 +42,12 @@ export default defineEventHandler(async(event) => {
         }
     }
 
-    // Konvertieren Sie das userMap-Objekt in ein Array von Benutzern mit Profilen
+    // Create an array of users with profiles
     const usersWithProfiles: Array<User> = []
     for (const userId in userMap) {
         usersWithProfiles.push(userMap[userId])
     }
 
-    // Rückgabe aller Benutzer mit Profilen
+    // Return all users with profiles
     return { result: usersWithProfiles }
 })
