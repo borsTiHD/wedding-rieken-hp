@@ -11,7 +11,7 @@
             <!-- Content wrapper -->
             <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
                 <div
-                    class="mt-auto flex flex-col justify-center text-white"
+                    class="wedding-text mt-auto flex flex-col justify-center text-white"
                     :style="{ transform: `translateY(${scrollY / 4}px)` }"
                 >
                     <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
@@ -169,6 +169,16 @@ onMounted(() => {
 <style scoped>
 .section-style {
     @apply p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4 z-10;
+}
+
+.background-image, .wedding-text {
+    transition: transform 0.2s ease-out;
+}
+
+@media (min-width: 768px) {
+    .background-image, .wedding-text {
+        transition: none;
+    }
 }
 
 #not-whitelisted {
