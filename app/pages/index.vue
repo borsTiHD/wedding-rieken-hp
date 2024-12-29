@@ -33,6 +33,9 @@
             </div>
         </section>
 
+        <!-- Falling emojis -->
+        <FallingEmojis />
+
         <template v-if="user?.uid && whitelistedRoles.includes(userProfile?.role) && userProfile?.invitation !== 'declined'">
             <!-- WeddingDay -->
             <section id="wedding">
@@ -87,6 +90,7 @@ import { useConfig } from '@/composables/useConfig'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import { useCookieStore } from '@/stores/cookieconsent'
+import FallingEmojis from '@/components/FallingEmojis.vue'
 import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
 import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
