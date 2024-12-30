@@ -180,7 +180,7 @@
         }
     },
     "userQuickMenu": {
-        "profileNotFinished": "Profil nicht vervollständigt"
+        "completeProfile": "Profil hier vervollständigen"
     },
     "user": {
         "noName": "Kein Name",

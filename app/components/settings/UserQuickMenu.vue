@@ -21,7 +21,7 @@
 
                     <!-- Profile progress with link -->
                     <div v-if="checkState < 100" tabindex="0" class="flex items-center px-0 sm:px-8 w-full cursor-pointer hover:text-neutral-400" @click="routeChange('/user/profile/')" @keydown.enter="routeChange('/user/profile/')">
-                        <span>{{ t('userQuickMenu.profileNotFinished') }}</span>
+                        <span>{{ t('userQuickMenu.completeProfile') }}</span>
                         <!-- Profile progress with link -->
                         <DisplayProfileProgress class="ml-auto" />
                     </div>
