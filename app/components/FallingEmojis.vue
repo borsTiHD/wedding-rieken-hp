@@ -1,5 +1,5 @@
 <template>
-    <div ref="emojiFallContainer" class="emoji-fall-container">
+    <div ref="emojiFallContainer" class="emoji-fall-container pointer-events-none">
         <div
             v-for="emoji in emojis"
             :key="emoji.id"

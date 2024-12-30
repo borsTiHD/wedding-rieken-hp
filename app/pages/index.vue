@@ -11,7 +11,7 @@
             <!-- Content wrapper -->
             <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
                 <div
-                    class="wedding-text mt-auto flex flex-col justify-center text-white"
+                    class="wedding-text mt-auto flex flex-col justify-center text-white select-none"
                     :style="{ transform: `translateY(${scrollY / 2}px)` }"
                 >
                     <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
@@ -22,6 +22,7 @@
                 <!-- Scroll down icon -->
                 <i
                     :class="[
+                        'z-10', // Z-Index
                         isScrolled ? 'opacity-0' : 'opacity-100',
                         'mt-auto mb-20 text-3xl md:text-5xl self-center ', // Sizes
                         'text-white drop-shadow-sm pi pi-angle-down', // Icon
@@ -134,7 +135,7 @@ const isScrolled = computed<boolean>(() => scrollY.value > 30)
 // Scroll to next section
 const scrollToSection = (hash?: string) => {
     const nextSection = hash ? document.querySelector<HTMLElement>(hash)
-        : document.querySelector<HTMLElement>('section:nth-child(2)')
+        : document.querySelector<HTMLElement>('section:nth-child(3)')
 
     if (nextSection) {
         // Get navbar height for offset
