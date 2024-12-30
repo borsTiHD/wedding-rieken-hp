@@ -34,7 +34,7 @@
         </section>
 
         <!-- Falling emojis -->
-        <FallingEmojis />
+        <FallingEmojis :key="user?.uid || 1234" />
 
         <template v-if="user?.uid && whitelistedRoles.includes(userProfile?.role) && userProfile?.invitation !== 'declined'">
             <!-- WeddingDay -->
