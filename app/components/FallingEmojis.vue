@@ -1,9 +1,9 @@
 <template>
-    <div class="emoji-fall-container select-none">
+    <div ref="emojiFallContainer" class="emoji-fall-container">
         <div
             v-for="emoji in emojis"
             :key="emoji.id"
-            class="emoji cursor-pointer"
+            class="emoji cursor-pointer select-none"
             :style="emoji.style"
             @mousedown="popEmoji(emoji)"
         >
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, type CSSProperties } from 'vue'
+import { onMounted, onUnmounted, ref, type CSSProperties } from 'vue'
 
 interface Emoji {
     id: number
@@ -21,7 +21,7 @@ interface Emoji {
     style: CSSProperties
 }
 
-// Interval for generating emojis and emojis array
+const emojiFallContainer = ref<HTMLElement | null>(null)
 const interval = ref<ReturnType<typeof setInterval> | undefined>(undefined)
 const emojis = ref<Emoji[]>([])
 
@@ -65,17 +65,31 @@ const generateEmoji = () => {
     }
 }
 
+const resizeContainer = () => {
+    if (emojiFallContainer.value) {
+        emojiFallContainer.value.style.height = `${document.body.scrollHeight}px`
+    }
+}
+
 onMounted(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (!prefersReducedMotion) {
         interval.value = setInterval(generateEmoji, 1000)
     }
+
+    // Resize container on mount and on resize
+    resizeContainer()
+    window.addEventListener('resize', resizeContainer)
+
+    // Resize container once more after 2 seconds
+    setTimeout(resizeContainer, 2000)
 })
 
 onUnmounted(() => {
     if (interval.value !== undefined) {
         clearInterval(interval.value)
     }
+    window.removeEventListener('resize', resizeContainer)
 })
 
 const popEmoji = (emoji: Emoji) => {
@@ -94,7 +108,6 @@ const popEmoji = (emoji: Emoji) => {
     top: 0;
     left: 0;
     width: 100%;
-    height: 200vh; /* Extend the height to cover more of the background */
     overflow: hidden;
     background-attachment: fixed;
 }
