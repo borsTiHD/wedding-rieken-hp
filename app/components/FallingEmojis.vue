@@ -1,6 +1,14 @@
 <template>
     <div class="emoji-fall-container select-none">
-        <div v-for="emoji in emojis" :key="emoji.id" class="emoji cursor-pointer" :style="emoji.style" @mousedown="popEmoji(emoji)">{{ emoji.char }}</div>
+        <div
+            v-for="emoji in emojis"
+            :key="emoji.id"
+            class="emoji cursor-pointer"
+            :style="emoji.style"
+            @mousedown="popEmoji(emoji)"
+        >
+            {{ emoji.char }}
+        </div>
     </div>
 </template>
 
@@ -13,6 +21,8 @@ interface Emoji {
     style: CSSProperties
 }
 
+// Interval for generating emojis and emojis array
+const interval = ref<ReturnType<typeof setInterval> | undefined>(undefined)
 const emojis = ref<Emoji[]>([])
 
 // Generate random emojis
@@ -27,7 +37,7 @@ const generateEmoji = () => {
             top: '-50px',
             left: `${Math.random() * 100}vw`,
             fontSize: `${Math.random() * 24 + 16}px`,
-            animationDuration: `${duration}s`, // Fall duration between 6 and 16 seconds
+            animationDuration: `${duration}s`, // Fall duration
             opacity: Math.random() * 0.5 + 0.5,
             transform: 'translateY(0)',
             transition: 'opacity 1s, transform 1s',
@@ -38,7 +48,7 @@ const generateEmoji = () => {
     }
     emojis.value.push(emoji)
 
-    // Change opacity to 0 in the last second
+    // Change opacity to 0 before the animation ends
     setTimeout(() => {
         if (emoji) { emoji.style.opacity = 0 }
     }, (duration - 2) * 1000)
@@ -55,12 +65,8 @@ const generateEmoji = () => {
     }
 }
 
-// Continuously generate emojis
-const interval = ref<ReturnType<typeof setInterval> | undefined>(undefined)
-
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
 onMounted(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (!prefersReducedMotion) {
         interval.value = setInterval(generateEmoji, 1000)
     }
@@ -90,14 +96,13 @@ const popEmoji = (emoji: Emoji) => {
     width: 100%;
     height: 200vh; /* Extend the height to cover more of the background */
     overflow: hidden;
-    z-index: 50;
-    background-attachment: fixed; /* Fix the background position */
+    background-attachment: fixed;
 }
 
 .emoji {
     animation: fall linear infinite;
     transition: transform 0.3s, opacity 0.3s, color 0.3s;
-    pointer-events: auto; /* Enable pointer events for emojis */
+    pointer-events: auto;
 }
 
 @keyframes fall {
