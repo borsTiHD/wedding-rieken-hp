@@ -14,10 +14,9 @@
         v-if="mode === 'default'"
         v-tooltip.left="t('admin.listUsers.checkGuest.checkTooltip')"
         :label="t('admin.listUsers.checkGuest.checkLabel')"
-        class="whitespace-nowrap pulse-yellow"
         icon="pi pi-user-plus"
         size="small"
-        severity="warning"
+        severity="warn"
         raised
         @click="checkGuestModal?.open()"
     />
@@ -30,7 +29,6 @@
         icon="pi pi-user-edit"
         size="small"
         severity="info"
-        outlined
         @click="checkGuestModal?.open()"
     />
 </template>
