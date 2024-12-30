@@ -55,7 +55,6 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import CreateDailyAgendaEvent from '@/components/admin/CreateDailyAgendaEvent.vue'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useContent } from '@/composables/useContent'
-import { useContentStore } from '@/stores/content'
 import type { DailyAgenda } from '@/queries/content/model'
 
 // Composables
@@ -64,15 +63,14 @@ const toast = useToast()
 const { modalPosition } = useModalPosition() // Modal position
 
 // Content
-const { dailyAgenda, isFetching, refetch } = useContent()
-const contentStore = useContentStore() // TODO: Refactore to tanstack mutation
+const { dailyAgenda, isFetching, refetch, removeDailyAgendaItem } = useContent()
 
 // Refs
 const createEventModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Delete item
 const deleteItem = async(item: DailyAgenda) => {
-    await contentStore.removeDailyAgendaItem(item).catch(() => {
+    await removeDailyAgendaItem(item).catch(() => {
         toast.add({ severity: 'error', summary: 'Error', detail: t('admin.dailyAgenda.errorDeleteEvent'), life: 10000 })
     })
 

@@ -55,7 +55,6 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import CreateWitness from '@/components/admin/CreateWitness.vue'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useContent } from '@/composables/useContent'
-import { useContentStore } from '@/stores/content'
 import type { Witness } from '@/queries/content/model'
 
 // Composables
@@ -64,15 +63,14 @@ const toast = useToast()
 const { modalPosition } = useModalPosition()
 
 // Content
-const { witnesses, isFetching, refetch } = useContent()
-const contentStore = useContentStore()
+const { witnesses, isFetching, refetch, removeWitness } = useContent()
 
 // Refs
 const createWitnessModal = ref<InstanceType<typeof DisplayModal>>()
 
 // Delete item
 const deleteItem = async(item: Witness) => {
-    await contentStore.removeWitness(item).catch(() => {
+    await removeWitness(item).catch(() => {
         toast.add({ severity: 'error', summary: 'Error', detail: t('admin.witnesses.errorDeleteWitness'), life: 10000 })
     })
 

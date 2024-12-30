@@ -33,7 +33,6 @@
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
 import { useContent } from '@/composables/useContent'
-import { useContentStore } from '@/stores/content'
 
 type FormData = {
     name: string
@@ -48,8 +47,7 @@ const { t } = useI18n()
 const emit = defineEmits(['created'])
 
 // Content
-const { isFetching, refetch } = useContent()
-const contentStore = useContentStore()
+const { isFetching, refetch, addWitness } = useContent()
 
 // Data
 const loading = ref(false)
@@ -68,7 +66,7 @@ const createNewWitness = async(form: FormData) => {
         phone: form.phone
     }
 
-    await contentStore.addWitness(newItem).then(async() => {
+    await addWitness(newItem).then(async() => {
         await refetch() // Refresh content
         toast.add({ severity: 'success', summary: t('admin.witnesses.newWitness.success'), life: 3000 })
     }).catch((error) => {
