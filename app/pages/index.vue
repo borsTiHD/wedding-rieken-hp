@@ -22,7 +22,7 @@
                 <!-- Scroll down icon -->
                 <i
                     :class="[
-                        'z-10', // Z-Index
+                        'z-10 size-15', // Z-Index
                         isScrolled ? 'opacity-0' : 'opacity-100',
                         'mt-auto mb-20 text-3xl md:text-5xl self-center ', // Sizes
                         'text-white drop-shadow-sm pi pi-angle-down', // Icon
