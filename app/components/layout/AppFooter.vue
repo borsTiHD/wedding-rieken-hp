@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { useConfig } from '@/composables/useConfig'
+import { useAppStore } from '@/stores/app'
 import { usePagesStore } from '@/stores/pages'
 import { useEventListener } from '@/composables/useEventListener'
 
@@ -46,8 +46,10 @@ const showFooter = ref(true)
 const pagesStore = usePagesStore()
 const navItems = computed(() => pagesStore.pages)
 
-// Config
-const { bride, groom } = useConfig()
+// App store
+const appStore = useAppStore() // App store
+const bride = computed(() => appStore.bride)
+const groom = computed(() => appStore.groom)
 
 // Github repo link
 const githubRepo = 'https://github.com/borsTiHD/wedding-rieken-hp/'
