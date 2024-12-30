@@ -20,10 +20,13 @@
             </div>
         </template>
         <template #image>
-            <img :src="image.itemImageSrc" :alt="image.alt" class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]">
+            <div v-if="loading" class="w-full h-full flex items-center justify-center">
+                <ProgressSpinner class="size-12" />
+            </div>
+            <img :src="image.itemImageSrc" :alt="image.alt" loading="lazy" class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]" @load="onLoad" @error="onError">
         </template>
         <template #original="slotProps">
-            <img :src="image.itemImageSrc" :alt="image.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+            <img :src="image.itemImageSrc" :alt="image.alt" loading="lazy" :style="slotProps.style" @click="slotProps.previewCallback">
         </template>
     </Image>
 </template>
@@ -36,4 +39,15 @@ const props = defineProps<Props>()
 const { image } = toRefs(props)
 
 const { t } = useI18n()
+
+import { ref } from 'vue'
+const loading = ref(true)
+
+const onLoad = () => {
+    loading.value = false
+}
+
+const onError = () => {
+    loading.value = false
+}
 </script>
