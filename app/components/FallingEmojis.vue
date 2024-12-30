@@ -3,7 +3,7 @@
         <div
             v-for="emoji in emojis"
             :key="emoji.id"
-            class="emoji cursor-pointer select-none"
+            class="emoji cursor-pointer select-none p-6"
             :style="emoji.style"
             @mousedown="popEmoji(emoji)"
         >
@@ -53,16 +53,10 @@ const generateEmoji = () => {
         if (emoji) { emoji.style.opacity = 0 }
     }, (duration - 2) * 1000)
 
-    // Remove the emoji after the animation ends
-    const removeEmoji = () => {
-        emojis.value = emojis.value.filter((e) => e.id !== emoji.id)
-    }
-
-    // Add event listener for animation end
-    const emojiElement = document.querySelector(`[key="${emoji.id}"]`)
-    if (emojiElement) {
-        emojiElement.addEventListener('animationend', removeEmoji)
-    }
+    // Remove emoji from array after animation ends
+    setTimeout(() => {
+        emojis.value = emojis.value.filter((e) => e.id !== emoji?.id)
+    }, duration * 1000)
 }
 
 const resizeContainer = () => {
