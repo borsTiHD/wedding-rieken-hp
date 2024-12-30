@@ -2,6 +2,7 @@
     <div ref="emojiFallContainer" class="emoji-fall-container pointer-events-none">
         <div
             v-for="emoji in emojis"
+            :id="emoji.id"
             :key="emoji.id"
             class="emoji cursor-pointer select-none p-6"
             :style="emoji.style"
@@ -16,7 +17,7 @@
 import { onMounted, onUnmounted, ref, type CSSProperties } from 'vue'
 
 interface Emoji {
-    id: number
+    id: string
     char: string
     style: CSSProperties
 }
@@ -30,7 +31,7 @@ const generateEmoji = () => {
     const emojiChars = ['❤️', '💍', '💐', '🎵', '❓', '🎉', '🥂', '👰', '🤵', '💒', '🎂', '💌', '🚗']
     const duration = Math.random() * 10 + 6 // Fall duration between 6 and 16 seconds
     const emoji: Emoji = {
-        id: Date.now() + Math.random(),
+        id: `emoji_${Date.now()}_${Math.random().toString().replace('.', '_')}`,
         char: emojiChars[Math.floor(Math.random() * emojiChars.length)] || '❤️',
         style: {
             position: 'absolute',
@@ -87,9 +88,25 @@ onUnmounted(() => {
 })
 
 const popEmoji = (emoji: Emoji) => {
-    emoji.style.transform = 'scale(2) rotate(360deg)'
-    emoji.style.opacity = 0
+    // Stopping the animation
+    emoji.style.transform = 'scale(2)'
     emoji.style.textShadow = '0 0 10px rgba(0, 0, 0, 0.5)'
+    emoji.style.transition = 'none'
+    emoji.style.animation = 'none'
+
+    // Add shake animation
+    emoji.style.transition = 'opacity 0.5s'
+    emoji.style.opacity = 0
+
+    // Get the current position of the emoji
+    const emojiElement = document.querySelector(`#${emoji.id}`)
+    const rect = emojiElement?.getBoundingClientRect()
+    if (rect) {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+        emoji.style.top = `${rect.top + scrollTop}px`
+        emoji.style.left = `${rect.left + 4}px`
+    }
+
     setTimeout(() => {
         emojis.value = emojis.value.filter((e) => e.id !== emoji?.id)
     }, 300)
