@@ -537,6 +537,13 @@
                 "successDetailInvited": "Benutzer wurde erfolgreich eingeladen",
                 "successDetailDeclined": "Benutzer wurde erfolgreich abgelehnt"
             },
+            "deleteUser": {
+                "tooltip": "Benutzer löschen",
+                "confirmMessage": "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?",
+                "errorNoUid": "Keine User-ID angegeben",
+                "error": "Fehler beim Löschen des Benutzers",
+                "success": "Benutzer gelöscht"
+            },
             "tableHeader": {
                 "avatar": "Profilbild",
                 "email": "EMail",

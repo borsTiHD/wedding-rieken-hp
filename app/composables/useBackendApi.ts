@@ -84,6 +84,28 @@ export default function useBackendApi() {
         })
     }
 
+    // Delete a user by uid - only admins can delete users
+    async function deleteUser(uid: string) {
+        // Check if user is logged in
+        if (!user.value) {
+            throw new Error(t('firebase.custom.noUserLoggedIn'))
+        }
+
+        // Check if user is admin
+        // This is not necessary, the API would throw an error if the user is no admin
+        if (userProfile.value && userProfile.value.role !== 'admin') {
+            throw new Error(t('admin.notAdminError'))
+        }
+
+        // Make API Call and delete user
+        return $fetch(`${apiBaseUrl}/users/delete`, {
+            method: 'POST',
+            body: {
+                uid
+            }
+        })
+    }
+
     // Update user profile role to invited
     // Needs a valid token, which is sent to the API and compared with the token in the database
     async function updateUserRoleToInvited(uid: string, token: string) {
@@ -107,6 +129,7 @@ export default function useBackendApi() {
         getAllUsers, // admin only
         createUser, // admin only
         updateUserRole, // admin only
+        deleteUser, // admin only
         updateUserRoleToInvited // user only
     }
 }

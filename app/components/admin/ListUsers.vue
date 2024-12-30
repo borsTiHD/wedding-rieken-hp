@@ -96,6 +96,11 @@
                                     mode="changeInvitation"
                                     @changed="getUsers"
                                 />
+                                <DeleteUser
+                                    :uid="slotProps.data.uid"
+                                    :name="slotProps.data.name"
+                                    @deleted="getUsers"
+                                />
                             </li>
                             <li class="user-list-item">
                                 <span class="font-bold">{{ t('admin.listUsers.tableHeader.email') }}:</span>
@@ -224,6 +229,11 @@
                                     mode="changeInvitation"
                                     @changed="getUsers"
                                 />
+                                <DeleteUser
+                                    :uid="slotProps.data.uid"
+                                    :name="slotProps.data.name"
+                                    @deleted="getUsers"
+                                />
                             </div>
                         </template>
                     </Column>
@@ -240,6 +250,7 @@ import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
 import DisplayModal from '@/components/DisplayModal.vue'
 import CreateUser from '@/components/admin/CreateUser.vue'
 import CheckGuest from '@/components/admin/CheckGuest.vue'
+import DeleteUser from '@/components/admin/DeleteUser.vue'
 import useBackendApi from '@/composables/useBackendApi'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useWindowSize } from '@/composables/useWindowSize'
