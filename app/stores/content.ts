@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
 import { useFirestore } from '@/composables/useFirestore'
-import type { DailyAgenda } from '@/queries/content/model'
+import type { DailyAgenda, Witness } from '@/queries/content/model'
 
 export const useContentStore = defineStore('content-store', () => {
     const { updateArrayFieldByCollectionAndId, removeArrayFieldByCollectionAndId } = useFirestore()
+
+    // TODO: No need for a store for this, just use the composable directly
 
     // Add new daily agenda item
     async function addDailyAgendaItem(item: DailyAgenda) {
@@ -15,5 +17,20 @@ export const useContentStore = defineStore('content-store', () => {
         return removeArrayFieldByCollectionAndId('app', 'content', 'daily-agenda', item)
     }
 
-    return { addDailyAgendaItem, removeDailyAgendaItem }
+    // Add new witness
+    async function addWitness(witness: Witness) {
+        return updateArrayFieldByCollectionAndId('app', 'content', 'witnesses', witness)
+    }
+
+    // Remove witness
+    async function removeWitness(witness: Witness) {
+        return removeArrayFieldByCollectionAndId('app', 'content', 'witnesses', witness)
+    }
+
+    return {
+        addDailyAgendaItem,
+        removeDailyAgendaItem,
+        addWitness,
+        removeWitness
+    }
 })

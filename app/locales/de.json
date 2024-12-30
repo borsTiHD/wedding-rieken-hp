@@ -481,6 +481,28 @@
                 }
             }
         },
+        "witnesses": {
+            "header": "Trauzeugen",
+            "name": "Name",
+            "phone": "Telefon",
+            "actions": "Aktionen",
+            "error": "Fehler beim Laden der Trauzeugen",
+            "errorDeleteWitness": "Fehler beim Löschen des Trauzeugen",
+            "successDeleteWitness": "Trauzeuge wurde erfolgreich gelöscht",
+            "newWitness": {
+                "header": "Neuen Trauzeugen hinzufügen",
+                "addWitness": "Trauzeugen hinzufügen",
+                "error": "Fehler beim Hinzufügen des Trauzeugen",
+                "success": "Trauzeuge wurde erfolgreich hinzugefügt",
+                "formkit": {
+                    "labelName": "Name",
+                    "labelNameHelp": "Bitte geben Sie den Vor-/Nachname des Trauzeugen ein",
+                    "labelPhone": "Telefon",
+                    "labelPhoneHelp": "Bitte geben Sie die Telefonnummer des Trauzeugen ein",
+                    "submit": "Trauzeugen hinzufügen"
+                }
+            }
+        },
         "listUsers": {
             "header": "Benutzerverwaltung",
             "noUsers": "Keine Benutzer gefunden",

@@ -1,5 +1,5 @@
 import { useContentQuery } from '@/queries/content'
-import type { DailyAgenda } from '@/queries/content/model'
+import type { DailyAgenda, Witness } from '@/queries/content/model'
 
 export function useContent() {
     const { data: contentData, isFetching, isLoading, error, isSuccess, refetch, suspense } = useContentQuery()
@@ -17,6 +17,8 @@ export function useContent() {
         return sortedAgenda
     })
 
+    const witnesses = computed<Witness[] | undefined>(() => contentData.value?.witnesses)
+
     return {
         // Query
         contentData,
@@ -28,6 +30,7 @@ export function useContent() {
         suspense,
 
         // Computed
-        dailyAgenda
+        dailyAgenda,
+        witnesses
     }
 }

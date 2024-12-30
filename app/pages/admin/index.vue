@@ -15,6 +15,7 @@
                 <ChangeLocationPreview />
                 <ChangeSpotifyPlaylist />
                 <UpdateDailyAgenda />
+                <UpdateWitnesses />
             </div>
 
             <!-- You are not an admin -->
@@ -35,6 +36,7 @@ import ChangeLocation from '@/components/admin/ChangeLocation.vue'
 import ChangeLocationPreview from '@/components/admin/ChangeLocationPreview.vue'
 import ChangeSpotifyPlaylist from '@/components/admin/ChangeSpotifyPlaylist.vue'
 import UpdateDailyAgenda from '@/components/admin/UpdateDailyAgenda.vue'
+import UpdateWitnesses from '@/components/admin/UpdateWitnesses.vue'
 import NoAdmin from '@/components/admin/NoAdmin.vue'
 import { useUserStore } from '@/stores/user'
 
