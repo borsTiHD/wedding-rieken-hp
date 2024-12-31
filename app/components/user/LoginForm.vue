@@ -31,7 +31,7 @@
                 </NuxtLink>
             </div>
 
-            <Button :label="t('login.submit')" icon="pi pi-check" type="submit" raised :loading="loading" :disabled="!valid" />
+            <Button :label="t('login.submit')" icon="pi pi-sign-in" type="submit" raised :loading="loading" :disabled="!valid" />
         </div>
     </FormKit>
 </template>

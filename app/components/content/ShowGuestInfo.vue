@@ -30,12 +30,12 @@
 
                 <!-- User is logged in as a guest -->
                 <div v-else-if="userProfile?.role === 'guest'" class="flex flex-col justify-center items-center gap-4">
-                    <p>{{ t('welcome.errorGuest') }}</p>
+                    <p class="text-pretty">{{ t('welcome.errorGuest') }}</p>
                 </div>
 
                 <!-- User is logged in, but is declined -->
                 <div v-else-if="userProfile?.role === 'declined'" class="flex flex-col justify-center items-center gap-4">
-                    <p>{{ t('welcome.errorDeclined') }}</p>
+                    <p class="text-pretty">{{ t('welcome.errorDeclined') }}</p>
                 </div>
 
                 <!-- User is logged in, but has declined the invitation -->
@@ -58,7 +58,16 @@
 
                 <!-- User is is probably not logged in or an error occurred -->
                 <div v-else class="flex flex-col justify-center items-center gap-4">
-                    <p>{{ t('welcome.defaultError') }}</p>
+                    <p class="text-pretty">{{ t('welcome.defaultError') }}</p>
+
+                    <div class="w-full flex gap-4">
+                        <NuxtLink :to="localePath('/login')" class="w-full">
+                            <Button class="grow" :label="t('login.submit')" icon="pi pi-sign-in" outlined fluid />
+                        </NuxtLink>
+                        <NuxtLink :to="localePath('/register')" class="w-full">
+                            <Button class="grow" :label="t('register.submit')" icon="pi pi-user-plus" fluid />
+                        </NuxtLink>
+                    </div>
                 </div>
             </div>
         </template>
