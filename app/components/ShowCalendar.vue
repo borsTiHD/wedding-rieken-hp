@@ -131,9 +131,10 @@ const days = computed<CalendarDay[] | false>(() => {
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-        const isToday = dayjs().format('YYYY-MM-DD') === `${dayjs().format('YYYY-MM')}-${String(i).padStart(2, '0')}`
-        const isSelected = timestampDate.value.format('YYYY-MM-DD') === `${dayjs().format('YYYY-MM')}-${String(i).padStart(2, '0')}`
-        days.push({ date: `${timestampDate.value.format('YYYY-MM')}-${String(i).padStart(2, '0')}`, isCurrentMonth: true, isToday, isSelected })
+        const date = `${timestampDate.value.format('YYYY-MM')}-${String(i).padStart(2, '0')}`
+        const isToday = dayjs().format('YYYY-MM-DD') === date
+        const isSelected = timestampDate.value.format('YYYY-MM-DD') === date
+        days.push({ date: date, isCurrentMonth: true, isToday, isSelected })
     }
 
     for (let i = 0; i < 6 - lastDay; i++) {
