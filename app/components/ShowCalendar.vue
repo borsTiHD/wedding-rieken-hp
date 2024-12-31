@@ -4,14 +4,14 @@
         <div class="mt-2 grid grid-cols-7 text-xs leading-6 text-gray-500">
             <div v-for="day in dayNames" :key="day.long">{{ day.short }}</div>
         </div>
-        <div v-if="days" class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
+        <div v-if="days" class="mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
             <button
                 v-for="(day, dayIdx) in days"
                 :key="day.date"
                 type="button"
                 tabindex="-1"
                 :class="[
-                    'relative inline-block cursor-default py-1.5 hover:bg-gray-100 focus:z-10', // base styles
+                    'cursor-default py-1.5', // base styles
                     day.isSelected && !day.isToday
                         ? 'bg-rose-100' // selected
                         : day.isToday
