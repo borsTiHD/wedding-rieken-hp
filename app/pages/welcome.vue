@@ -15,8 +15,8 @@
                 <h3 class="font-bold text-xl md:text-2xl">{{ t('welcome.subheader') }}</h3>
 
                 <!-- Welcome message -->
-                <div class="flex flex-col items-center gap-4">
-                    <i18n-t v-if="isBeforeDeadline" keypath="welcome.welcomeMessage" tag="p">
+                <div v-if="isBeforeDeadline" class="flex flex-col items-center gap-4">
+                    <i18n-t keypath="welcome.welcomeMessage" tag="p">
                         <template #weddingDate>
                             <span class="font-bold whitespace-nowrap">{{ d(weddingDate || 0, 'short') }}</span>
                         </template>
@@ -28,7 +28,19 @@
                         </template>
                     </i18n-t>
 
-                    <i18n-t v-else keypath="welcome.welcomeMessageAfterDeadline" tag="p">
+                    <div class="w-full flex gap-4">
+                        <NuxtLink :to="localePath('/login')" class="w-full">
+                            <Button class="grow" :label="t('login.submit')" icon="pi pi-sign-in" outlined fluid />
+                        </NuxtLink>
+                        <NuxtLink :to="localePath('/register')" class="w-full">
+                            <Button class="grow" :label="t('register.submit')" icon="pi pi-user-plus" fluid />
+                        </NuxtLink>
+                    </div>
+                </div>
+
+                <!-- After deadline message -->
+                <div v-else class="flex flex-col items-center gap-4">
+                    <i18n-t keypath="welcome.welcomeMessageAfterDeadline" tag="p">
                         <template #weddingDate>
                             <span class="font-bold whitespace-nowrap">{{ d(weddingDate || 0, 'short') }}</span>
                         </template>
