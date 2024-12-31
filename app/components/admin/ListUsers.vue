@@ -83,7 +83,7 @@
                     <!-- Row expansion - Mobile view -->
                     <template #expansion="slotProps">
                         <ul class="flex flex-col gap-2">
-                            <li class="user-list-item">
+                            <li v-if="slotProps.data.role !== 'admin'" class="user-list-item">
                                 <span class="font-bold">{{ t('admin.listUsers.tableHeader.actions') }}:</span>
                                 <CheckGuest
                                     v-if="slotProps.data.role === 'guest'"
