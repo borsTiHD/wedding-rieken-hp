@@ -14,8 +14,22 @@
                     </div>
                 </div>
 
+                <div v-if="checkState < 100" class="ml-auto flex gap-2 items-center px-0 sm:px-8 cursor-pointer hover:text-neutral-400">
+                    <!-- Icon for mobile -->
+                    <i v-if="isWidthSmall" class="pi pi-arrow-right animate-bounce" />
+
+                    <!-- Text for desktop -->
+                    <NuxtLink v-else :to="localePath('/user/profile/')" class="flex items-center gap-2">
+                        <span>{{ t('userQuickMenu.completeProfile') }}</span>
+                        <i class="pi pi-arrow-right animate-bounce" />
+                    </NuxtLink>
+
+                    <!-- Profile progress with link -->
+                    <DisplayProfileProgress />
+                </div>
+
                 <!-- Profile progress with link -->
-                <DisplayProfileProgress class="ml-auto" />
+                <DisplayProfileProgress v-else class="ml-auto" />
             </div>
         </template>
     </Card>
@@ -24,13 +38,22 @@
 <script setup lang="ts">
 import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
 import DisplayProfileProgress from '@/components/user/DisplayProfileProgress.vue'
+import { useWindowSize } from '@/composables/useWindowSize'
 import { useUserStore } from '@/stores/user'
 
 // Localisation
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 // User store
 const userStore = useUserStore()
+
+// Profile checker
+const { checkState } = useProfileChecker()
+
+// Window size for mobile check
+const { windowWidth } = useWindowSize(100)
+const isWidthSmall = computed<boolean>(() => windowWidth.value < 640)
 
 // User data from store
 const displayName = computed(() => userStore.displayName)
