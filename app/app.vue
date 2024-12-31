@@ -43,8 +43,10 @@ import '@fontsource/alex-brush'
 // TODO: Fix "toast" styling on mobile (toast is glitching)
 // TODO: Delete stock fotos from assets
 
-// Localisation
+// Composables
 const { t } = useI18n()
+const toast = useToast()
+const { changeRoleToInvited } = useFirebaseUserProfile()
 
 // Language options for i18n
 // Set language based on cookie or browser language
@@ -67,6 +69,9 @@ const { suspense: suspenseContent } = useContent()
 const appStore = useAppStore() // App store
 const userStore = useUserStore() // User store
 const tokenStore = useTokenStore() // Token store
+
+// Invitation token
+const token = computed(() => tokenStore.token)
 
 // Refs
 const bride = computed(() => appStore.bride)
@@ -95,6 +100,39 @@ useHead({
     ]
 })
 
+// Check user role and upgrade if necessary
+async function upgradeUserRole() {
+    // Check if user is logged in
+    if (!userStore.uid) {
+        return false
+    }
+
+    // Check if user has an invitation token
+    // And change profile role to 'invited'
+    // Firebase will check if the token is valid
+    if (token.value && token.value !== '') {
+        const check = await changeRoleToInvited(token.value).catch((error: { message: string }) => {
+            toast.add({
+                severity: 'error',
+                summary: t('user.upgradeUserRole.error'),
+                detail: error.message,
+                life: 10000
+            })
+
+            return false
+        })
+
+        if (!check) { return false }
+
+        toast.add({
+            severity: 'success',
+            summary: t('user.upgradeUserRole.success'),
+            detail: t('user.upgradeUserRole.successDetail'),
+            life: 10000
+        })
+    }
+}
+
 // Fetch user data and app config
 onNuxtReady(async() => {
     startLoading() // Start loading spinner
@@ -110,6 +148,12 @@ onNuxtReady(async() => {
     ])
 
     stoptLoading() // Stop loading spinner
+
+    // Upgrade user role if necessary (e.g. from 'guest' to 'invited')
+    // User must be logged in and have an invitation token
+    setTimeout(() => {
+        upgradeUserRole()
+    }, 2000)
 })
 </script>
 
