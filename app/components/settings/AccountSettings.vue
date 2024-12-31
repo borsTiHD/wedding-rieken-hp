@@ -26,8 +26,8 @@
                     </dd>
                 </div>
 
-                <!-- Change Password -->
-                <div class="sm:flex">
+                <!-- Change Password - don't show if user logged in by email link -->
+                <div v-if="!emailLinkOnly" class="sm:flex">
                     <dt class="table-dt">
                         <DisplayModal
                             ref="passwordModal"
@@ -55,7 +55,7 @@
                         <ResetPassword />
                     </dt>
                     <dd class="table-dd">
-                        <span>{{ t('user.account.descriptions.passwordReset') }}</span>
+                        <span>{{ emailLinkOnly ? t('user.account.descriptions.createPassword') : t('user.account.descriptions.passwordReset') }}</span>
                     </dd>
                 </div>
 
@@ -139,6 +139,7 @@ const { t } = useI18n()
 const router = useRouter()
 const localePath = useLocalePath()
 const { modalPosition } = useModalPosition() // Modal position
+const { emailLinkOnly } = useFirebaseSignInMethods()
 
 // Refs
 const passwordModal = ref<InstanceType<typeof DisplayModal>>()

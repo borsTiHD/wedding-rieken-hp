@@ -8,7 +8,8 @@ import {
     sendPasswordResetEmail,
     signInWithEmailLink,
     isSignInWithEmailLink,
-    EmailAuthProvider
+    EmailAuthProvider,
+    fetchSignInMethodsForEmail
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import { useUserStore } from '@/stores/user'
@@ -199,6 +200,19 @@ export default function() {
         throw new Error(t('firebase.custom.loginFailed'))
     }
 
+    // Fetch email sign in methods for a user
+    const fetchEmailSignInMethods = async(): Promise<string[]> => {
+        const email = $auth.currentUser?.email
+        if (!email) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+
+        const signInMethods = await fetchSignInMethodsForEmail($auth, email).catch((error: FirebaseError) => {
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.fetchMethodsFailed')
+            throw new Error(errorMessage)
+        })
+
+        return signInMethods
+    }
+
     // Logout a user
     const logoutUser = async(): Promise<void> => {
         await $auth.signOut().catch((error: FirebaseError) => {
@@ -218,6 +232,7 @@ export default function() {
         sendUserEmailVerification,
         sendUserPasswordResetEmail,
         loginWithEmailLink,
+        fetchEmailSignInMethods,
         logoutUser
     }
 }

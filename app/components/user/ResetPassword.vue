@@ -1,6 +1,13 @@
 <template>
     <ConfirmPopup />
-    <Button :label="t('user.password.resetPassword.submitButton')" class="whitespace-nowrap w-full" icon="pi pi-lock-open" raised :loading="loading" @click="confirmDialog($event)" />
+    <Button
+        :label="emailLinkOnly ? t('user.password.resetPassword.emailSignInOnly') : t('user.password.resetPassword.submitButton')"
+        class="whitespace-nowrap w-full"
+        icon="pi pi-lock-open"
+        raised
+        :loading="loading"
+        @click="confirmDialog($event)"
+    />
 </template>
 
 <script setup lang="ts">
@@ -15,6 +22,7 @@ const toast = useToast()
 const confirm = useConfirm()
 const { t } = useI18n()
 const { sendUserPasswordResetEmail } = useFirebaseAuth()
+const { emailLinkOnly } = useFirebaseSignInMethods()
 
 // Confirm dialog
 const confirmDialog = (event: MouseEvent) => {
