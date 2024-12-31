@@ -4,7 +4,7 @@
             v-for="emoji in emojis"
             :id="emoji.id"
             :key="emoji.id"
-            class="emoji cursor-pointer select-none p-6"
+            class="emoji cursor-pointer select-none p-6 z-10"
             :style="emoji.style"
             @mousedown="popEmoji(emoji)"
         >
