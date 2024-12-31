@@ -231,7 +231,6 @@
                                 />
                                 <DeleteUser
                                     :uid="slotProps.data.uid"
-                                    :name="slotProps.data.name"
                                     @deleted="getUsers"
                                 />
                             </div>

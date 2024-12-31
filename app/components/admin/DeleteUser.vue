@@ -15,7 +15,7 @@ import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 import useBackendApi from '@/composables/useBackendApi'
 
-type Props = { uid: string, name: string }
+type Props = { uid: string }
 const props = defineProps<Props>()
 
 // Emit event
