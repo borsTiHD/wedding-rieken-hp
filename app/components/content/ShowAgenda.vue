@@ -18,7 +18,7 @@
                             <div class="w-px bg-gray-200" />
                         </div>
                         <!-- Bullet point -->
-                        <div class="relative flex h-6 w-6 flex-none items-center justify-center bg-white">
+                        <div class="relative flex h-6 w-6 flex-none items-center justify-center bg-white rounded-full">
                             <div class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
                         </div>
                         <!-- Event text -->
