@@ -319,11 +319,11 @@ const types = [
     { name: t('admin.listUsers.userFilter.types.declined'), code: 'declined'},
     { name: t('admin.listUsers.userFilter.types.guest'), code: 'guest'}
 ]
-const invitedGuests = computed(() => users.value.filter((user) => user.profile.role === 'invited'))
-const selfRegisteredGuests = computed(() => users.value.filter((user) => user.profile.role === 'guest'))
-const pendingInvitations = computed(() => invitedGuests.value.filter((user) => user.profile.invitation === 'pending'))
-const acceptedInvitations = computed(() => invitedGuests.value.filter((user) => user.profile.invitation === 'accepted'))
-const declinedInvitations = computed(() => invitedGuests.value.filter((user) => user.profile.invitation === 'declined'))
+const invitedGuests = computed(() => users.value.filter((user) => user?.profile?.role === 'invited'))
+const selfRegisteredGuests = computed(() => users.value.filter((user) => user?.profile?.role === 'guest'))
+const pendingInvitations = computed(() => invitedGuests.value.filter((user) => user?.profile?.invitation === 'pending'))
+const acceptedInvitations = computed(() => invitedGuests.value.filter((user) => user?.profile?.invitation === 'accepted'))
+const declinedInvitations = computed(() => invitedGuests.value.filter((user) => user?.profile?.invitation === 'declined'))
 const usersData = computed(() => {
     // Mapping for user roles
     const roleMapping = {
@@ -340,18 +340,18 @@ const usersData = computed(() => {
     // Convert users to DataTableUser
     const user: DataTableUser[] = selectedUsers.map((user) => ({
         uid: user.account.uid,
-        role: user.profile.role,
-        displayName: user.account.displayName,
-        email: user.account.email,
-        emailVerified: user.account.emailVerified,
-        phoneNumber: user.profile.phoneNumber,
-        photoURL: user.account.photoURL,
-        additionalGuests: user.profile.additionalGuests,
-        invitation: user.profile.invitation,
-        creationTime: user.account.metadata.creationTime,
-        lastRefreshTime: user.account.metadata.lastRefreshTime,
-        lastSignInTime: user.account.metadata.lastSignInTime,
-        highscore: user.profile.highscore
+        role: user?.profile?.role,
+        displayName: user?.account?.displayName,
+        email: user?.account?.email,
+        emailVerified: user?.account?.emailVerified,
+        phoneNumber: user?.profile?.phoneNumber,
+        photoURL: user?.account?.photoURL,
+        additionalGuests: user?.profile?.additionalGuests,
+        invitation: user?.profile?.invitation,
+        creationTime: user?.account?.metadata?.creationTime,
+        lastRefreshTime: user?.account?.metadata?.lastRefreshTime,
+        lastSignInTime: user?.account?.metadata?.lastSignInTime,
+        highscore: user?.profile?.highscore
     }) as DataTableUser)
 
     // Function to convert a user and switch fields to the i18n string
@@ -368,7 +368,7 @@ const usersData = computed(() => {
 })
 
 // Row class
-const rowClass = (data: DataTableUser) => roleClassMap[data.role] || ''
+const rowClass = (data: DataTableUser) => { return data.role ? roleClassMap[data.role] || '' : 'bg-red-100' }
 const roleClassMap: { [role: string]: string } = {
     'admin': 'bg-blue-100',
     'guest': 'bg-yellow-100'
@@ -380,7 +380,7 @@ const roleClassMap: { [role: string]: string } = {
 const totalGuests = computed(() => {
     let total = 0
     users.value.forEach((user) => {
-        if (user.profile.role === 'invited' && user.profile.invitation === 'accepted') {
+        if (user?.profile?.role === 'invited' && user?.profile?.invitation === 'accepted') {
             total += user.profile.additionalGuests + 1
         }
     })
