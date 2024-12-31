@@ -10,7 +10,15 @@
                 <div class="flex flex-col gap-2">
                     <div class="text-center font-medium text-lg">{{ street }}, {{ city }}</div>
                     <div class="text-center">
-                        <Button as="a" severity="info" :label="t('general.address.viewOnGoogleMap')" :href="googleMapsLink" target="_blank" rel="noopener noreferrer" />
+                        <Button
+                            as="a"
+                            severity="info"
+                            icon="pi pi-map-marker"
+                            :label="t('general.address.viewOnGoogleMap')"
+                            :href="googleMapsLink"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        />
                     </div>
                 </div>
                 <Image v-if="locationPreviewUrl" :src="locationPreviewUrl" alt="Location Preview" width="250" imageClass="rounded-lg" preview />
