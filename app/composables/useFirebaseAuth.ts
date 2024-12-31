@@ -1,4 +1,5 @@
 import {
+    getAuth,
     createUserWithEmailAndPassword,
     reauthenticateWithCredential,
     signInWithEmailAndPassword,
@@ -82,6 +83,27 @@ export default function() {
 
         // Re-authenticate user
         await reauthenticateWithCredential($auth.currentUser, credential).catch((error: FirebaseError) => {
+            const errorMessage = handleFirebaseError(error, 'firebase.custom.authFailed')
+            throw new Error(errorMessage)
+        })
+
+        return true
+    }
+
+    // Re-authenticate a user with email link
+    const reauthenticateUserWithEmailLink = async(): Promise<boolean> => {
+        const email = $auth.currentUser?.email
+        if (!email) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+
+        // Construct the email link credential from the current URL
+        const credential = EmailAuthProvider.credentialWithLink(email, window.location.href)
+
+        // Check if user is logged in
+        const auth = getAuth()
+        if (!auth.currentUser) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+
+        // Re-authenticate the user with this credential
+        await reauthenticateWithCredential(auth.currentUser, credential).catch((error: FirebaseError) => {
             const errorMessage = handleFirebaseError(error, 'firebase.custom.authFailed')
             throw new Error(errorMessage)
         })
@@ -191,6 +213,7 @@ export default function() {
         registerUser,
         loginUser,
         reauthenticateUser,
+        reauthenticateUserWithEmailLink,
         sendEmailLink,
         sendUserEmailVerification,
         sendUserPasswordResetEmail,
