@@ -19,3 +19,9 @@ body, html {
 .profile-list-item {
     @apply flex items-center justify-between py-2 !important;
 }
+
+/* Icon background for cards */
+.card-with-icon {
+    position: relative;
+    overflow: hidden;
+}
