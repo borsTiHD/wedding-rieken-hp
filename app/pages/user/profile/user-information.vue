@@ -8,6 +8,7 @@
             </div>
         </template>
         <template #content>
+            <IconBackground icon="pi-address-book" />
             <div class="flex flex-col gap-4">
                 <!-- State incomplete -->
                 <div v-if="!checkState" class="flex gap-4">

@@ -1,6 +1,7 @@
 <template>
     <Card class="grow">
         <template #content>
+            <IconBackground icon="pi-envelope" />
             <div class="flex flex-col items-center gap-4">
                 <p class="italic">{{ getQuote }}</p>
             </div>

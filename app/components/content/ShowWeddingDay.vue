@@ -1,6 +1,7 @@
 <template>
     <Card class="grow">
         <template #content>
+            <IconBackground icon="pi-heart-fill" />
             <div class="flex flex-col items-center gap-4">
                 <div class="relative inline-block">
                     <ShowUnderline color="text-yellow-400">

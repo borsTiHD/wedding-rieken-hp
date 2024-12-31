@@ -1,6 +1,7 @@
 <template>
     <Card class="grow">
         <template #content>
+            <IconBackground icon="pi-lock" />
             <div class="flex flex-col items-center gap-2">
                 <p v-for="(line, index) in riddle" :key="index" class="italic">
                     {{ line }}

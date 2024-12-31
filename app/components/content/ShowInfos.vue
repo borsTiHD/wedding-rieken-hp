@@ -1,6 +1,7 @@
 <template>
     <Card class="grow">
         <template #content>
+            <IconBackground icon="pi-info-circle" />
             <div class="flex flex-col items-center gap-4">
                 <div class="relative inline-block">
                     <ShowUnderline color="text-lime-400">
@@ -44,6 +45,7 @@
 
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
+import IconBackground from '@/components/IconBackground.vue'
 import { useContent } from '@/composables/useContent'
 
 // Localisation

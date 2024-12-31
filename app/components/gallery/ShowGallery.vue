@@ -1,6 +1,7 @@
 <template>
     <Card>
         <template #content>
+            <IconBackground icon="pi-image" />
             <div class="flex flex-col items-center gap-4">
                 <ShowUnderline color="text-blue-400">
                     <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">{{ t('gallery.header') }}</h2>

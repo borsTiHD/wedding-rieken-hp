@@ -4,6 +4,7 @@
             <h2>{{ t('profileStepper.index.header') }}</h2>
         </template>
         <template #content>
+            <IconBackground icon="pi-heart" />
             <div class="flex flex-col gap-4">
                 <!-- Welcome box -->
                 <p>{{ t('profileStepper.index.text') }}</p>
