@@ -31,6 +31,12 @@
                 <!-- User is logged in as a guest -->
                 <div v-else-if="userProfile?.role === 'guest'" class="flex flex-col justify-center items-center gap-4">
                     <p class="text-pretty">{{ t('welcome.errorGuest') }}</p>
+
+                    <div class="w-full flex gap-4">
+                        <NuxtLink :to="localePath('/user')" class="w-full">
+                            <Button class="grow" :label="t('user.profileButton')" icon="pi pi-user" outlined fluid />
+                        </NuxtLink>
+                    </div>
                 </div>
 
                 <!-- User is logged in, but is declined -->
