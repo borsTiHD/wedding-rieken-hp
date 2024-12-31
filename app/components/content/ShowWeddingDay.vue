@@ -23,6 +23,8 @@
                             :endTime="endTime"
                             timeZone="Europe/Berlin"
                             buttonStyle="date"
+                            :label="t('general.addToCalendar')"
+                            :language="calendarLocale"
                         />
                     </div>
                 </div>
@@ -41,7 +43,21 @@ import ShowCountdown from '@/components/ShowCountdown.vue'
 import DateDisplay from '@/components/DateDisplay.vue'
 
 // Localisation
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+// Switch language based on locale
+const calendarLocale = computed(() => {
+    switch (locale.value) {
+        case 'de':
+            return 'de'
+        case 'us':
+            return 'en'
+        case 'en':
+            return 'en'
+        default:
+            return locale.value
+    }
+})
 
 // Config
 const { configData, bride, groom, street, city, weddingDate, weddingDuration } = useConfig()

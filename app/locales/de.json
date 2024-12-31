@@ -37,7 +37,8 @@
             "parkingText": "Parkplätze sind vorhanden",
             "witnesses": "Trauzeugen",
             "witnessesText": "Unsere Trauzeugen haben Antworten auf weitere Fragen."
-        }
+        },
+        "addToCalendar": "+ Zum Kalender hinzufügen"
     },
     "imprint": {
         "header": "Impressum und Datenschutz"
