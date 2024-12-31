@@ -13,6 +13,14 @@ export default defineEventHandler(async(event) => {
     // }
     const { uid, token }: { uid: string, token: string } = await readBody(event)
 
+    // Check if parameters are valid
+    if (!uid || !token) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Invalid parameters'
+        })
+    }
+
     // Get token from database
     const response = await db.collection('app').doc('admin').get().catch((error) => {
         console.error(error)
