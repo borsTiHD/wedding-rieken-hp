@@ -28,8 +28,6 @@ function isValidEnvironment(): void {
 // Check if all environment variables are set correctly
 isValidEnvironment()
 
-console.log('BLUB', process.env.NUXT_FIREBASE_ADMIN_PRIVATE_KEY)
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     future: {
@@ -40,7 +38,7 @@ export default defineNuxtConfig({
         firebaseAdmin: {
             projectId: process.env.NUXT_FIREBASE_ADMIN_PROJECTID,
             privateKeyId: process.env.NUXT_FIREBASE_ADMIN_PRIVATE_KEY_ID,
-            privateKey: process.env.NUXT_FIREBASE_ADMIN_PRIVATE_KEY ? process.env.NUXT_FIREBASE_ADMIN_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined,
+            privateKey: process.env.NUXT_FIREBASE_ADMIN_PRIVATE_KEY ? JSON.parse(process.env.NUXT_FIREBASE_ADMIN_PRIVATE_KEY) : undefined,
             clientEmail: process.env.NUXT_FIREBASE_ADMIN_CLIENT_EMAIL,
             clientId: process.env.NUXT_FIREBASE_ADMIN_CLIENT_ID,
             authUri: process.env.NUXT_FIREBASE_ADMIN_AUTH_URI,
