@@ -8,6 +8,7 @@ const config = useRuntimeConfig()
 const firebaseConfig = config.firebaseAdmin // Set in nuxt.config.ts
 
 // Replace any number of backslashes followed by 'n' with a newline character
+// This is necessary because of differences in how the private key is stored in the environment variable for vercel and coolify
 const formattedPrivateKey = firebaseConfig.privateKey.replace(/\\+n/g, '\n')
 
 const serviceAccount: ServiceAccount = {
@@ -15,11 +16,6 @@ const serviceAccount: ServiceAccount = {
     privateKey: formattedPrivateKey,
     clientEmail: firebaseConfig.clientEmail
 }
-
-console.log('Firebase: Initializing Firebase Admin SDK')
-console.log('Original Private Key:', firebaseConfig.privateKey)
-console.log('Formatted Private Key:', formattedPrivateKey)
-console.log('Service Account:', serviceAccount)
 
 // Check if object is a valid ServiceAccount object
 function isValidServiceAccount(account: ServiceAccount): boolean {
