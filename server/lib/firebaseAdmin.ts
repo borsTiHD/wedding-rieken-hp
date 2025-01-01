@@ -14,6 +14,10 @@ const serviceAccount: ServiceAccount = {
 
 console.log('Firebase: Initializing Firebase Admin SDK')
 console.log('BLUB', firebaseConfig.privateKey)
+console.log('After Replace')
+console.log(serviceAccount.privateKey)
+console.log('After Second Replace')
+console.log(serviceAccount.privateKey?.replace(/\\n/g, '\n'))
 
 // Check if object is a valid ServiceAccount object
 function isValidServiceAccount(account: ServiceAccount): boolean {
