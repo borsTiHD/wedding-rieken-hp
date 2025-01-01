@@ -8,7 +8,7 @@ const config = useRuntimeConfig()
 const firebaseConfig = config.firebaseAdmin // Set in nuxt.config.ts
 
 // Replace any number of backslashes followed by 'n' with a newline character
-// This is necessary because of differences in how the private key is stored in the environment variable for vercel and coolify
+// This is necessary because of differences in how the private key is stored in the environment variable for vercel and coolify (vercel uses \n, coolify uses \\n)
 const formattedPrivateKey = firebaseConfig.privateKey.replace(/\\+n/g, '\n')
 
 const serviceAccount: ServiceAccount = {
