@@ -7,8 +7,8 @@ import { ServiceAccount } from 'firebase-admin'
 const config = useRuntimeConfig()
 const firebaseConfig = config.firebaseAdmin // Set in nuxt.config.ts
 
-// Replace \\n with \n in the private key
-const formattedPrivateKey = firebaseConfig.privateKey.replace(/\\n/g, '\n')
+// Replace any number of backslashes followed by 'n' with a newline character
+const formattedPrivateKey = firebaseConfig.privateKey.replace(/\\+n/g, '\n')
 
 const serviceAccount: ServiceAccount = {
     projectId: firebaseConfig.projectId,
