@@ -1,7 +1,8 @@
 import { ref } from 'vue'
+import { useThrottleFn } from '@vueuse/core'
 import { useEventListener } from '@/composables/useEventListener'
 
-export function useWindowSize(timer = 500, noTimeout = false) {
+export function useWindowSize(timer = 500, noTimeout = false, useThrottle = false, throttleTimer = 200) {
     // Check if window is defined (SSR)
     if (typeof window === 'undefined' || !window) {
         return {
@@ -58,8 +59,13 @@ export function useWindowSize(timer = 500, noTimeout = false) {
     }
 
     // Add event listeners
-    useEventListener(window, 'resize', onResize)
-    useEventListener(window, 'scroll', onScroll)
+    if (useThrottle) {
+        useEventListener(window, 'resize', useThrottleFn(onResize, throttleTimer))
+        useEventListener(window, 'scroll', useThrottleFn(onScroll, throttleTimer))
+    } else {
+        useEventListener(window, 'resize', onResize)
+        useEventListener(window, 'scroll', onScroll)
+    }
 
     return { windowWidth, windowHeight, scrollX, scrollY }
 }

@@ -130,7 +130,7 @@ const route = useRoute()
 const routeHash = computed(() => route.hash)
 
 // Scroll event listener
-const { scrollY } = useWindowSize(undefined, true)
+const { scrollY } = useWindowSize(undefined, true, true, 2)
 const isScrolled = computed<boolean>(() => scrollY.value > 30)
 
 // Scroll to next section
@@ -164,8 +164,6 @@ onMounted(() => {
         setTimeout(() => scrollToSection(window.location.hash), 100)
     }
 })
-
-// ❤️ 💍 💐 🎵 ❓
 </script>
 
 <style scoped>
