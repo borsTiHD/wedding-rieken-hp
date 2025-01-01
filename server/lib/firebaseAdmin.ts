@@ -13,11 +13,9 @@ const serviceAccount: ServiceAccount = {
 }
 
 console.log('Firebase: Initializing Firebase Admin SDK')
-console.log('BLUB', firebaseConfig.privateKey)
-console.log('After Replace')
-console.log(serviceAccount.privateKey)
-console.log('After Second Replace')
-console.log(serviceAccount.privateKey?.replace(/\\n/g, '\n'))
+console.log('Original Private Key:', firebaseConfig.privateKey)
+console.log('After Replace:', serviceAccount.privateKey)
+console.log('After Second Replace:', serviceAccount.privateKey?.replace(/\\n/g, '\n'))
 
 // Check if object is a valid ServiceAccount object
 function isValidServiceAccount(account: ServiceAccount): boolean {
@@ -33,10 +31,17 @@ if (!isValidServiceAccount(serviceAccount)) {
 }
 
 // Initialize Firebase
-const firebaseApp = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: `https://${firebaseConfig.projectId}.firebaseio.com`
-})
+let firebaseApp: admin.app.App
+try {
+    firebaseApp = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: `https://${firebaseConfig.projectId}.firebaseio.com`
+    })
+    console.log('Firebase Admin SDK initialized successfully')
+} catch (error) {
+    console.error('Error initializing Firebase Admin SDK:', error)
+    throw error
+}
 
 export const auth = getAuth(firebaseApp)
 export const db = getFirestore(firebaseApp)
