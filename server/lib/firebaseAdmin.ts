@@ -8,7 +8,7 @@ const config = useRuntimeConfig()
 const firebaseConfig = config.firebaseAdmin // Set in nuxt.config.ts
 const serviceAccount: ServiceAccount = {
     projectId: firebaseConfig.projectId,
-    privateKey: firebaseConfig.privateKey, // .replace(/\\n/g, '\n'),
+    privateKey: firebaseConfig.privateKey.replace(/\\n/g, '\n'),
     clientEmail: firebaseConfig.clientEmail
 }
 
