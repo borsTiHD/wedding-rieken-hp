@@ -32,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+import { useThrottleFn } from '@vueuse/core'
 import { useAppStore } from '@/stores/app'
 import { usePagesStore } from '@/stores/pages'
 import { useEventListener } from '@/composables/useEventListener'
@@ -56,7 +57,9 @@ const githubRepo = 'https://github.com/borsTiHD/wedding-rieken-hp/'
 
 // Scroll event listener - calculate the height of the background overlay
 const backgroundOverlayHeight = ref(0)
-useEventListener(window, 'scroll', () => { backgroundOverlayHeight.value = calculateHeight() })
+useEventListener(window, 'scroll', useThrottleFn(() => {
+    backgroundOverlayHeight.value = calculateHeight()
+}, 10))
 
 // Calculate the height of the background overlay
 // This function is called on scroll event
@@ -84,5 +87,12 @@ const calculateHeight = () => {
 // Hide footer on BooBash game start
 useRegisterEvent('boo-bash', (running: Event) => {
     showFooter.value = !running
+})
+
+onMounted(() => {
+    backgroundOverlayHeight.value = calculateHeight()
+    setTimeout(() => {
+        backgroundOverlayHeight.value = calculateHeight()
+    }, 1000)
 })
 </script>
