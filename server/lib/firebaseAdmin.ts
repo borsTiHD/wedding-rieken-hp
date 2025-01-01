@@ -6,16 +6,19 @@ import { ServiceAccount } from 'firebase-admin'
 
 const config = useRuntimeConfig()
 const firebaseConfig = config.firebaseAdmin // Set in nuxt.config.ts
+
+// Replace \\n with \n in the private key
+const formattedPrivateKey = firebaseConfig.privateKey.replace(/\\n/g, '\n')
+
 const serviceAccount: ServiceAccount = {
     projectId: firebaseConfig.projectId,
-    privateKey: firebaseConfig.privateKey.replace(/\\n/g, '\n'),
+    privateKey: formattedPrivateKey,
     clientEmail: firebaseConfig.clientEmail
 }
 
 console.log('Firebase: Initializing Firebase Admin SDK')
 console.log('Original Private Key:', firebaseConfig.privateKey)
-console.log('After Replace:', serviceAccount.privateKey)
-console.log('After Second Replace:', serviceAccount.privateKey?.replace(/\\n/g, '\n'))
+console.log('Formatted Private Key:', formattedPrivateKey)
 
 // Check if object is a valid ServiceAccount object
 function isValidServiceAccount(account: ServiceAccount): boolean {
