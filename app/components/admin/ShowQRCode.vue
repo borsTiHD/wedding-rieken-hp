@@ -9,6 +9,13 @@
                     <Skeleton v-if="loading" width="10rem" height="10rem" />
                     <div id="qr-code" ref="canvasDiv" />
                 </div>
+
+                <!-- Textfield for the QR code token -->
+                <div class="flex flex-col gap-1">
+                    <label for="token" class="text-sm font-bold text-gray-800">{{ t('admin.qrcode.fullUrl') }}</label>
+                    <InputText id="token" v-model="url" type="text" disabled />
+                </div>
+
                 <!-- Download button -->
                 <div class="flex justify-center gap-4">
                     <Select v-model="selectedExtension" :options="extensions" placeholder="Select a Extension" class="w-full md:w-56" />
@@ -54,6 +61,13 @@ const canvasDiv = ref()
 const invitationToken = ref()
 const extensions = ['png', 'svg', 'jpeg']
 const selectedExtension = ref('svg')
+
+// Computed url
+const url = computed(() => {
+    // Create url for QR code based on current url and token
+    const baseUrl = window.location.origin
+    return `${baseUrl}/?token=${invitationToken.value}`
+})
 
 // QR code options
 const getOptions = () => {

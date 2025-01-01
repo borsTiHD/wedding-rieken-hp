@@ -576,7 +576,8 @@
         },
         "qrcode": {
             "header": "Einladungs QR-Code",
-            "download": "QR-Code herunterladen"
+            "download": "QR-Code herunterladen",
+            "fullUrl": "Vollständige QR-Code URL"
         }
     },
     "ghostGame": {
