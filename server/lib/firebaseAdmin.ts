@@ -8,9 +8,12 @@ const config = useRuntimeConfig()
 const firebaseConfig = config.firebaseAdmin // Set in nuxt.config.ts
 const serviceAccount: ServiceAccount = {
     projectId: firebaseConfig.projectId,
-    privateKey: firebaseConfig.privateKey.replace(/\\n/g, '\n'),
+    privateKey: firebaseConfig.privateKey, // .replace(/\\n/g, '\n'),
     clientEmail: firebaseConfig.clientEmail
 }
+
+console.log('Firebase: Initializing Firebase Admin SDK')
+console.log('BLUB', firebaseConfig.privateKey)
 
 // Check if object is a valid ServiceAccount object
 function isValidServiceAccount(account: ServiceAccount): boolean {
