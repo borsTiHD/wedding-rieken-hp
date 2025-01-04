@@ -1,13 +1,14 @@
 <template>
-    <nav
-        v-if="showNavbar"
-        class="navbar fixed top-0 left-0 w-full z-50"
-        :class="{ 'bg-white': isScrolled }"
-    >
+    <nav v-if="showNavbar" class="navbar fixed top-0 left-0 w-full z-50">
         <Menubar
             :model="navItems"
             :pt="{
-                root: 'bg-transparent border-none rounded-none',
+                root: {
+                    class: [
+                        'bg-transparent border-none rounded-none',
+                        { 'bg-white': isScrolled }
+                    ]
+                },
                 rootList: {
                     class: [
                         'p-1 rounded-md bg-white',
@@ -16,6 +17,13 @@
                     ]
                 },
                 itemContent: 'flex items-center justify-center',
+                button: {
+                    class: [
+                        'h-10 w-10 bg-white rounded-full',
+                        'transition-all duration-300 ease-in-out hover:bg-gray-200',
+                        { 'shadow-md': !isScrolled },
+                    ]
+                }
             }"
         >
             <template #item="{ item }">
