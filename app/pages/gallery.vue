@@ -25,9 +25,9 @@ import pic4 from '@/assets/img/1-IMG_8400.jpeg'
 // TODO: Add thumbnails for images and descriptions
 
 const images = [
-    { itemImageSrc: pic1, thumbnailImageSrc: pic1, alt: 'Description for Image 1', title: 'Title 1' },
-    { itemImageSrc: pic2, thumbnailImageSrc: pic2, alt: 'Description for Image 2', title: 'Title 2' },
-    { itemImageSrc: pic3, thumbnailImageSrc: pic3, alt: 'Description for Image 3', title: 'Title 3' },
-    { itemImageSrc: pic4, thumbnailImageSrc: pic4, alt: 'Description for Image 4', title: 'Title 4' }
+    { src: pic1, thumbnailSrc: pic1, alt: 'Description for Image 1', title: 'Title 1' },
+    { src: pic2, thumbnailSrc: pic2, alt: 'Description for Image 2', title: 'Title 2' },
+    { src: pic3, thumbnailSrc: pic3, alt: 'Description for Image 3', title: 'Title 3' },
+    { src: pic4, thumbnailSrc: pic4, alt: 'Description for Image 4', title: 'Title 4' }
 ]
 </script>

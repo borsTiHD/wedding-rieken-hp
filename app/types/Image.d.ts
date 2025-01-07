@@ -1,6 +1,6 @@
 export type Image = {
-    itemImageSrc: string;
-    thumbnailImageSrc: string;
+    src: string;
+    thumbnailSrc: string;
     alt: string;
     title: string
 }

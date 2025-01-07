@@ -17,10 +17,10 @@
                                     <i class="pi pi-search" />
                                 </template>
                                 <template #image>
-                                    <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover">
+                                    <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover">
                                 </template>
                                 <template #original="slotProps">
-                                    <img :src="picture.itemImageSrc" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                                    <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
                                 </template>
                             </Image>
                         </div>
@@ -58,15 +58,15 @@
                                     </div>
                                 </template>
                                 <template #image>
-                                    <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover zoom-in">
+                                    <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover zoom-in">
                                 </template>
                                 <template #original="slotProps">
-                                    <img :src="picture.itemImageSrc" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                                    <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
                                 </template>
                             </Image>
 
                             <!-- <div class="relative w-full h-full overflow-hidden rounded hover:shadow-xl transform transition-transform duration-300 ease-in-out overlay cursor-pointer">
-                                <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover rounded shadow-lg zoom-in">
+                                <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover rounded shadow-lg zoom-in">
                                 <span class="overlay-text">Look</span>
                                 <div class="pulse-circle" />
                             </div> -->
@@ -90,8 +90,8 @@
                         >
                             <div class="relative w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl effect-zoom cursor-pointer">
                                 <a class="img-loading">
-                                    <img :src="picture.itemImageSrc" alt="XXX" class="w-full h-full object-cover rounded">
-                                    <!-- <Image :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover rounded" /> -->
+                                    <img :src="picture.src" alt="XXX" class="w-full h-full object-cover rounded">
+                                    <!-- <Image :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover rounded" /> -->
                                     <span class="kk-n">Anschauen</span>
                                 </a>
                             </div>
@@ -128,10 +128,10 @@
                                     </div>
                                 </template>
                                 <template #image>
-                                    <img :src="picture.itemImageSrc" :alt="picture.alt" class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]">
+                                    <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]">
                                 </template>
                                 <template #original="slotProps">
-                                    <img :src="picture.itemImageSrc" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                                    <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
                                 </template>
                             </Image>
                         </div>
