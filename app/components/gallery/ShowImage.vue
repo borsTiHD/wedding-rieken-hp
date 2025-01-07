@@ -20,13 +20,31 @@
             </div>
         </template>
         <template #image>
-            <div v-if="loading" class="w-full h-full flex items-center justify-center">
-                <ProgressSpinner class="size-12" />
+            <div class="relative" :class="{ 'w-[300px] h-[400px]': loading }">
+                <!-- This is the preview image -->
+                <div v-if="loading" class="absolute inset-0 flex items-center justify-center">
+                    <ProgressSpinner class="size-12" />
+                </div>
+                <img
+                    :src="image.itemImageSrc"
+                    :alt="image.alt"
+                    loading="lazy"
+                    :class="{ 'hide-on-load': loading }"
+                    class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]"
+                    @load="onLoad"
+                    @error="onError"
+                >
             </div>
-            <img :src="image.itemImageSrc" :alt="image.alt" loading="lazy" class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]" @load="onLoad" @error="onError">
         </template>
         <template #original="slotProps">
-            <img :src="image.itemImageSrc" :alt="image.alt" loading="lazy" :style="slotProps.style" @click="slotProps.previewCallback">
+            <!-- This is the original image (fullscreen) -->
+            <img
+                :src="image.itemImageSrc"
+                :alt="image.alt"
+                loading="lazy"
+                :style="slotProps.style"
+                @click="slotProps.previewCallback"
+            >
         </template>
     </Image>
 </template>
@@ -51,3 +69,9 @@ const onError = () => {
     loading.value = false
 }
 </script>
+
+<style scoped>
+.hide-on-load {
+    opacity: 0;
+}
+</style>
