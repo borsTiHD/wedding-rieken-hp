@@ -45,7 +45,8 @@ module.exports = {
                 // 1-IMG_8232.jpeg
                 // 1-IMG_8400.jpeg
 
-                'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/1-IMG_8232.jpeg\')'
+                // 'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/1-IMG_8232.jpeg\')',
+                'background-wallpaper': 'linear-gradient(rgba(203, 200, 198, 1), rgba(203, 200, 198, 0) 10%), url(\'@/assets/img/1-IMG_8232_mid_res.jpeg\')'
                 // 'background-wallpaper': 'url(\'@/assets/img/pexels-photo-2253870.jpeg\')'
             }
         }
