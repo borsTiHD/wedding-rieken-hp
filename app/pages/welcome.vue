@@ -22,15 +22,21 @@ const token = computed(() => tokenStore.token)
 
 // Watch uid and push to home if user is logged in
 watch(uid, (newUid) => {
-  if (newUid) { router.push(localePath('/user')) }
+  if (newUid) {
+    router.push(localePath('/user'))
+  }
 })
 
 // On mount
 onMounted(() => {
   // If user got no invitation token -> push to home
-  if (!token.value || token.value === '') { router.push(localePath('/')) }
+  if (!token.value || token.value === '') {
+    router.push(localePath('/'))
+  }
   // If user is logged in -> push to user
-  else if (uid.value) { router.push(localePath('/user')) }
+  else if (uid.value) {
+    router.push(localePath('/user'))
+  }
 })
 </script>
 

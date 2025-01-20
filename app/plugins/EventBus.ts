@@ -20,10 +20,14 @@ class Bus {
    * @private
    */
   registerEventListener(eventName: EventName, callback: () => void, once = false) {
-    if (!this.eventListeners.has(eventName)) { this.eventListeners.set(eventName, []) } // Create EventListener if it doesn't exist
+    if (!this.eventListeners.has(eventName)) {
+      this.eventListeners.set(eventName, [])
+    } // Create EventListener if it doesn't exist
 
     const eventListeners = this.eventListeners.get(eventName)
-    if (eventListeners) { eventListeners.push({ callback, once }) }
+    if (eventListeners) {
+      eventListeners.push({ callback, once })
+    }
     // Else: Throw error?
   }
 
@@ -62,10 +66,14 @@ class Bus {
     const eventNames = Array.isArray(eventNameOrNames) ? eventNameOrNames : [eventNameOrNames]
     for (const eventName of eventNames) {
       const eventListeners = this.eventListeners.get(eventName)
-      if (eventListeners === undefined) { continue }
+      if (eventListeners === undefined) {
+        continue
+      }
       if (typeof callback === 'function') {
         for (let i = eventListeners.length - 1; i >= 0; i--) {
-          if (eventListeners[i]?.callback === callback) { eventListeners.splice(i, 1) }
+          if (eventListeners[i]?.callback === callback) {
+            eventListeners.splice(i, 1)
+          }
         }
       }
       else {
@@ -81,13 +89,17 @@ class Bus {
    * @param {any} args
    */
   $emit(eventName: EventName, ...args: unknown[]) {
-    if (!this.eventListeners.has(eventName)) { return } // No EventListeners for this eventName - return
+    if (!this.eventListeners.has(eventName)) {
+      return // No EventListeners for this eventName - return
+    }
     const eventListeners = this.eventListeners.get(eventName)
     const eventListenerIndexesToDelete: number[] = []
     if (eventListeners) {
       for (const [eventListenerIndex, eventListener] of eventListeners.entries()) {
         eventListener.callback(...(args as []))
-        if (eventListener.once) { eventListenerIndexesToDelete.push(eventListenerIndex) }
+        if (eventListener.once) {
+          eventListenerIndexesToDelete.push(eventListenerIndex)
+        }
       }
 
       for (let i = eventListenerIndexesToDelete.length - 1; i >= 0; i--) {

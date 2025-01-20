@@ -19,6 +19,49 @@ export const useUserStore = defineStore('user-store', () => {
   const emailVerified = ref<boolean | null>(null)
   const photoURL = ref<string | null>(null)
 
+  // Set user state
+  const setUser = (newUser: User | null) => {
+    // Clear all user states, on every change
+    // That way we can be sure that no old data is left in the user state
+    clearNestedObject(user)
+
+    // Set new user state if newUser exists
+    // This will leave the user state empty if no new newUser are passed
+    if (newUser) {
+      // replace all user state properties with the new newUser
+      Object.assign(user, newUser)
+
+      // Set user data properties
+      uid.value = user.uid
+      displayName.value = user.displayName
+      email.value = user.email
+      emailVerified.value = user.emailVerified
+      photoURL.value = user.photoURL
+    }
+    else {
+      // Set user data properties to null
+      uid.value = null
+      displayName.value = null
+      email.value = null
+      emailVerified.value = null
+      photoURL.value = null
+    }
+  }
+
+  // Set user profile state
+  const setUserProfile = (newUserProfile: UserProfile | null) => {
+    // Clear all userProfile states, on every change
+    // That way we can be sure that no old data is left in the userProfile state
+    clearNestedObject(userProfile)
+
+    // Set new userProfile state if newUserProfile exists
+    // This will leave the userProfile state empty if no new newUserProfile are passed
+    if (newUserProfile) {
+      // replace all userProfile state properties with the new newUserProfile
+      Object.assign(userProfile, newUserProfile)
+    }
+  }
+
   // Fetch config data
   async function fetchUserData() {
     // Check if the user has accepted the cookie consent
@@ -65,7 +108,9 @@ export const useUserStore = defineStore('user-store', () => {
     if (!$CookieConsentActions?.isConsentAccepted(['app', 'firebase']))
       return null
 
-    if (!uid) { throw new Error(t('firebase.custom.noUserId')) }
+    if (!uid) {
+      throw new Error(t('firebase.custom.noUserId'))
+    }
 
     // Get additional userprofile data
     const userData = await fetchAdditionalUserProfile(uid).catch((error) => {
@@ -74,7 +119,9 @@ export const useUserStore = defineStore('user-store', () => {
     })
 
     // Throw error if no response
-    if (!userData) { throw new Error(t('firebase.custom.profileNotFound')) }
+    if (!userData) {
+      throw new Error(t('firebase.custom.profileNotFound'))
+    }
 
     // Set user profile state
     setUserProfile(userData)
@@ -89,49 +136,6 @@ export const useUserStore = defineStore('user-store', () => {
 
       // Get additional userprofile data
       await fetchUserProfile($auth.currentUser.uid)
-    }
-  }
-
-  // Set user state
-  const setUser = (newUser: User | null) => {
-    // Clear all user states, on every change
-    // That way we can be sure that no old data is left in the user state
-    clearNestedObject(user)
-
-    // Set new user state if newUser exists
-    // This will leave the user state empty if no new newUser are passed
-    if (newUser) {
-      // replace all user state properties with the new newUser
-      Object.assign(user, newUser)
-
-      // Set user data properties
-      uid.value = user.uid
-      displayName.value = user.displayName
-      email.value = user.email
-      emailVerified.value = user.emailVerified
-      photoURL.value = user.photoURL
-    }
-    else {
-      // Set user data properties to null
-      uid.value = null
-      displayName.value = null
-      email.value = null
-      emailVerified.value = null
-      photoURL.value = null
-    }
-  }
-
-  // Set user profile state
-  const setUserProfile = (newUserProfile: UserProfile | null) => {
-    // Clear all userProfile states, on every change
-    // That way we can be sure that no old data is left in the userProfile state
-    clearNestedObject(userProfile)
-
-    // Set new userProfile state if newUserProfile exists
-    // This will leave the userProfile state empty if no new newUserProfile are passed
-    if (newUserProfile) {
-      // replace all userProfile state properties with the new newUserProfile
-      Object.assign(userProfile, newUserProfile)
     }
   }
 
