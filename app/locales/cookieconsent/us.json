@@ -1,60 +1,60 @@
 {
-    "consentModal": {
-        "title": "Privacy Settings",
-        "description": "Our website uses essential cookies to ensure its proper functioning. Third-party cookies are also set.",
-        "acceptAllBtn": "Accept",
-        "acceptNecessaryBtn": "Decline",
-        "showPreferencesBtn": "Manage Preferences",
-        "footer": "<a href='/imprint'>Privacy Policy & Imprint</a>"
-    },
-    "preferencesModal": {
-        "title": "Privacy Settings",
-        "acceptAllBtn": "Accept All",
-        "acceptNecessaryBtn": "Reject All",
-        "savePreferencesBtn": "Save Preferences",
-        "sections": [
+  "consentModal": {
+    "title": "Privacy Settings",
+    "description": "Our website uses essential cookies to ensure its proper functioning. Third-party cookies are also set.",
+    "acceptAllBtn": "Accept",
+    "acceptNecessaryBtn": "Decline",
+    "showPreferencesBtn": "Manage Preferences",
+    "footer": "<a href='/imprint'>Privacy Policy & Imprint</a>"
+  },
+  "preferencesModal": {
+    "title": "Privacy Settings",
+    "acceptAllBtn": "Accept All",
+    "acceptNecessaryBtn": "Reject All",
+    "savePreferencesBtn": "Save Preferences",
+    "sections": [
+      {
+        "title": "Cookie Usage",
+        "description": "Here you can view and adjust the cookie usage. Changes will be saved automatically. For more information, please see our <a href='/imprint'>Privacy Policy</a>."
+      },
+      {
+        "title": "Own Cookies",
+        "description": "These cookies are necessary for the website to function. They are usually only set in response to actions made by you, such as setting your preferred language or arriving via a URL with a token. Most areas of the website will not function without consent. These cookies do not store any personal data.",
+        "linkedCategory": "app"
+      },
+      {
+        "title": "Firebase",
+        "description": "Firebase is a product developed by Google that provides various services for app and website development. This service is used to manage users (storing users and their settings, e.g., accepted/rejected invitation) and to gather information about how visitors use our website. Additional information is collected by Google in an anonymous form. Google collects information in an anonymous form, including the number of visitors to the site, where visitors have come to the site from, and the pages they visited. For more information, see Google's <a href='https://policies.google.com/privacy?hl=en' target='_blank'>Privacy Policy</a>.",
+        "linkedCategory": "firebase",
+        "cookieTable": {
+          "headers": {
+            "name": "Service",
+            "domain": "End User Data",
+            "desc": "Description"
+          },
+          "body": [
             {
-                "title": "Cookie Usage",
-                "description": "Here you can view and adjust the cookie usage. Changes will be saved automatically. For more information, please see our <a href='/imprint'>Privacy Policy</a>."
+              "name": "Cloud Functions for Firebase",
+              "domain": "IP Addresses",
+              "desc": "How it helps: Cloud Functions uses IP addresses to run event-processing functions and HTTP functions based on end-user actions. Retention: Cloud Functions only temporarily stores IP addresses to provide the service."
             },
             {
-                "title": "Own Cookies",
-                "description": "These cookies are necessary for the website to function. They are usually only set in response to actions made by you, such as setting your preferred language or arriving via a URL with a token. Most areas of the website will not function without consent. These cookies do not store any personal data.",
-                "linkedCategory": "app"
-            },
-            {
-                "title": "Firebase",
-                "description": "Firebase is a product developed by Google that provides various services for app and website development. This service is used to manage users (storing users and their settings, e.g., accepted/rejected invitation) and to gather information about how visitors use our website. Additional information is collected by Google in an anonymous form. Google collects information in an anonymous form, including the number of visitors to the site, where visitors have come to the site from, and the pages they visited. For more information, see Google's <a href='https://policies.google.com/privacy?hl=en' target='_blank'>Privacy Policy</a>.",
-                "linkedCategory": "firebase",
-                "cookieTable": {
-                    "headers": {
-                        "name": "Service",
-                        "domain": "End User Data",
-                        "desc": "Description"
-                    },
-                    "body": [
-                        {
-                            "name": "Cloud Functions for Firebase",
-                            "domain": "IP Addresses",
-                            "desc": "How it helps: Cloud Functions uses IP addresses to run event-processing functions and HTTP functions based on end-user actions. Retention: Cloud Functions only temporarily stores IP addresses to provide the service."
-                        },
-                        {
-                            "name": "Firebase Authentication",
-                            "domain": "Passwords, Email addresses, Phone numbers, User agents, IP addresses",
-                            "desc": "How it helps: Firebase Authentication uses the data to enable end-user authentication and facilitate the management of end-user accounts. User-agent strings and IP addresses are also used to provide additional security and prevent abuse during sign-in and authentication. Retention: Firebase Authentication logs IP addresses for a few weeks. It retains other authentication information until the Firebase customer initiates the deletion of the associated user. Subsequently, the data is removed from live and backup systems within 180 days."
-                        }
-                    ]
-                }
-            },
-            {
-                "title": "Spotify",
-                "description": "Our website embeds a Spotify playlist via iFrame, through which Spotify sets various cookies and collects data. If you do not agree, no Spotify instance will be offered. Spotify is an external music streaming service that allows users to listen to music from millions of artists. For more information, see Spotify's <a href='https://www.spotify.com/legal/privacy-policy/' target='_blank'>Privacy Policy</a>.",
-                "linkedCategory": "spotify"
-            },
-            {
-                "title": "Further Information",
-                "description": "If you have any questions about our cookie policy and your choices, please contact the website operators."
+              "name": "Firebase Authentication",
+              "domain": "Passwords, Email addresses, Phone numbers, User agents, IP addresses",
+              "desc": "How it helps: Firebase Authentication uses the data to enable end-user authentication and facilitate the management of end-user accounts. User-agent strings and IP addresses are also used to provide additional security and prevent abuse during sign-in and authentication. Retention: Firebase Authentication logs IP addresses for a few weeks. It retains other authentication information until the Firebase customer initiates the deletion of the associated user. Subsequently, the data is removed from live and backup systems within 180 days."
             }
-        ]
-    }
+          ]
+        }
+      },
+      {
+        "title": "Spotify",
+        "description": "Our website embeds a Spotify playlist via iFrame, through which Spotify sets various cookies and collects data. If you do not agree, no Spotify instance will be offered. Spotify is an external music streaming service that allows users to listen to music from millions of artists. For more information, see Spotify's <a href='https://www.spotify.com/legal/privacy-policy/' target='_blank'>Privacy Policy</a>.",
+        "linkedCategory": "spotify"
+      },
+      {
+        "title": "Further Information",
+        "description": "If you have any questions about our cookie policy and your choices, please contact the website operators."
+      }
+    ]
+  }
 }

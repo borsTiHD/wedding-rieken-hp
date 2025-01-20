@@ -1,158 +1,165 @@
-<template>
-    <Card>
-        <template #content>
-            <div class="flex flex-col items-center gap-4">
-                <ShowUnderline color="text-blue-400">
-                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 1</h2>
-                </ShowUnderline>
-                <div class="container mx-auto">
-                    <div class="flex flex-wrap -mx-4">
-                        <div
-                            v-for="(picture, index) in images"
-                            :key="index"
-                            class="md:w-1/3 p-4"
-                        >
-                            <Image :alt="picture.alt" preview class="w-full h-full object-cover rounded shadow-lg zoom-in-2" :pt="{ originalContainer: 'm-12 p-12' }">
-                                <template #previewicon>
-                                    <i class="pi pi-search" />
-                                </template>
-                                <template #image>
-                                    <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover">
-                                </template>
-                                <template #original="slotProps">
-                                    <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
-                                </template>
-                            </Image>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </Card>
-
-    <Card>
-        <template #content>
-            <div class="flex flex-col items-center gap-4">
-                <ShowUnderline color="text-rose-400">
-                    <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">Gallery 2</h2>
-                </ShowUnderline>
-                <div class="container mx-auto">
-                    <div class="flex flex-wrap -mx-4">
-                        <div
-                            v-for="(picture, index) in images"
-                            :key="index"
-                            class="md:w-1/3 p-4"
-                        >
-                            <Image
-                                :alt="picture.alt"
-                                preview
-                                :pt="{
-                                    root: 'w-full h-full overflow-hidden rounded hover:shadow-xl overlay',
-                                    originalContainer: 'm-12 p-12'
-                                }"
-                            >
-                                <template #previewicon>
-                                    <div class="relative w-full h-full">
-                                        <span class="overlay-text">Look</span>
-                                        <div class="pulse-circle" />
-                                    </div>
-                                </template>
-                                <template #image>
-                                    <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover zoom-in">
-                                </template>
-                                <template #original="slotProps">
-                                    <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
-                                </template>
-                            </Image>
-
-                            <!-- <div class="relative w-full h-full overflow-hidden rounded hover:shadow-xl transform transition-transform duration-300 ease-in-out overlay cursor-pointer">
-                                <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover rounded shadow-lg zoom-in">
-                                <span class="overlay-text">Look</span>
-                                <div class="pulse-circle" />
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </Card>
-
-    <Card>
-        <template #content>
-            <div class="flex flex-col items-center gap-4">
-                <h2 class="text-2xl text-center whitespace-pre-line">Gallery 4</h2>
-                <div class="container mx-auto">
-                    <div class="flex flex-wrap -mx-4">
-                        <div
-                            v-for="(picture, index) in images"
-                            :key="index"
-                            class="w-full md:w-1/3 p-4"
-                        >
-                            <div class="relative w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl effect-zoom cursor-pointer">
-                                <a class="img-loading">
-                                    <img :src="picture.src" alt="XXX" class="w-full h-full object-cover rounded">
-                                    <!-- <Image :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover rounded" /> -->
-                                    <span class="kk-n">Anschauen</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </Card>
-
-
-    <Card>
-        <template #content>
-            <div class="flex flex-col items-center gap-4">
-                <h2 class="text-2xl text-center whitespace-pre-line">Gallery 4 (Primevue)</h2>
-                <div class="container mx-auto">
-                    <div class="flex flex-wrap -mx-4">
-                        <div
-                            v-for="(picture, index) in images"
-                            :key="index"
-                            class="w-full md:w-1/3 p-4"
-                        >
-                            <Image
-                                :alt="picture.alt"
-                                preview
-                                :pt="{
-                                    root: 'w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl cursor-pointer group',
-                                    originalContainer: 'm-12 p-12'
-                                }"
-                            >
-                                <template #previewicon>
-                                    <div class="w-full h-full flex items-center justify-center">
-                                        <span class="text-xl uppercase group-hover:motion-opacity-in-[0%] group-hover:motion-translate-y-in-[105%] motion-duration-[0.8s]">Anschauen</span>
-                                    </div>
-                                </template>
-                                <template #image>
-                                    <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]">
-                                </template>
-                                <template #original="slotProps">
-                                    <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
-                                </template>
-                            </Image>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </Card>
-</template>
-
 <script setup lang="ts">
-import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import type { Image } from '@/types/Image'
+import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 
-type Props = {
-    images: Image[]
+interface Props {
+  images: Image[]
 }
 
 const props = defineProps<Props>()
 const { images } = toRefs(props)
 </script>
+
+<template>
+  <Card>
+    <template #content>
+      <div class="flex flex-col items-center gap-4">
+        <ShowUnderline color="text-blue-400">
+          <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
+            Gallery 1
+          </h2>
+        </ShowUnderline>
+        <div class="container mx-auto">
+          <div class="flex flex-wrap -mx-4">
+            <div
+              v-for="(picture, index) in images"
+              :key="index"
+              class="md:w-1/3 p-4"
+            >
+              <Image :alt="picture.alt" preview class="w-full h-full object-cover rounded shadow-lg zoom-in-2" :pt="{ originalContainer: 'm-12 p-12' }">
+                <template #previewicon>
+                  <i class="pi pi-search" />
+                </template>
+                <template #image>
+                  <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover">
+                </template>
+                <template #original="slotProps">
+                  <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                </template>
+              </Image>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </Card>
+
+  <Card>
+    <template #content>
+      <div class="flex flex-col items-center gap-4">
+        <ShowUnderline color="text-rose-400">
+          <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
+            Gallery 2
+          </h2>
+        </ShowUnderline>
+        <div class="container mx-auto">
+          <div class="flex flex-wrap -mx-4">
+            <div
+              v-for="(picture, index) in images"
+              :key="index"
+              class="md:w-1/3 p-4"
+            >
+              <Image
+                :alt="picture.alt"
+                preview
+                :pt="{
+                  root: 'w-full h-full overflow-hidden rounded hover:shadow-xl overlay',
+                  originalContainer: 'm-12 p-12',
+                }"
+              >
+                <template #previewicon>
+                  <div class="relative w-full h-full">
+                    <span class="overlay-text">Look</span>
+                    <div class="pulse-circle" />
+                  </div>
+                </template>
+                <template #image>
+                  <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover zoom-in">
+                </template>
+                <template #original="slotProps">
+                  <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                </template>
+              </Image>
+
+              <!-- <div class="relative w-full h-full overflow-hidden rounded hover:shadow-xl transform transition-transform duration-300 ease-in-out overlay cursor-pointer">
+                                <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover rounded shadow-lg zoom-in">
+                                <span class="overlay-text">Look</span>
+                                <div class="pulse-circle" />
+                            </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </Card>
+
+  <Card>
+    <template #content>
+      <div class="flex flex-col items-center gap-4">
+        <h2 class="text-2xl text-center whitespace-pre-line">
+          Gallery 4
+        </h2>
+        <div class="container mx-auto">
+          <div class="flex flex-wrap -mx-4">
+            <div
+              v-for="(picture, index) in images"
+              :key="index"
+              class="w-full md:w-1/3 p-4"
+            >
+              <div class="relative w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl effect-zoom cursor-pointer">
+                <a class="img-loading">
+                  <img :src="picture.src" alt="XXX" class="w-full h-full object-cover rounded">
+                  <!-- <Image :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover rounded" /> -->
+                  <span class="kk-n">Anschauen</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </Card>
+
+  <Card>
+    <template #content>
+      <div class="flex flex-col items-center gap-4">
+        <h2 class="text-2xl text-center whitespace-pre-line">
+          Gallery 4 (Primevue)
+        </h2>
+        <div class="container mx-auto">
+          <div class="flex flex-wrap -mx-4">
+            <div
+              v-for="(picture, index) in images"
+              :key="index"
+              class="w-full md:w-1/3 p-4"
+            >
+              <Image
+                :alt="picture.alt"
+                preview
+                :pt="{
+                  root: 'w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl cursor-pointer group',
+                  originalContainer: 'm-12 p-12',
+                }"
+              >
+                <template #previewicon>
+                  <div class="w-full h-full flex items-center justify-center">
+                    <span class="text-xl uppercase group-hover:motion-opacity-in-[0%] group-hover:motion-translate-y-in-[105%] motion-duration-[0.8s]">Anschauen</span>
+                  </div>
+                </template>
+                <template #image>
+                  <img :src="picture.src" :alt="picture.alt" class="w-full h-full object-cover group-hover:motion-scale-out-[1.4] motion-duration-[10s]">
+                </template>
+                <template #original="slotProps">
+                  <img :src="picture.src" :alt="picture.alt" :style="slotProps.style" @click="slotProps.previewCallback">
+                </template>
+              </Image>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </Card>
+</template>
 
 <style scoped>
 /* Gallery 2 */
@@ -245,8 +252,6 @@ const { images } = toRefs(props)
 .overlay:hover .zoom-in {
     transform: scale(1.1);
 }
-
-
 
 /* Gallery 4 */
 @media screen and (min-width: 1024px) {
@@ -390,7 +395,6 @@ transition: transform ease .3s, color ease .3s;
 					@include transition(transform ease .3s, color ease .3s);
 				}
 
-
 			img {
 				display: block;
 				opacity: 1;
@@ -399,7 +403,6 @@ transition: transform ease .3s, color ease .3s;
 				-webkit-backface-visibility: hidden;
 			}
 		}
-
 
 	&:hover {
 

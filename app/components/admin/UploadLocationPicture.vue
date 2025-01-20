@@ -1,16 +1,8 @@
-<template>
-    <div class="flex flex-col">
-        <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
-        <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :chooseLabel="uploadLabel" accept="image/*" :maxFileSize="maxFileSize" :invalidFileSizeMessage="invalidFileSizeMessage" auto customUpload @uploader="onUpload" />
-        <p class="mt-2 text-xs leading-5 text-gray-400">{{ t('user.profilePicture.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}</p>
-    </div>
-</template>
-
 <script setup lang="ts">
-import { useToast } from 'primevue/usetoast'
+import type { FileUploadUploaderEvent } from 'primevue/fileupload'
 import { useFirebaseStorage } from '@/composables/useFirebaseStorage'
 import { useUserStore } from '@/stores/user'
-import type { FileUploadUploaderEvent } from 'primevue/fileupload'
+import { useToast } from 'primevue/usetoast'
 
 const emit = defineEmits(['uploaded'])
 
@@ -34,72 +26,82 @@ const loading = ref(false)
 const uploadLabel = t('admin.changeLocation.uploadLabel')
 const invalidFileSizeMessage = t('admin.changeLocation.invalidFileSizeMessage', { maxFilesize: `${maxFileSizeInMB}MB` })
 
-const onUpload = async(event: FileUploadUploaderEvent) => {
-    // Check if user is logged in
-    if (!user.value) {
-        throw new Error(t('firebase.custom.noUserLoggedIn'))
-    }
+async function onUpload(event: FileUploadUploaderEvent) {
+  // Check if user is logged in
+  if (!user.value) {
+    throw new Error(t('firebase.custom.noUserLoggedIn'))
+  }
 
-    // Check if user is admin
-    // This is not necessary, because the button is only visible for admins also the API will throw an error if the user is not admin
-    if (userProfile.value && userProfile.value.role !== 'admin') {
-        throw new Error(t('admin.notAdminError'))
-    }
+  // Check if user is admin
+  // This is not necessary, because the button is only visible for admins also the API will throw an error if the user is not admin
+  if (userProfile.value && userProfile.value.role !== 'admin') {
+    throw new Error(t('admin.notAdminError'))
+  }
 
-    // Get file
-    const file = (event.files as File[])[0]
+  // Get file
+  const file = (event.files as File[])[0]
 
-    // Check if file exists
-    if (!file) {
-        toast.add({
-            severity: 'error',
-            summary: t('admin.changeLocation.noPictureSelected'),
-            detail: t('admin.changeLocation.noPictureSelectedDetail'),
-            life: 10000
-        })
-        return false
-    }
+  // Check if file exists
+  if (!file) {
+    toast.add({
+      severity: 'error',
+      summary: t('admin.changeLocation.noPictureSelected'),
+      detail: t('admin.changeLocation.noPictureSelectedDetail'),
+      life: 10000,
+    })
+    return false
+  }
 
-    // Upload file
-    loading.value = true
-    const fileName = `location-preview-${file.name}`
-    const downloadLink = await uploadFile(`app/${fileName}`, file).catch((error) => {
-        console.error(error)
-        toast.add({
-            severity: 'error',
-            summary: t('admin.changeLocation.error'),
-            detail: error.message,
-            life: 10000
-        })
-        return false
+  // Upload file
+  loading.value = true
+  const fileName = `location-preview-${file.name}`
+  const downloadLink = await uploadFile(`app/${fileName}`, file).catch((error) => {
+    console.error(error)
+    toast.add({
+      severity: 'error',
+      summary: t('admin.changeLocation.error'),
+      detail: error.message,
+      life: 10000,
+    })
+    return false
+  })
+
+  // If download link exists and is a string update the location preview filename in the app config
+  if (downloadLink && typeof downloadLink === 'string') {
+    // Update preview url
+    await update('app', 'config', 'locationPreview', fileName).catch((error: { message: string }) => {
+      toast.add({
+        severity: 'error',
+        summary: t('admin.changeLocation.errorFoto'),
+        detail: error.message,
+        life: 10000,
+      })
+      loading.value = false
+      throw new Error(error.message)
     })
 
-    // If download link exists and is a string update the location preview filename in the app config
-    if (downloadLink && typeof downloadLink === 'string') {
-        // Update preview url
-        await update('app', 'config', 'locationPreview', fileName).catch((error: { message: string }) => {
-            toast.add({
-                severity: 'error',
-                summary: t('admin.changeLocation.errorFoto'),
-                detail: error.message,
-                life: 10000
-            })
-            loading.value = false
-            throw new Error(error.message)
-        })
+    // Show success toast
+    toast.add({
+      severity: 'success',
+      summary: t('admin.changeLocation.successFoto'),
+      detail: t('admin.changeLocation.successFotoDetail'),
+      life: 3000,
+    })
 
-        // Show success toast
-        toast.add({
-            severity: 'success',
-            summary: t('admin.changeLocation.successFoto'),
-            detail: t('admin.changeLocation.successFotoDetail'),
-            life: 3000
-        })
+    // Emit event to parent
+    emit('uploaded')
+  }
 
-        // Emit event to parent
-        emit('uploaded')
-    }
-
-    loading.value = false
+  loading.value = false
 }
 </script>
+
+<template>
+  <div class="flex flex-col">
+    <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
+    <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :choose-label="uploadLabel" accept="image/*" :max-file-size="maxFileSize" :invalid-file-size-message="invalidFileSizeMessage" auto custom-upload @uploader="onUpload" />
+    <p class="mt-2 text-xs leading-5 text-gray-400">
+      {{ t('user.profilePicture.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}
+    </p>
+  </div>
+</template>

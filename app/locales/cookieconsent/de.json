@@ -1,60 +1,60 @@
 {
-    "consentModal": {
-        "title": "Datenschutzeinstellungen",
-        "description": "Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen. Dabei werden zudem Cookies von Drittanbietern angelegt.",
-        "acceptAllBtn": "Akzeptieren",
-        "acceptNecessaryBtn": "Ablehnen",
-        "showPreferencesBtn": "Einstellungen verwalten",
-        "footer": "<a href='/imprint'>Datenschutzrichtlinie & Impressum</a>"
-    },
-    "preferencesModal": {
-        "title": "Datenschutzeinstellungen",
-        "acceptAllBtn": "Alles akzeptieren",
-        "acceptNecessaryBtn": "Alles ablehnen",
-        "savePreferencesBtn": "Einstellungen speichern",
-        "sections": [
+  "consentModal": {
+    "title": "Datenschutzeinstellungen",
+    "description": "Unsere Website verwendet unbedingt erforderliche Cookies, um ihre ordnungsgemäße Funktion sicherzustellen. Dabei werden zudem Cookies von Drittanbietern angelegt.",
+    "acceptAllBtn": "Akzeptieren",
+    "acceptNecessaryBtn": "Ablehnen",
+    "showPreferencesBtn": "Einstellungen verwalten",
+    "footer": "<a href='/imprint'>Datenschutzrichtlinie & Impressum</a>"
+  },
+  "preferencesModal": {
+    "title": "Datenschutzeinstellungen",
+    "acceptAllBtn": "Alles akzeptieren",
+    "acceptNecessaryBtn": "Alles ablehnen",
+    "savePreferencesBtn": "Einstellungen speichern",
+    "sections": [
+      {
+        "title": "Cookie-Nutzung",
+        "description": "Hier können Sie die Cookie-Nutzung einsehen und anpassen. Die Änderungen werden automatisch gespeichert. Weitere Informationen finden Sie in unserer <a href='/imprint'>Datenschutzerklärung</a>."
+      },
+      {
+        "title": "Eigene Cookies",
+        "description": "Diese Cookies sind für die Funktion der Website erforderlich. In der Regel werden diese nur als Reaktion auf von Ihnen durchgeführte Aktionen festgelegt, wie etwa dem Festlegen der genutzten Sprache, oder über einen Token auf die Webseite gelangte URL. Fast alle Bereiche der Website funktionieren ohne die Zustimmung nicht. Diese Cookies speichern keine personenbezogenen Daten.",
+        "linkedCategory": "app"
+      },
+      {
+        "title": "Firebase",
+        "description": "Firebase ist ein von Google entwickeltes Produkt, das verschiedene Dienste für die Entwicklung von Apps und Webseiten bereitstellt. Dieser Dienst wird verwendet, um eine Userverwaltung (speichern von Usern sowie deren Einstellungen, zb. angenomme / abgelehnte Einladung) zu ermöglichen und um Informationen darüber zu sammeln, wie Besucher unsere Website nutzen. Weitere Informationen werden durch Google anonym gesammelt. Google sammelt Informationen in anonymisierter Form, einschließlich der Anzahl der Besucher der Website, woher die Besucher auf die Website gekommen sind und die Seiten, die sie besucht haben. Weitere Informationen finden Sie in der <a href='https://policies.google.com/privacy?hl=de' target='_blank'>Datenschutzerklärung</a> von Google.",
+        "linkedCategory": "firebase",
+        "cookieTable": {
+          "headers": {
+            "name": "Dienst",
+            "domain": "Endnutzerdaten",
+            "desc": "Beschreibung"
+          },
+          "body": [
             {
-                "title": "Cookie-Nutzung",
-                "description": "Hier können Sie die Cookie-Nutzung einsehen und anpassen. Die Änderungen werden automatisch gespeichert. Weitere Informationen finden Sie in unserer <a href='/imprint'>Datenschutzerklärung</a>."
+              "name": "Cloud-Funktionen für Firebase",
+              "domain": "IP-Adressen",
+              "desc": "So hilft es: Cloud Functions verwendet IP-Adressen, um Ereignisverarbeitungsfunktionen und HTTP-Funktionen basierend auf Endbenutzeraktionen auszuführen. Aufbewahrung: Cloud-Funktionen speichern IP-Adressen nur vorübergehend, um den Dienst bereitzustellen."
             },
             {
-                "title": "Eigene Cookies",
-                "description": "Diese Cookies sind für die Funktion der Website erforderlich. In der Regel werden diese nur als Reaktion auf von Ihnen durchgeführte Aktionen festgelegt, wie etwa dem Festlegen der genutzten Sprache, oder über einen Token auf die Webseite gelangte URL. Fast alle Bereiche der Website funktionieren ohne die Zustimmung nicht. Diese Cookies speichern keine personenbezogenen Daten.",
-                "linkedCategory": "app"
-            },
-            {
-                "title": "Firebase",
-                "description": "Firebase ist ein von Google entwickeltes Produkt, das verschiedene Dienste für die Entwicklung von Apps und Webseiten bereitstellt. Dieser Dienst wird verwendet, um eine Userverwaltung (speichern von Usern sowie deren Einstellungen, zb. angenomme / abgelehnte Einladung) zu ermöglichen und um Informationen darüber zu sammeln, wie Besucher unsere Website nutzen. Weitere Informationen werden durch Google anonym gesammelt. Google sammelt Informationen in anonymisierter Form, einschließlich der Anzahl der Besucher der Website, woher die Besucher auf die Website gekommen sind und die Seiten, die sie besucht haben. Weitere Informationen finden Sie in der <a href='https://policies.google.com/privacy?hl=de' target='_blank'>Datenschutzerklärung</a> von Google.",
-                "linkedCategory": "firebase",
-                "cookieTable": {
-                    "headers": {
-                        "name": "Dienst",
-                        "domain": "Endnutzerdaten",
-                        "desc": "Beschreibung"
-                    },
-                    "body": [
-                        {
-                            "name": "Cloud-Funktionen für Firebase",
-                            "domain": "IP-Adressen",
-                            "desc": "So hilft es: Cloud Functions verwendet IP-Adressen, um Ereignisverarbeitungsfunktionen und HTTP-Funktionen basierend auf Endbenutzeraktionen auszuführen. Aufbewahrung: Cloud-Funktionen speichern IP-Adressen nur vorübergehend, um den Dienst bereitzustellen."
-                        },
-                        {
-                            "name": "Firebase-Authentifizierung",
-                            "domain": "Passwörter, E-mailadressen, Telefonnummern, Benutzeragenten,IP-Adressen",
-                            "desc": "So hilft es: Firebase Authentication nutzt die Daten, um die Authentifizierung von Endbenutzern zu ermöglichen und die Verwaltung von Endbenutzerkonten zu erleichtern. Außerdem werden User-Agent-Strings und IP-Adressen verwendet, um zusätzliche Sicherheit zu bieten und Missbrauch bei der Anmeldung und Authentifizierung zu verhindern. Aufbewahrung: Firebase Authentication speichert protokollierte IP-Adressen einige Wochen lang. Es behält andere Authentifizierungsinformationen bei, bis der Firebase-Kunde die Löschung des zugehörigen Benutzers veranlasst. Anschließend werden die Daten innerhalb von 180 Tagen aus Live- und Backup-Systemen entfernt."
-                        }
-                    ]
-                }
-            },
-            {
-                "title": "Spotify",
-                "description": "Unsere Webseite bindet eine Playlist von Spotify als iFrame ein, dabei werden durch Spotify diverse Cookies angelegt und Daten gesammelt. Wenn Sie nicht zustimmen, wird keine Spotify Instanz angeboten. Spotify ist ein externer Musik-Streaming-Dienst, der es Benutzern ermöglicht, Musik von Millionen von Künstlern zu hören. Weitere Informationen finden Sie in der <a href='https://www.spotify.com/de/legal/privacy-policy/' target='_blank'>Datenschutzerklärung</a> von Spotify.",
-                "linkedCategory": "spotify"
-            },
-            {
-                "title": "Weitere Informationen",
-                "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten wenden Sie sich bitte an die Webseiten Betreiber."
+              "name": "Firebase-Authentifizierung",
+              "domain": "Passwörter, E-mailadressen, Telefonnummern, Benutzeragenten,IP-Adressen",
+              "desc": "So hilft es: Firebase Authentication nutzt die Daten, um die Authentifizierung von Endbenutzern zu ermöglichen und die Verwaltung von Endbenutzerkonten zu erleichtern. Außerdem werden User-Agent-Strings und IP-Adressen verwendet, um zusätzliche Sicherheit zu bieten und Missbrauch bei der Anmeldung und Authentifizierung zu verhindern. Aufbewahrung: Firebase Authentication speichert protokollierte IP-Adressen einige Wochen lang. Es behält andere Authentifizierungsinformationen bei, bis der Firebase-Kunde die Löschung des zugehörigen Benutzers veranlasst. Anschließend werden die Daten innerhalb von 180 Tagen aus Live- und Backup-Systemen entfernt."
             }
-        ]
-    }
+          ]
+        }
+      },
+      {
+        "title": "Spotify",
+        "description": "Unsere Webseite bindet eine Playlist von Spotify als iFrame ein, dabei werden durch Spotify diverse Cookies angelegt und Daten gesammelt. Wenn Sie nicht zustimmen, wird keine Spotify Instanz angeboten. Spotify ist ein externer Musik-Streaming-Dienst, der es Benutzern ermöglicht, Musik von Millionen von Künstlern zu hören. Weitere Informationen finden Sie in der <a href='https://www.spotify.com/de/legal/privacy-policy/' target='_blank'>Datenschutzerklärung</a> von Spotify.",
+        "linkedCategory": "spotify"
+      },
+      {
+        "title": "Weitere Informationen",
+        "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten wenden Sie sich bitte an die Webseiten Betreiber."
+      }
+    ]
+  }
 }

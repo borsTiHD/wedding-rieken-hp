@@ -1,6 +1,10 @@
 {
   "name": "wedding-rieken-hp",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/borsTiHD/wedding-rieken-hp/"
+  },
   "scripts": {
     "start": "node .output/server/index.mjs",
     "build": "nuxt build",
@@ -9,29 +13,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/borsTiHD/wedding-rieken-hp/"
-  },
-  "devDependencies": {
-    "@nuxt/devtools": "^1.7.0",
-    "@nuxtjs/i18n": "^8.5.5",
-    "@primevue/nuxt-module": "^4.2.5",
-    "@typescript-eslint/eslint-plugin": "^8.20.0",
-    "@typescript-eslint/parser": "^8.20.0",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9.18.0",
-    "eslint-plugin-nuxt": "^4.0.0",
-    "eslint-plugin-vue": "^9.32.0",
-    "nuxt": "^3.15.2",
-    "postcss": "^8.5.1",
-    "tailwindcss": "^3.4.17",
-    "tailwindcss-motion": "^1.0.1",
-    "vite-plugin-eslint": "^1.8.1",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
-    "@antfu/eslint-config": "^3.14.0"
   },
   "dependencies": {
     "@fontsource/alex-brush": "^5.1.1",
@@ -58,5 +39,24 @@
     "qr-code-styling": "^1.9.1",
     "vanilla-cookieconsent": "^3.0.1",
     "vue-boo-bash": "^0.0.8"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.14.0",
+    "@nuxt/devtools": "^1.7.0",
+    "@nuxtjs/i18n": "^8.5.5",
+    "@primevue/nuxt-module": "^4.2.5",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.18.0",
+    "eslint-plugin-nuxt": "^4.0.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "nuxt": "^3.15.2",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-motion": "^1.0.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   }
 }
