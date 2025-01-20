@@ -1,19 +1,19 @@
-export default function() {
-    const { fetchEmailSignInMethods } = useFirebaseAuth()
+export default function () {
+  const { fetchEmailSignInMethods } = useFirebaseAuth()
 
-    // All sign in methods for a user
-    const signInMethods = ref<string[]>()
+  // All sign in methods for a user
+  const signInMethods = ref<string[]>()
 
-    // Check if user is only allowed to login with email link
-    const emailLinkOnly = computed(() => signInMethods.value?.includes('emailLink') && !signInMethods.value?.includes('password'))
+  // Check if user is only allowed to login with email link
+  const emailLinkOnly = computed(() => signInMethods.value?.includes('emailLink') && !signInMethods.value?.includes('password'))
 
-    // Fetch email sign-in methods
-    onMounted(async() => {
-        signInMethods.value = await fetchEmailSignInMethods()
-    })
+  // Fetch email sign-in methods
+  onMounted(async () => {
+    signInMethods.value = await fetchEmailSignInMethods()
+  })
 
-    return {
-        signInMethods,
-        emailLinkOnly
-    }
+  return {
+    signInMethods,
+    emailLinkOnly,
+  }
 }

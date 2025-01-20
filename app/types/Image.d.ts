@@ -1,6 +1,6 @@
-export type Image = {
-    src: string;
-    thumbnailSrc: string;
-    alt: string;
-    title: string
+export interface Image {
+  src: string
+  thumbnailSrc: string
+  alt: string
+  title: string
 }

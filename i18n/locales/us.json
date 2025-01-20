@@ -1,0 +1,26 @@
+{
+  "general": {
+  },
+  "settings": {
+    "language": "Language"
+  },
+  "login": {
+    "alreadyLoggedIn": "You are already logged in",
+    "notLoggedIn": "You are not logged in",
+    "loginLink": "Click {action} to login.",
+    "loginLinkTag": "here"
+  },
+  "logout": {
+    "submit": "Logout"
+  },
+  "user": {
+    "noName": "No name",
+    "welcome": "Welcome {name}"
+  },
+  "countdown": {
+    "days": "Days | Day | Days",
+    "hours": "Hours | Hour | Hours",
+    "minutes": "Minutes | Minute | Minutes",
+    "seconds": "Seconds | Second | Seconds"
+  }
+}

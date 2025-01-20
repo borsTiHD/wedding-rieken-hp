@@ -1,108 +1,19 @@
-<template>
-    <main class="flex flex-col">
-        <!-- Main content -->
-        <section class="h-screen flex justify-center relative overflow-hidden -mt-20">
-            <!-- Background image -->
-            <div
-                class="background-image absolute w-full h-full"
-                :style="{ transform: `translateY(${scrollY / 1.5}px)` }"
-            />
-
-            <!-- Content wrapper -->
-            <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
-                <div
-                    class="wedding-text mt-auto flex flex-col justify-center text-white select-none"
-                    :style="{ transform: `translateY(${scrollY / 2}px)` }"
-                >
-                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
-                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
-                    <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
-                </div>
-
-                <!-- Scroll down icon -->
-                <i
-                    :class="[
-                        'z-10', // Z-Index
-                        'w-fit h-fit p-2 px-3 sm:p-4 rounded-full', // Sizes
-                        isScrolled ? 'opacity-0' : 'opacity-100',
-                        'mt-auto mb-20 text-3xl md:text-5xl self-center ', // Sizes
-                        'text-white drop-shadow-sm pi pi-angle-down', // Icon
-                        'motion-safe:animate-bounce motion-reduce:animate-none', // Animation
-                        'cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg' // Hover
-                    ]"
-                    @click="scrollToSection()"
-                />
-            </div>
-        </section>
-
-        <!-- Falling emojis -->
-        <FallingEmojis :key="user?.uid || 1234" />
-
-        <template v-if="user?.uid && whitelistedRoles.includes(userProfile?.role) && userProfile?.invitation !== 'declined'">
-            <!-- WeddingDay -->
-            <section id="wedding">
-                <div class="section-style">
-                    <div class="flex flex-wrap gap-4">
-                        <ShowWeddingDay />
-                        <ShowAgenda />
-                    </div>
-                    <ShowQuote />
-                </div>
-            </section>
-
-            <!-- Infos -->
-            <section id="infos">
-                <div class="section-style">
-                    <div class="flex flex-wrap md:flex-nowrap gap-4">
-                        <RouteDescription class="basis-6/12" />
-                        <ShowInfos />
-                    </div>
-                    <ShowQuote />
-                </div>
-            </section>
-
-            <!-- Spotify Playlist -->
-            <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify">
-                <div class="section-style">
-                    <ShowSpotify />
-                </div>
-            </section>
-
-            <!-- Riddle -->
-            <section id="riddle">
-                <div class="section-style">
-                    <ShowRiddle />
-                </div>
-            </section>
-        </template>
-
-        <template v-else>
-            <!-- User is not whitelisted - e.p. not logged in, or not invited -->
-            <section id="not-whitelisted">
-                <div class="section-style max-w-2xl">
-                    <ShowGuestInfo />
-                </div>
-            </section>
-        </template>
-    </main>
-</template>
-
 <script setup lang="ts">
-import { useConfig } from '@/composables/useConfig'
-import { useAppStore } from '@/stores/app'
-import { useUserStore } from '@/stores/user'
-import { useCookieStore } from '@/stores/cookieconsent'
-import FallingEmojis from '@/components/FallingEmojis.vue'
-import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
-import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
-import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import RouteDescription from '@/components/content/RouteDescription.vue'
 import ShowAgenda from '@/components/content/ShowAgenda.vue'
+import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
+import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
+import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
+import FallingEmojis from '@/components/FallingEmojis.vue'
+import { useConfig } from '@/composables/useConfig'
 import { useWindowSize } from '@/composables/useWindowSize'
 import { whitelistedRoles } from '@/composables/whitelistedRoles'
+import { useAppStore } from '@/stores/app'
+import { useCookieStore } from '@/stores/cookieconsent'
+import { useUserStore } from '@/stores/user'
 
 // Config
 const { spotifyPlaylist } = useConfig()
@@ -121,8 +32,8 @@ const userProfile = computed(() => userStore.userProfile)
 const cookieStore = useCookieStore()
 const preferences = computed(() => cookieStore.preferences)
 const cookieConsentSpotify = computed(() => {
-    // Check if cookie consent is accepted for 'spotify' category
-    return preferences.value?.acceptedCategories.includes('spotify')
+  // Check if cookie consent is accepted for 'spotify' category
+  return preferences.value?.acceptedCategories.includes('spotify')
 })
 
 // Router
@@ -134,37 +45,121 @@ const { scrollY } = useWindowSize(undefined, true, true, 2)
 const isScrolled = computed<boolean>(() => scrollY.value > 30)
 
 // Scroll to next section
-const scrollToSection = (hash?: string) => {
-    const nextSection = hash ? document.querySelector<HTMLElement>(hash)
-        : document.querySelector<HTMLElement>('section:nth-child(3)')
+function scrollToSection(hash?: string) {
+  const nextSection = hash
+    ? document.querySelector<HTMLElement>(hash)
+    : document.querySelector<HTMLElement>('section:nth-child(3)')
 
-    if (nextSection) {
-        // Get navbar height for offset
-        const navbar = document.querySelector<HTMLElement>('.navbar')
-        const offset = navbar?.offsetHeight || 0
+  if (nextSection) {
+    // Get navbar height for offset
+    const navbar = document.querySelector<HTMLElement>('.navbar')
+    const offset = navbar?.offsetHeight || 0
 
-        // Calculate new Y-Value based on the next section
-        // 16px offset because the navbar has a padding of 16px if the page is not scrolled
-        const nextSectionY = nextSection.getBoundingClientRect().top + window.scrollY - offset + 16
+    // Calculate new Y-Value based on the next section
+    // 16px offset because the navbar has a padding of 16px if the page is not scrolled
+    const nextSectionY = nextSection.getBoundingClientRect().top + window.scrollY - offset + 16
 
-        // Scroll to next section with smooth behavior and offset
-        window.scrollTo({ top: nextSectionY, behavior: 'smooth' })
-    }
+    // Scroll to next section with smooth behavior and offset
+    window.scrollTo({ top: nextSectionY, behavior: 'smooth' })
+  }
 }
 
 watch(routeHash, (newValue) => {
-    if (newValue) {
-        setTimeout(() => scrollToSection(newValue), 100)
-    }
+  if (newValue) {
+    setTimeout(() => scrollToSection(newValue), 100)
+  }
 })
 
 onMounted(() => {
-    // Scroll to section if hash is present
-    if (window.location.hash) {
-        setTimeout(() => scrollToSection(window.location.hash), 100)
-    }
+  // Scroll to section if hash is present
+  if (window.location.hash) {
+    setTimeout(() => scrollToSection(window.location.hash), 100)
+  }
 })
 </script>
+
+<template>
+  <main class="flex flex-col">
+    <!-- Main content -->
+    <section class="h-screen flex justify-center relative overflow-hidden -mt-20">
+      <!-- Background image -->
+      <div
+        class="background-image absolute w-full h-full"
+        :style="{ transform: `translateY(${scrollY / 1.5}px)` }"
+      />
+
+      <!-- Content wrapper -->
+      <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
+        <div
+          class="wedding-text mt-auto flex flex-col justify-center text-white select-none"
+          :style="{ transform: `translateY(${scrollY / 2}px)` }"
+        >
+          <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
+          <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
+          <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
+        </div>
+
+        <!-- Scroll down icon -->
+        <i
+          class="z-10 w-fit h-fit p-2 px-3 sm:p-4 rounded-full mt-auto mb-20 text-3xl md:text-5xl self-center  text-white drop-shadow-sm pi pi-angle-down motion-safe:animate-bounce motion-reduce:animate-none cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg" :class="[
+            isScrolled ? 'opacity-0' : 'opacity-100', // Hover
+          ]"
+          @click="scrollToSection()"
+        />
+      </div>
+    </section>
+
+    <!-- Falling emojis -->
+    <FallingEmojis :key="user?.uid || 1234" />
+
+    <template v-if="user?.uid && whitelistedRoles.includes(userProfile?.role) && userProfile?.invitation !== 'declined'">
+      <!-- WeddingDay -->
+      <section id="wedding">
+        <div class="section-style">
+          <div class="flex flex-wrap gap-4">
+            <ShowWeddingDay />
+            <ShowAgenda />
+          </div>
+          <ShowQuote />
+        </div>
+      </section>
+
+      <!-- Infos -->
+      <section id="infos">
+        <div class="section-style">
+          <div class="flex flex-wrap md:flex-nowrap gap-4">
+            <RouteDescription class="basis-6/12" />
+            <ShowInfos />
+          </div>
+          <ShowQuote />
+        </div>
+      </section>
+
+      <!-- Spotify Playlist -->
+      <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify">
+        <div class="section-style">
+          <ShowSpotify />
+        </div>
+      </section>
+
+      <!-- Riddle -->
+      <section id="riddle">
+        <div class="section-style">
+          <ShowRiddle />
+        </div>
+      </section>
+    </template>
+
+    <template v-else>
+      <!-- User is not whitelisted - e.p. not logged in, or not invited -->
+      <section id="not-whitelisted">
+        <div class="section-style max-w-2xl">
+          <ShowGuestInfo />
+        </div>
+      </section>
+    </template>
+  </main>
+</template>
 
 <style scoped>
 .section-style {

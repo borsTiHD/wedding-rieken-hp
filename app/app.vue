@@ -1,39 +1,15 @@
-<template>
-    <AppLoadingOverlay v-if="loading" :progress="progress" />
-    <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
-        <Toast position="bottom-right" />
-
-        <!-- Navbar -->
-        <AppNavbar />
-
-        <!-- Background image -->
-        <div v-if="!isIndex" class="background-image fixed top-0 left-0 w-full h-full" />
-
-        <!-- Main content -->
-        <NuxtPage class="pt-20 z-20" />
-
-        <!-- Footer -->
-        <AppFooter />
-    </div>
-
-    <!-- Scroll to top button -->
-    <ScrollTop />
-
-    <VueQueryDevtools />
-</template>
-
 <script setup lang="ts">
-import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
+import AppFooter from '@/components/layout/AppFooter.vue'
 import AppLoadingOverlay from '@/components/layout/AppLoadingOverlay.vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
-import AppFooter from '@/components/layout/AppFooter.vue'
-import useLocale from '@/composables/useLocale'
 import { useConfig } from '@/composables/useConfig'
 import { useContent } from '@/composables/useContent'
 import useLoadingSpinner from '@/composables/useLoadingSpinner'
+import useLocale from '@/composables/useLocale'
 import { useAppStore } from '@/stores/app'
-import { useUserStore } from '@/stores/user'
 import { useTokenStore } from '@/stores/token'
+import { useUserStore } from '@/stores/user'
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
 import '@fontsource/roboto'
 import '@fontsource/roboto/700.css'
 import '@fontsource/montserrat'
@@ -82,80 +58,106 @@ const description = computed(() => t('head.description', { bride: bride.value, g
 // Set theme color
 const themeColor = computed(() => appStore.themeColor)
 watch(themeColor, (newValue) => {
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', newValue)
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', newValue)
 })
 
 // Set meta tags
 useHead({
-    title: titel.value,
-    meta: [
-        {
-            name: 'description',
-            content: description.value
-        },
-        {
-            name: 'theme-color',
-            content: themeColor.value
-        }
-    ]
+  title: titel.value,
+  meta: [
+    {
+      name: 'description',
+      content: description.value,
+    },
+    {
+      name: 'theme-color',
+      content: themeColor.value,
+    },
+  ],
 })
 
 // Check user role and upgrade if necessary
 async function upgradeUserRole() {
-    // Check if user is logged in
-    if (!userStore.uid) {
-        return false
+  // Check if user is logged in
+  if (!userStore.uid) {
+    return false
+  }
+
+  // Check if user has an invitation token
+  // And change profile role to 'invited'
+  // Firebase will check if the token is valid
+  if (token.value && token.value !== '') {
+    const check = await changeRoleToInvited(token.value).catch((error: { message: string }) => {
+      toast.add({
+        severity: 'error',
+        summary: t('user.upgradeUserRole.error'),
+        detail: error.message,
+        life: 10000,
+      })
+
+      return false
+    })
+
+    if (!check) {
+      return false
     }
 
-    // Check if user has an invitation token
-    // And change profile role to 'invited'
-    // Firebase will check if the token is valid
-    if (token.value && token.value !== '') {
-        const check = await changeRoleToInvited(token.value).catch((error: { message: string }) => {
-            toast.add({
-                severity: 'error',
-                summary: t('user.upgradeUserRole.error'),
-                detail: error.message,
-                life: 10000
-            })
-
-            return false
-        })
-
-        if (!check) { return false }
-
-        toast.add({
-            severity: 'success',
-            summary: t('user.upgradeUserRole.success'),
-            detail: t('user.upgradeUserRole.successDetail'),
-            life: 10000
-        })
-    }
+    toast.add({
+      severity: 'success',
+      summary: t('user.upgradeUserRole.success'),
+      detail: t('user.upgradeUserRole.successDetail'),
+      life: 10000,
+    })
+  }
 }
 
 // Fetch user data and app config
-onNuxtReady(async() => {
-    startLoading() // Start loading spinner
+onNuxtReady(async () => {
+  startLoading() // Start loading spinner
 
-    // Check if token is provided in route and save it in localStorage
-    tokenStore.getInvitationToken()
+  // Check if token is provided in route and save it in localStorage
+  tokenStore.getInvitationToken()
 
-    // Fetch data on page load
-    await Promise.allSettled([
-        suspenseConfig(),
-        suspenseContent(),
-        userStore.fetchUserData()
-    ])
+  // Fetch data on page load
+  await Promise.allSettled([
+    suspenseConfig(),
+    suspenseContent(),
+    userStore.fetchUserData(),
+  ])
 
-    stoptLoading() // Stop loading spinner
+  stoptLoading() // Stop loading spinner
 
-    // Upgrade user role if necessary (e.g. from 'guest' to 'invited')
-    // User must be logged in and have an invitation token
-    setTimeout(() => {
-        upgradeUserRole()
-    }, 2000)
+  // Upgrade user role if necessary (e.g. from 'guest' to 'invited')
+  // User must be logged in and have an invitation token
+  setTimeout(() => {
+    upgradeUserRole()
+  }, 2000)
 })
 </script>
+
+<template>
+  <AppLoadingOverlay v-if="loading" :progress="progress" />
+  <div v-else class="app-wrapper min-h-screen w-full flex flex-col bg-fixed">
+    <Toast position="bottom-right" />
+
+    <!-- Navbar -->
+    <AppNavbar />
+
+    <!-- Background image -->
+    <div v-if="!isIndex" class="background-image fixed top-0 left-0 w-full h-full" />
+
+    <!-- Main content -->
+    <NuxtPage class="pt-20 z-20" />
+
+    <!-- Footer -->
+    <AppFooter />
+  </div>
+
+  <!-- Scroll to top button -->
+  <ScrollTop />
+
+  <VueQueryDevtools />
+</template>
 
 <style>
 /* Fixing the scroll to top button position - bug since primevue v4.0.0 - something sets it to position 'relative' */
