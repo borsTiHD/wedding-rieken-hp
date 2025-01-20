@@ -36,7 +36,9 @@ function generateEmoji() {
 
   // Change opacity to 0 before the animation ends
   setTimeout(() => {
-    if (emoji) { emoji.style.opacity = 0 }
+    if (emoji) {
+      emoji.style.opacity = 0
+    }
   }, (duration - 2) * 1000)
 
   // Remove emoji from array after animation ends

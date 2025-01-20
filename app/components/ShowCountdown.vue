@@ -16,15 +16,15 @@ const updated = ref(false) // True if countdown was updated
 const interval = ref<null | ReturnType<typeof setInterval>>(null) // Interval for updating countdown
 const timeLeft = ref(0) // Time left in seconds or negative
 
-// Countdown states
-const countdownFinished = computed(() => days.value <= 0 && hours.value <= 0 && minutes.value <= 0 && seconds.value <= 0) // True if countdown is zero or negative
-const weedingRunning = computed(() => Math.floor((timeLeft.value % 86400) / 3600) >= -1 * weddingDuration.value) // True if wedding is still running
-
 // Countdown values
 const days = computed(() => Math.floor(timeLeft.value / 86400))
 const hours = computed(() => Math.floor((timeLeft.value % 86400) / 3600))
 const minutes = computed(() => Math.floor((timeLeft.value % 3600) / 60))
 const seconds = computed(() => timeLeft.value % 60)
+
+// Countdown states
+const countdownFinished = computed(() => days.value <= 0 && hours.value <= 0 && minutes.value <= 0 && seconds.value <= 0) // True if countdown is zero or negative
+const weedingRunning = computed(() => Math.floor((timeLeft.value % 86400) / 3600) >= -1 * weddingDuration.value) // True if wedding is still running
 
 // Update countdown values
 function updateCountdown() {
@@ -39,12 +39,16 @@ function updateCountdown() {
 
 onMounted(() => {
   updateCountdown()
-  if (interval.value) { clearInterval(interval.value) }
+  if (interval.value) {
+    clearInterval(interval.value)
+  }
   interval.value = setInterval(updateCountdown, 1000)
 })
 
 onUnmounted(() => {
-  if (interval.value) { clearInterval(interval.value) }
+  if (interval.value) {
+    clearInterval(interval.value)
+  }
 })
 </script>
 

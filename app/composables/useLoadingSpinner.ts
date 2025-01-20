@@ -15,7 +15,10 @@ export default function (beginLoading?: boolean, endAutomaticly?: boolean) {
         progress.value += 1
       }
       else {
-        if (endAutomaticly) { loading.value = false } // Stop loading if endAutomaticly is true
+        if (endAutomaticly) {
+          // Stop loading if endAutomaticly is true
+          loading.value = false
+        }
         if (!interval.value)
           return false
         clearInterval(interval.value) // Stop interval
@@ -31,7 +34,9 @@ export default function (beginLoading?: boolean, endAutomaticly?: boolean) {
   }
 
   // Start loading if startLoading is true
-  if (beginLoading) { startLoading() }
+  if (beginLoading) {
+    startLoading()
+  }
 
   return {
     loading, // Loading state

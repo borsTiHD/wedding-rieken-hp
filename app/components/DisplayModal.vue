@@ -57,13 +57,21 @@ watch(() => props.showModal, (value) => {
 
 // Watch for changes in visible and emit close event
 watch(() => visible.value, (value) => {
-  if (!value) { emit('close', value) }
+  if (!value) {
+    emit('close', value)
+  }
 })
 
 // Modal methods
-function close() { visible.value = false } // Close
-function open() { visible.value = true } // Open
-function toggle() { visible.value = !visible.value } // Toggle visibility
+function close() {
+  visible.value = false
+}
+function open() {
+  visible.value = true
+}
+function toggle() {
+  visible.value = !visible.value
+}
 
 // Expose methods
 defineExpose({

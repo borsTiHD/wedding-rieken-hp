@@ -39,7 +39,7 @@ function confirmDialog(event: MouseEvent) {
 // Submit button
 async function handleSubmit(form: { token: string }) {
   loading.value = true
-  await changeToken(form).catch(() => { return false })
+  await changeToken(form).catch(() => false)
   loading.value = false
 }
 
@@ -78,6 +78,7 @@ async function changeToken(form: { token: string }) {
   })
 
   // Emit event that token has changed
+  // eslint-disable-next-line vue/custom-event-name-casing
   emitter.$emit('invitation-token-updated')
 }
 

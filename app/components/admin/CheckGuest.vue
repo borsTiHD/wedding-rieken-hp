@@ -31,7 +31,7 @@ const loading = ref(false)
 // Submit button
 async function handleSubmit(value: boolean) {
   loading.value = true
-  await checkGuest(value).catch(() => { return false })
+  await checkGuest(value).catch(() => false)
   loading.value = false
 
   // Close modal

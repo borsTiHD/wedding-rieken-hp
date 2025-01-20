@@ -21,7 +21,7 @@ const formId = 'changeDurationForm'
 // Submit button
 async function handleSubmit(form: { duration: number }) {
   loading.value = true
-  await changeWeddingDuraiton(form).catch(() => { return false })
+  await changeWeddingDuraiton(form).catch(() => false)
   loading.value = false
 }
 

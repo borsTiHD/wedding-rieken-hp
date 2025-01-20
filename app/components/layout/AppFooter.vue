@@ -92,7 +92,6 @@ onMounted(() => {
 
     <!-- Background overlay - used to overlay the background image -->
     <div
-      ref="backgroundOverlay"
       class="bg-surface fixed w-full bottom-0 left-0 z-0 pointer-events-none"
       :style="{ height: `${backgroundOverlayHeight}px` }"
     />

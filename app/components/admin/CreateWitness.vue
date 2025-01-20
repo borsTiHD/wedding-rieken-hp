@@ -22,7 +22,7 @@ const loading = ref(false)
 // Submit button
 async function handleSubmit(form: FormData) {
   loading.value = true
-  await createNewWitness(form).catch(() => { return false })
+  await createNewWitness(form).catch(() => false)
   loading.value = false
 }
 

@@ -27,7 +27,7 @@ interface FormValues {
 // Submit button
 async function handleSubmit(form: FormValues) {
   loading.value = true
-  await changeLocation(form).catch(() => { return false })
+  await changeLocation(form).catch(() => false)
   loading.value = false
 }
 

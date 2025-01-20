@@ -51,18 +51,14 @@ const { t } = useI18n()
 const { getAllUsers } = useBackendApi()
 const { modalPosition } = useModalPosition() // Modal position
 
-// Window size for expanded rows
-const { windowWidth } = useWindowSize(100)
-const isWidthSmall = computed<boolean>(() => windowWidth.value < 1400)
-watch(windowWidth, () => {
-  // Reset expanded rows on window resize
-  if (windowWidth.value > 1400) {
-    expandedRows.value = []
-  }
-})
-
 // User store
 const userStore = useUserStore()
+
+// Table filters
+const globalSearch = ref('')
+const filters = ref({
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+})
 
 // Data
 const users = ref<User[]>([])
@@ -124,12 +120,24 @@ const usersData = computed(() => {
     : user
 })
 
+// Window size for expanded rows
+const { windowWidth } = useWindowSize(100)
+const isWidthSmall = computed<boolean>(() => windowWidth.value < 1400)
+watch(windowWidth, () => {
+  // Reset expanded rows on window resize
+  if (windowWidth.value > 1400) {
+    expandedRows.value = []
+  }
+})
+
 // Row class
-function rowClass(data: DataTableUser) { return data.role ? roleClassMap[data.role] || '' : 'bg-red-100' }
 const roleClassMap: { [role: string]: string } = {
   admin: 'bg-blue-100',
   guest: 'bg-yellow-100',
   // 'declined': 'bg-red-100'
+}
+function rowClass(data: DataTableUser) {
+  return data.role ? roleClassMap[data.role] || '' : 'bg-red-100'
 }
 
 // Calculate total guests with additional guests
@@ -142,12 +150,6 @@ const totalGuests = computed(() => {
     }
   })
   return total
-})
-
-// Table filters
-const globalSearch = ref('')
-const filters = ref({
-  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 })
 
 // Return invitation status for user

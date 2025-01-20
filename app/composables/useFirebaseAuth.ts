@@ -63,7 +63,9 @@ export default function () {
   // Send email for password reset
   const sendUserPasswordResetEmail = async (email?: string): Promise<boolean> => {
     const userEmail = email || $auth.currentUser?.email
-    if (!userEmail) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!userEmail) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Send password reset email
     await sendPasswordResetEmail($auth, userEmail).catch((error: FirebaseError) => {
@@ -77,7 +79,9 @@ export default function () {
   // Re-authenticate a user
   const reauthenticateUser = async (password: string): Promise<boolean> => {
     const email = $auth.currentUser?.email
-    if (!email) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!email) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Create credential
     const credential = EmailAuthProvider.credential(email, password)
@@ -94,14 +98,18 @@ export default function () {
   // Re-authenticate a user with email link
   const reauthenticateUserWithEmailLink = async (): Promise<boolean> => {
     const email = $auth.currentUser?.email
-    if (!email) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!email) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Construct the email link credential from the current URL
     const credential = EmailAuthProvider.credentialWithLink(email, window.location.href)
 
     // Check if user is logged in
     const auth = getAuth()
-    if (!auth.currentUser) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!auth.currentUser) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Re-authenticate the user with this credential
     await reauthenticateWithCredential(auth.currentUser, credential).catch((error: FirebaseError) => {
@@ -115,7 +123,9 @@ export default function () {
   // Send email verification
   const sendUserEmailVerification = async (): Promise<boolean> => {
     const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Send verification email
     await sendEmailVerification(user).catch((error: FirebaseError) => {
@@ -173,6 +183,7 @@ export default function () {
     if (!email) {
       // User opened the link on a different device. To prevent session fixation
       // attacks, ask the user to provide the associated email again.
+      // eslint-disable-next-line no-alert
       email = window.prompt(t('firebase.custom.confirmMailAddress'))
       if (!email) {
         throw new Error(t('firebase.custom.noMailProvided'))
@@ -203,7 +214,9 @@ export default function () {
   // Fetch email sign in methods for a user
   const fetchEmailSignInMethods = async (): Promise<string[]> => {
     const email = $auth.currentUser?.email
-    if (!email) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!email) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     const signInMethods = await fetchSignInMethodsForEmail($auth, email).catch((error: FirebaseError) => {
       const errorMessage = handleFirebaseError(error, 'firebase.custom.fetchMethodsFailed')

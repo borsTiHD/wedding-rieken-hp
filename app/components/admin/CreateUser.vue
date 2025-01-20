@@ -17,7 +17,7 @@ const loading = ref(false)
 // Submit button
 async function handleSubmit(form: { name: string, email: string, password: string }) {
   loading.value = true
-  await createNewUser(form).catch(() => { return false })
+  await createNewUser(form).catch(() => false)
   loading.value = false
 }
 
@@ -44,6 +44,7 @@ async function createNewUser(form: { name: string, email: string, password: stri
   })
 
   // Emit event to reload users
+  // eslint-disable-next-line vue/custom-event-name-casing
   emitter.$emit('user-created')
 
   // Emit event to parent

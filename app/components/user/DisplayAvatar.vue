@@ -43,6 +43,8 @@ const sizeClasses = computed(() => {
       return 'h-48 w-48'
     case '3xl':
       return 'h-64 w-64'
+    default:
+      return 'h-14 w-14'
   }
 })
 </script>

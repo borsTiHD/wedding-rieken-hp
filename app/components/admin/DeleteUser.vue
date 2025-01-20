@@ -35,7 +35,7 @@ async function onClick(event: MouseEvent) {
     },
     accept: async () => {
       loading.value = true
-      await deleteUserAccount().catch(() => { return false })
+      await deleteUserAccount().catch(() => false)
       loading.value = false
     },
   })

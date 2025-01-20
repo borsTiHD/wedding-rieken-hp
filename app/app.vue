@@ -98,7 +98,9 @@ async function upgradeUserRole() {
       return false
     })
 
-    if (!check) { return false }
+    if (!check) {
+      return false
+    }
 
     toast.add({
       severity: 'success',

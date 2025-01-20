@@ -26,7 +26,7 @@ interface FormValues {
 // Submit button
 async function handleSubmit(form: FormValues) {
   loading.value = true
-  await changeSpotifyPlaylist(form).catch(() => { return false })
+  await changeSpotifyPlaylist(form).catch(() => false)
   loading.value = false
 }
 

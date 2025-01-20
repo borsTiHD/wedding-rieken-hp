@@ -24,7 +24,7 @@ const time = ref(newTime)
 // Submit button
 async function handleSubmit(form: FormData) {
   loading.value = true
-  await createNewEvent(form).catch(() => { return false })
+  await createNewEvent(form).catch(() => false)
   loading.value = false
 }
 

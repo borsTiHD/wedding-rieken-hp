@@ -29,7 +29,9 @@ export default function () {
   // Change password
   const changePassword = async (password: string): Promise<boolean> => {
     const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Update password
     await updatePassword(user, password).catch((error: FirebaseError) => {
@@ -40,10 +42,34 @@ export default function () {
     return true
   }
 
+  // Change one, or more additional user profile data
+  const changeAdditionalUserProfileData = async (data: PartialUserProfile) => {
+    const user = $auth.currentUser
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
+
+    // Get user id
+    const uid = user.uid
+
+    // Update user profile
+    await updateByCollectionAndId(usersPath, uid, data).catch((error) => {
+      console.error(error)
+      throw new Error(t('firebase.custom.profileNotChanged'))
+    })
+
+    // Refresh user profile
+    await refreshUserProfile()
+
+    return true
+  }
+
   // Change email
   const changeEmail = async (email: string): Promise<boolean> => {
     const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Update primary email
     await updateEmail(user, email).catch((error: FirebaseError) => {
@@ -63,7 +89,9 @@ export default function () {
   // Change display name
   const changeDisplayName = async (displayName: string): Promise<boolean> => {
     const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Update display name
     await updateProfile(user, { displayName }).catch((error: FirebaseError) => {
@@ -77,7 +105,9 @@ export default function () {
   // Set profile photo
   const setProfilePhotoUrl = async (photoUrl: string): Promise<boolean> => {
     const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Update profile photo
     await updateProfile(user, { photoURL: photoUrl }).catch((error: FirebaseError) => {
@@ -90,7 +120,9 @@ export default function () {
   // Create default user profile
   const createDefaultUserProfile = async (uid: string) => {
     const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Get current user email
     const email = user?.email
@@ -109,32 +141,14 @@ export default function () {
     return addByCollectionAndId('users', uid, defaultUserProfile)
   }
 
-  // Change one, or more additional user profile data
-  const changeAdditionalUserProfileData = async (data: PartialUserProfile) => {
-    const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
-
-    // Get user id
-    const uid = user.uid
-
-    // Update user profile
-    await updateByCollectionAndId(usersPath, uid, data).catch((error) => {
-      console.error(error)
-      throw new Error(t('firebase.custom.profileNotChanged'))
-    })
-
-    // Refresh user profile
-    await refreshUserProfile()
-
-    return true
-  }
-
   // Change role to 'invited'
   // Needs a valid token
   // Firebase will check if the token is valid
   const changeRoleToInvited = async (token: string): Promise<boolean> => {
     const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Get user id
     const uid = user.uid
@@ -146,12 +160,19 @@ export default function () {
     })
 
     // Delete token from localStorage if the role was changed
-    if (response) { deleteInvitationToken() }
+    if (response) {
+      deleteInvitationToken()
+    }
 
     // Refresh user profile
     await refreshUserProfile()
 
     return true
+  }
+
+  // Delete user profile (additional user profile data)
+  const deleteUserProfile = async (uid: string) => {
+    return deleteByCollectionAndId(usersPath, uid)
   }
 
   // Delete a user
@@ -160,7 +181,9 @@ export default function () {
   // - deletes the user files
   const deleteUserAccount = async (): Promise<boolean> => {
     const user = $auth.currentUser
-    if (!user) { throw new Error(t('firebase.custom.noUserLoggedIn')) }
+    if (!user) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
 
     // Delete user profile
     const uid = user.uid
@@ -188,14 +211,11 @@ export default function () {
     return true
   }
 
-  // Delete user profile (additional user profile data)
-  const deleteUserProfile = async (uid: string) => {
-    return deleteByCollectionAndId(usersPath, uid)
-  }
-
   // Get additional user profile data, stored in Firebase user collection
   const fetchAdditionalUserProfile = async (uid: string): Promise<UserProfile> => {
-    if (!uid) { throw new Error(t('firebase.custom.noUserId')) }
+    if (!uid) {
+      throw new Error(t('firebase.custom.noUserId'))
+    }
 
     // Get user profile
     return queryByCollectionAndId(usersPath, uid).catch(async (error) => {

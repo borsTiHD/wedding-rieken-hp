@@ -9,7 +9,7 @@ import 'vue-boo-bash/style.css'
 const toast = useToast()
 const { t } = useI18n()
 const { changeAdditionalUserProfileData } = useFirebaseUserProfile()
-const emitter = useEmitter() // Eventbus emitter
+const emitter = useEmitter()
 
 // User store
 const userStore = useUserStore()
@@ -24,12 +24,14 @@ const settings = {
 
 // New game event will hide the navbar and footer
 function newGame() {
+  // eslint-disable-next-line vue/custom-event-name-casing
   emitter.$emit('boo-bash', true)
 }
 
 // Game over event
 async function gameOver(event: { score: number, highScore: number }) {
   // Game Over event will show the navbar and footer again
+  // eslint-disable-next-line vue/custom-event-name-casing
   emitter.$emit('boo-bash', false)
 
   // Check if user is logged in
