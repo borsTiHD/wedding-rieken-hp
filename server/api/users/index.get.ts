@@ -38,14 +38,16 @@ export default defineEventHandler(async(event) => {
     for (const userDoc of userDocs) {
         if (userDoc.status === 'fulfilled') {
             const userId = userDoc.value.id
-            userMap[userId].profile = userDoc.value.data() as UserProfile
+            const user = userMap[userId] as User
+            user.profile = userDoc.value.data() as UserProfile
         }
     }
 
     // Create an array of users with profiles
     const usersWithProfiles: Array<User> = []
     for (const userId in userMap) {
-        usersWithProfiles.push(userMap[userId])
+        const user = userMap[userId] as User
+        usersWithProfiles.push(user)
     }
 
     // Return all users with profiles

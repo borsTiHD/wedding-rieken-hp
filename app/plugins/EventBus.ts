@@ -65,7 +65,7 @@ class Bus {
             if (eventListeners === undefined) { continue }
             if (typeof callback === 'function') {
                 for (let i = eventListeners.length - 1; i >= 0; i--) {
-                    if (eventListeners[i].callback === callback) { eventListeners.splice(i, 1) }
+                    if (eventListeners[i]?.callback === callback) { eventListeners.splice(i, 1) }
                 }
             } else {
                 this.eventListeners.delete(eventName)
@@ -82,7 +82,7 @@ class Bus {
     $emit(eventName: EventName, ...args: unknown[]) {
         if (!this.eventListeners.has(eventName)) { return } // No EventListeners for this eventName - return
         const eventListeners = this.eventListeners.get(eventName)
-        const eventListenerIndexesToDelete = []
+        const eventListenerIndexesToDelete: number[] = []
         if (eventListeners) {
             for (const [eventListenerIndex, eventListener] of eventListeners.entries()) {
                 eventListener.callback(...(args as []))
@@ -90,7 +90,10 @@ class Bus {
             }
 
             for (let i = eventListenerIndexesToDelete.length - 1; i >= 0; i--) {
-                eventListeners.splice(eventListenerIndexesToDelete[i], 1)
+                const eventListenerIndex = eventListenerIndexesToDelete[i]
+                if (typeof eventListenerIndex === 'number') {
+                    eventListeners.splice(eventListenerIndex, 1)
+                }
             }
         }
         // Else: Throw error?

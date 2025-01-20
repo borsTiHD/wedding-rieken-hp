@@ -13,7 +13,7 @@ export function useIsVisible(querySelector: string): { isVisible: Ref<boolean>, 
     const observedElement: Ref<Element | null> = ref(null)
 
     const observer: IntersectionObserver = new IntersectionObserver(([entry]) => {
-        isVisible.value = entry.isIntersecting
+        isVisible.value = entry?.isIntersecting ?? false
     })
 
     const observe = (element: Element | null) => {

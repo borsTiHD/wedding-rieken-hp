@@ -2,7 +2,7 @@ import admin from 'firebase-admin'
 import { getAuth } from 'firebase-admin/auth'
 import { getFirestore } from 'firebase-admin/firestore'
 import { getStorage } from 'firebase-admin/storage'
-import { ServiceAccount } from 'firebase-admin'
+import type { ServiceAccount } from 'firebase-admin'
 
 const config = useRuntimeConfig()
 const firebaseConfig = config.firebaseAdmin // Set in nuxt.config.ts
