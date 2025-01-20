@@ -62,7 +62,7 @@ class Bus {
    * @param {EventName | EventName[]} eventNameOrNames
    * @param {Function} [callback]
    */
-  $off(eventNameOrNames: EventName | EventName[], callback = undefined) {
+  $off(eventNameOrNames: EventName | EventName[], callback: () => void | undefined) {
     const eventNames = Array.isArray(eventNameOrNames) ? eventNameOrNames : [eventNameOrNames]
     for (const eventName of eventNames) {
       const eventListeners = this.eventListeners.get(eventName)
