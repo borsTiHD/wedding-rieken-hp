@@ -10,13 +10,21 @@ const { t } = useI18n()
 
 // Image loading and error handling
 const loading = ref(true)
-function onLoad() { loading.value = false }
-function onError() { loading.value = false }
+function onLoad() {
+  loading.value = false
+}
+function onError() {
+  loading.value = false
+}
 
 // Image hover effect
 const hovered = ref(false)
-function onEnter() { hovered.value = true }
-function onLeave() { hovered.value = false }
+function onEnter() {
+  hovered.value = true
+}
+function onLeave() {
+  hovered.value = false
+}
 </script>
 
 <template>

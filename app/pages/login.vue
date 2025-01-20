@@ -20,7 +20,9 @@ const activeTab = ref('0')
 
 // Watch uid and push to home if user is logged in
 watch(uid, (newUid) => {
-  if (newUid) { router.push(localePath('/')) }
+  if (newUid) {
+    router.push(localePath('/'))
+  }
 })
 
 // On mount
@@ -32,7 +34,9 @@ onMounted(() => {
   }
 
   // If user is logged in, push to home
-  if (uid.value) { router.push(localePath('/user')) }
+  if (uid.value) {
+    router.push(localePath('/user'))
+  }
 })
 </script>
 

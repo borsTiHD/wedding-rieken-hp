@@ -42,12 +42,25 @@ const isActive = (item: MenuItem) => item.route ? router.resolve(item.route).pat
 const currentPageIndex = computed(() => items.value.findIndex(item => item.route === route.path))
 
 // Navigate to next or previous page
-function nextPage() { router.push(items.value[currentPageIndex.value + 1].route) }
-function prevPage() { router.push(items.value[currentPageIndex.value - 1].route) }
+function nextPage() {
+  const nextIndex = currentPageIndex.value + 1
+  if (items.value && nextIndex < items.value.length && items.value[nextIndex]) {
+    router.push(items.value[nextIndex].route)
+  }
+}
+
+function prevPage() {
+  const prevIndex = currentPageIndex.value - 1
+  if (items.value && prevIndex >= 0 && items.value[prevIndex]) {
+    router.push(items.value[prevIndex].route)
+  }
+}
 
 // Complete the stepper
 // This will link to the user profile page
-function complete() { router.push(localePath('/user')) }
+function complete() {
+  router.push(localePath('/user'))
+}
 
 // Check if the state of the page is complete
 function checkState(index: number) {
