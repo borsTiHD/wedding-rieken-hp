@@ -102,8 +102,8 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: 'de',
     locales: [
-      { code: 'de', iso: 'de-DE', name: 'Deutsch' },
-      { code: 'us', iso: 'en-US', name: 'English' },
+      { code: 'de', language: 'de-DE', name: 'Deutsch' },
+      { code: 'us', language: 'en-US', name: 'English' },
     ],
     detectBrowserLanguage: {
       useCookie: true,
@@ -111,6 +111,10 @@ export default defineNuxtConfig({
       redirectOn: 'root', // recommended
     },
     vueI18n: './i18n.config.ts',
+    compilation: {
+      strictMessage: false,
+      escapeHtml: true,
+    },
   },
   devtools: { enabled: process.env.NODE_ENV !== 'production' },
   compatibilityDate: '2024-07-07',

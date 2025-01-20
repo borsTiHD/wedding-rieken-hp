@@ -1,7 +1,7 @@
 import type { CookieConsentConfig } from 'vanilla-cookieconsent'
-import de from '@/locales/cookieconsent/de.json'
-import us from '@/locales/cookieconsent/us.json'
 import { useCookieStore } from '@/stores/cookieconsent'
+import de from '@@/i18n/locales/cookieconsent/de.json'
+import us from '@@/i18n/locales/cookieconsent/us.json'
 import * as CookieConsent from 'vanilla-cookieconsent'
 import 'vanilla-cookieconsent/dist/cookieconsent.css'
 
