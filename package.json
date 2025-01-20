@@ -6,7 +6,8 @@
     "build": "nuxt build",
     "dev": "nuxt dev --host",
     "postinstall": "nuxt prepare",
-    "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit"
   },
   "repository": {
