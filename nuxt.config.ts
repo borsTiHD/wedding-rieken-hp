@@ -1,3 +1,5 @@
+import process from 'node:process'
+
 // Function checks a single environment variable
 function checkEnvironmentVariable(variableName: string): void {
   if (!process.env[variableName]) {
