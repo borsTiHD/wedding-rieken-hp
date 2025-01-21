@@ -99,6 +99,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  typescript: {
+    typeCheck: true,
+  },
   i18n: {
     defaultLocale: 'de',
     locales: [
