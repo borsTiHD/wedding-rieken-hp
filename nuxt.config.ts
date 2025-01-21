@@ -61,12 +61,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  modules: [
-    '@primevue/nuxt-module',
-    '@pinia/nuxt',
-    '@formkit/nuxt',
-    '@nuxtjs/i18n',
-  ],
+  modules: ['@primevue/nuxt-module', '@pinia/nuxt', '@formkit/nuxt', '@nuxtjs/i18n', '@nuxtjs/leaflet'],
   vue: {
     compilerOptions: {
       isCustomElement: tag => tag.startsWith('add-'),
