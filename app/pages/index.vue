@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import RouteDescription from '@/components/content/RouteDescription.vue'
 import ShowAgenda from '@/components/content/ShowAgenda.vue'
 import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
+import ShowLocation from '@/components/content/ShowLocation.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
@@ -128,7 +128,7 @@ onMounted(() => {
       <section id="infos">
         <div class="section-style">
           <div class="flex flex-wrap md:flex-nowrap gap-4">
-            <RouteDescription class="basis-6/12" />
+            <ShowLocation class="basis-6/12" />
             <ShowInfos />
           </div>
           <ShowQuote />
