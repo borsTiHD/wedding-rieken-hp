@@ -11,7 +11,8 @@ import useBackendApi from '@/composables/useBackendApi'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useWindowSize } from '@/composables/useWindowSize'
 import { useUserStore } from '@/stores/user'
-import { FilterMatchMode } from '@primevue/core/api'
+// import { FilterMatchMode } from '@primevue/core/api'
+import { FilterMatchMode } from '@primevue/core'
 import { useToast } from 'primevue/usetoast'
 
 // Type definition for DataTableUser
