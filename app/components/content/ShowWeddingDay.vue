@@ -17,8 +17,6 @@ const calendarLocale = computed(() => {
       return 'de'
     case 'us':
       return 'en'
-    case 'en':
-      return 'en'
     default:
       return locale.value
   }
