@@ -22,11 +22,13 @@ const displayName = computed(() => userStore.displayName)
 // Overlay panel
 const op = ref<typeof Popover | null>(null)
 function showOverlayPanel(event: PointerEvent | KeyboardEvent) {
+  // @ts-expect-error - Property 'toggle' does exist on primevue/popover
   op.value?.toggle(event)
 }
 
 // Change route and close overlay panel
 function routeChange(route: string) {
+  // @ts-expect-error - Property 'hide' does exist on primevue/popover
   op.value?.hide()
   router.push(localePath(route))
 }
@@ -51,6 +53,7 @@ async function logout() {
       })
     })
 
+  // @ts-expect-error - Property 'hide' does exist on primevue/popover
   op.value?.hide()
 }
 </script>

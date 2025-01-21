@@ -1,5 +1,7 @@
 import { useI18n } from 'vue-i18n'
 
+type Locales = 'de' | 'us'
+
 export default function useLocale() {
   const { locale, getLocaleCookie, setLocaleCookie, getBrowserLocale, setLocale } = useI18n()
   const browserLocale = getBrowserLocale()
@@ -8,17 +10,17 @@ export default function useLocale() {
 
   // Set locale on startup
   if (cookieLocale) {
-    setLanguage(cookieLocale)
+    setLanguage(cookieLocale as Locales)
   }
   else if (browserLocale) {
-    setLanguage(browserLocale)
+    setLanguage(browserLocale as Locales)
   }
   else {
     setLanguage('de')
   }
 
   // Set locale
-  function setLanguage(newLocale: string) {
+  function setLanguage(newLocale: Locales) {
     setLocale(newLocale)
     setCookie(newLocale)
 
@@ -34,7 +36,7 @@ export default function useLocale() {
   function setCookie(newLocale: string) {
     if (!$CookieConsentActions?.isConsentAccepted(['app']))
       return null
-    setLocaleCookie(newLocale)
+    setLocaleCookie(newLocale as Locales)
   }
 
   return {
