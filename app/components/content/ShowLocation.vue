@@ -2,15 +2,27 @@
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import { useConfig } from '@/composables/useConfig'
 import { useGoogleMaps } from '@/composables/useGoogleMaps'
+// import L from 'leaflet'
+// import type L from 'leaflet'
 
 const { t } = useI18n()
 
 // Config
-const { street, city, locationPreviewUrl } = useConfig()
+const {
+  street,
+  city,
+  // locationPreviewUrl
+} = useConfig()
 
 // Google Maps
 const address = computed(() => `${street.value}, ${city.value}`)
 const { link: googleMapsLink } = useGoogleMaps(address)
+
+// Leaflet Map
+const map = ref() // ref<L.Map>()
+const zoom = ref(16)
+const mapReady = computed(() => map.value?.ready)
+const coordinates = [51.146396, 7.1552614]
 </script>
 
 <template>
@@ -41,8 +53,28 @@ const { link: googleMapsLink } = useGoogleMaps(address)
             />
           </div>
         </div>
-        <Image v-if="locationPreviewUrl" :src="locationPreviewUrl" alt="Location Preview" width="250" image-class="rounded-lg" preview />
-        <Skeleton v-else size="12rem" />
+        <div class="h-64 w-full rounded-xl overflow-hidden">
+          <Skeleton v-if="!mapReady" size="12rem" />
+          <ClientOnly>
+            <LMap
+              ref="map"
+              class="rounded-lg"
+              :zoom="zoom"
+              :center="coordinates"
+              :use-global-leaflet="false"
+            >
+              <LTileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                layer-type="base"
+                name="OpenStreetMap"
+              />
+              <LMarker :lat-lng="coordinates" />
+            </LMap>
+          </ClientOnly>
+        </div>
+
+        <!-- <Image v-if="locationPreviewUrl" :src="locationPreviewUrl" alt="Location Preview" width="250" image-class="rounded-lg" preview /> -->
+        <!-- <Skeleton v-else size="12rem" /> -->
       </div>
     </template>
   </Card>
