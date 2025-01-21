@@ -1,4 +1,4 @@
-import type { FirebaseError } from '@firebase/util'
+import type { FirebaseError } from 'firebase/app'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import { useUserStore } from '@/stores/user'
 import {

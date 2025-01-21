@@ -1,5 +1,5 @@
 import type { PartialUserProfile, UserProfile } from '@/types/UserProfile'
-import type { FirebaseError } from '@firebase/util'
+import type { FirebaseError } from 'firebase/app'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import useBackendApi from '@/composables/useBackendApi'
 import { useTokenStore } from '@/stores/token'
