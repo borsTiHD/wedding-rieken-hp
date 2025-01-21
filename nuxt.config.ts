@@ -32,6 +32,7 @@ isValidEnvironment()
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2024-07-07',
   future: {
     compatibilityVersion: 4,
   },
@@ -115,5 +116,4 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: process.env.NODE_ENV !== 'production' },
-  compatibilityDate: '2024-07-07',
 })
