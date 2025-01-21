@@ -1,4 +1,4 @@
-import type { FirebaseError } from '@firebase/util'
+import type { FirebaseError } from 'firebase/app'
 
 // Error handling function
 export default function handleFirebaseError(error: FirebaseError, defaultCode: string) {

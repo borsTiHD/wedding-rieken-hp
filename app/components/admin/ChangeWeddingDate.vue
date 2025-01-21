@@ -6,7 +6,7 @@ import ShowCountdown from '@/components/ShowCountdown.vue'
 import handleFirebaseError from '@/composables/handleFirebaseError'
 import { useConfig } from '@/composables/useConfig'
 import { useAppStore } from '@/stores/app'
-import { Timestamp } from '@firebase/firestore'
+import { Timestamp } from 'firebase/firestore'
 import { useToast } from 'primevue/usetoast'
 
 const { t } = useI18n()

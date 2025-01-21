@@ -1,5 +1,5 @@
 import type { Document } from '@/composables/useFirestore'
-import type { Timestamp } from '@firebase/firestore-types'
+import type { Timestamp } from 'firebase/firestore'
 
 // Config types
 export interface Config extends Document {

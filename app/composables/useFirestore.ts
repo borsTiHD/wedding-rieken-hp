@@ -1,6 +1,6 @@
 import type { PartialConfig } from '@/queries/config/model'
 import type { DailyAgenda, Witness } from '@/queries/content/model'
-import type { Timestamp } from '@firebase/firestore-types'
+import type { Timestamp } from 'firebase/firestore'
 import {
   addDoc,
   arrayRemove,
