@@ -17,7 +17,7 @@ Welcome to the Wedding Invitation Web App! This project is a heartfelt invitatio
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
 - **Firebase**: A platform offering tools for app development, including database, authentication, and cloud services.
 - **Firebase Admin**: Manage your Firebase services programmatically.
-- **Coolify**: An automatic and self-hosted deployment pipeline like vercel.
+- **VueBooBash**: A self-made game hidden in the app as an easter egg. Check out the [project repo](https://github.com/borsTiHD/vue-boo-bash).
 
 ## 🚀 Setup
 
