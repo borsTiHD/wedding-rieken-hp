@@ -98,9 +98,6 @@ export default defineNuxtPlugin((nuxtApp) => {
         label: 'truncate',
       },
     },
-    components: {
-      include: '*', // Include all components - TODO: Optimize this
-    },
     directives: {
       include: ['Tooltip'],
     },
