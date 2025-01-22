@@ -36,6 +36,9 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  typescript: {
+    typeCheck: true,
+  },
   runtimeConfig: {
     // Server-side runtime config
     firebaseAdmin: {
@@ -94,9 +97,6 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
-  },
-  typescript: {
-    typeCheck: true,
   },
   i18n: {
     defaultLocale: 'de',
