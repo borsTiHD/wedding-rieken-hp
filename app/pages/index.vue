@@ -127,8 +127,8 @@ onMounted(() => {
       <!-- Infos -->
       <section id="infos">
         <div class="section-style">
-          <div class="flex flex-wrap md:flex-nowrap gap-4">
-            <ShowLocation class="basis-6/12" />
+          <div class="flex flex-wrap xl:flex-nowrap gap-4">
+            <ShowLocation class="min-w-96" />
             <ShowInfos />
           </div>
           <ShowQuote />
