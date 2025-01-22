@@ -1,63 +1,60 @@
-# Nuxt 3 Minimal Starter
+# 💍 Wedding Invitation Web App
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Welcome to the Wedding Invitation Web App! This project is a heartfelt invitation for guests to join a special wedding celebration. The app allows guests to register, accept or decline the invitation, and provides all the necessary details about the wedding day.
 
-## Setup
+## 🎉 Features
+
+- **QR Code Invitations**: Generate a QR code with an embedded token for secure guest registration.
+- **Guest Registration**: Guests can register using the QR code and complete their profiles.
+- **Invitation Management**: Guests can accept or decline the invitation.
+- **Wedding Details**: View the wedding schedule, location information, and more.
+- **Admin Management**: Admins can manage user registrations, invite or decline users, customize app information, and track guest attendance.
+
+## 🛠 Core Technologies
+
+- **Nuxt 3**: A powerful framework for building modern web applications.
+- **Vue 3**: The progressive JavaScript framework.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+- **Firebase**: A platform offering tools for app development, including database, authentication, and cloud services.
+- **Firebase Admin**: Manage your Firebase services programmatically.
+- **Coolify**: An automatic and self-hosted deployment pipeline like vercel.
+
+## 🚀 Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# npm
-npm install
-
 # pnpm
 pnpm install
-
-# yarn
-yarn install
 ```
 
-## Development Server
+## 🛠 Development Server
 
-Start the development server on `http://localhost:3000`:
+Start the development server on http://localhost:3000:
 
 ```bash
-# npm
-npm run dev
-
 # pnpm
 pnpm run dev
-
-# yarn
-yarn dev
 ```
 
-## Production
+## 📦 Production
 
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
 # pnpm
 pnpm run build
-
-# yarn
-yarn build
 ```
 
-Locally preview production build:
+## 📚 Documentation
+For more information, check out the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction).
 
-```bash
-# npm
-npm run preview
+## 🤝 Contributing
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
-# pnpm
-pnpm run preview
+## 📜 License
+This project is open source and available under the MIT License.
 
-# yarn
-yarn preview
-```
+---
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Made with ❤️ for a special friend's wedding.
