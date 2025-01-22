@@ -71,6 +71,11 @@ export default defineNuxtConfig({
       isCustomElement: tag => tag.startsWith('add-'),
     },
   },
+  vite: {
+    optimizeDeps: {
+      exclude: ['primevue'],
+    },
+  },
   primevue: {
     // Use PrimeVue Plugin for configuration
     // https://primevue.org/nuxt/#useprimevue
