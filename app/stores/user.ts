@@ -1,6 +1,7 @@
 import type { UserProfile } from '@/types/UserProfile'
+import type { User } from 'firebase/auth'
 import clearNestedObject from '@/composables/clearNestedObject'
-import { getIdToken, onAuthStateChanged, type User } from 'firebase/auth'
+import { getIdToken, onAuthStateChanged } from 'firebase/auth'
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user-store', () => {
