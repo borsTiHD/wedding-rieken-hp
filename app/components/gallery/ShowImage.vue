@@ -52,15 +52,17 @@ function onLeave() {
       </div>
     </template>
     <template #image>
-      <!-- This is the preview image -->
+      <!-- This is the preview image - thumbnail -->
       <div class="relative" :class="{ 'w-[300px] h-[400px]': loading }">
         <div v-if="loading" class="absolute inset-0 flex items-center justify-center">
           <ProgressSpinner class="size-12" />
         </div>
-        <img
+        <NuxtImg
           :src="image.thumbnailSrc"
           :alt="image.alt"
           loading="lazy"
+          :placeholder="[300, 400, 75, 5]"
+          quality="60"
           :class="{
             'hide-on-load': loading,
             'motion-scale-out-[1.4] motion-duration-[10s]': hovered,
@@ -69,18 +71,21 @@ function onLeave() {
           class="w-full h-full object-cover"
           @load="onLoad"
           @error="onError"
-        >
+        />
       </div>
     </template>
     <template #original="slotProps">
       <!-- This is the original image (fullscreen) -->
-      <img
+      <NuxtImg
         :src="image.src"
         :alt="image.alt"
         loading="lazy"
+        :placeholder="[300, 400, 75, 5]"
+        quality="80"
+        class="w-full h-full max-h-screen object-cover"
         :style="slotProps.style"
         @click="slotProps.previewCallback"
-      >
+      />
     </template>
   </Image>
 </template>
