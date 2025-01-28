@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useEventListener } from '@/composables/useEventListener'
+import { useFooterHeight } from '@/composables/useFooterHeight'
 import { useAppStore } from '@/stores/app'
 import { usePagesStore } from '@/stores/pages'
-import { useThrottleFn } from '@vueuse/core'
 
 // Localisation
 const { t } = useI18n()
@@ -22,45 +21,14 @@ const groom = computed(() => appStore.groom)
 // Github repo link
 const githubRepo = 'https://github.com/borsTiHD/wedding-rieken-hp/'
 
-// Scroll event listener - calculate the height of the background overlay
-const backgroundOverlayHeight = ref(0)
-useEventListener(window, 'scroll', useThrottleFn(() => {
-  backgroundOverlayHeight.value = calculateHeight()
-}, 10))
-
 // Calculate the height of the background overlay
 // This function is called on scroll event
-const footer = ref<HTMLElement | null>(null)
-function calculateHeight() {
-  if (footer.value) {
-    const rect = footer.value.getBoundingClientRect()
-    const scrollPosition = window.innerHeight - rect.top
-
-    // If the height is greater than 50,
-    // reduce it by half the height of the footer
-    if (scrollPosition > 50) {
-      return scrollPosition - (rect.height / 2)
-    }
-
-    // If the height is greater than 0,
-    // return the height
-    return scrollPosition > 0 ? scrollPosition : 0
-  }
-
-  // If the footer is not set, return 0
-  return 0
-}
+const footer = ref<HTMLElement>()
+const { backgroundOverlayHeight } = useFooterHeight(footer)
 
 // Hide footer on BooBash game start
 useRegisterEvent('boo-bash', (running: Event) => {
   showFooter.value = !running
-})
-
-onMounted(() => {
-  backgroundOverlayHeight.value = calculateHeight()
-  setTimeout(() => {
-    backgroundOverlayHeight.value = calculateHeight()
-  }, 1000)
 })
 </script>
 
