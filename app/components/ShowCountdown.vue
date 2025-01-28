@@ -24,7 +24,16 @@ const seconds = computed(() => timeLeft.value % 60)
 
 // Countdown states
 const countdownFinished = computed(() => days.value <= 0 && hours.value <= 0 && minutes.value <= 0 && seconds.value <= 0) // True if countdown is zero or negative
-const weedingRunning = computed(() => Math.floor((timeLeft.value % 86400) / 3600) >= -1 * weddingDuration.value) // True if wedding is still running
+const weedingRunning = computed(() => {
+  // Return if timestamp is undefined
+  if (!props.timestamp)
+    return
+
+  // True if wedding is still running
+  const currentTime = Math.floor(Date.now() / 1000)
+  const weddingEnd = props.timestamp + (weddingDuration.value * 3600)
+  return currentTime < weddingEnd
+})
 
 // Update countdown values
 function updateCountdown() {
