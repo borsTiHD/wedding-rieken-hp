@@ -3,6 +3,7 @@ import { useThrottleFn } from '@vueuse/core'
 import { useRoute } from 'vue-router'
 
 export function useFooterHeight(footer: Ref<HTMLElement | undefined>) {
+  const interval = ref<null | ReturnType<typeof setInterval>>(null)
   const backgroundOverlayHeight = ref(0)
 
   function calculateHeight() {
@@ -25,23 +26,31 @@ export function useFooterHeight(footer: Ref<HTMLElement | undefined>) {
     return 0
   }
 
-  useEventListener(window, 'scroll', useThrottleFn(() => {
+  function setHeight() {
     backgroundOverlayHeight.value = calculateHeight()
+  }
+
+  function setHeightInterval() {
+    setHeight()
+    if (interval.value) {
+      clearInterval(interval.value)
+    }
+    interval.value = setInterval(() => {
+      setHeight()
+    }, 1000)
+  }
+
+  useEventListener(window, 'scroll', useThrottleFn(() => {
+    setHeight()
   }, 10))
 
   const route = useRoute()
   watch(route, () => {
-    backgroundOverlayHeight.value = calculateHeight()
-    setTimeout(() => {
-      backgroundOverlayHeight.value = calculateHeight()
-    }, 1000)
+    setHeightInterval()
   })
 
   onMounted(() => {
-    backgroundOverlayHeight.value = calculateHeight()
-    setTimeout(() => {
-      backgroundOverlayHeight.value = calculateHeight()
-    }, 1000)
+    setHeightInterval()
   })
 
   return {
