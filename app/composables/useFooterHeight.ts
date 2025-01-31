@@ -32,6 +32,9 @@ export function useFooterHeight(footer: Ref<HTMLElement | undefined>) {
   const route = useRoute()
   watch(route, () => {
     backgroundOverlayHeight.value = calculateHeight()
+    setTimeout(() => {
+      backgroundOverlayHeight.value = calculateHeight()
+    }, 1000)
   })
 
   onMounted(() => {
