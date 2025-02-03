@@ -14,7 +14,8 @@ const emojis = ref<Emoji[]>([])
 
 // Generate random emojis
 function generateEmoji() {
-  const emojiChars = ['❤️', '💍', '💐', '🎵', '❓', '🎉', '🥂', '👰', '🤵', '💒', '🎂', '💌', '🚗']
+  // const emojiChars = ['❤️', '💍', '💐', '🎵', '🎉', '🥂', '👰', '🤵', '💒', '🎂', '💌', '🚗']
+  const emojiChars = ['🤍']
   const duration = Math.random() * 10 + 6 // Fall duration between 6 and 16 seconds
   const emoji: Emoji = {
     id: `emoji_${Date.now()}_${Math.random().toString().replace('.', '_')}`,
@@ -57,7 +58,10 @@ function resizeContainer() {
 onMounted(() => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if (!prefersReducedMotion) {
-    interval.value = setInterval(generateEmoji, 1000)
+    if (interval.value !== undefined) {
+      clearInterval(interval.value)
+    }
+    interval.value = setInterval(generateEmoji, 4000)
   }
 
   // Resize container on mount and on resize
