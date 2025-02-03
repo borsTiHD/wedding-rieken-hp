@@ -13,7 +13,7 @@
   "general": {
     "404": "Seite nicht gefunden",
     "inputDateFormat": "dd.mm.yy",
-    "weddingDay": "Hochzeitstag",
+    "weddingDay": "Unser Tag",
     "eventTitle": "Hochzeit von {bride} und {groom}",
     "eventDescription": "Weitere Informationen finden Sie hier: {url}",
     "invitation": "Einladung",
