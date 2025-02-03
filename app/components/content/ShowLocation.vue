@@ -58,7 +58,7 @@ const coordinates = [51.146396, 7.1552614]
           <ClientOnly>
             <LMap
               ref="map"
-              class="rounded-lg"
+              class="rounded-lg z-[4]"
               :zoom="zoom"
               :center="coordinates"
               :use-global-leaflet="false"
