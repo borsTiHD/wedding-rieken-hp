@@ -46,7 +46,8 @@ onMounted(() => {
       <template #title>
         <div class="flex flex-col items-center gap-4">
           <div class="relative inline-block">
-            <ShowUnderline color="text-purple-400">
+            <!-- <ShowUnderline color="text-purple-400"> -->
+            <ShowUnderline color="text-[#e8b797]">
               <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
                 {{ t('welcome.header') }}
               </h2>

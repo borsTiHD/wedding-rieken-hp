@@ -15,7 +15,8 @@ const { dailyAgenda, isFetching } = useContent()
       <IconBackground icon="pi-calendar" />
       <div class="flex flex-col gap-8 items-center">
         <div class="relative inline-block">
-          <ShowUnderline color="text-fuchsia-400">
+          <!-- <ShowUnderline color="text-fuchsia-400"> -->
+          <ShowUnderline color="text-[#fbb89b]">
             <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
               {{ t('general.procedure.header') }}
             </h2>

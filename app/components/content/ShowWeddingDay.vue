@@ -37,7 +37,8 @@ const endTime = computed(() => dayjs(weddingDate.value).add(weddingDuration.valu
       <IconBackground icon="pi-heart-fill" />
       <div class="flex flex-col items-center gap-4">
         <div class="relative inline-block">
-          <ShowUnderline color="text-yellow-400">
+          <!-- <ShowUnderline color="text-yellow-400"> -->
+          <ShowUnderline color="text-[#f2ccbf]">
             <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
               {{ t('general.weddingDay') }}
             </h2>

@@ -27,7 +27,8 @@ if (/^boo$/i.test(secret.value)) {
         <template #title>
           <div class="flex flex-col items-center">
             <div class="relative inline-block">
-              <ShowUnderline color="text-purple-400">
+              <!-- <ShowUnderline color="text-purple-400"> -->
+              <ShowUnderline color="text-[#f1cdb5]">
                 <h1 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
                   {{ t('ghostGame.header') }}
                 </h1>
@@ -51,7 +52,8 @@ if (/^boo$/i.test(secret.value)) {
         <template #title>
           <div class="flex flex-col items-center">
             <div class="relative inline-block">
-              <ShowUnderline color="text-purple-400">
+              <!-- <ShowUnderline color="text-purple-400"> -->
+              <ShowUnderline color="text-[#f0a787]">
                 <h1 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
                   {{ t('general.404') }}
                 </h1>

@@ -16,7 +16,8 @@ function goToImprint() {
     <template #title>
       <div class="flex flex-col items-center">
         <div class="relative inline-block">
-          <ShowUnderline color="text-rose-400">
+          <!-- <ShowUnderline color="text-rose-400"> -->
+          <ShowUnderline color="text-[#e8b797]">
             <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
               {{ t('consent.header') }}
             </h2>

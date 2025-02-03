@@ -31,7 +31,8 @@ const coordinates = [51.147440, 7.156428] // [51.146396, 7.1552614]
       <IconBackground icon="pi-map-marker" />
       <div class="flex flex-col items-center gap-4">
         <div class="relative inline-block">
-          <ShowUnderline color="text-rose-400">
+          <!-- <ShowUnderline color="text-rose-400"> -->
+          <ShowUnderline color="text-[#ffd4c3]">
             <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
               {{ t('general.address.header') }}
             </h2>

@@ -15,7 +15,8 @@ const { t } = useI18n()
     <template #content>
       <IconBackground icon="pi-image" />
       <div class="flex flex-col items-center gap-4">
-        <ShowUnderline color="text-blue-400">
+        <!-- <ShowUnderline color="text-blue-400"> -->
+        <ShowUnderline color="text-[#f2b69a]">
           <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
             {{ t('gallery.header') }}
           </h2>
