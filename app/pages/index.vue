@@ -176,7 +176,13 @@ onMounted(() => {
     }
 }
 
-#not-whitelisted {
+#wedding, #infos, #spotify, #riddle, #not-whitelisted {
+    background: linear-gradient(to right, #f2cac0, #f2b69a);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
+}
+
+/* #not-whitelisted {
     background: linear-gradient(to right, #ffecd2, #fcb69f);
     background-size: 400% 400%;
     animation: gradientAnimation 5s ease infinite;
@@ -204,7 +210,7 @@ onMounted(() => {
     background: linear-gradient(to right, #fbc2eb, #a6c1ee);
     background-size: 400% 400%;
     animation: gradientAnimation 5s ease infinite;
-}
+} */
 
 @keyframes gradientAnimation {
     0% {
