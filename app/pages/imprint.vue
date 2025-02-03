@@ -39,7 +39,7 @@ const { t } = useI18n()
             Lisa Auxel und Marcel Rieken (Brautpaar)<br>
             Pützbungert 24<br>
             53639 Königwinter<br>
-            E-Mail: info [at] beispielhochzeit.de
+            E-Mail: rieken.marcel [at] t-online.de
           </p>
 
           <h3>Haftungsausschluss (Disclaimer)</h3>
