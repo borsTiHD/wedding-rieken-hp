@@ -22,7 +22,7 @@ const { link: googleMapsLink } = useGoogleMaps(address)
 const map = ref() // ref<L.Map>()
 const zoom = ref(16)
 const mapReady = computed(() => map.value?.ready)
-const coordinates = [51.146396, 7.1552614]
+const coordinates = [51.147440, 7.156428] // [51.146396, 7.1552614]
 </script>
 
 <template>
