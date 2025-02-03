@@ -91,12 +91,12 @@ onMounted(() => {
       <!-- Content wrapper -->
       <div class="h-full w-3/4 sm:w-2/3 xl:w-1/2 flex flex-col">
         <div
-          class="wedding-text mt-auto flex flex-col justify-center text-white select-none"
-          :style="{ transform: `translateY(${scrollY / 2}px)` }"
+          class="wedding-text mt-32 md:mt-24 flex flex-col justify-center text-white select-none"
+          :style="{ transform: `translateY(${scrollY / 1.2}px)` }"
         >
-          <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
-          <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
-          <span class="font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
+          <span class="md:ml-14 font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
+          <span class="-mt-8 md:-mt-12 font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
+          <span class="md:-mt-2 font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
         </div>
 
         <!-- Scroll down icon -->
