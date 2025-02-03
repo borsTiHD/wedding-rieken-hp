@@ -2,7 +2,7 @@
 import ChangeDeadline from '@/components/admin/ChangeDeadline.vue'
 import ChangeInviteToken from '@/components/admin/ChangeInviteToken.vue'
 import ChangeLocation from '@/components/admin/ChangeLocation.vue'
-import ChangeLocationPreview from '@/components/admin/ChangeLocationPreview.vue'
+// import ChangeLocationPreview from '@/components/admin/ChangeLocationPreview.vue'
 import ChangeSpotifyPlaylist from '@/components/admin/ChangeSpotifyPlaylist.vue'
 import ChangeWeddingDate from '@/components/admin/ChangeWeddingDate.vue'
 import ChangeWeddingDuration from '@/components/admin/ChangeWeddingDuration.vue'
@@ -26,16 +26,16 @@ const userProfile = computed(() => userStore.userProfile)
         v-if="user.uid && userProfile?.role === 'admin'"
         class="flex flex-wrap gap-4 w-full"
       >
-        <ChangeWeddingDate class="basis-[40rem]" />
-        <ShowQRCode class="basis-80" />
-        <ChangeDeadline class="basis-[40rem]" />
-        <ChangeInviteToken class="basis-80" />
-        <ChangeWeddingDuration class="basis-80" />
-        <ChangeLocation class="basis-80" />
-        <ChangeLocationPreview />
-        <ChangeSpotifyPlaylist />
         <UpdateDailyAgenda />
         <UpdateWitnesses />
+        <ChangeSpotifyPlaylist />
+        <ChangeWeddingDate class="basis-[40rem]" />
+        <ChangeWeddingDuration class="basis-80" />
+        <ChangeDeadline class="basis-[40rem]" />
+        <ShowQRCode class="basis-80" />
+        <ChangeInviteToken class="basis-80" />
+        <ChangeLocation class="basis-80" />
+        <!-- <ChangeLocationPreview /> -->
       </div>
 
       <!-- You are not an admin -->
