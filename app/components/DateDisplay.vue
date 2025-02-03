@@ -17,9 +17,9 @@ switch (locale.value) {
   case 'de':
     dayjs.locale('de')
     break
-  case 'us':
-    dayjs.locale('en')
-    break
+  // case 'us':
+  //   dayjs.locale('en')
+  //   break
   default:
     dayjs.locale('de')
     break

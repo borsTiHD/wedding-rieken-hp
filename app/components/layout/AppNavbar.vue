@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
+// import ChangeLanguage from '@/components/settings/ChangeLanguage.vue'
 import UserQuickMenu from '@/components/settings/UserQuickMenu.vue'
 import UpgradeUserRole from '@/components/user/UpgradeUserRole.vue'
 import { useWindowSize } from '@/composables/useWindowSize'
@@ -112,7 +112,7 @@ useRegisterEvent('boo-bash', (running: Event) => {
           <UpgradeUserRole v-if="(!uid || userProfile.role === 'guest') && token && token !== ''" pill />
 
           <!-- Language selector -->
-          <ChangeLanguage />
+          <!-- <ChangeLanguage /> -->
 
           <!-- User quick menu -->
           <UserQuickMenu />

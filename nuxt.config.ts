@@ -71,7 +71,7 @@ export default defineNuxtConfig({
     '@formkit/nuxt',
     '@nuxtjs/i18n',
     '@nuxtjs/leaflet',
-    '@nuxt/image'
+    '@nuxt/image',
   ],
   vue: {
     compilerOptions: {
@@ -114,7 +114,7 @@ export default defineNuxtConfig({
     defaultLocale: 'de',
     locales: [
       { code: 'de', language: 'de-DE', name: 'Deutsch' },
-      { code: 'us', language: 'en-US', name: 'English' },
+      // { code: 'us', language: 'en-US', name: 'English' },
     ],
     detectBrowserLanguage: {
       useCookie: true,

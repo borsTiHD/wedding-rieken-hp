@@ -1,6 +1,6 @@
 import { useI18n } from 'vue-i18n'
 
-type Locales = 'de' | 'us'
+type Locales = 'de' // | 'us'
 
 export default function useLocale() {
   const { locale, getLocaleCookie, setLocaleCookie, getBrowserLocale, setLocale } = useI18n()
