@@ -120,7 +120,7 @@ const ptCard = {
                       {
                         'bg-primary': isActive(item),
                         'text-primary/60': (index + 1) < activeStep, // Before
-                        '': (index + 1) > activeStep, // After
+                        // '': (index + 1) > activeStep, // After
                       },
                     ]"
                     @click="($event) => routerProps.navigate($event)"
@@ -131,7 +131,7 @@ const ptCard = {
                         {
                           'text-white !border-0': isActive(item),
                           'text-primary/60': (index + 1) < activeStep, // Before
-                          '': (index + 1) > activeStep, // After
+                          // '': (index + 1) > activeStep, // After
                         },
                       ]"
                     >
@@ -139,9 +139,9 @@ const ptCard = {
                         :class="[
                           item.icon,
                           {
-                            '': isActive(item),
+                            // '': isActive(item),
                             'text-primary/60': (index + 1) < activeStep, // Before
-                            '': (index + 1) > activeStep, // After
+                            // '': (index + 1) > activeStep, // After
                           },
                         ]"
                       />
@@ -154,7 +154,7 @@ const ptCard = {
                         {
                           'font-bold': isActive(item),
                           'text-primary/60': (index + 1) < activeStep, // Before
-                          '': (index + 1) > activeStep, // After
+                          // '': (index + 1) > activeStep, // After
                         },
                       ]"
                     >
