@@ -29,12 +29,14 @@
     },
     "infos": {
       "header": "Infos",
-      "gifts": "Geschenke",
-      "giftsText": "Euer Kommen ist für uns das größte Geschenk. Wenn Ihr uns dennoch eine Freude machen möchtet, freuen wir uns über einen Beitrag zu unserer Flitterwochenkasse.",
+      "dresscode": "Dresscode",
+      "dresscodeText": "Wir freuen uns euch in festlicher Abendgarderobe begrüßen zu dürfen, aber das Wichtigste ist, dass ihr euch wohl fühlt.",
+      "gifts": "Geschenkwünsche",
+      "giftsText": "Das größte Geschenk ist eure Anwesenheit! Wenn ihr uns trotzdem beschenken möchtet, freuen wir uns über Beiträge für unsere Zukunftspläne.",
       "accommodation": "Unterkunft",
       "accommodationText": "Für Übernachtungsmöglichkeiten ist gesorgt. Bitte kontaktiert uns für weitere Informationen.",
-      "parking": "Parkmöglichkeiten",
-      "parkingText": "Parkplätze sind vorhanden",
+      "approach": "Anfahrt",
+      "approachText": "Zu unserer Location gehören mehrere Parkplätze. Der {parking} ist für euch reserviert. Von hier aus gelangt ihr auch direkt in unsere Location {location}.",
       "witnesses": "Trauzeugen",
       "witnessesText": "Unsere Trauzeugen haben Antworten auf weitere Fragen."
     },

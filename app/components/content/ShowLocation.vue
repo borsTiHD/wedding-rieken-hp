@@ -42,17 +42,32 @@ const coordinates = [51.147440, 7.156428] // [51.146396, 7.1552614]
           <div class="text-center font-medium text-lg">
             {{ street }}, {{ city }}
           </div>
-          <div class="text-center">
-            <Button
-              as="a"
-              severity="info"
-              icon="pi pi-map-marker"
-              :label="t('general.address.viewOnGoogleMap')"
-              :href="googleMapsLink"
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          </div>
+
+          <dl class="space-y-1">
+            <dt class="text-lg font-semibold leading-7 text-gray-900">
+              {{ t('general.infos.approach') }}
+            </dt>
+            <dd class="text-base text-gray-600">
+              <i18n-t keypath="general.infos.approachText" tag="p" class="text-pretty">
+                <template #parking>
+                  <strong>Parkplatz P2</strong>
+                </template>
+                <template #location>
+                  <strong>"Grotte"</strong>
+                </template>
+              </i18n-t>
+            </dd>
+          </dl>
+
+          <Button
+            as="a"
+            severity="info"
+            icon="pi pi-map-marker"
+            :label="t('general.address.viewOnGoogleMap')"
+            :href="googleMapsLink"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
         </div>
         <div class="h-64 w-full rounded-xl overflow-hidden">
           <Skeleton v-if="!mapReady" size="12rem" />

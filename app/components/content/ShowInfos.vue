@@ -11,6 +11,10 @@ const { witnesses, isFetching } = useContent()
 
 const infos = [
   {
+    header: t('general.infos.dresscode'),
+    text: t('general.infos.dresscodeText'),
+  },
+  {
     header: t('general.infos.gifts'),
     text: t('general.infos.giftsText'),
   },
@@ -40,7 +44,7 @@ const infos = [
             <dt class="text-lg font-semibold leading-7 text-gray-900">
               {{ info.header }}
             </dt>
-            <dd class="text-base leading-7 text-gray-600">
+            <dd class="text-base text-pretty text-gray-600">
               {{ info.text }}
             </dd>
           </template>
@@ -50,7 +54,7 @@ const infos = [
             <dt class="text-lg font-semibold leading-7 text-gray-900">
               {{ t('general.infos.witnesses') }}
             </dt>
-            <dd class="text-base leading-7 text-gray-600">
+            <dd class="text-base text-pretty text-gray-600">
               <span>{{ t('general.infos.witnessesText') }}</span>
               <ProgressBar v-if="isFetching" mode="indeterminate" style="height: 6px" />
             </dd>
@@ -61,8 +65,8 @@ const infos = [
             <dt class="text-lg font-semibold leading-7 text-gray-900">
               {{ t('general.infos.witnesses') }}
             </dt>
-            <dd class="text-base leading-7 text-gray-600">
-              <span>{{ t('general.infos.witnessesText') }}</span>
+            <dd class="text-base text-gray-600">
+              <span class="text-pretty">{{ t('general.infos.witnessesText') }}</span>
               <ul class="list-none list-inside">
                 <li v-for="witness in witnesses" :key="witness.name" class="flex gap-1">
                   <span class="font-semibold">{{ witness.name }}</span>
