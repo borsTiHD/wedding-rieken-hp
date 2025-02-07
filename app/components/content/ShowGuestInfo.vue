@@ -88,10 +88,13 @@ const userProfile = computed(() => userStore.userProfile)
           </i18n-t>
         </div>
 
-        <!-- User is is probably not logged in or an error occurred -->
+        <!-- Not logged in - User is a guest -->
         <div v-else class="flex flex-col justify-center items-center gap-4">
           <p class="text-pretty">
-            {{ t('welcome.defaultError') }}
+            {{ t('welcome.welcomeMessageUnregistered') }}
+          </p>
+          <p class="text-pretty">
+            {{ t('welcome.welcomeMessageUnregisteredMoreDetails') }}
           </p>
 
           <div class="w-full flex gap-4">
