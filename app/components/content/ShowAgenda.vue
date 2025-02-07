@@ -17,7 +17,7 @@ const { dailyAgenda, isFetching } = useContent()
         <div class="relative inline-block">
           <!-- <ShowUnderline color="text-fuchsia-400"> -->
           <ShowUnderline color="text-[#fbb89b]">
-            <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
+            <h2 class="pr-2 font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
               {{ t('general.procedure.header') }}
             </h2>
           </ShowUnderline>

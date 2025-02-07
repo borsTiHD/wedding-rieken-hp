@@ -95,8 +95,8 @@ onMounted(() => {
           :style="{ transform: `translateY(${scrollY / 1.2}px)` }"
         >
           <span class="md:ml-14 font-great-vibes text-7xl md:text-9xl drop-shadow-sm">{{ bride }}</span>
-          <span class="-mt-8 md:-mt-12 font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
-          <span class="md:-mt-2 font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
+          <span class="pr-2 -mt-8 md:-mt-12 font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-center">&</span>
+          <span class="pr-2 md:-mt-2 font-great-vibes text-7xl md:text-9xl drop-shadow-sm self-end">{{ groom }}</span>
         </div>
 
         <!-- Scroll down icon -->
