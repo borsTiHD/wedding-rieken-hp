@@ -1,7 +1,7 @@
 {
   "name": "wedding-rieken-hp",
   "private": true,
-  "packageManager": "pnpm@10.2.0",
+  "packageManager": "pnpm@10.2.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/borsTiHD/wedding-rieken-hp/"
@@ -34,22 +34,22 @@
     "@vueuse/core": "^12.5.0",
     "add-to-calendar-button": "^2.8.1",
     "dayjs": "^1.11.13",
-    "firebase": "^11.2.0",
-    "firebase-admin": "^13.0.2",
+    "firebase": "^11.3.0",
+    "firebase-admin": "^13.1.0",
     "flag-icons": "^7.3.2",
     "leaflet": "^1.9.4",
     "pinia": "^2.3.1",
     "primeicons": "^7.0.0",
     "primevue": "^4.2.5",
     "qr-code-styling": "^1.9.1",
-    "vanilla-cookieconsent": "^3.0.1",
+    "vanilla-cookieconsent": "^3.1.0",
     "vue-boo-bash": "^0.0.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.1.1",
-    "@nuxt/devtools": "^1.7.0",
+    "@nuxt/devtools": "^2.0.0",
     "@nuxt/image": "1.9.0",
-    "@nuxtjs/i18n": "^9.1.5",
+    "@nuxtjs/i18n": "^9.2.0",
     "@nuxtjs/leaflet": "1.2.6",
     "@primevue/nuxt-module": "^4.2.5",
     "@vue/devtools-api": "^7.7.1",
