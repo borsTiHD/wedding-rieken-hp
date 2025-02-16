@@ -41,11 +41,13 @@ const props = withDefaults(defineProps<Props>(), {
   breakpoints: () => { return { '960px': '75vw', '641px': '100vw' } },
 })
 
-// Events
 const emit = defineEmits(['close'])
 
-// Composables
-const slots = useSlots()
+const slots = defineSlots<{
+  header?: () => VNode[]
+  footer?: () => VNode[]
+  content?: () => VNode[]
+}>()
 
 // Show modal
 const visible = ref(false)
