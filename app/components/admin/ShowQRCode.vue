@@ -328,7 +328,7 @@ onMounted(async () => {
               </Message>
               <FormKit
                 v-model="qrCodeSettings"
-                type="text"
+                type="textarea"
                 name="settings"
                 outer-class="w-full"
                 :label="t('admin.qrcode.settings')"
