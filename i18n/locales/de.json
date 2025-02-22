@@ -580,7 +580,18 @@
     "qrcode": {
       "header": "Einladungs QR-Code",
       "download": "QR-Code herunterladen",
-      "fullUrl": "Vollständige QR-Code URL"
+      "fullUrl": "Vollständige QR-Code URL",
+      "infoText": "Hier können Sie den QR-Code herunterladen und die Einstellungen ändern. https://qr-code-styling.com/",
+      "settings": "QR-Code Einstellungen",
+      "formkit": {
+        "default": "Standard Einstellung",
+        "submit": "Einstellungen ändern"
+      },
+      "errorSettings": "Fehler beim Laden der Einstellungen",
+      "errorUpdateSettings": "Fehler beim Aktualisieren der Einstellungen",
+      "errorQrCodeCreate": "Fehler beim Erstellen des QR-Codes",
+      "successUpdateSettings": "Erfolgreich aktualisiert",
+      "successUpdateSettingsDetail": "Einstellungen erfolgreich aktualisiert"
     }
   },
   "ghostGame": {
