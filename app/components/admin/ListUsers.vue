@@ -286,11 +286,11 @@ useRegisterEvent('user-created', getUsers)
         <!-- User invitation infos -->
         <div class="flex flex-col sm:flex-row sm:items-center gap-4">
           <!-- User infos -->
-          <div class="flex flex-col pr-4 sm:border-r-2">
+          <div class="flex flex-col pr-4 border-b-2 sm:border-b-0 sm:border-r-2">
             <span class="font-bold">{{ t('admin.listUsers.invitedGuests', { n: invitedGuests.length }, invitedGuests.length) }}</span>
             <span class="text-sm text-gray-500">{{ t('admin.listUsers.pendingInvitations', { n: pendingInvitations.length }, pendingInvitations.length) }}</span>
           </div>
-          <div class="flex flex-col pr-4 sm:border-r-2">
+          <div class="flex flex-col pr-4 border-b-2 sm:border-b-0 sm:border-r-2">
             <span class="text-sm text-gray-600">{{ t('admin.listUsers.acceptedInvitations', { n: acceptedInvitations.length }, acceptedInvitations.length) }}</span>
             <span class="text-sm text-gray-400">{{ t('admin.listUsers.declinedInvitations', { n: declinedInvitations.length }, declinedInvitations.length) }}</span>
           </div>
