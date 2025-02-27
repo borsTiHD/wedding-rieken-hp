@@ -53,7 +53,8 @@ function scrollToSection(hash?: string) {
   if (nextSection) {
     // Get navbar height for offset
     const navbar = document.querySelector<HTMLElement>('.navbar')
-    const offset = navbar?.offsetHeight || 0
+    const navbarHeight = navbar?.offsetHeight ?? 0
+    const offset = navbarHeight !== 0 ? navbarHeight + 10 : 0
 
     // Calculate new Y-Value based on the next section
     // 16px offset because the navbar has a padding of 16px if the page is not scrolled
@@ -101,10 +102,11 @@ onMounted(() => {
 
         <!-- Scroll down icon -->
         <i
-          class="z-10 w-fit h-fit p-2 px-3 sm:p-4 rounded-full mt-auto mb-20 text-3xl md:text-5xl self-center  text-white drop-shadow-sm pi pi-angle-down motion-safe:animate-bounce motion-reduce:animate-none cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg" :class="[
+          class="z-10 w-fit h-fit p-2 px-3 sm:p-4 rounded-full mt-auto mb-20 text-3xl md:text-5xl self-center text-white drop-shadow-sm pi pi-angle-down motion-safe:animate-bounce motion-reduce:animate-none cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg"
+          :class="[
             isScrolled ? 'opacity-0' : 'opacity-100', // Hover
           ]"
-          @click="scrollToSection()"
+          @click="scrollToSection('#content')"
         />
       </div>
     </section>
@@ -112,60 +114,50 @@ onMounted(() => {
     <!-- Falling emojis -->
     <FallingEmojis :key="user?.uid || 1234" />
 
-    <template v-if="user?.uid && whitelistedRoles.includes(userProfile?.role) && userProfile?.invitation !== 'declined'">
-      <!-- WeddingDay -->
-      <section id="wedding">
-        <div class="section-style">
+    <div id="content" class="content-area">
+      <div v-if="user?.uid && whitelistedRoles.includes(userProfile?.role) && userProfile?.invitation !== 'declined'" class="wrapper-style">
+        <!-- WeddingDay -->
+        <section id="wedding" class="section-style">
           <div class="flex flex-wrap gap-4">
             <ShowWeddingDay />
             <ShowAgenda />
           </div>
           <ShowQuote />
-        </div>
-      </section>
+        </section>
 
-      <!-- Infos -->
-      <section id="infos">
-        <div class="section-style">
+        <!-- Infos -->
+        <section id="infos" class="section-style">
           <div class="flex flex-wrap gap-4">
             <ShowLocation class="basis-96" />
             <ShowInfos class="basis-80" />
           </div>
           <ShowQuote />
-        </div>
-      </section>
+        </section>
 
-      <!-- Spotify Playlist -->
-      <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify">
-        <div class="section-style">
+        <!-- Spotify Playlist -->
+        <section v-if="spotifyPlaylist && cookieConsentSpotify" id="spotify" class="section-style">
           <ShowSpotify />
-        </div>
-      </section>
+        </section>
 
-      <!-- Riddle -->
-      <section id="riddle">
-        <div class="section-style">
+        <!-- Riddle -->
+        <section id="riddle" class="section-style">
           <ShowRiddle />
-        </div>
-      </section>
-    </template>
+        </section>
+      </div>
 
-    <template v-else>
-      <!-- User is not whitelisted - e.p. not logged in, or not invited -->
-      <section id="not-whitelisted">
-        <div class="section-style max-w-2xl">
-          <ShowGuestInfo />
-        </div>
-      </section>
-    </template>
+      <div v-else class="wrapper-style">
+        <!-- User is not whitelisted - e.p. not logged in, or not invited -->
+        <section id="not-whitelisted" class="section-style items-center">
+          <div class="max-w-2xl">
+            <ShowGuestInfo />
+          </div>
+        </section>
+      </div>
+    </div>
   </main>
 </template>
 
 <style scoped>
-.section-style {
-    @apply p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4 z-10;
-}
-
 .background-image, .wedding-text {
     transition: transform 0.2s ease-out;
 }
@@ -176,10 +168,19 @@ onMounted(() => {
     }
 }
 
-#wedding, #infos, #spotify, #riddle, #not-whitelisted {
+.content-area {
+    @apply flex flex-col gap-4;
     background: linear-gradient(to right, #f2cac0, #f2b69a);
     background-size: 400% 400%;
     animation: gradientAnimation 5s ease infinite;
+}
+
+.wrapper-style {
+    @apply p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4 z-10;
+}
+
+.section-style {
+    @apply flex flex-col gap-4;
 }
 
 /* #not-whitelisted {
