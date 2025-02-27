@@ -10,14 +10,6 @@ const { t } = useI18n()
 const quotes = [
   t('quotes.quote1'),
   t('quotes.quote2'),
-  t('quotes.quote3'),
-  t('quotes.quote4'),
-  t('quotes.quote5'),
-  t('quotes.quote6'),
-  t('quotes.quote7'),
-  t('quotes.quote8'),
-  t('quotes.quote9'),
-  t('quotes.quote10'),
 ]
 
 // Get specific or random quote
