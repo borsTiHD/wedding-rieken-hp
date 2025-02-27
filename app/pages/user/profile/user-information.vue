@@ -134,7 +134,7 @@ async function handleVerifyEmail() {
                   outlined
                   class="p-0"
                   :loading="loadingEmailVerify"
-                  @click.prevent="handleVerifyEmail"
+                  @click.stop.prevent="handleVerifyEmail"
                 />
               </div>
 

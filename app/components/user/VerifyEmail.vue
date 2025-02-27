@@ -57,7 +57,7 @@ async function handleVerifyEmail() {
     class="p-0"
     severity="info"
     :loading="loadingEmailVerify"
-    @click.prevent="handleVerifyEmail"
+    @click.stop.prevent="handleVerifyEmail"
   />
 
   <!-- Mode: large (default) -->
@@ -71,6 +71,6 @@ async function handleVerifyEmail() {
     severity="info"
     raised
     :loading="loadingEmailVerify"
-    @click.prevent="handleVerifyEmail"
+    @click.stop.prevent="handleVerifyEmail"
   />
 </template>
