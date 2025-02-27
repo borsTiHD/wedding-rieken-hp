@@ -43,7 +43,7 @@ const coordinates = [51.147440, 7.156428] // [51.146396, 7.1552614]
             {{ street }}, {{ city }}
           </div>
 
-          <dl class="space-y-1">
+          <dl class="flex flex-col">
             <dt class="text-lg font-semibold leading-7 text-gray-900">
               {{ t('general.infos.approach') }}
             </dt>
