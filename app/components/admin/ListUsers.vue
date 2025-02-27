@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { UserProfile } from '@/types/UserProfile'
-import type admin from 'firebase-admin'
+import type { DataTableUser, User, UserRole } from '@/types/User'
 import CheckGuest from '@/components/admin/CheckGuest.vue'
 import CreateUser from '@/components/admin/CreateUser.vue'
 import DeleteUser from '@/components/admin/DeleteUser.vue'
@@ -8,38 +7,13 @@ import DisplayModal from '@/components/DisplayModal.vue'
 import DisplayAvatar from '@/components/user/DisplayAvatar.vue'
 import createReadableDate from '@/composables/dateHelper'
 import useBackendApi from '@/composables/useBackendApi'
+import { useCheckUser } from '@/composables/useCheckUser'
 import { useModalPosition } from '@/composables/useModalPosition'
 import { useWindowSize } from '@/composables/useWindowSize'
 import { useUserStore } from '@/stores/user'
 // import { FilterMatchMode } from '@primevue/core/api'
 import { FilterMatchMode } from '@primevue/core'
 import { useToast } from 'primevue/usetoast'
-
-// Type definition for DataTableUser
-interface DataTableUser {
-  uid: string
-  role: string
-  displayName: string
-  email: string
-  emailVerified: boolean
-  phoneNumber: string
-  photoURL: string
-  additionalGuests: number
-  invitation: string
-  creationTime: string
-  lastRefreshTime: string
-  lastSignInTime: string
-  highscore?: number
-}
-
-// Type definition for user
-interface User {
-  account: admin.auth.UserRecord
-  profile: UserProfile
-}
-
-// Type definition for user type
-type UserRole = 'all' | UserProfile['role']
 
 // Refs
 const createUserModal = ref<InstanceType<typeof DisplayModal>>()
@@ -51,6 +25,7 @@ const toast = useToast()
 const { t } = useI18n()
 const { getAllUsers } = useBackendApi()
 const { modalPosition } = useModalPosition() // Modal position
+const { isInvited, isAdminAndInvited, hasInvitationStatus } = useCheckUser()
 
 // User store
 const userStore = useUserStore()
@@ -73,11 +48,11 @@ const types = [
   { name: t('admin.listUsers.userFilter.types.declined'), code: 'declined' },
   { name: t('admin.listUsers.userFilter.types.guest'), code: 'guest' },
 ]
-const invitedGuests = computed(() => users.value.filter(user => user?.profile?.role === 'invited'))
+const invitedGuests = computed(() => users.value.filter(user => isInvited(user as User) || isAdminAndInvited(user as User)))
 const selfRegisteredGuests = computed(() => users.value.filter(user => user?.profile?.role === 'guest'))
-const pendingInvitations = computed(() => invitedGuests.value.filter(user => user?.profile?.invitation === 'pending'))
-const acceptedInvitations = computed(() => invitedGuests.value.filter(user => user?.profile?.invitation === 'accepted'))
-const declinedInvitations = computed(() => invitedGuests.value.filter(user => user?.profile?.invitation === 'declined'))
+const pendingInvitations = computed(() => invitedGuests.value.filter(user => hasInvitationStatus(user as User, 'pending')))
+const acceptedInvitations = computed(() => invitedGuests.value.filter(user => hasInvitationStatus(user as User, 'accepted')))
+const declinedInvitations = computed(() => invitedGuests.value.filter(user => hasInvitationStatus(user as User, 'declined')))
 const usersData = computed(() => {
   // Mapping for user roles
   const roleMapping = {
