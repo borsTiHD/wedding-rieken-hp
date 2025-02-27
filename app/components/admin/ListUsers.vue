@@ -494,11 +494,11 @@ useRegisterEvent('user-created', getUsers)
               <span>{{ slotProps.data.phoneNumber }}</span>
             </template>
           </Column>
-          <Column v-if="!isWidthSmall" field="highscore" :header="t('admin.listUsers.tableHeader.highscore')" sortable>
+          <!-- <Column v-if="!isWidthSmall" field="highscore" :header="t('admin.listUsers.tableHeader.highscore')" sortable>
             <template #body="slotProps">
               <span>{{ slotProps.data.highscore }}</span>
             </template>
-          </Column>
+          </Column> -->
           <Column v-if="!isWidthSmall" :header="t('admin.listUsers.tableHeader.actions')">
             <template #body="slotProps">
               <div v-if="slotProps.data.role !== 'admin'" class="flex items-center gap-2">
