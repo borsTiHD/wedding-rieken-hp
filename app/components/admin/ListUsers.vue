@@ -313,7 +313,7 @@ useRegisterEvent('user-created', getUsers)
           :rows-per-page-options="[5, 10, 20, 50]"
         >
           <template #header>
-            <div class="flex flex-wrap sm:items-center gap-2">
+            <div class="flex flex-wrap gap-2">
               <!-- Refresh users -->
               <Button icon="pi pi-refresh" rounded raised @click="getUsers" />
 
@@ -322,7 +322,7 @@ useRegisterEvent('user-created', getUsers)
                 ref="createUserModal"
                 :position="modalPosition"
                 :header="t('admin.createUser.header')"
-                button-class="w-full sm:w-fit"
+                button-class="w-fit grow sm:grow-0"
                 :button-label="t('admin.createUser.buttonLabel')"
                 button-icon="pi pi-user-plus"
                 button-raised
@@ -341,14 +341,14 @@ useRegisterEvent('user-created', getUsers)
                 option-value="code"
                 scroll-height="auto"
                 :placeholder="t('admin.listUsers.userFilter.placeholder')"
-                class="w-full sm:w-fit sm:ml-auto"
+                class="w-fit grow sm:grow-0 sm:w-fit sm:ml-auto"
                 @change="setFilterTypeToRoute"
               />
 
               <!-- Search -->
-              <IconField>
+              <IconField class="w-fit grow sm:grow-0">
                 <InputIcon class="pi pi-search" />
-                <InputText v-model="globalSearch" fluid :placeholder="t('admin.listUsers.userSearch.placeholder')" />
+                <InputText v-model="globalSearch" class="w-full" :placeholder="t('admin.listUsers.userSearch.placeholder')" />
               </IconField>
             </div>
           </template>
