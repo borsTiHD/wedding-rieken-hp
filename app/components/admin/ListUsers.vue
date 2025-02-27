@@ -108,11 +108,15 @@ watch(windowWidth, () => {
 
 // Row class
 const roleClassMap: { [role: string]: string } = {
-  admin: 'bg-blue-100',
-  guest: 'bg-yellow-100',
+  admin: 'bg-blue-100/40',
+  guest: 'bg-yellow-100/40',
   // 'declined': 'bg-red-100'
 }
 function rowClass(data: DataTableUser) {
+  // Check if user id is in acceptedInvitations
+  if (acceptedInvitations.value.some(user => user.account.uid === data.uid))
+    return 'bg-green-100/20'
+
   return data.role ? roleClassMap[data.role] || '' : 'bg-red-100'
 }
 
@@ -434,14 +438,16 @@ useRegisterEvent('user-created', getUsers)
               </div>
             </template>
           </Column>
-          <Column v-if="!isWidthSmall" field="role" :header="t('admin.listUsers.tableHeader.role')" sortable>
+          <Column field="role" :header="t('admin.listUsers.tableHeader.role')" sortable>
             <template #body="slotProps">
               <div class="flex items-center gap-2">
                 <Tag
-                  :value="getUserRole(slotProps.data.role)"
+                  v-tooltip.bottom="isWidthSmall ? getUserRole(slotProps.data.role) : undefined"
+                  :value="isWidthSmall ? undefined : getUserRole(slotProps.data.role)"
                   :icon="getUserRoleIcon(slotProps.data.role)"
                   :severity="getUserRoleSeverity(slotProps.data.role)"
-                  class="whitespace-nowrap" rounded
+                  class="whitespace-nowrap"
+                  rounded
                 />
                 <!-- <i v-if="slotProps.data.role === 'guest'" v-tooltip.top="'Bitte Einladung verifizieren'" class="pi pi-exclamation-circle text-sky-600" /> -->
               </div>
