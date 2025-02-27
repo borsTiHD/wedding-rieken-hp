@@ -236,6 +236,12 @@ async function getUsers() {
 
   // Set users
   users.value = response?.result as User[] || []
+
+  // // Set selected type to 'guest' if there are self registered guests
+  // if (selfRegisteredGuests.value.length > 0) {
+  //   selectedType.value = 'guest'
+  // }
+
   loading.value = false
 }
 
@@ -245,15 +251,19 @@ watch(() => selectedTypeFromUrl.value, (value) => {
   selectedType.value = value ? value as UserRole : 'all'
 })
 
-// Watch selected type and update url
-watch(() => selectedType.value, (value) => {
-  value && router.push({ query: { type: value } })
-})
+// Set filter type to route
+function setFilterTypeToRoute() {
+  router.push({ query: { ...route.query, type: selectedType.value } })
+}
 
 // On component mount
 onMounted(() => {
-  getUsers() // Fetch users on component mount
-  selectedType.value = selectedTypeFromUrl.value as UserRole || 'all' // Set selected type from url
+  getUsers()
+
+  // Set default type filter
+  if (selectedTypeFromUrl.value) {
+    selectedType.value = selectedTypeFromUrl.value as UserRole || 'all'
+  }
 })
 
 // Register event to reload users on new user creation
@@ -265,10 +275,10 @@ useRegisterEvent('user-created', getUsers)
     <template #title>
       <div class="flex flex-col sm:flex-row items-baseline gap-4">
         {{ t('admin.listUsers.header') }}
-        <div v-if="selfRegisteredGuests.length > 0" class="p-2 flex gap-1 items-center text-sm text-gray-800 bg-yellow-200 rounded-lg pulse-yellow">
+        <button v-if="selfRegisteredGuests.length > 0" class="p-2 flex gap-1 items-center text-sm text-gray-800 bg-yellow-200 rounded-lg pulse-yellow cursor-pointer" @click="selectedType = 'guest'">
           <span>{{ t('admin.listUsers.needToCheckSelfRegisteredGuests', { n: selfRegisteredGuests.length }, selfRegisteredGuests.length) }}</span>
           <i class="pi pi-exclamation-circle text-yellow-600" />
-        </div>
+        </button>
       </div>
     </template>
     <template #content>
@@ -332,6 +342,7 @@ useRegisterEvent('user-created', getUsers)
                 scroll-height="auto"
                 :placeholder="t('admin.listUsers.userFilter.placeholder')"
                 class="w-full sm:w-fit sm:ml-auto"
+                @change="setFilterTypeToRoute"
               />
 
               <!-- Search -->
