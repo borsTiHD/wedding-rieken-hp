@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
-import BooBashWrapper from '@/components/BooBashWrapper.vue'
+// import BooBashWrapper from '@/components/BooBashWrapper.vue'
 import ShowRiddle from '@/components/content/ShowRiddle.vue'
 
 // Composables
@@ -43,7 +43,7 @@ if (/^boo$/i.test(secret.value)) {
         </template>
       </Card>
 
-      <BooBashWrapper />
+      <!-- <BooBashWrapper /> -->
     </template>
 
     <!-- Hint if the user didn't enter the correct secret -->

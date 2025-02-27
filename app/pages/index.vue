@@ -4,7 +4,7 @@ import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
 import ShowLocation from '@/components/content/ShowLocation.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
-import ShowRiddle from '@/components/content/ShowRiddle.vue'
+// import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
 import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
 import FallingEmojis from '@/components/FallingEmojis.vue'
@@ -140,9 +140,9 @@ onMounted(() => {
         </section>
 
         <!-- Riddle -->
-        <section id="riddle" class="section-style">
+        <!-- <section id="riddle" class="section-style">
           <ShowRiddle />
-        </section>
+        </section> -->
       </div>
 
       <div v-else class="wrapper-style">
