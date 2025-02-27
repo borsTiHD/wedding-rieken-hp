@@ -5,7 +5,7 @@ export function useCheckUser() {
     return user?.profile?.role === 'invited'
   }
 
-  function isAdminAndInvited(user: User) {
+  function isAdminAndAcceptedInvite(user: User) {
     return user?.profile?.role === 'admin' && user?.profile?.invitation === 'accepted'
   }
 
@@ -15,7 +15,7 @@ export function useCheckUser() {
 
   return {
     isInvited,
-    isAdminAndInvited,
+    isAdminAndAcceptedInvite,
     hasInvitationStatus,
   }
 }

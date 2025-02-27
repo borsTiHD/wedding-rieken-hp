@@ -25,7 +25,7 @@ const toast = useToast()
 const { t } = useI18n()
 const { getAllUsers } = useBackendApi()
 const { modalPosition } = useModalPosition() // Modal position
-const { isInvited, isAdminAndInvited, hasInvitationStatus } = useCheckUser()
+const { isInvited, isAdminAndAcceptedInvite, hasInvitationStatus } = useCheckUser()
 
 // User store
 const userStore = useUserStore()
@@ -48,7 +48,7 @@ const types = [
   { name: t('admin.listUsers.userFilter.types.declined'), code: 'declined' },
   { name: t('admin.listUsers.userFilter.types.guest'), code: 'guest' },
 ]
-const invitedGuests = computed(() => users.value.filter(user => isInvited(user as User) || isAdminAndInvited(user as User)))
+const invitedGuests = computed(() => users.value.filter(user => isInvited(user as User) || isAdminAndAcceptedInvite(user as User)))
 const selfRegisteredGuests = computed(() => users.value.filter(user => user?.profile?.role === 'guest'))
 const pendingInvitations = computed(() => invitedGuests.value.filter(user => hasInvitationStatus(user as User, 'pending')))
 const acceptedInvitations = computed(() => invitedGuests.value.filter(user => hasInvitationStatus(user as User, 'accepted')))
@@ -117,15 +117,13 @@ function rowClass(data: DataTableUser) {
 }
 
 // Calculate total guests with additional guests
-// Add guest only if 'invitation' is 'accepted' and if 'user role' is 'invited'
+// Add guest only if 'invitation' is 'accepted' and if 'user role' is 'invited' or 'admin'
+// 'admin' is added to the guest count only if the user has accepted the invitation (this is an exception)
 const totalGuests = computed(() => {
-  let total = 0
-  users.value.forEach((user) => {
-    if (user?.profile?.role === 'invited' && user?.profile?.invitation === 'accepted') {
-      total += user.profile.additionalGuests + 1
-    }
-  })
-  return total
+  return acceptedInvitations.value.reduce((total, user) => {
+    total += (user.profile.additionalGuests || 0) + 1
+    return total
+  }, 0)
 })
 
 // Return invitation status for user
