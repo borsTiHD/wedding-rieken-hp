@@ -154,6 +154,7 @@
     "index": {
       "header": "Willkommen",
       "text": "Bitte vervollständigen Sie Ihr Profil, um die Einladung zu bestätigen. Sie können Ihre Daten auch zu einem späteren Zeitpunkt anpassen.",
+      "notInvitedInfo": "Ihr Account wurde bisher nicht bestätigt. Daher können Sie derzeit keine Einstellungen, die die Teilnahme betreffen, ändern.",
       "loginLink": "Klicke {action} um dich einzuloggen.",
       "registerLink": "Oder klicke {action} um dich zu registrieren.",
       "linkTag": "hier"
@@ -206,6 +207,7 @@
       "tooltip": "Klicken Sie hier, um die Anzahl zusätzlicher Gäste zu ändern",
       "deadlineInfo": "Bitte treffen Sie Ihre Entscheidung bis zum {date}, ob und wie viele zusätzliche Gäste Sie mitbringen möchten. Falls die Anzahl der Gäste von der Einladung abweicht, klären Sie dies bitte mit dem Brautpaar ab. Nach dieser Deadline können Sie die Anzahl nicht mehr ändern.",
       "deadlinePassedInfo": "Die Deadline ist bereits abgelaufen. Sie können die Anzahl zusätzlicher Gäste nicht mehr ändern. Sollten Sie eine Änderung vornehmen wollen, kontaktieren Sie uns bitte.",
+      "notInvitedInfo": "Ihr Account wurde bisher nicht bestätigt. Daher können Sie die Anzahl zusätzlicher Gäste nicht ändern. Wenn Sie an der Hochzeit teilnehmen möchten, zögern Sie bitte nicht, uns zu kontaktieren.",
       "notChangedInfo": "Anzahl nicht geändert",
       "notChangedInfoDetail": "Sie haben die Anzahl nicht geändert",
       "success": "Anzahl geändert",
@@ -274,6 +276,7 @@
       "tooltipNoResponse": "Sie haben noch nicht auf die Einladung geantwortet",
       "deadlineInfo": "Bitte treffen Sie Ihre Entscheidung bis zum {date}, ob Sie die Einladung annehmen oder ablehnen möchten. Nach dieser Deadline können Sie Ihre Entscheidung nicht mehr ändern.",
       "deadlinePassedInfo": "Die Deadline ist bereits abgelaufen. Sie können Ihre Entscheidung nicht mehr ändern. Sollten Sie eine Änderung vornehmen wollen, kontaktieren Sie uns bitte.",
+      "notInvitedInfo": "Ihr Account wurde bisher nicht bestätigt. Daher können Sie derzeit nicht an der Veranstaltung teilnehmen. Wenn Sie an der Hochzeit teilnehmen möchten, zögern Sie bitte nicht, uns zu kontaktieren.",
       "stateAccepted": "Einladung wurde angenommen",
       "stateDeclined": "Einladung wurde abgelehnt",
       "stateNoReponse": "Einladung ist noch ausstehend",

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useConfig } from '@/composables/useConfig'
+
 // Emit events to parent to navigate between pages
 const emit = defineEmits(['next-page'])
 
@@ -11,6 +13,9 @@ const navPage = (to: 'next') => emit(`${to}-page`)
 // Localisation
 const { t } = useI18n()
 const localePath = useLocalePath()
+
+// Config
+const { deadlineDate } = useConfig()
 
 // Check completion state of this page
 const { checker } = useProfileChecker()
@@ -27,6 +32,10 @@ const checkState = computed(() => checker(t('profileStepper.index.header')))
       <div class="flex flex-col gap-4">
         <!-- Welcome box -->
         <p>{{ t('profileStepper.index.text') }}</p>
+
+        <p v-if="!deadlineDate">
+          {{ t('profileStepper.index.notInvitedInfo') }}
+        </p>
 
         <!-- State incomplete -->
         <div v-if="!checkState" class="flex flex-col gap-4">

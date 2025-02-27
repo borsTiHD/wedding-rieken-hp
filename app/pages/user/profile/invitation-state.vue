@@ -79,22 +79,25 @@ const userRole = computed(() => {
     <template #content>
       <IconBackground icon="pi-verified" />
       <div class="flex flex-col gap-4">
-        <!-- State incomplete -->
-        <div v-if="!checkState">
-          <i18n-t v-if="isBeforeDeadline" keypath="profileStepper.invitationState.text" tag="p">
-            <template #date>
-              <span class="font-bold whitespace-nowrap">{{ d(deadlineDate || 0, 'short') }}</span>
-            </template>
-          </i18n-t>
-          <p v-else>
-            {{ t('profileStepper.invitationState.textDeadlinePassed') }}
-          </p>
-        </div>
+        <template v-if="deadlineDate">
+          <!-- State incomplete -->
+          <div v-if="!checkState">
+            <i18n-t v-if="isBeforeDeadline" keypath="profileStepper.invitationState.text" tag="p">
+              <template #date>
+                <span class="font-bold whitespace-nowrap">{{ d(deadlineDate || 0, 'short') }}</span>
+              </template>
+            </i18n-t>
 
-        <!-- State complete -->
-        <p v-else>
-          {{ t('profileStepper.invitationState.textComplete') }}
-        </p>
+            <p v-else>
+              {{ t('profileStepper.invitationState.textDeadlinePassed') }}
+            </p>
+          </div>
+
+          <!-- State complete -->
+          <p v-else>
+            {{ t('profileStepper.invitationState.textComplete') }}
+          </p>
+        </template>
 
         <ul class="flex flex-col divide-y">
           <!-- Additional guests -->

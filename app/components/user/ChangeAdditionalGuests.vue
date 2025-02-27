@@ -112,10 +112,12 @@ async function handleSubmit(form: { additionalGuests: number }) {
       </div>
     </div>
 
-    <div v-else>
-      <p class="max-w-xl">
-        {{ t('user.additionalGuests.deadlinePassedInfo') }}
-      </p>
-    </div>
+    <p v-else-if="deadlineDate" class="max-w-xl">
+      {{ t('user.additionalGuests.deadlinePassedInfo') }}
+    </p>
+
+    <p v-else class="max-w-xl">
+      {{ t('user.additionalGuests.notInvitedInfo') }}
+    </p>
   </FormKit>
 </template>

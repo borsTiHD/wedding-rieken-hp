@@ -78,10 +78,12 @@ async function handleSubmit(value: boolean) {
       </div>
     </template>
 
-    <template v-else>
-      <p class="max-w-xl">
-        {{ t('user.invitation.deadlinePassedInfo') }}
-      </p>
-    </template>
+    <p v-else-if="deadlineDate" class="max-w-xl">
+      {{ t('user.invitation.deadlinePassedInfo') }}
+    </p>
+
+    <p v-else class="max-w-xl">
+      {{ t('user.invitation.notInvitedInfo') }}
+    </p>
   </div>
 </template>
