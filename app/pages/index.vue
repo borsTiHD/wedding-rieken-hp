@@ -52,9 +52,10 @@ function scrollToSection(hash?: string) {
 
   if (nextSection) {
     // Get navbar height for offset
-    const navbar = document.querySelector<HTMLElement>('.navbar')
-    const navbarHeight = navbar?.offsetHeight ?? 0
-    const offset = navbarHeight !== 0 ? navbarHeight + 10 : 0
+    // const navbar = document.querySelector<HTMLElement>('.navbar')
+    // const navbarHeight = navbar?.offsetHeight ?? 0
+    // const offset = navbarHeight !== 0 ? navbarHeight + 10 : 0
+    const offset = hash === '#content' ? 74 : 90
 
     // Calculate new Y-Value based on the next section
     // 16px offset because the navbar has a padding of 16px if the page is not scrolled
