@@ -489,7 +489,7 @@ useRegisterEvent('user-created', getUsers)
               <span v-else>-</span>
             </template>
           </Column>
-          <Column v-if="!isWidthSmall" field="phoneNumber" :header="t('admin.listUsers.tableHeader.phone')" sortable>
+          <Column v-if="windowWidth > 1500" field="phoneNumber" :header="t('admin.listUsers.tableHeader.phone')" sortable>
             <template #body="slotProps">
               <span>{{ slotProps.data.phoneNumber }}</span>
             </template>
@@ -499,7 +499,7 @@ useRegisterEvent('user-created', getUsers)
               <span>{{ slotProps.data.highscore }}</span>
             </template>
           </Column> -->
-          <Column v-if="!isWidthSmall" :header="t('admin.listUsers.tableHeader.actions')">
+          <Column v-if="windowWidth > 800" :header="t('admin.listUsers.tableHeader.actions')">
             <template #body="slotProps">
               <div v-if="slotProps.data.role !== 'admin'" class="flex items-center gap-2">
                 <CheckGuest
