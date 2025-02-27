@@ -38,19 +38,19 @@ const infos = [
             </h2>
           </ShowUnderline>
         </div>
-        <dl class="space-y-1">
+        <dl class="flex flex-col gap-4">
           <!-- Default infos -->
-          <template v-for="info in infos" :key="info.header">
+          <div v-for="info in infos" :key="info.header">
             <dt class="text-lg font-semibold leading-7 text-gray-900">
               {{ info.header }}
             </dt>
             <dd class="text-base text-pretty text-gray-600">
               {{ info.text }}
             </dd>
-          </template>
+          </div>
 
           <!-- loading witnesses -->
-          <template v-if="isFetching">
+          <div v-if="isFetching">
             <dt class="text-lg font-semibold leading-7 text-gray-900">
               {{ t('general.infos.witnesses') }}
             </dt>
@@ -58,10 +58,10 @@ const infos = [
               <span>{{ t('general.infos.witnessesText') }}</span>
               <ProgressBar v-if="isFetching" mode="indeterminate" style="height: 6px" />
             </dd>
-          </template>
+          </div>
 
           <!-- Witnesses -->
-          <template v-else>
+          <div v-else>
             <dt class="text-lg font-semibold leading-7 text-gray-900">
               {{ t('general.infos.witnesses') }}
             </dt>
@@ -74,7 +74,7 @@ const infos = [
                 </li>
               </ul>
             </dd>
-          </template>
+          </div>
         </dl>
       </div>
     </template>
