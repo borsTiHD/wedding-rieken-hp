@@ -111,9 +111,7 @@ onMounted(() => {
         <!-- Scroll down icon -->
         <i
           class="z-10 w-fit h-fit p-2 px-3 sm:p-4 rounded-full mt-auto mb-20 text-3xl md:text-5xl self-center text-white drop-shadow-sm pi pi-angle-down motion-safe:animate-bounce motion-reduce:animate-none cursor-pointer hover:bg-white/30 hover:rounded-full hover:shadow-lg"
-          :class="[
-            isScrolled ? 'opacity-0' : 'opacity-100', // Hover
-          ]"
+          :class="[isScrolled ? 'opacity-0' : 'opacity-100']"
           @click="scrollToSection('#content')"
         />
       </div>
