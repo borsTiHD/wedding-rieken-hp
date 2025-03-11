@@ -3,6 +3,7 @@ import ShowAgenda from '@/components/content/ShowAgenda.vue'
 import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
 import ShowLocation from '@/components/content/ShowLocation.vue'
+import ShowOurStory from '@/components/content/ShowOurStory.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
 // import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
@@ -138,6 +139,13 @@ onMounted(() => {
             <ShowInfos class="basis-96" />
           </div>
           <ShowQuote :number="randomQuote[1]" />
+        </section>
+
+        <!-- Our Story -->
+        <section id="our-story" class="section-style">
+          <div class="flex flex-wrap gap-4">
+            <ShowOurStory class="basis-96" />
+          </div>
         </section>
 
         <!-- Spotify Playlist -->

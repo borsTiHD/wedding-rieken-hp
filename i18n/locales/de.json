@@ -27,6 +27,15 @@
       "reception": "{time} Uhr Sektempfang",
       "dinner": "{time} Uhr Abendessen"
     },
+    "ourStory": {
+      "header": "Unsere Love Story",
+      "firstMeeting": "Erstes Mal gesehen",
+      "firstDate": "Erstes Date",
+      "livingTogether": "Wir wohnen zusammen",
+      "firstVacation": "Erster gemeinsamer Urlaub",
+      "sheSaidYes": "Lisa sagt ja",
+      "weddingDay": "Wir heiraten"
+    },
     "infos": {
       "header": "Infos",
       "dresscode": "Dresscode",
