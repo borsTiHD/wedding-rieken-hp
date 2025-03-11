@@ -1,6 +1,7 @@
 <script setup lang="ts">
 interface Props {
   icon: string
+  position?: 'left' | 'right'
   size?: string
   bottom?: string
   right?: string
@@ -13,6 +14,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   icon: 'pi-heart-fill',
+  position: 'right',
   size: '12rem',
   bottom: '-20px',
   right: '-20px',
@@ -27,7 +29,7 @@ const iconClass = computed(() => `pi ${props.icon}`)
 const iconStyle = computed(() => ({
   fontSize: props.size,
   bottom: props.bottom,
-  right: props.right,
+  [props.position]: props.right,
   transform: `rotate(${props.rotate}) scale(${props.scale})`,
   backgroundImage: `linear-gradient(${props.gradientRotate}, ${props.color}, ${props.color2})`,
 }))
