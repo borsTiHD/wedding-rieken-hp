@@ -4,8 +4,8 @@ import ShowGuestInfo from '@/components/content/ShowGuestInfo.vue'
 import ShowInfos from '@/components/content/ShowInfos.vue'
 import ShowLocation from '@/components/content/ShowLocation.vue'
 import ShowOurStory from '@/components/content/ShowOurStory.vue'
+import ShowPicture from '@/components/content/ShowPicture.vue'
 import ShowQuote from '@/components/content/ShowQuote.vue'
-// import ShowRiddle from '@/components/content/ShowRiddle.vue'
 import ShowSpotify from '@/components/content/ShowSpotify.vue'
 import ShowWeddingDay from '@/components/content/ShowWeddingDay.vue'
 import FallingEmojis from '@/components/FallingEmojis.vue'
@@ -15,6 +15,7 @@ import { whitelistedRoles } from '@/composables/whitelistedRoles'
 import { useAppStore } from '@/stores/app'
 import { useCookieStore } from '@/stores/cookieconsent'
 import { useUserStore } from '@/stores/user'
+// import ShowRiddle from '@/components/content/ShowRiddle.vue'
 
 // Config
 const { spotifyPlaylist } = useConfig()
@@ -144,6 +145,7 @@ onMounted(() => {
         <!-- Our Story -->
         <section id="our-story" class="section-style">
           <div class="flex flex-wrap gap-4">
+            <ShowPicture class="basis-64" />
             <ShowOurStory class="basis-96" />
           </div>
         </section>
