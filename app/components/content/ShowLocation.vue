@@ -26,10 +26,10 @@ const coordinates = [51.147440, 7.156428] // [51.146396, 7.1552614]
 </script>
 
 <template>
-  <Card class="grow">
+  <Card class="grow" :pt="{ body: 'h-full', content: 'h-full' }">
     <template #content>
       <IconBackground icon="pi-map-marker" />
-      <div class="flex flex-col items-center gap-4">
+      <div class="h-full flex flex-col items-center gap-4">
         <div class="relative inline-block">
           <!-- <ShowUnderline color="text-rose-400"> -->
           <ShowUnderline color="text-[#ffd4c3]">
@@ -69,7 +69,7 @@ const coordinates = [51.147440, 7.156428] // [51.146396, 7.1552614]
             rel="noopener noreferrer"
           />
         </div>
-        <div class="h-64 w-full rounded-xl overflow-hidden">
+        <div class="h-64 grow w-full rounded-xl overflow-hidden">
           <Skeleton v-if="!mapReady" size="12rem" />
           <ClientOnly>
             <LMap

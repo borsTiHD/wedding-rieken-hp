@@ -134,8 +134,8 @@ onMounted(() => {
         <!-- Infos -->
         <section id="infos" class="section-style">
           <div class="flex flex-wrap gap-4">
-            <ShowLocation class="basis-96" />
-            <ShowInfos class="basis-80" />
+            <ShowLocation class="basis-64" />
+            <ShowInfos class="basis-96" />
           </div>
           <ShowQuote :number="randomQuote[1]" />
         </section>
