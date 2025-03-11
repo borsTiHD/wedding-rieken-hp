@@ -14,12 +14,5 @@ const getImage = computed(() => images[number.value ?? Math.floor(Math.random() 
 </script>
 
 <template>
-  <Card class="grow">
-    <template #content>
-      <IconBackground icon="pi-image" />
-      <div class="flex flex-col max-h-96 w-full items-center">
-        <ShowImage :image="getImage" fit />
-      </div>
-    </template>
-  </Card>
+  <ShowImage :image="getImage" class="rounded-3xl" />
 </template>

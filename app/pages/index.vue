@@ -145,7 +145,7 @@ onMounted(() => {
         <!-- Our Story -->
         <section id="our-story" class="section-style">
           <div class="flex flex-wrap gap-4">
-            <ShowPicture class="basis-64" />
+            <ShowPicture class="basis-80" />
             <ShowOurStory class="basis-96" />
           </div>
         </section>

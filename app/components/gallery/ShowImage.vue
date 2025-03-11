@@ -31,7 +31,7 @@ function onLeave() {
   <Image
     :alt="image?.alt"
     :pt="{
-      root: 'w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl cursor-pointer group',
+      root: 'grow w-full overflow-hidden rounded-xl shadow-lg hover:shadow-xl cursor-pointer group',
       originalContainer: 'm-12 p-12',
     }"
     preview
