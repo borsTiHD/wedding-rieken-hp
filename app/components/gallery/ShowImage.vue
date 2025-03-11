@@ -2,7 +2,7 @@
 import type { Image } from '@/types/Image'
 import { ref } from 'vue'
 
-interface Props { image: Image }
+interface Props { image: Image | undefined }
 const props = defineProps<Props>()
 const { image } = toRefs(props)
 
@@ -29,7 +29,7 @@ function onLeave() {
 
 <template>
   <Image
-    :alt="image.alt"
+    :alt="image?.alt"
     :pt="{
       root: 'w-full h-full overflow-hidden rounded shadow-lg hover:shadow-xl cursor-pointer group',
       originalContainer: 'm-12 p-12',
@@ -58,8 +58,8 @@ function onLeave() {
           <ProgressSpinner class="size-12" />
         </div>
         <NuxtImg
-          :src="image.thumbnailSrc"
-          :alt="image.alt"
+          :src="image?.thumbnailSrc"
+          :alt="image?.alt"
           loading="lazy"
           :placeholder="[300, 400, 75, 5]"
           quality="60"
@@ -77,8 +77,8 @@ function onLeave() {
     <template #original="slotProps">
       <!-- This is the original image (fullscreen) -->
       <NuxtImg
-        :src="image.src"
-        :alt="image.alt"
+        :src="image?.src"
+        :alt="image?.alt"
         loading="lazy"
         :placeholder="[300, 400, 75, 5]"
         quality="80"
