@@ -33,12 +33,10 @@ const { t } = useI18n()
     <Card>
       <template #content>
         <IconBackground icon="pi-image" />
-        <div class="flex flex-col items-center gap-4">
-          <div class="flex flex-col items-center gap-4">
-            <div v-if="images" class="flex flex-wrap -mx-4">
-              <div v-for="(picture, index) in images" :key="index" class="w-full sm:w-1/2 lg:w-1/3 p-4">
-                <ShowImage :image="picture" />
-              </div>
+        <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center">
+            <div v-if="images && images.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <ShowImage v-for="(picture, index) in images" :key="index" :image="picture" />
             </div>
             <p v-else>
               {{ t('gallery.noImages') }}
