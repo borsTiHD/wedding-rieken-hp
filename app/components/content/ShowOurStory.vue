@@ -38,8 +38,8 @@ const dates = [
   <Card class="grow">
     <template #content>
       <IconBackground icon="pi-calendar" position="left" rotate="15deg" />
-      <div class="flex flex-col gap-8 items-start">
-        <div class="relative inline-block pl-4">
+      <div class="flex flex-col gap-8 items-start px-4">
+        <div class="relative inline-block">
           <!-- <ShowUnderline color="text-fuchsia-400"> -->
           <ShowUnderline color="text-[#fbb89b]">
             <h2 class="pr-2 font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
@@ -48,7 +48,7 @@ const dates = [
           </ShowUnderline>
         </div>
 
-        <div class="flex justify-end w-full pr-4 sm:pr-8 lg:pr-12">
+        <div class="flex justify-end w-full">
           <ul role="list" class="flex flex-col gap-6">
             <li v-for="(event, index) in dates" :key="index" class="relative flex gap-x-4">
               <!-- Event text -->
