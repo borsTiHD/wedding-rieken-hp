@@ -46,8 +46,9 @@
     "header": "Impressum und Datenschutz"
   },
   "quotes": {
-    "quote1": "Happy I'm alive at the same time as you.",
-    "quote2": "Seit ich dich sah, ist nichts mehr wie es war. Du bist Kunst, mein Mandala. Bin verliebt, maximal. Noch mehr geht nicht."
+    "quote0": "Happy I'm alive at the same time as you.",
+    "quote1": "Seit ich dich sah, ist nichts mehr wie es war. Du bist Kunst, mein Mandala. Bin verliebt, maximal. Noch mehr geht nicht.",
+    "quote2": "Met a lot of people, but nobody feels like you."
   },
   "pages": {
     "home": "Home",
