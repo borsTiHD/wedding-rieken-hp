@@ -41,7 +41,7 @@ onMounted(() => {
                 {{ t('register.header') }}
               </Tab>
               <Tab value="1">
-                {{ t('login.wihtoutPassword') }}
+                {{ t('login.withoutPassword') }}
               </Tab>
             </TabList>
             <TabPanels>
