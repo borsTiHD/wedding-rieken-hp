@@ -37,9 +37,9 @@ const dates = [
 <template>
   <Card class="grow">
     <template #content>
-      <IconBackground icon="pi-calendar" />
-      <div class="flex flex-col gap-8 items-center">
-        <div class="relative inline-block">
+      <IconBackground icon="pi-calendar" position="left" rotate="15deg" />
+      <div class="flex flex-col gap-8 items-start">
+        <div class="relative inline-block pl-4">
           <!-- <ShowUnderline color="text-fuchsia-400"> -->
           <ShowUnderline color="text-[#fbb89b]">
             <h2 class="pr-2 font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
