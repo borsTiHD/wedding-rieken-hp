@@ -44,6 +44,13 @@ const routeHash = computed(() => route.hash)
 const { scrollY } = useWindowSize(undefined, true, true, 2)
 const isScrolled = computed<boolean>(() => scrollY.value > 30)
 
+// Returns a shuffled array of numbers from 0 to numberOfQuotes - 1
+const randomQuote = computed(() => {
+  const numberOfQuotes = 3 // Number of quotes available
+  const quotes = Array.from({ length: numberOfQuotes }, (_, i) => i)
+  return quotes.sort(() => Math.random() - 0.5)
+})
+
 // Scroll to next section
 function scrollToSection(hash?: string) {
   const nextSection = hash
@@ -123,7 +130,7 @@ onMounted(() => {
             <ShowWeddingDay />
             <ShowAgenda />
           </div>
-          <ShowQuote />
+          <ShowQuote :number="randomQuote[0]" />
         </section>
 
         <!-- Infos -->
@@ -132,7 +139,7 @@ onMounted(() => {
             <ShowLocation class="basis-96" />
             <ShowInfos class="basis-80" />
           </div>
-          <ShowQuote />
+          <ShowQuote :number="randomQuote[1]" />
         </section>
 
         <!-- Spotify Playlist -->
