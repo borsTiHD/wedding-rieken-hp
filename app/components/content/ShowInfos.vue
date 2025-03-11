@@ -20,7 +20,12 @@ const infos = [
   },
   {
     header: t('general.infos.accommodation'),
-    text: t('general.infos.accommodationText'),
+    // text: t('general.infos.accommodationText'),
+    text: [
+      `Für alle, die den Abend mit uns bis spät ausklingen lassen, folgt nun die Homepage zu einem Hotel ganz in der Nähe unserer Location. Es ist nur wenige Minuten mit dem Taxi entfernt.`,
+      `<a href="https://www.ascothotel.de" target="_blank" class="text-blue-500 hover:text-blue-700 underline">https://www.ascothotel.de</a>`,
+      `Hier haben wir vorab einige Zimmer reserviert. Bei der Buchung, welche von Euch telefonisch oder per Mail bis spätestens <strong>20.08.2025</strong> erfolgen muss, erwähnt ihr am Besten die <strong>Abrufkontingent-Nummer "G8911"</strong>, um so die Zimmer zu Sonderkonditionen zu erhalten.`,
+    ],
   },
 ]
 </script>
@@ -44,8 +49,11 @@ const infos = [
             <dt class="text-lg font-semibold leading-7 text-gray-900">
               {{ info.header }}
             </dt>
-            <dd class="text-base text-pretty text-gray-600">
+            <dd v-if="typeof info.text === 'string'" class="text-base text-pretty text-gray-600">
               {{ info.text }}
+            </dd>
+            <dd v-else class="flex flex-col gap-2 text-base text-pretty text-gray-600">
+              <span v-for="line in info.text" :key="line" v-html="line" />
             </dd>
           </div>
 
