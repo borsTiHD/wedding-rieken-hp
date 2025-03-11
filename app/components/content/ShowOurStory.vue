@@ -48,23 +48,25 @@ const dates = [
           </ShowUnderline>
         </div>
 
-        <ul role="list" class="space-y-6">
-          <li v-for="(event, index) in dates" :key="index" class="relative flex gap-x-4">
-            <!-- Seperator line -->
-            <div class="absolute left-0 top-0 flex w-6 justify-center" :class="[index === dates.length - 1 ? 'h-6' : '-bottom-6']">
-              <div class="w-px bg-gray-200" />
-            </div>
-            <!-- Bullet point -->
-            <div class="relative flex h-6 w-6 flex-none items-center justify-center bg-white rounded-full">
-              <div class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
-            </div>
-            <!-- Event text -->
-            <p class="flex-auto py-0.5 leading-5">
-              <span class="font-medium text-gray-900">{{ createReadableDate(event.date, { year: 'numeric', month: 'long' }) }}</span>
-              <span class="block text-gray-500">{{ event.event }}</span>
-            </p>
-          </li>
-        </ul>
+        <div class="flex justify-end w-full pr-4 sm:pr-8 lg:pr-12">
+          <ul role="list" class="flex flex-col gap-6">
+            <li v-for="(event, index) in dates" :key="index" class="relative flex gap-x-4">
+              <!-- Seperator line -->
+              <div class="absolute left-0 top-0 flex w-6 justify-center" :class="[index === dates.length - 1 ? 'h-6' : '-bottom-6']">
+                <div class="w-px bg-gray-200" />
+              </div>
+              <!-- Bullet point -->
+              <div class="relative flex h-6 w-6 flex-none items-center justify-center bg-white rounded-full">
+                <div class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
+              </div>
+              <!-- Event text -->
+              <p class="flex-auto py-0.5 leading-5">
+                <span class="font-medium text-gray-900">{{ createReadableDate(event.date, { year: 'numeric', month: 'long' }) }}</span>
+                <span class="block text-gray-500">{{ event.event }}</span>
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
     </template>
   </Card>
