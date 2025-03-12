@@ -2,9 +2,9 @@
 import type { Image } from '@/types/Image'
 import { ref } from 'vue'
 
-interface Props { image: Image | undefined }
+interface Props { image: Image | undefined, roundedClass?: string }
 const props = defineProps<Props>()
-const { image } = toRefs(props)
+const { image, roundedClass } = toRefs(props)
 
 const { t } = useI18n()
 
@@ -31,7 +31,7 @@ function onLeave() {
   <Image
     :alt="image?.alt"
     :pt="{
-      root: 'grow w-full overflow-hidden rounded-xl shadow-lg hover:shadow-xl cursor-pointer group',
+      root: `${roundedClass || 'rounded-xl'} grow w-full overflow-hidden shadow-lg hover:shadow-xl cursor-pointer group`,
       originalContainer: 'm-12 p-12',
     }"
     preview
