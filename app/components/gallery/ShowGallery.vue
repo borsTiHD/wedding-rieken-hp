@@ -2,12 +2,43 @@
 import type { Image } from '@/types/Image'
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import ShowImage from '@/components/gallery/ShowImage.vue'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 interface Props { images: Image[] }
 const props = defineProps<Props>()
 const { images } = toRefs(props)
 
 const { t } = useI18n()
+
+// Window size for mobile check
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const smAndLarger = breakpoints.greaterOrEqual('sm') // sm and larger
+
+function checkIndexSmallDevice(index: number): boolean {
+  return Math.floor(index / 2) % 2 === 1
+}
+
+function checkIndexBigDevice(index: number): boolean {
+  const cycleLength = 6 // 2 false -> 2 true -> 4 false -> 2 true -> 4 false...
+  const positionInCycle = index % cycleLength
+  return positionInCycle >= 2 && positionInCycle < 4
+}
+
+function checkIndex(index: number): boolean {
+  if (smAndLarger.value) {
+    return checkIndexBigDevice(index)
+  }
+  else {
+    return checkIndexSmallDevice(index)
+  }
+}
+
+function imageClasses(index: number) {
+  return [
+    { 'col-span-2 row-span-2': checkIndex(index) },
+    { 'col-span-1 row-span-1': !checkIndex(index) },
+  ]
+}
 </script>
 
 <template>
@@ -33,7 +64,7 @@ const { t } = useI18n()
     <Card>
       <template #content>
         <IconBackground icon="pi-image" />
-        <div class="flex flex-col items-center gap-4">
+        <!-- <div class="flex flex-col items-center gap-4">
           <div class="flex flex-col items-center">
             <div v-if="images && images.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               <ShowImage v-for="(picture, index) in images" :key="index" :image="picture" />
@@ -42,45 +73,22 @@ const { t } = useI18n()
               {{ t('gallery.noImages') }}
             </p>
           </div>
-        </div>
+        </div> -->
 
-        <hr class="my-8 border-t border-gray-300 w-full">
-
-        <!-- <div class="flex flex-col items-center gap-4">
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div v-for="(image, index) in images" :key="index" class="p-4">
+        <div class="flex flex-col items-center">
+          <div v-if="images && images.length" class="grid md:grid-cols-4 gap-4">
+            <div
+              v-for="(image, index) in images"
+              :key="index"
+              class="flex"
+              :class="imageClasses(index)"
+            >
               <ShowImage :image="image" />
             </div>
           </div>
-        </div>
-
-        <hr class="my-8 border-t border-gray-300 w-full"> -->
-
-        <div class="flex flex-col items-center gap-4">
-          <div class="flex flex-wrap">
-            <div class="flex w-1/2 flex-wrap">
-              <div v-for="(image, index) in images.slice(0, 3)" :key="index" class="flex p-4" :class="index === 2 ? 'w-full' : 'w-1/2'">
-                <ShowImage :key="index" :image="image" />
-              </div>
-            </div>
-            <div class="flex w-1/2 flex-wrap">
-              <div v-for="(image, index) in images.slice(3, 6)" :key="index" class="flex p-4" :class="index === 0 ? 'w-full' : 'w-1/2'">
-                <ShowImage :key="index" :image="image" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Card>
-    <Card>
-      <template #content>
-        <IconBackground icon="pi-image" />
-        <div class="flex flex-col items-center gap-4">
-          <div class="flex flex-col items-center">
-            <p class="text-center text-md md:text-lg text-balance">
-              {{ t('gallery.footerText') }}
-            </p>
-          </div>
+          <p v-else>
+            {{ t('gallery.noImages') }}
+          </p>
         </div>
       </template>
     </Card>
