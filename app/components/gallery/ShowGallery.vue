@@ -42,7 +42,7 @@ function imageClasses(index: number) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 mx-auto sm:w-11/12 lg:w-10/12 xl:w-8/12">
+  <div class="flex flex-col gap-4">
     <Card>
       <template #content>
         <IconBackground icon="pi-image" />
