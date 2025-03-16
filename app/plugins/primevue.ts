@@ -76,7 +76,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, {
     ripple: true,
     components: {
-      exclude: ['Form', 'FormField']
+      exclude: ['Form', 'FormField'],
     },
     theme: {
       preset: AppPreset,

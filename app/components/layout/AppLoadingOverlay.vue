@@ -1,8 +1,6 @@
 <script setup lang="ts">
 interface Props { progress: number }
-const props = withDefaults(defineProps<Props>(), {
-  progress: 0,
-})
+const props = defineProps<Props>()
 </script>
 
 <template>
