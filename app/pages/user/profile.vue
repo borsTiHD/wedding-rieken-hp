@@ -123,7 +123,7 @@ const ptCard = {
                         // '': (index + 1) > activeStep, // After
                       },
                     ]"
-                    @click="($event) => routerProps.navigate($event)"
+                    @click="($event) => routerProps.navigate($event as MouseEvent)"
                   >
                     <span
                       class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
@@ -147,7 +147,7 @@ const ptCard = {
                       />
                     </span>
                   </button>
-                  <a v-if="!isWidthSmall" :href="routerProps.href" @click="($event) => routerProps.navigate($event)" @keydown.enter="($event) => routerProps.navigate($event)">
+                  <a v-if="!isWidthSmall" :href="routerProps.href" @click="($event) => routerProps.navigate($event as MouseEvent)" @keydown.enter="($event) => routerProps.navigate($event as unknown as MouseEvent)">
                     <span
                       class="flex items-center justify-center gap-1"
                       :class="[
