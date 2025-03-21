@@ -100,7 +100,7 @@ useRegisterEvent('boo-bash', (running: Event) => {
                 'active-link-exact': isExactActive, // active-exact
               }]"
             @click="navigate"
-            @keydown.enter="navigate"
+            @keydown.enter="($event) => navigate($event as unknown as MouseEvent)"
           >
             {{ item.name }}
           </a>

@@ -13,7 +13,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  icon: 'pi-heart-fill',
   position: 'right',
   size: '12rem',
   bottom: '-20px',

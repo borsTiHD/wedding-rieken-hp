@@ -1,13 +1,12 @@
-import type { PaletteDesignToken } from '@primevue/themes/aura'
 import { defineNuxtPlugin } from '#app'
-import { definePreset, palette } from '@primevue/themes'
-import Aura from '@primevue/themes/aura'
+import { definePreset, palette } from '@primeuix/themes'
+import Aura from '@primeuix/themes/aura'
 import PrimeVue from 'primevue/config'
 
 export default defineNuxtPlugin((nuxtApp) => {
   // Create a primary color palette
   const appConfig = useAppConfig()
-  const primaryColor: PaletteDesignToken = palette(appConfig.theme.primary)
+  const primaryColor = palette(appConfig.theme.primary)
 
   // Define a new preset based on Aura
   const AppPreset = definePreset(Aura, {
@@ -76,6 +75,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   nuxtApp.vueApp.use(PrimeVue, {
     ripple: true,
+    components: {
+      exclude: ['Form', 'FormField'],
+    },
     theme: {
       preset: AppPreset,
       options: {

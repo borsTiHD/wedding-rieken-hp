@@ -32,7 +32,7 @@ isValidEnvironment()
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-07-07',
+  compatibilityDate: '2025-03-16',
   future: {
     compatibilityVersion: 4,
   },
