@@ -30,7 +30,7 @@ async function createNewUser(form: { name: string, email: string, password: stri
   })
 
   // Check if response is ok
-  if (!response.result) {
+  if (!response?.result) {
     toast.add({ severity: 'error', summary: 'Error', detail: t('admin.createUser.error'), life: 10000 })
     throw new Error(t('admin.createUser.error'))
   }
