@@ -228,7 +228,7 @@ async function getUsers() {
   })
 
   // Check if response is ok
-  if (!response || !response.result) {
+  if (!response || !response?.result) {
     toast.add({ severity: 'error', summary: 'Error', detail: 'Could not get users', life: 10000 })
     loading.value = false
     throw new Error('Could not get users.')

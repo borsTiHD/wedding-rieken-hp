@@ -56,7 +56,7 @@ async function deleteUserAccount() {
   })
 
   // Check if response is ok
-  if (!response.success) {
+  if (!response?.success) {
     toast.add({ severity: 'error', summary: 'Error', detail: t('admin.listUsers.deleteUser.error'), life: 10000 })
     throw new Error(t('admin.listUsers.deleteUser.error'))
   }

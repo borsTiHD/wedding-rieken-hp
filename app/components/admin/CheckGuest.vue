@@ -51,7 +51,7 @@ async function checkGuest(value: boolean) {
   })
 
   // Check if response is ok
-  if (!response.result) {
+  if (!response?.result) {
     toast.add({ severity: 'error', summary: 'Error', detail: t('admin.listUsers.checkGuest.error'), life: 10000 })
     throw new Error(t('admin.listUsers.checkGuest.error'))
   }
