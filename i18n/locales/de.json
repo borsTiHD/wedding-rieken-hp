@@ -216,7 +216,7 @@
       "header": "Zusätzliche Gäste",
       "headerModal": "Anzahl ändern",
       "tooltip": "Klicken Sie hier, um die Anzahl zusätzlicher Gäste zu ändern",
-      "deadlineInfo": "Bitte treffen Sie Ihre Entscheidung bis zum {date}, ob und wie viele zusätzliche Gäste Sie mitbringen möchten. Falls die Anzahl der Gäste von der Einladung abweicht, klären Sie dies bitte mit dem Brautpaar ab. Nach dieser Deadline können Sie die Anzahl nicht mehr ändern.",
+      "deadlineInfo": "Bitte trefft eure Entscheidung bis zum {date}, ob und mit wie vielen Gästen ihr kommt. Falls die Anzahl der Gäste von der Einladung abweicht, klärt das bitte mit uns ab. Nach der Deadline könnt ihr die Anzahl nicht mehr ändern.",
       "deadlinePassedInfo": "Die Deadline ist bereits abgelaufen. Sie können die Anzahl zusätzlicher Gäste nicht mehr ändern. Sollten Sie eine Änderung vornehmen wollen, kontaktieren Sie uns bitte.",
       "notInvitedInfo": "Ihr Account wurde bisher nicht bestätigt. Daher können Sie die Anzahl zusätzlicher Gäste nicht ändern. Wenn Sie an der Hochzeit teilnehmen möchten, zögern Sie bitte nicht, uns zu kontaktieren.",
       "notChangedInfo": "Anzahl nicht geändert",
