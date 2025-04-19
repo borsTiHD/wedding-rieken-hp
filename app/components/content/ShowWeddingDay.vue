@@ -26,8 +26,9 @@ const calendarLocale = computed(() => {
 const { configData, bride, groom, street, city, weddingDate, weddingDuration } = useConfig()
 const eventTitel = computed(() => t('general.eventTitle', { bride: bride.value, groom: groom.value }))
 const eventDescription = computed(() => t('general.eventDescription', { bride: bride.value, groom: groom.value, url: window.location.href }))
-const date = computed(() => dayjs(weddingDate.value).format('YYYY-MM-DD'))
+const startDate = computed(() => dayjs(weddingDate.value).format('YYYY-MM-DD'))
 const startTime = computed(() => dayjs(weddingDate.value).format('HH:mm'))
+const endDate = computed(() => dayjs(weddingDate.value).add(weddingDuration.value, 'hour').format('YYYY-MM-DD'))
 const endTime = computed(() => dayjs(weddingDate.value).add(weddingDuration.value, 'hour').format('HH:mm'))
 </script>
 
@@ -54,12 +55,12 @@ const endTime = computed(() => dayjs(weddingDate.value).add(weddingDuration.valu
               :description="eventDescription"
               options="'Apple','Google','iCal','Outlook.com','Microsoft365'"
               :location="`${street}, ${city}`"
-              :start-date="date"
-              :end-date="date"
-              :start-time="startTime"
-              :end-time="endTime"
-              time-zone="Europe/Berlin"
-              button-style="date"
+              :startdate="startDate"
+              :enddate="endDate"
+              :starttime="startTime"
+              :endtime="endTime"
+              timezone="Europe/Berlin"
+              buttonstyle="date"
               :label="t('general.addToCalendar')"
               :language="calendarLocale"
             />
