@@ -24,8 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const filePath = computed(() => props.path)
-
-const { data: fileData, isLoading, isFetching } = useFileQuery(filePath)
+const { data: fileData, isLoading, isFetching } = useFileQuery(filePath, ref(true))
 const loading = computed(() => isLoading.value || isFetching.value)
 const previewUrl = computed(() => fileData.value?.previewUrl)
 </script>
@@ -34,7 +33,7 @@ const previewUrl = computed(() => fileData.value?.previewUrl)
   <div v-if="loading" class="h-14 w-14 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
     <i class="pi pi-spin pi-spinner text-gray-500 text-2xl" />
   </div>
-  <DisplayAvatar v-else-if="previewUrl" :src="previewUrl" alt="..." shadow cover preview />
+  <DisplayAvatar v-else-if="previewUrl" :src="previewUrl" alt="Preview" shadow cover preview />
   <div v-else class="h-14 w-14 shadow-md rounded-md bg-gray-200 flex items-center justify-center">
     <span class="text-gray-500 text-center select-none">No File</span>
   </div>
