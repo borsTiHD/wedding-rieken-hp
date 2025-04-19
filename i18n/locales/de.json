@@ -572,6 +572,19 @@
         "actions": "Aktionen"
       }
     },
+    "listGalleryFiles": {
+      "header": "Galerie",
+      "fileSearch": {
+        "placeholder": "Suche nach Bildern"
+      },
+      "tableHeader": {
+        "preview": "Vorschau",
+        "name": "Dateiname",
+        "lastModified": "Zuletzt geändert",
+        "size": "Größe",
+        "actions": "Aktionen"
+      }
+    },
     "uploadGalleryFile": {
       "uploadLabel": "Neues Bild hochladen",
       "invalidFileSizeMessage": "Die Datei ist zu groß. Bitte wähle eine Datei mit maximal {maxFilesize} aus.",
