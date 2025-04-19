@@ -3,6 +3,11 @@ import type { Buffer } from 'node:buffer'
 import { bucket, checkBucketExists, MinioClient } from '@@/server/lib/minioInit'
 import sharp from 'sharp'
 
+function getThumbnailPath(filePath: string): string {
+  // Construct the thumbnail path with a .jpg extension
+  return `thumbnails/${filePath.replace(/\.[^/.]+$/, '.jpg')}`
+}
+
 async function getAllFiles(filePath: string): Promise<Array<{ metadata: BucketItemStat, file: ItemBucketMetadata }>> {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
@@ -55,7 +60,7 @@ async function getAllFiles(filePath: string): Promise<Array<{ metadata: BucketIt
   })
 }
 
-async function getPreviewUrl(objectName: string, expirySeconds: number = 3600): Promise<string> {
+async function getPreviewUrl(objectName: string, isPreview: boolean, expirySeconds: number = 3600): Promise<string> {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
 
@@ -63,9 +68,11 @@ async function getPreviewUrl(objectName: string, expirySeconds: number = 3600): 
     throw new Error('Minio: Bucket does not exist')
   }
 
+  const filePath = isPreview ? getThumbnailPath(objectName) : objectName
+
   try {
     // Generate a presigned URL for the object
-    const url = await MinioClient.presignedUrl('GET', bucket, objectName, expirySeconds)
+    const url = await MinioClient.presignedUrl('GET', bucket, filePath, expirySeconds)
     return url
   }
   catch (error) {
@@ -91,10 +98,13 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
   }
 
   // Generate a thumbnail
-  const thumbnailBuffer = await sharp(fileBuffer).resize(200, 200).toBuffer()
+  const thumbnailBuffer = await sharp(fileBuffer)
+  .resize({ width: 200 }) // Resize to a width of 200px while maintaining aspect ratio
+  .jpeg({ quality: 80 }) // Convert to JPEG with 80% quality
+  .toBuffer();
 
   // Upload the thumbnail
-  const thumbnailPath = `thumbnails/${filePath}`
+  const thumbnailPath = getThumbnailPath(filePath) // Ensure thumbnail has .jpg extension
   await MinioClient.putObject(
     bucket,
     thumbnailPath,
@@ -127,7 +137,7 @@ async function deleteFile(filePath: string) {
   await MinioClient.removeObject(bucket, filePath)
 
   // Construct the thumbnail path
-  const thumbnailPath = `thumbnails/${filePath}`
+  const thumbnailPath = getThumbnailPath(filePath)
 
   try {
     // Attempt to delete the thumbnail
