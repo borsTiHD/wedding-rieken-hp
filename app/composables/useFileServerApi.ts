@@ -63,13 +63,32 @@ export default function useFileServerApi() {
     })
   }
 
+  async function deleteFile(fileId: string) {
+    // Check if user is logged in
+    if (!user.value) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
+
+    // Check if user is admin
+    if (userProfile.value && userProfile.value.role !== 'admin') {
+      throw new Error(t('admin.notAdminError'))
+    }
+
+    const encodedPath = encodeURIComponent(fileId)
+
+    return $fetch(`${apiBaseUrl}/files/${encodedPath}`, {
+      method: 'DELETE',
+    })
+  }
+
   // Return functions
   return {
     // admin only
-    uploadFile, // add uploadFile function
+    uploadFile,
+    deleteFile,
 
     // all users
-    getAllFiles, // get all files
-    getPreviewUrl, // get preview URL
+    getAllFiles,
+    getPreviewUrl,
   }
 }

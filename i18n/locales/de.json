@@ -595,6 +595,14 @@
       "successDetail": "Die Datei wurde erfolgreich hochgeladen",
       "uploadDescription": "JPG, GIF or PNG. {maxFilesize} max."
     },
+    "deleteGalleryFile": {
+      "tooltip": "Datei löschen",
+      "confirmMessage": "Bist du dir sicher, dass du die Datei löschen möchtest?",
+      "noPath": "Kein Pfad angegeben",
+      "error": "Fehler beim Löschen der Datei",
+      "success": "Datei gelöscht",
+      "successDetail": "Die Datei wurde erfolgreich gelöscht"
+    },
     "inviteToken": {
       "header": "Einladungs Token ändern",
       "infoText": "Durch das Ändern des Einladungs Tokens werden alte Einladungs Links ungültig.",

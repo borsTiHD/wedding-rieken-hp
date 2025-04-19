@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { DataTable } from '#components'
+import DeleteFile from '@/components/admin/DeleteFile.vue'
 import UploadGalleryFile from '@/components/admin/UploadGalleryFile.vue'
+import DisplayMinioFile from '@/components/user/DisplayMinioFile.vue'
 import createReadableDate from '@/composables/dateHelper'
 import { useFilesQuery } from '@/queries/useFilesQuery'
-import DisplayMinioFile from '~/components/user/DisplayMinioFile.vue'
 
 // Composables
 const { t } = useI18n()
@@ -101,7 +102,10 @@ function readableSize(size: number) {
           <Column :header="t('admin.listGalleryFiles.tableHeader.actions')">
             <template #body="slotProps">
               <div v-if="slotProps.data.role !== 'admin'" class="flex items-center gap-2">
-                <span>Delete?</span>
+                <DeleteFile
+                  :path="slotProps.data.file.name"
+                  @deleted="refetch()"
+                />
               </div>
             </template>
           </Column>
