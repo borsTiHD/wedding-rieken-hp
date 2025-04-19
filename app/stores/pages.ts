@@ -45,6 +45,7 @@ export const usePagesStore = defineStore('pages-store', () => {
       pages.push(
         { name: t('pages.admin'), path: localePath('/admin') },
         { name: t('pages.user-management'), path: localePath('/admin/user-management') },
+        { name: t('pages.file-management'), path: localePath('/admin/file-management') },
       )
     }
 
