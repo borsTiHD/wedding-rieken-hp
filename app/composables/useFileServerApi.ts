@@ -31,7 +31,9 @@ export default function useFileServerApi() {
       throw new Error(t('firebase.custom.noUserLoggedIn'))
     }
 
-    return $fetch(`${apiBaseUrl}/files/${fileId}`, {
+    const encodedPath = encodeURIComponent(fileId)
+
+    return $fetch(`${apiBaseUrl}/files/${encodedPath}`, {
       method: 'GET',
     })
   }

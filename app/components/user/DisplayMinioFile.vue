@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
   preview: false,
 })
 
-const filePath = computed(() => encodeURIComponent(props.path))
+const filePath = computed(() => props.path)
 
 const { data: fileData, isLoading, isFetching } = useFileQuery(filePath)
 const loading = computed(() => isLoading.value || isFetching.value)
