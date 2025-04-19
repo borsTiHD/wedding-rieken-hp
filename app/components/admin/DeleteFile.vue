@@ -3,7 +3,7 @@ import useFileServerApi from '@/composables/useFileServerApi'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
 
-interface Props { path: string }
+interface Props { paths: string[], multiple?: boolean }
 const props = defineProps<Props>()
 
 // Emit event
@@ -42,41 +42,51 @@ async function onClick(event: MouseEvent) {
 }
 
 async function deleteFileHandling() {
-  // Check if uid is set
-  if (!props.path) {
+  // Check if paths are set
+  if (!props.paths || props.paths.length === 0) {
     toast.add({ severity: 'error', summary: 'Error', detail: t('admin.deleteGalleryFile.noPath'), life: 10000 })
     throw new Error(t('admin.deleteGalleryFile.noPath'))
   }
 
-  // Send request to API to delete user
-  const response = await deleteFile(props.path).catch((error: { statusMessage: string }) => {
-    toast.add({ severity: 'error', summary: 'Error', detail: error.statusMessage, life: 10000 })
-    console.error(error)
-    throw error
+  // Send requests to API to delete files
+  const results = await Promise.allSettled(props.paths.map(path => deleteFile(path)))
+
+  // Process results
+  let hasErrors = false
+  results.forEach((result, index) => {
+    if (result.status === 'rejected') {
+      hasErrors = true
+      console.error(`Error deleting file at path: ${props.paths[index]}`, result.reason)
+      toast.add({ severity: 'error', summary: 'Error', detail: t('admin.deleteGalleryFile.error'), life: 10000 })
+    } else if (!result.value?.success) {
+      hasErrors = true
+      console.error(`Failed to delete file at path: ${props.paths[index]}`)
+      toast.add({ severity: 'error', summary: 'Error', detail: t('admin.deleteGalleryFile.error'), life: 10000 })
+    }
   })
-
-  // Check if response is ok
-  if (!response?.success) {
-    toast.add({ severity: 'error', summary: 'Error', detail: t('admin.deleteGalleryFile.error'), life: 10000 })
-    throw new Error(t('admin.deleteGalleryFile.error'))
-  }
-
-  // Show toast
-  toast.add({ severity: 'success', summary: t('admin.deleteGalleryFile.success'), detail: t('admin.deleteGalleryFile.successDetail'), life: 3000 })
 
   // Emit event to parent
   emit('deleted')
+
+  // If there were errors, throw an error
+  if (hasErrors) {
+    throw new Error(t('admin.deleteGalleryFile.error'))
+  }
+
+  // Show success toast if all deletions succeeded
+  toast.add({ severity: 'success', summary: t('admin.deleteGalleryFile.success'), detail: t('admin.deleteGalleryFile.successDetail'), life: 3000 })
 }
 </script>
 
 <template>
   <ConfirmPopup />
   <Button
-    v-tooltip.left="t('admin.deleteGalleryFile.tooltip')"
+    v-tooltip.bottom="t('admin.deleteGalleryFile.tooltip')"
     icon="pi pi-trash"
     size="small"
     severity="danger"
     outlined
+    :label="multiple ? t('admin.deleteGalleryFile.label') : undefined"
     @click="onClick($event)"
   />
 </template>

@@ -12,7 +12,9 @@ const { t } = useI18n()
 const galleryPath = ref('gallery/')
 const { data: filesData, isLoading, isFetching, refetch } = useFilesQuery(galleryPath)
 const loading = computed(() => isLoading.value || isFetching.value)
+
 const globalSearch = ref('')
+const selectedFiles = ref<any[]>([])
 const files = computed(() => {
   if (!filesData.value)
     return []
@@ -52,6 +54,7 @@ function readableSize(size: number) {
     <template #content>
       <div class="flex flex-col gap-4">
         <DataTable
+          v-model:selection="selectedFiles"
           :value="files"
           :loading="loading"
           paginator
@@ -64,6 +67,11 @@ function readableSize(size: number) {
             <div class="flex flex-wrap gap-2">
               <Button icon="pi pi-refresh" rounded raised @click="refetch()" />
               <UploadGalleryFile @uploaded="refetch()" />
+              <DeleteFile
+                :paths="selectedFiles.map((file) => file.file.name)"
+                multiple
+                @deleted="refetch()"
+              />
 
               <!-- Search -->
               <IconField class="ml-auto">
@@ -73,6 +81,7 @@ function readableSize(size: number) {
             </div>
           </template>
 
+          <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
           <Column field="preview" :header="t('admin.listGalleryFiles.tableHeader.preview')">
             <template #body="slotProps">
               <DisplayMinioFile :path="slotProps.data.file.name" />
@@ -103,7 +112,7 @@ function readableSize(size: number) {
             <template #body="slotProps">
               <div v-if="slotProps.data.role !== 'admin'" class="flex items-center gap-2">
                 <DeleteFile
-                  :path="slotProps.data.file.name"
+                  :paths="[slotProps.data.file.name]"
                   @deleted="refetch()"
                 />
               </div>

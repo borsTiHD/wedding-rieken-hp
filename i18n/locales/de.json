@@ -596,6 +596,7 @@
       "uploadDescription": "JPG, GIF or PNG. {maxFilesize} max."
     },
     "deleteGalleryFile": {
+      "label": "Dateien löschen",
       "tooltip": "Datei löschen",
       "confirmMessage": "Bist du dir sicher, dass du die Datei löschen möchtest?",
       "noPath": "Kein Pfad angegeben",
