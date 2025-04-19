@@ -98,7 +98,19 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
   )
 }
 
+async function deleteFile(filePath: string) {
+  // Check if bucket exists
+  const bucketExists = await checkBucketExists(bucket)
+
+  if (!bucketExists) {
+    throw new Error('Minio: Bucket does not exist')
+  }
+
+  return MinioClient.removeObject(bucket, filePath)
+}
+
 export {
+  deleteFile,
   getAllFiles,
   getPreviewUrl,
   uploadFile,
