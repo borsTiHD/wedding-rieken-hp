@@ -99,9 +99,9 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
 
   // Generate a thumbnail
   const thumbnailBuffer = await sharp(fileBuffer)
-  .resize({ width: 200 }) // Resize to a width of 200px while maintaining aspect ratio
-  .jpeg({ quality: 80 }) // Convert to JPEG with 80% quality
-  .toBuffer();
+  .resize({ width: 1000, withoutEnlargement: true }) // Resize to 1000px width while maintaining aspect ratio
+  .jpeg({ quality: 70 }) // Convert to JPEG with 70% quality
+  .toBuffer()
 
   // Upload the thumbnail
   const thumbnailPath = getThumbnailPath(filePath) // Ensure thumbnail has .jpg extension
