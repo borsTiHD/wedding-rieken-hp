@@ -572,6 +572,16 @@
         "actions": "Aktionen"
       }
     },
+    "uploadGalleryFile": {
+      "uploadLabel": "Neues Bild hochladen",
+      "invalidFileSizeMessage": "Die Datei ist zu groß. Bitte wähle eine Datei mit maximal {maxFilesize} aus.",
+      "noFileSelected": "Keine Datei ausgewählt",
+      "noFileSelectedDetail": "Bitte wähle eine Datei aus, um sie hochzuladen",
+      "error": "Fehler beim Hochladen der Datei",
+      "success": "Datei hochgeladen",
+      "successDetail": "Die Datei wurde erfolgreich hochgeladen",
+      "uploadDescription": "JPG, GIF or PNG. {maxFilesize} max."
+    },
     "inviteToken": {
       "header": "Einladungs Token ändern",
       "infoText": "Durch das Ändern des Einladungs Tokens werden alte Einladungs Links ungültig.",
