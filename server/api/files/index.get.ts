@@ -1,9 +1,9 @@
-import checkAdmin from '@@/server/lib/checkAdmin'
+import checkUser from '@@/server/lib/checkUser'
 import { getAllFiles } from '@@/server/lib/minioApi'
 
 export default defineEventHandler(async (event) => {
-  // Check if user is admin
-  await checkAdmin(event)
+  // Check if user is authenticated
+  await checkUser(event)
 
   // Get query parameters
   const query = getQuery(event)
