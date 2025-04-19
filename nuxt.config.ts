@@ -25,6 +25,14 @@ function isValidEnvironment(): void {
   checkEnvironmentVariable('NUXT_FIREBASE_MESSAGINGSENDERID')
   checkEnvironmentVariable('NUXT_FIREBASE_APPID')
   checkEnvironmentVariable('NUXT_FIREBASE_MEASUREMENTID')
+
+  // Minio
+  checkEnvironmentVariable('NUXT_MINIO_ENDPOINT')
+  // checkEnvironmentVariable('NUXT_MINIO_PORT') // Optional, default is 9000
+  checkEnvironmentVariable('NUXT_MINIO_USE_SSL')
+  checkEnvironmentVariable('NUXT_MINIO_ACCESS_KEY')
+  checkEnvironmentVariable('NUXT_MINIO_SECRET_KEY')
+  checkEnvironmentVariable('NUXT_MINIO_BUCKET')
 }
 
 // Check if all environment variables are set correctly
@@ -51,6 +59,15 @@ export default defineNuxtConfig({
       tokenUri: process.env.NUXT_FIREBASE_ADMIN_TOKEN_URI,
       authProviderX509CertUrl: process.env.NUXT_FIREBASE_ADMIN_AUTH_PROVIDER_X509_CERT_URL,
       clientC509CertUrl: process.env.NUXT_FIREBASE_ADMIN_CLIENT_X509_CERT_URL,
+    },
+    // Minio configuration
+    minioAdmin: {
+      endpoint: process.env.NUXT_MINIO_ENDPOINT,
+      port: process.env.NUXT_MINIO_PORT, // Optional: Use port if provided
+      useSSL: process.env.NUXT_MINIO_USE_SSL === 'true',
+      accessKey: process.env.NUXT_MINIO_ACCESS_KEY,
+      secretKey: process.env.NUXT_MINIO_SECRET_KEY,
+      bucket: process.env.NUXT_MINIO_BUCKET,
     },
     // Client-side runtime config
     public: {
