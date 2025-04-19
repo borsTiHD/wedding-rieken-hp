@@ -32,16 +32,15 @@ async function onUpload(event: FileUploadUploaderEvent) {
   }
 
   // Check if user is admin
-  // This is not necessary, because the button is only visible for admins also the API will throw an error if the user is not admin
   if (userProfile.value && userProfile.value.role !== 'admin') {
     throw new Error(t('admin.notAdminError'))
   }
 
-  // Get file
-  const file = (event.files as File[])[0]
+  // Get files
+  const files = event.files as File[]
 
-  // Check if file exists
-  if (!file) {
+  // Check if files exist
+  if (!files?.length) {
     toast.add({
       severity: 'error',
       summary: t('admin.uploadGalleryFile.noFileSelected'),
@@ -51,39 +50,50 @@ async function onUpload(event: FileUploadUploaderEvent) {
     return false
   }
 
-  // Upload file
+  // Upload files
   loading.value = true
-  const response = await uploadFile(file, 'gallery').catch((error) => {
-    console.error(error)
-    toast.add({
-      severity: 'error',
-      summary: t('admin.uploadGalleryFile.error'),
-      detail: error.message,
-      life: 10000,
+  const uploadPromises = files.map((file) =>
+    uploadFile(file, 'gallery').catch((error) => {
+      console.error(`Error uploading file ${file.name}:`, error)
+      return { success: false, error }
     })
-    return undefined
+  )
+
+  const results = await Promise.allSettled(uploadPromises)
+
+  // Handle results
+  let successCount = 0
+  let errorCount = 0
+
+  results.forEach((result, index) => {
+    if (result.status === 'fulfilled' && result.value?.success) {
+      successCount++
+    } else {
+      errorCount++
+      const fileName = files[index]?.name || 'Unknown file'
+      toast.add({
+        severity: 'error',
+        summary: t('admin.uploadGalleryFile.error'),
+        detail: t('admin.uploadGalleryFile.errorDetail', { fileName }),
+        life: 10000,
+      })
+    }
   })
 
-  // If download link exists and is a string update the location preview filename in the app config
-  if (response && response?.success) {
+  if (successCount > 0) {
     toast.add({
       severity: 'success',
       summary: t('admin.uploadGalleryFile.success'),
-      detail: t('admin.uploadGalleryFile.successDetail'),
+      detail: t('admin.uploadGalleryFile.successDetail', { count: successCount }),
       life: 3000,
     })
 
     // Emit event to parent
     emit('uploaded')
   }
-  else {
-    console.error('File upload failed:', response)
-    toast.add({
-      severity: 'error',
-      summary: t('admin.uploadGalleryFile.error'),
-      detail: t('admin.uploadGalleryFile.errorDetail'),
-      life: 10000,
-    })
+
+  if (errorCount > 0) {
+    console.error(`${errorCount} file(s) failed to upload.`)
   }
 
   loading.value = false
@@ -93,6 +103,6 @@ async function onUpload(event: FileUploadUploaderEvent) {
 <template>
   <div class="flex flex-col">
     <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
-    <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :choose-label="uploadLabel" accept="image/*" :max-file-size="maxFileSize" :invalid-file-size-message="invalidFileSizeMessage" auto custom-upload @uploader="onUpload" />
+    <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :choose-label="uploadLabel" multiple accept="image/*" :max-file-size="maxFileSize" :invalid-file-size-message="invalidFileSizeMessage" auto custom-upload @uploader="onUpload" />
   </div>
 </template>
