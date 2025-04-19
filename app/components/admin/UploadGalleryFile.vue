@@ -94,8 +94,5 @@ async function onUpload(event: FileUploadUploaderEvent) {
   <div class="flex flex-col">
     <Button v-if="loading" :loading="true" :label="uploadLabel" type="button" class="w-full" />
     <FileUpload v-else autofocus class="w-full" mode="basic" :disabled="loading" name="photo" :choose-label="uploadLabel" accept="image/*" :max-file-size="maxFileSize" :invalid-file-size-message="invalidFileSizeMessage" auto custom-upload @uploader="onUpload" />
-    <p class="mt-2 text-xs leading-5 text-gray-400">
-      {{ t('admin.uploadGalleryFile.uploadDescription', { maxFilesize: `${maxFileSizeInMB}MB` }) }}
-    </p>
   </div>
 </template>
