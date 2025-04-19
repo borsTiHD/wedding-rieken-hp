@@ -13,10 +13,16 @@ export default defineEventHandler(async (event) => {
 
   // Get id from params
   const id = params.id
+  const decodedPath = decodeURIComponent(id)
+
+  // Check if the request is for a preview
+  const isPreview = getQuery(event).preview === 'true';
+
+  // Determine the file path
+  const filePath = isPreview ? `thumbnails/${decodedPath}` : decodedPath;
 
   // Get preview URL from Minio
-  const decodedPath = decodeURIComponent(id)
-  const previewUrl = await getPreviewUrl(decodedPath)
+  const previewUrl = await getPreviewUrl(filePath)
   if (!previewUrl) {
     throw createError({ statusCode: 500, statusMessage: 'Failed to get preview URL' })
   }

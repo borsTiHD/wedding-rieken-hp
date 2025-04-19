@@ -1,6 +1,7 @@
 import type { BucketItemStat, ItemBucketMetadata } from 'minio'
 import type { Buffer } from 'node:buffer'
 import { bucket, checkBucketExists, MinioClient } from '@@/server/lib/minioInit'
+import sharp from 'sharp'
 
 async function getAllFiles(filePath: string): Promise<Array<{ metadata: BucketItemStat, file: ItemBucketMetadata }>> {
   // Check if bucket exists
@@ -89,6 +90,22 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
     'X-Amz-Meta-Original-Filetype': fileType,
   }
 
+  // Generate a thumbnail
+  const thumbnailBuffer = await sharp(fileBuffer).resize(200, 200).toBuffer()
+
+  // Upload the thumbnail
+  const thumbnailPath = `thumbnails/${filePath}`
+  await MinioClient.putObject(
+    bucket,
+    thumbnailPath,
+    thumbnailBuffer,
+    thumbnailBuffer.length, // Optional size
+    {
+      ...metaData,
+      'X-Amz-Meta-Thumbnail': 'true',
+    },
+  )
+
   return MinioClient.putObject(
     bucket,
     filePath,
@@ -106,7 +123,18 @@ async function deleteFile(filePath: string) {
     throw new Error('Minio: Bucket does not exist')
   }
 
-  return MinioClient.removeObject(bucket, filePath)
+  // Delete the main file
+  await MinioClient.removeObject(bucket, filePath)
+
+  // Construct the thumbnail path
+  const thumbnailPath = `thumbnails/${filePath}`
+
+  try {
+    // Attempt to delete the thumbnail
+    await MinioClient.removeObject(bucket, thumbnailPath)
+  } catch (error) {
+    console.warn(`Thumbnail not found or failed to delete: ${thumbnailPath}`, error)
+  }
 }
 
 export {
