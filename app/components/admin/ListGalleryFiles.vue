@@ -19,7 +19,11 @@ const files = computed(() => {
     const fileName = getFileName(file)
     return fileName.toLowerCase().includes(globalSearch.value.toLowerCase())
   }) || []
-  return filteredFiles
+  return filteredFiles.sort((a: any, b: any) => {
+    const fileName = getFileName(a)
+    const fileNameB = getFileName(b)
+    return fileName.localeCompare(fileNameB)
+  })
 })
 
 function getFileName(file: any) {
