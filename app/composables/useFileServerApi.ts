@@ -13,6 +13,29 @@ export default function useFileServerApi() {
   const user = computed(() => userStore.user)
   const userProfile = computed(() => userStore.userProfile)
 
+  async function getAllFiles(filePath: string) {
+    // Check if user is logged in
+    if (!user.value) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
+
+    return $fetch(`${apiBaseUrl}/files`, {
+      method: 'GET',
+      params: { path: filePath },
+    })
+  }
+
+  async function getPreviewUrl(fileId: string) {
+    // Check if user is logged in
+    if (!user.value) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
+
+    return $fetch(`${apiBaseUrl}/files/${fileId}`, {
+      method: 'GET',
+    })
+  }
+
   async function uploadFile(file: File, path?: string) {
     // Check if user is logged in
     if (!user.value) {
@@ -20,7 +43,6 @@ export default function useFileServerApi() {
     }
 
     // Check if user is admin
-    // This is not necessary, the API would throw an error if the user is no admin
     if (userProfile.value && userProfile.value.role !== 'admin') {
       throw new Error(t('admin.notAdminError'))
     }
@@ -41,6 +63,11 @@ export default function useFileServerApi() {
 
   // Return functions
   return {
-    uploadFile, // admin only: add uploadFile function
+    // admin only
+    uploadFile, // add uploadFile function
+
+    // all users
+    getAllFiles, // get all files
+    getPreviewUrl, // get preview URL
   }
 }
