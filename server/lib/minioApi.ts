@@ -1,4 +1,5 @@
 import type { File } from '@@/shared/types/File'
+import type { EventHandlerRequest, H3Event } from 'h3'
 import type { BucketItem, ItemBucketMetadata } from 'minio'
 import type { Buffer } from 'node:buffer'
 import { bucket, checkBucketExists, MinioClient } from '@@/server/lib/minioInit'
@@ -100,6 +101,31 @@ async function getPreviewUrl(objectName: string, getThumbnail: boolean, expirySe
   }
 }
 
+async function downloadFile(event: H3Event<EventHandlerRequest>, filePath: string) {
+  try {
+    // Get metadata for the file
+    const metadata = await getMetadata(filePath)
+
+    // Stream the file from MinIO
+    const stream = await MinioClient.getObject(bucket, filePath)
+    if (!stream) {
+      throw createError({ statusCode: 404, statusMessage: 'File not found' })
+    }
+
+    // Set headers for file download
+    // Metadata 'original-filename' is set in uploadFile
+    event.node.res.setHeader('Content-Disposition', `attachment; filename="${metadata?.metaData?.['original-filename'] || filePath}"`)
+    event.node.res.setHeader('Content-Type', 'application/octet-stream')
+
+    // Pipe the stream to the response
+    return sendStream(event, stream)
+  }
+  catch (error) {
+    console.error(`Error downloading file ${filePath}:`, error)
+    throw createError({ statusCode: 500, statusMessage: 'Failed to download file' })
+  }
+}
+
 async function uploadFile(fileName: string, filePath: string, fileType: string, fileBuffer: Buffer<ArrayBufferLike>) {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
@@ -169,6 +195,7 @@ async function deleteFile(filePath: string) {
 
 export {
   deleteFile,
+  downloadFile,
   getAllFiles,
   getPreviewUrl,
   uploadFile,
