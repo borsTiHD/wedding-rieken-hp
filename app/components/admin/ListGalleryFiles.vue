@@ -1,10 +1,24 @@
 <script setup lang="ts">
+import type { File } from '@@/shared/types/File'
 import { DataTable } from '#components'
 import DeleteFile from '@/components/admin/DeleteFile.vue'
 import UploadGalleryFile from '@/components/admin/UploadGalleryFile.vue'
 import DisplayMinioFile from '@/components/user/DisplayMinioFile.vue'
 import createReadableDate from '@/composables/dateHelper'
 import { useFilesQuery } from '@/queries/useFilesQuery'
+
+interface FileRow {
+  name: string
+  path: string
+  preview: string
+  lastModified: string
+  size: number
+  data: File // The original `File` type
+}
+
+interface SlotProps {
+  data: FileRow
+}
 
 // Composables
 const { t } = useI18n()
@@ -14,23 +28,32 @@ const { data: filesData, isLoading, isFetching, refetch } = useFilesQuery(galler
 const loading = computed(() => isLoading.value || isFetching.value)
 
 const globalSearch = ref('')
-const selectedFiles = ref<any[]>([])
-const files = computed(() => {
+const selectedFiles = ref<FileRow[]>([])
+const files = computed<FileRow[]>(() => {
   if (!filesData.value)
     return []
-  const filteredFiles = filesData.value?.files.filter((file: any) => {
-    const fileName = getFileName(file)
-    return fileName.toLowerCase().includes(globalSearch.value.toLowerCase())
-  }) || []
-  return filteredFiles.sort((a: any, b: any) => {
-    const fileName = getFileName(a)
-    const fileNameB = getFileName(b)
-    return fileName.localeCompare(fileNameB)
-  })
+  const filteredFiles = filesData.value?.files.filter((file) => {
+    const fileString = JSON.stringify(file).toLowerCase()
+    return fileString.includes(globalSearch.value.toLowerCase())
+  })?.map((item) => {
+    // Type guard to ensure 'item.file' has a 'name' property
+    if ('name' in item?.file) {
+      return {
+        name: getFileName(item),
+        path: item.file.name,
+        preview: item.file.name, // Complete path for downloading preview
+        lastModified: item.file.lastModified,
+        size: item.file.size,
+        data: item as unknown as File,
+      } as FileRow
+    }
+    return null // Handle cases where 'name' doesn't exist
+  }).filter(file => file !== null) as FileRow[] // Remove null entries
+  return filteredFiles || []
 })
 
 function getFileName(file: any) {
-  return file.metadata?.metaData?.['original-filename'] || file.name
+  return file.metadata?.metaData?.['original-filename'] || file?.file?.name
 }
 
 function readableSize(size: number) {
@@ -60,6 +83,8 @@ function readableSize(size: number) {
           paginator
           size="small"
           removable-sort
+          sort-field="lastModified"
+          :sort-order="-1"
           :rows="10"
           :rows-per-page-options="[5, 10, 20, 50]"
         >
@@ -68,7 +93,7 @@ function readableSize(size: number) {
               <Button icon="pi pi-refresh" rounded raised @click="refetch()" />
               <UploadGalleryFile @uploaded="refetch()" />
               <DeleteFile
-                :paths="selectedFiles.map((file) => file.file.name)"
+                :paths="selectedFiles.map((item) => item.path)"
                 multiple
                 @deleted="refetch()"
               />
@@ -81,41 +106,39 @@ function readableSize(size: number) {
             </div>
           </template>
 
-          <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
+          <Column selection-mode="multiple" header-style="width: 3rem" />
           <Column field="preview" :header="t('admin.listGalleryFiles.tableHeader.preview')">
             <template #body="slotProps">
-              <DisplayMinioFile :path="slotProps.data.file.name" />
+              <DisplayMinioFile :path="(slotProps as SlotProps).data.preview" />
             </template>
           </Column>
-          <Column field="name" :header="t('admin.listGalleryFiles.tableHeader.name')">
+          <Column field="name" :header="t('admin.listGalleryFiles.tableHeader.name')" sortable>
             <template #body="slotProps">
               <span class="text-sm font-medium text-gray-900 truncate">
-                {{ getFileName(slotProps.data) }}
+                {{ (slotProps as SlotProps).data.name }}
               </span>
             </template>
           </Column>
-          <Column field="lastModified" :header="t('admin.listGalleryFiles.tableHeader.lastModified')">
+          <Column field="lastModified" :header="t('admin.listGalleryFiles.tableHeader.lastModified')" sortable>
             <template #body="slotProps">
               <span class="text-sm font-medium text-gray-900">
-                {{ createReadableDate(slotProps.data.file.lastModified) }}
+                {{ createReadableDate((slotProps as SlotProps).data.lastModified) }}
               </span>
             </template>
           </Column>
-          <Column field="size" :header="t('admin.listGalleryFiles.tableHeader.size')">
+          <Column field="size" :header="t('admin.listGalleryFiles.tableHeader.size')" sortable>
             <template #body="slotProps">
               <span class="text-sm font-medium text-gray-900">
-                {{ readableSize(slotProps.data.file.size) }}
+                {{ readableSize((slotProps as SlotProps).data.size) }}
               </span>
             </template>
           </Column>
           <Column :header="t('admin.listGalleryFiles.tableHeader.actions')">
             <template #body="slotProps">
-              <div v-if="slotProps.data.role !== 'admin'" class="flex items-center gap-2">
-                <DeleteFile
-                  :paths="[slotProps.data.file.name]"
-                  @deleted="refetch()"
-                />
-              </div>
+              <DeleteFile
+                :paths="[(slotProps as SlotProps).data.path]"
+                @deleted="refetch()"
+              />
             </template>
           </Column>
         </DataTable>
