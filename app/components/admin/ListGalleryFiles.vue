@@ -23,7 +23,7 @@ interface SlotProps {
 
 // Composables
 const { t } = useI18n()
-const { downloadFile } = useFileServerApi()
+const { downloadFile, downloadFolder } = useFileServerApi()
 
 const galleryPath = ref('gallery/')
 const { data: filesData, isLoading, isFetching, refetch } = useFilesQuery(galleryPath)
@@ -68,9 +68,17 @@ function readableSize(size: number) {
   else return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`
 }
 
-async function handleDownloadFile(path: string) {
-  await downloadFile(path).catch((error) => {
-    console.error('Error downloading file:', error)
+async function handleDownloadFiles(paths: string[]) {
+  for (const path of paths) {
+    await downloadFile(path).catch((error) => {
+      console.error('Error downloading file:', error)
+    })
+  }
+}
+
+async function downloadAll() {
+  await downloadFolder(galleryPath.value).catch((error) => {
+    console.error('Error downloading folder:', error)
   })
 }
 </script>
@@ -100,6 +108,13 @@ async function handleDownloadFile(path: string) {
             <div class="flex flex-wrap gap-2">
               <Button icon="pi pi-refresh" rounded raised @click="refetch()" />
               <UploadGalleryFile @uploaded="refetch()" />
+              <Button
+                icon="pi pi-download"
+                size="small"
+                severity="info"
+                :label="selectedFiles.length > 0 ? t('admin.listGalleryFiles.downloadSelected') : t('admin.listGalleryFiles.downloadAll')"
+                @click="selectedFiles.length > 0 ? handleDownloadFiles(selectedFiles.map(file => file.path)) : downloadAll()"
+              />
               <DeleteFile
                 :paths="selectedFiles.map((item) => item.path)"
                 multiple
@@ -149,7 +164,7 @@ async function handleDownloadFile(path: string) {
                   icon="pi pi-download"
                   size="small"
                   severity="info"
-                  @click="handleDownloadFile((slotProps as SlotProps).data.path)"
+                  @click="handleDownloadFiles([(slotProps as SlotProps).data.path])"
                 />
                 <DeleteFile
                   :paths="[(slotProps as SlotProps).data.path]"

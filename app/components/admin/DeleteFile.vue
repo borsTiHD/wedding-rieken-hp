@@ -58,7 +58,8 @@ async function deleteFileHandling() {
       hasErrors = true
       console.error(`Error deleting file at path: ${props.paths[index]}`, result.reason)
       toast.add({ severity: 'error', summary: 'Error', detail: t('admin.deleteGalleryFile.error'), life: 10000 })
-    } else if (!result.value?.success) {
+    }
+    else if (!result.value?.success) {
       hasErrors = true
       console.error(`Failed to delete file at path: ${props.paths[index]}`)
       toast.add({ severity: 'error', summary: 'Error', detail: t('admin.deleteGalleryFile.error'), life: 10000 })
@@ -81,7 +82,7 @@ async function deleteFileHandling() {
 <template>
   <ConfirmPopup />
   <Button
-    v-tooltip.bottom="t('admin.deleteGalleryFile.tooltip')"
+    v-tooltip.bottom="multiple ? undefined : t('admin.deleteGalleryFile.tooltip')"
     icon="pi pi-trash"
     size="small"
     severity="danger"

@@ -577,6 +577,8 @@
       "fileSearch": {
         "placeholder": "Suche nach Bildern"
       },
+      "downloadAll": "Alle herunterladen",
+      "downloadSelected": "Ausgewählte herunterladen",
       "tableHeader": {
         "preview": "Vorschau",
         "name": "Dateiname",
