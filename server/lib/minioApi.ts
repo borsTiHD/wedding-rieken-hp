@@ -61,7 +61,7 @@ async function getAllFiles(filePath: string): Promise<Array<File>> {
   })
 }
 
-async function getPreviewUrl(objectName: string, isPreview: boolean, expirySeconds: number = 3600): Promise<string> {
+async function getPreviewUrl(objectName: string, getThumbnail: boolean, expirySeconds: number = 3600): Promise<string> {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
 
@@ -69,7 +69,7 @@ async function getPreviewUrl(objectName: string, isPreview: boolean, expirySecon
     throw new Error('Minio: Bucket does not exist')
   }
 
-  const filePath = isPreview ? getThumbnailPath(objectName) : objectName
+  const filePath = getThumbnail ? getThumbnailPath(objectName) : objectName
 
   try {
     // Generate a presigned URL for the object

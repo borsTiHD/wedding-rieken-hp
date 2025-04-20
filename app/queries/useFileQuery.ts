@@ -11,8 +11,7 @@ export function useFileQuery(path: Ref<string | undefined>, preview: Ref<boolean
       if (!path.value) {
         throw new Error('Path is undefined')
       }
-      const filePath = preview.value ? `thumbnails/${path.value}` : path.value
-      return getPreviewUrl(filePath)
+      return getPreviewUrl(path.value, preview.value)
     },
     staleTime: Number.POSITIVE_INFINITY,
     enabled: !!path.value,

@@ -25,7 +25,7 @@ export default function useFileServerApi() {
     })
   }
 
-  async function getPreviewUrl(fileId: string) {
+  async function getPreviewUrl(fileId: string, thumbnail: boolean = false) {
     // Check if user is logged in
     if (!user.value) {
       throw new Error(t('firebase.custom.noUserLoggedIn'))
@@ -35,6 +35,7 @@ export default function useFileServerApi() {
 
     return $fetch(`${apiBaseUrl}/files/${encodedPath}`, {
       method: 'GET',
+      params: { thumbnail },
     })
   }
 
