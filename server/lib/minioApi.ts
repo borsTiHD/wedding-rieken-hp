@@ -1,4 +1,5 @@
-import type { BucketItemStat, ItemBucketMetadata } from 'minio'
+import type { File } from '@@/shared/types/File'
+import type { BucketItem, ItemBucketMetadata } from 'minio'
 import type { Buffer } from 'node:buffer'
 import { bucket, checkBucketExists, MinioClient } from '@@/server/lib/minioInit'
 import sharp from 'sharp'
@@ -8,7 +9,7 @@ function getThumbnailPath(filePath: string): string {
   return `thumbnails/${filePath.replace(/\.[^/.]+$/, '.jpg')}`
 }
 
-async function getAllFiles(filePath: string): Promise<Array<{ metadata: BucketItemStat, file: ItemBucketMetadata }>> {
+async function getAllFiles(filePath: string): Promise<Array<File>> {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
 
@@ -16,15 +17,15 @@ async function getAllFiles(filePath: string): Promise<Array<{ metadata: BucketIt
     throw new Error('Minio: Bucket does not exist')
   }
 
-  const objectsList: Array<{ metadata: BucketItemStat, file: ItemBucketMetadata }> = [] // Explicitly type the array
+  const objectsList: Array<File> = [] // Explicitly type the array
   const recursive = false
 
   return new Promise((resolve, reject) => {
     const objectsStream = MinioClient.listObjects(bucket, filePath || '', recursive, { IncludeVersion: true })
     const metadataPromises: Promise<void>[] = [] // Array to track metadata fetch promises
 
-    objectsStream.on('data', (obj: ItemBucketMetadata) => {
-      const metadataPromise = MinioClient.statObject(bucket, obj.name)
+    objectsStream.on('data', (obj: BucketItem) => {
+      const metadataPromise = MinioClient.statObject(bucket, obj.name as string)
         .then((metadata) => {
           objectsList.push({ metadata, file: obj })
         })
@@ -99,9 +100,9 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
 
   // Generate a thumbnail
   const thumbnailBuffer = await sharp(fileBuffer)
-  .resize({ width: 1000, withoutEnlargement: true }) // Resize to 1000px width while maintaining aspect ratio
-  .jpeg({ quality: 70 }) // Convert to JPEG with 70% quality
-  .toBuffer()
+    .resize({ width: 1000, withoutEnlargement: true }) // Resize to 1000px width while maintaining aspect ratio
+    .jpeg({ quality: 70 }) // Convert to JPEG with 70% quality
+    .toBuffer()
 
   // Upload the thumbnail
   const thumbnailPath = getThumbnailPath(filePath) // Ensure thumbnail has .jpg extension
@@ -113,7 +114,7 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
     {
       ...metaData,
       'X-Amz-Meta-Thumbnail': 'true',
-    },
+    } as ItemBucketMetadata,
   )
 
   return MinioClient.putObject(
@@ -142,7 +143,8 @@ async function deleteFile(filePath: string) {
   try {
     // Attempt to delete the thumbnail
     await MinioClient.removeObject(bucket, thumbnailPath)
-  } catch (error) {
+  }
+  catch (error) {
     console.warn(`Thumbnail not found or failed to delete: ${thumbnailPath}`, error)
   }
 }
