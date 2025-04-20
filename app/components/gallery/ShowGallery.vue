@@ -79,7 +79,7 @@ function imageClasses(index: number) {
           <div v-if="images && images.length" class="grid md:grid-cols-4 gap-4">
             <div
               v-for="(image, index) in images"
-              :key="index"
+              :key="`${index}-${image?.title}`"
               class="flex"
               :class="imageClasses(index)"
             >
