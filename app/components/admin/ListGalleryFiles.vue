@@ -137,7 +137,7 @@ async function downloadAll() {
           </Column>
           <Column field="name" :header="t('admin.listGalleryFiles.tableHeader.name')" sortable>
             <template #body="slotProps">
-              <span class="text-sm font-medium text-gray-900 truncate">
+              <span class="text-sm font-medium text-gray-900 break-all">
                 {{ (slotProps as SlotProps).data.name }}
               </span>
             </template>
