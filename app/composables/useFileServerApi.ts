@@ -82,6 +82,49 @@ export default function useFileServerApi() {
     }
   }
 
+  async function downloadFolder(folderPath: string) {
+    // Check if user is logged in
+    if (!user.value) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
+
+    try {
+      // Fetch the folder as a Blob using $fetch
+      const response = await $fetch.raw(`${apiBaseUrl}/download/folder`, {
+        method: 'GET',
+        params: { path: folderPath },
+        responseType: 'blob', // Ensure the response is treated as a Blob
+      })
+
+      // Ensure the response contains a valid Blob
+      if (!response._data || !(response._data instanceof Blob)) {
+        throw new Error('Invalid folder data received from the server')
+      }
+
+      // Get the filename from the Content-Disposition header
+      const contentDisposition = response.headers.get('Content-Disposition')
+      const filenameMatch = contentDisposition?.match(/filename="(.+)"/)
+      const filename = filenameMatch?.[1] || 'downloaded-folder.zip'
+
+      // Create a temporary link element
+      const link = document.createElement('a')
+      link.href = URL.createObjectURL(response._data) // Use the Blob from the response
+      link.download = filename
+
+      // Trigger the download
+      document.body.appendChild(link)
+      link.click()
+
+      // Clean up
+      document.body.removeChild(link)
+      URL.revokeObjectURL(link.href)
+    }
+    catch (error) {
+      console.error('Error downloading folder:', error)
+      throw new Error('Failed to download folder')
+    }
+  }
+
   async function uploadFile(file: File, path?: string) {
     // Check if user is logged in
     if (!user.value) {
@@ -135,5 +178,6 @@ export default function useFileServerApi() {
     getAllFiles,
     getPreviewUrl,
     downloadFile,
+    downloadFolder,
   }
 }
