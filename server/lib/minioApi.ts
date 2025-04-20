@@ -6,6 +6,8 @@ import { bucket, checkBucketExists, MinioClient } from '@@/server/lib/minioInit'
 import archiver from 'archiver'
 import sharp from 'sharp'
 
+const presignedUrlCache = new Map<string, { url: string, expiresAt: number }>()
+
 function getThumbnailPath(filePath: string): string {
   // Construct the thumbnail path with a .jpg extension
   return `thumbnails/${filePath.replace(/\.[^/.]+$/, '.jpg')}`
@@ -82,18 +84,30 @@ async function getAllFiles(filePath: string): Promise<Array<File>> {
 }
 
 async function getPreviewUrl(objectName: string, getThumbnail: boolean, expirySeconds: number = 3600): Promise<string> {
+  const filePath = getThumbnail ? getThumbnailPath(objectName) : objectName
+
+  // Check if the URL is already cached and still valid
+  const cached = presignedUrlCache.get(filePath)
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.url
+  }
+
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
-
   if (!bucketExists) {
     throw new Error('Minio: Bucket does not exist')
   }
 
-  const filePath = getThumbnail ? getThumbnailPath(objectName) : objectName
-
   try {
-    // Generate a presigned URL for the object
+    // Generate a new presigned URL
     const url = await MinioClient.presignedUrl('GET', bucket, filePath, expirySeconds)
+
+    // Cache the URL with its expiration time
+    presignedUrlCache.set(filePath, {
+      url,
+      expiresAt: Date.now() + expirySeconds * 1000, // Cache expiration time
+    })
+
     return url
   }
   catch (error) {
