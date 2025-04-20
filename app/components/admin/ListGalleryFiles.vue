@@ -3,7 +3,7 @@ import type { File } from '@@/shared/types/File'
 import { DataTable } from '#components'
 import DeleteFile from '@/components/admin/DeleteFile.vue'
 import UploadGalleryFile from '@/components/admin/UploadGalleryFile.vue'
-import DisplayMinioFile from '@/components/user/DisplayMinioFile.vue'
+import DisplayPreviewImage from '@/components/user/DisplayPreviewImage.vue'
 import createReadableDate from '@/composables/dateHelper'
 import { useFilesQuery } from '@/queries/useFilesQuery'
 
@@ -109,7 +109,7 @@ function readableSize(size: number) {
           <Column selection-mode="multiple" header-style="width: 3rem" />
           <Column field="preview" :header="t('admin.listGalleryFiles.tableHeader.preview')">
             <template #body="slotProps">
-              <DisplayMinioFile :path="(slotProps as SlotProps).data.preview" />
+              <DisplayPreviewImage :path="(slotProps as SlotProps).data.preview" />
             </template>
           </Column>
           <Column field="name" :header="t('admin.listGalleryFiles.tableHeader.name')" sortable>
