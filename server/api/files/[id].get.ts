@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: 'Failed to get preview URL' })
   }
 
-  // Return
+  // Return preview URL
   return {
     statusCode: 200,
     statusMessage: 'Preview URL retrieved successfully',

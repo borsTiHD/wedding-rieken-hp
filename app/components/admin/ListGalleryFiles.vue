@@ -5,6 +5,7 @@ import DeleteFile from '@/components/admin/DeleteFile.vue'
 import UploadGalleryFile from '@/components/admin/UploadGalleryFile.vue'
 import DisplayPreviewImage from '@/components/user/DisplayPreviewImage.vue'
 import createReadableDate from '@/composables/dateHelper'
+import useFileServerApi from '@/composables/useFileServerApi'
 import { useFilesQuery } from '@/queries/useFilesQuery'
 
 interface FileRow {
@@ -22,6 +23,7 @@ interface SlotProps {
 
 // Composables
 const { t } = useI18n()
+const { downloadFile } = useFileServerApi()
 
 const galleryPath = ref('gallery/')
 const { data: filesData, isLoading, isFetching, refetch } = useFilesQuery(galleryPath)
@@ -64,6 +66,12 @@ function readableSize(size: number) {
   else if (size < 1024 * 1024 * 1024)
     return `${(size / (1024 * 1024)).toFixed(2)} MB`
   else return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`
+}
+
+async function handleDownloadFile(path: string) {
+  await downloadFile(path).catch((error) => {
+    console.error('Error downloading file:', error)
+  })
 }
 </script>
 
@@ -135,10 +143,19 @@ function readableSize(size: number) {
           </Column>
           <Column :header="t('admin.listGalleryFiles.tableHeader.actions')">
             <template #body="slotProps">
-              <DeleteFile
-                :paths="[(slotProps as SlotProps).data.path]"
-                @deleted="refetch()"
-              />
+              <div class="flex gap-2">
+                <Button
+                  v-tooltip.bottom="t('admin.listGalleryFiles.tableHeader.download')"
+                  icon="pi pi-download"
+                  size="small"
+                  severity="info"
+                  @click="handleDownloadFile((slotProps as SlotProps).data.path)"
+                />
+                <DeleteFile
+                  :paths="[(slotProps as SlotProps).data.path]"
+                  @deleted="refetch()"
+                />
+              </div>
             </template>
           </Column>
         </DataTable>
