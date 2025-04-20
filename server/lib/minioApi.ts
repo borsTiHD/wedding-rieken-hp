@@ -3,6 +3,7 @@ import type { EventHandlerRequest, H3Event } from 'h3'
 import type { BucketItem, ItemBucketMetadata } from 'minio'
 import type { Buffer } from 'node:buffer'
 import { bucket, checkBucketExists, MinioClient } from '@@/server/lib/minioInit'
+import archiver from 'archiver'
 import sharp from 'sharp'
 
 function getThumbnailPath(filePath: string): string {
@@ -126,6 +127,74 @@ async function downloadFile(event: H3Event<EventHandlerRequest>, filePath: strin
   }
 }
 
+async function downloadFolder(event: H3Event<EventHandlerRequest>, folderPath: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    try {
+      const objectsStream = MinioClient.listObjects(bucket, folderPath, true)
+      const fileName = 'images.zip' // folderPath.split('/').pop() || 'download.zip'
+
+      // Create a zip archive
+      const archive = archiver('zip', { zlib: { level: 9 } })
+
+      // Handle errors in the archive
+      archive.on('error', (err) => {
+        console.error('Error creating archive:', err)
+        reject(createError({ statusCode: 500, statusMessage: 'Failed to create archive' }))
+      })
+
+      // Pipe the archive to the response
+      event.node.res.setHeader('Content-Type', 'application/zip')
+      event.node.res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
+      archive.pipe(event.node.res)
+
+      // Track asynchronous file appending
+      const appendPromises: Promise<void>[] = []
+
+      // Add files to the archive
+      objectsStream.on('data', (obj) => {
+        const appendPromise = (async () => {
+          try {
+            const filePath = obj.name as string
+            const fileStream = await MinioClient.getObject(bucket, filePath)
+            archive.append(fileStream, { name: filePath.replace(`${folderPath}/`, '') })
+          }
+          catch (err) {
+            console.error(`Error appending file ${obj.name} to archive:`, err)
+          }
+        })()
+        appendPromises.push(appendPromise)
+      })
+
+      // Finalize the archive when all files are appended
+      objectsStream.on('end', async () => {
+        try {
+          await Promise.all(appendPromises) // Wait for all files to be appended
+          archive.finalize() // Finalize the archive
+        }
+        catch (err) {
+          console.error('Error finalizing archive:', err)
+          reject(createError({ statusCode: 500, statusMessage: 'Failed to finalize archive' }))
+        }
+      })
+
+      // Resolve the promise when the archive is finalized
+      archive.on('end', () => {
+        resolve()
+      })
+
+      // Handle errors in the object stream
+      objectsStream.on('error', (err) => {
+        console.error('Error listing objects:', err)
+        reject(createError({ statusCode: 500, statusMessage: 'Failed to list objects' }))
+      })
+    }
+    catch (err) {
+      console.error('Unexpected error in downloadFolder:', err)
+      reject(createError({ statusCode: 500, statusMessage: 'Unexpected error occurred' }))
+    }
+  })
+}
+
 async function uploadFile(fileName: string, filePath: string, fileType: string, fileBuffer: Buffer<ArrayBufferLike>) {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
@@ -196,6 +265,7 @@ async function deleteFile(filePath: string) {
 export {
   deleteFile,
   downloadFile,
+  downloadFolder,
   getAllFiles,
   getPreviewUrl,
   uploadFile,
