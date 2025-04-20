@@ -268,6 +268,7 @@ export {
   downloadFile,
   downloadFolder,
   getAllFiles,
+  getMetadata,
   getPreviewUrl,
   uploadFile,
 }

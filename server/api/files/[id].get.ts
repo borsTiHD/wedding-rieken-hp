@@ -1,5 +1,5 @@
 import checkUser from '@@/server/lib/checkUser'
-import { getPreviewUrl } from '@@/server/lib/minioApi'
+import { getMetadata, getPreviewUrl } from '@@/server/lib/minioApi'
 
 export default defineEventHandler(async (event) => {
   // Check if user is authenticated
@@ -15,6 +15,9 @@ export default defineEventHandler(async (event) => {
   const id = params.id
   const decodedPath = decodeURIComponent(id)
 
+  // Get metadata from Minio
+  const metadata = await getMetadata(decodedPath)
+
   // Check if the request is for a preview
   const getThumbnail = getQuery(event).thumbnail === 'true'
 
@@ -29,6 +32,12 @@ export default defineEventHandler(async (event) => {
     statusCode: 200,
     statusMessage: 'Preview URL retrieved successfully',
     previewUrl,
+    file: {
+      name: metadata?.metaData?.['original-filename'] as string,
+      path: decodedPath,
+      isThumbnail: getThumbnail,
+      metadata,
+    },
     success: true,
   }
 })
