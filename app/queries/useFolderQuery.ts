@@ -1,7 +1,7 @@
 import useFileServerApi from '@/composables/useFileServerApi'
 import { useQuery } from '@tanstack/vue-query'
 
-export function useFilesQuery(path: Ref<string | undefined>) {
+export function useFolderQuery(path: Ref<string | undefined>) {
   const { getAllFiles } = useFileServerApi()
 
   return useQuery({

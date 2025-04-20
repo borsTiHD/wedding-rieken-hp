@@ -6,7 +6,7 @@ import UploadGalleryFile from '@/components/admin/UploadGalleryFile.vue'
 import DisplayPreviewImage from '@/components/gallery/DisplayPreviewImage.vue'
 import createReadableDate from '@/composables/dateHelper'
 import useFileServerApi from '@/composables/useFileServerApi'
-import { useFilesQuery } from '@/queries/useFilesQuery'
+import { useFolderQuery } from '@/queries/useFolderQuery'
 
 interface FileRow {
   name: string
@@ -26,7 +26,7 @@ const { t } = useI18n()
 const { downloadFile, downloadFolder } = useFileServerApi()
 
 const galleryPath = ref('gallery/')
-const { data: filesData, isLoading, isFetching, refetch } = useFilesQuery(galleryPath)
+const { data: filesData, isLoading, isFetching, refetch } = useFolderQuery(galleryPath)
 const loading = computed(() => isLoading.value || isFetching.value)
 
 const globalSearch = ref('')
