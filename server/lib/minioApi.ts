@@ -213,6 +213,7 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
 
   // Generate a thumbnail
   const thumbnailBuffer = await sharp(fileBuffer)
+    .rotate() // Normalize orientation based on EXIF metadata
     .resize({ width: 1000, withoutEnlargement: true }) // Resize to 1000px width while maintaining aspect ratio
     .jpeg({ quality: 70 }) // Convert to JPEG with 70% quality
     .toBuffer()
