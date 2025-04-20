@@ -594,6 +594,7 @@
       "noFileSelected": "Keine Datei ausgewählt",
       "noFileSelectedDetail": "Bitte wähle eine Datei aus, um sie hochzuladen",
       "error": "Fehler beim Hochladen der Datei",
+      "errorDetail": "Fehler beim Hochladen der Datei '{fileName}'. Bitte überprüfen Sie die Dateigröße und den Dateityp.",
       "success": "Datei hochgeladen",
       "successDetail": "Die Datei wurde erfolgreich hochgeladen",
       "uploadDescription": "JPG, GIF oder PNG. {maxFilesize} max."
