@@ -9,6 +9,24 @@ function getThumbnailPath(filePath: string): string {
   return `thumbnails/${filePath.replace(/\.[^/.]+$/, '.jpg')}`
 }
 
+async function getMetadata(filePath: string) {
+  // Check if bucket exists
+  const bucketExists = await checkBucketExists(bucket)
+
+  if (!bucketExists) {
+    throw new Error('Minio: Bucket does not exist')
+  }
+
+  try {
+    // Fetch metadata for the object
+    return MinioClient.statObject(bucket, filePath)
+  }
+  catch (error) {
+    console.error(`Error fetching metadata for object ${filePath}:`, error)
+    throw new Error('Failed to fetch metadata')
+  }
+}
+
 async function getAllFiles(filePath: string): Promise<Array<File>> {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
@@ -25,7 +43,7 @@ async function getAllFiles(filePath: string): Promise<Array<File>> {
     const metadataPromises: Promise<void>[] = [] // Array to track metadata fetch promises
 
     objectsStream.on('data', (obj: BucketItem) => {
-      const metadataPromise = MinioClient.statObject(bucket, obj.name as string)
+      const metadataPromise = getMetadata(obj.name as string)
         .then((metadata) => {
           objectsList.push({ metadata, file: obj })
         })
