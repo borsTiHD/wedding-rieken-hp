@@ -9,6 +9,7 @@ Welcome to the Wedding Invitation Web App! This project is a heartfelt invitatio
 - **Invitation Management**: Guests can accept or decline the invitation.
 - **Wedding Details**: View the wedding schedule, location information, and more.
 - **Admin Management**: Admins can manage user registrations, invite or decline users, customize app information, and track guest attendance.
+- **Gallery Management**: Admins can upload, manage, and organize images in a gallery for guests to view.
 
 ## 🛠 Core Technologies
 
@@ -17,6 +18,7 @@ Welcome to the Wedding Invitation Web App! This project is a heartfelt invitatio
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
 - **Firebase**: A platform offering tools for app development, including database, authentication, and cloud services.
 - **Firebase Admin**: Manage your Firebase services programmatically.
+- **MinIO**: A self-hosted server instance for managing file uploads and storage.
 - **VueBooBash**: A self-made game hidden in the app as an easter egg. Check out the [project repo](https://github.com/borsTiHD/vue-boo-bash).
 
 ## 🚀 Setup
