@@ -34,6 +34,7 @@ function onLeave() {
       root: `${roundedClass || 'rounded-xl'} grow w-full overflow-hidden shadow-lg hover:shadow-xl cursor-pointer group`,
       originalContainer: 'm-12 p-12',
     }"
+    :title="image?.title"
     preview
     @mouseenter="onEnter"
     @mouseleave="onLeave"
@@ -60,6 +61,7 @@ function onLeave() {
         <NuxtImg
           :src="image?.thumbnailSrc"
           :alt="image?.alt"
+          :title="image?.title"
           loading="lazy"
           :placeholder="[300, 400, 75, 5]"
           quality="60"
@@ -79,6 +81,7 @@ function onLeave() {
       <NuxtImg
         :src="image?.src"
         :alt="image?.alt"
+        :title="image?.title"
         loading="lazy"
         :placeholder="[300, 400, 75, 5]"
         quality="80"
