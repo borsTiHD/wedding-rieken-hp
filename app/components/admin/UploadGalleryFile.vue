@@ -29,6 +29,7 @@ const maxFileSizeInMB = maxFileSize / 1000000
 // Upload ref
 const visible = ref(false)
 const loading = ref(false)
+const tokenRefreshInterval = ref<ReturnType<typeof setTimeout> | undefined>(undefined)
 const uploadLabel = t('admin.uploadGalleryFile.uploadLabel')
 const invalidFileSizeMessage = t('admin.uploadGalleryFile.invalidFileSizeMessage', { maxFilesize: `${maxFileSizeInMB}MB` })
 
@@ -38,6 +39,25 @@ const totalSelectedSize = computed(() => selectedFiles.value.reduce((acc, file) 
 const totalUploadedSize = computed(() => uploadedFiles.value.reduce((acc, file) => acc + file.size, 0))
 const totalSize = computed(() => totalSelectedSize.value + totalUploadedSize.value)
 const totalSizePercent = computed(() => totalSize.value > 0 ? Math.round((totalUploadedSize.value / totalSize.value) * 100) : 0)
+
+function startTokenRefreshInterval() {
+  // Start a token refresh interval
+  tokenRefreshInterval.value = setInterval(async () => {
+    try {
+      await refreshToken()
+      console.log('Token refreshed')
+    } catch (error) {
+      console.error('Error refreshing token:', error)
+    }
+  }, 5 * 60 * 1000) // Refresh every 5 minutes
+}
+
+function clearTokenRefreshInterval() {
+  if (tokenRefreshInterval.value) {
+    clearInterval(tokenRefreshInterval.value)
+    tokenRefreshInterval.value = undefined
+  }
+}
 
 async function onUpload() {
   // Check if user is logged in
@@ -51,8 +71,10 @@ async function onUpload() {
   }
 
   // Refresh token for upload
-  const token = await refreshToken()
-  console.log(`New Token: ${token}`)
+  await refreshToken()
+
+  // Start a token refresh interval
+  startTokenRefreshInterval()
 
   // Get files
   const files = selectedFiles.value
@@ -65,6 +87,7 @@ async function onUpload() {
       detail: t('admin.uploadGalleryFile.noFileSelectedDetail'),
       life: 10000,
     })
+    clearTokenRefreshInterval() // Clear the interval if no files are selected
     return false
   }
 
@@ -72,53 +95,57 @@ async function onUpload() {
   let successCount = 0
   let errorCount = 0
 
-  while (selectedFiles.value.length > 0) {
-    const parallelUploads = 5
-    const batch = selectedFiles.value.slice(0, parallelUploads)
+  try {
+    while (selectedFiles.value.length > 0) {
+      const parallelUploads = 5
+      const batch = selectedFiles.value.slice(0, parallelUploads)
 
-    const uploadPromises = batch.map(file =>
-      uploadFile(file, 'gallery')
-        .then(() => {
-          // Add to uploadedFiles and remove from selectedFiles
-          uploadedFiles.value.push(file)
-          selectedFiles.value = selectedFiles.value.filter(f => f !== file)
-          successCount++
-        })
-        .catch((error) => {
-          console.error(`Error uploading file ${file.name}:`, error)
-          const fileName = file.name || 'Unknown file'
-          toast.add({
-            severity: 'error',
-            summary: t('admin.uploadGalleryFile.error'),
-            detail: t('admin.uploadGalleryFile.errorDetail', { fileName }),
-            life: 10000,
+      const uploadPromises = batch.map(file =>
+        uploadFile(file, 'gallery')
+          .then(() => {
+            // Add to uploadedFiles and remove from selectedFiles
+            uploadedFiles.value.push(file)
+            selectedFiles.value = selectedFiles.value.filter(f => f !== file)
+            successCount++
           })
-          errorCount++
-        }),
-    )
+          .catch((error) => {
+            console.error(`Error uploading file ${file.name}:`, error)
+            const fileName = file.name || 'Unknown file'
+            toast.add({
+              severity: 'error',
+              summary: t('admin.uploadGalleryFile.error'),
+              detail: t('admin.uploadGalleryFile.errorDetail', { fileName }),
+              life: 10000,
+            })
+            errorCount++
+          }),
+      )
 
-    // Wait for the current batch to finish
-    await Promise.allSettled(uploadPromises)
+      // Wait for the current batch to finish
+      await Promise.allSettled(uploadPromises)
+    }
+
+    // Show success message if any files were uploaded
+    if (successCount > 0) {
+      toast.add({
+        severity: 'success',
+        summary: t('admin.uploadGalleryFile.success'),
+        detail: t('admin.uploadGalleryFile.successDetail', { count: successCount }),
+        life: 3000,
+      })
+
+      // Emit event to parent
+      emit('uploaded')
+    }
+
+    if (errorCount > 0) {
+      console.error(`${errorCount} file(s) failed to upload.`)
+    }
+  } finally {
+    // Clear the token refresh interval when the upload is finished
+    clearTokenRefreshInterval()
+    loading.value = false
   }
-
-  // Show success message if any files were uploaded
-  if (successCount > 0) {
-    toast.add({
-      severity: 'success',
-      summary: t('admin.uploadGalleryFile.success'),
-      detail: t('admin.uploadGalleryFile.successDetail', { count: successCount }),
-      life: 3000,
-    })
-
-    // Emit event to parent
-    emit('uploaded')
-  }
-
-  if (errorCount > 0) {
-    console.error(`${errorCount} file(s) failed to upload.`)
-  }
-
-  loading.value = false
 }
 
 function onRemoveTemplatingFile(file: FileWithPreview, removeFileCallback: (index: number) => void, index: number) {
@@ -170,6 +197,16 @@ watch(visible, (newValue) => {
     uploadedFiles.value = []
   }
 })
+
+onUnmounted(() => {
+  // Revoke object URLs when the component is unmounted
+  selectedFiles.value.forEach((file: FileWithPreview) => {
+    if (file.objectURL) {
+      URL.revokeObjectURL(file.objectURL)
+    }
+  })
+  clearTokenRefreshInterval()
+})
 </script>
 
 <template>
@@ -201,8 +238,8 @@ watch(visible, (newValue) => {
                 <span class="whitespace-nowrap text-white">{{ totalSize }}B / 1Mb</span>
               </ProgressBar>
               <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
-                <span>Gesamtgröße: {{ readableSize(totalSize) }}</span>
-                <span>Hochgeladen: {{ readableSize(totalUploadedSize) }}</span>
+                <span>Gesamt: {{ selectedFiles?.length }} ({{ readableSize(totalSize) }})</span>
+                <span>Hochgeladen: {{ uploadedFiles?.length }} ({{ readableSize(totalUploadedSize) }})</span>
                 <span>Fortschritt: {{ totalSizePercent }}%</span>
               </div>
             </div>
