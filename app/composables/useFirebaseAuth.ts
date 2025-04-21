@@ -66,7 +66,6 @@ export default function () {
     const user = auth.currentUser
     if (user) {
       const token = await user.getIdToken(true) // Force refresh the token
-      console.log('Token refreshed:', token)
       return token
     } else {
       throw new Error('No user is logged in')
