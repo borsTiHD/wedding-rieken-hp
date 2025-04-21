@@ -57,8 +57,7 @@ function onLeave() {
       <div class="relative w-full h-full">
         <div v-if="loading" class="absolute inset-0 bg-gray-50 flex flex-col gap-4 items-center justify-center">
           <div class="w-[300px] h-[400px] flex flex-col gap-4 items-center justify-center">
-            <i class="pi pi-image text-gray-300 text-8xl" />
-            <ProgressSpinner class="size-12" />
+            <i class="pi pi-image animate-pulse text-gray-600 text-8xl" />
           </div>
         </div>
         <NuxtImg

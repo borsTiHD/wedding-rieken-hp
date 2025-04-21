@@ -45,8 +45,7 @@ watch(error, (err: any) => {
       :class="[roundedClass || 'rounded-xl']"
     >
       <div class="absolute inset-0 flex flex-col gap-4 items-center justify-center w-[300px] h-[400px]">
-        <i class="pi pi-image text-gray-300 text-8xl" />
-        <ProgressSpinner class="size-12" />
+        <i class="pi pi-image animate-pulse text-gray-300 text-8xl" />
       </div>
     </div>
     <template v-else-if="isReady">
