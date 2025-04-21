@@ -32,10 +32,7 @@ const imagePaths = computed(() => {
 <template>
   <main class="mx-auto flex flex-col">
     <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-      <div v-if="loadingFolder" class="flex items-center justify-center">
-        <i class="pi pi-spin pi-spinner text-gray-500 text-2xl" />
-      </div>
-      <ShowGalleryLazy v-else :image-paths="imagePaths" />
+      <ShowGalleryLazy :image-paths="imagePaths" :loading="loadingFolder" />
     </div>
   </main>
 </template>
