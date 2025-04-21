@@ -15,6 +15,7 @@ const emit = defineEmits(['uploaded'])
 const toast = useToast()
 const { t } = useI18n()
 const { uploadFile } = useFileServerApi()
+const { refreshToken } = useFirebaseAuth()
 
 // User store
 const userStore = useUserStore()
@@ -48,6 +49,10 @@ async function onUpload() {
   if (userProfile.value && userProfile.value.role !== 'admin') {
     throw new Error(t('admin.notAdminError'))
   }
+
+  // Refresh token for upload
+  const token = await refreshToken()
+  console.log(`New Token: ${token}`)
 
   // Get files
   const files = selectedFiles.value

@@ -60,6 +60,19 @@ export default function () {
     throw new Error(t('firebase.custom.loginFailed'))
   }
 
+  // Refresh the token
+  const refreshToken = async (): Promise<string> => {
+    const auth = getAuth()
+    const user = auth.currentUser
+    if (user) {
+      const token = await user.getIdToken(true) // Force refresh the token
+      console.log('Token refreshed:', token)
+      return token
+    } else {
+      throw new Error('No user is logged in')
+    }
+  }
+
   // Send email for password reset
   const sendUserPasswordResetEmail = async (email?: string): Promise<boolean> => {
     const userEmail = email || $auth.currentUser?.email
@@ -239,6 +252,7 @@ export default function () {
   return {
     registerUser,
     loginUser,
+    refreshToken,
     reauthenticateUser,
     reauthenticateUserWithEmailLink,
     sendEmailLink,
