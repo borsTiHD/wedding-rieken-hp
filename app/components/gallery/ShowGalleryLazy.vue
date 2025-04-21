@@ -3,9 +3,9 @@ import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import ShowImageLazy from '@/components/gallery/ShowImageLazy.vue'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-interface Props { imagePaths: string[], loading: boolean }
+interface Props { imagePaths: string[], loadingPrefetch: boolean, loading: boolean }
 const props = defineProps<Props>()
-const { imagePaths, loading } = toRefs(props)
+const { imagePaths, loadingPrefetch, loading } = toRefs(props)
 
 const onlyFirstTen = computed(() => {
   // if (imagePaths.value.length > 10) {
@@ -71,7 +71,7 @@ function imageClasses(index: number) {
       <template #content>
         <IconBackground icon="pi-image" />
         <div class="flex flex-col items-center">
-          <div v-if="loading" class="flex items-center justify-center">
+          <div v-if="loadingPrefetch" class="flex items-center justify-center">
             <i class="pi pi-spin pi-spinner text-gray-500 text-2xl" />
           </div>
           <div v-else-if="imagePaths && imagePaths.length" class="grid md:grid-cols-4 gap-4">
@@ -82,6 +82,9 @@ function imageClasses(index: number) {
               :class="imageClasses(index)"
             >
               <ShowImageLazy :image-path="path" />
+            </div>
+            <div v-if="loading" class="flex items-center justify-center">
+              <i class="pi pi-spin pi-spinner text-gray-500 text-2xl" />
             </div>
           </div>
           <p v-else>

@@ -89,20 +89,16 @@ async function getAllFilesPaginated(filePath: string, offset: number = 0, limit:
       // Skip objects until the offset is reached
       if (currentIndex < offset) {
         currentIndex++
-        console.log(`Skipping object ${obj.name} at index ${currentIndex - 1}`)
         return
       }
 
       // Stop processing if the limit is reached
       if (currentIndex >= maxPagination) {
-        console.log(`Reached limit of ${maxPagination} objects`)
         objectsStream.destroy() // Stop the stream
         objectsStream.emit('end') // Manually emit the "end" event
         cleanupStream() // Remove all listeners
         return
       }
-
-      console.log(`Processing object ${obj.name} at index ${currentIndex - 1}`)
 
       const metadataPromise = getMetadata(obj.name as string)
         .then((metadata) => {

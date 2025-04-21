@@ -30,21 +30,20 @@ export default function useFileServerApi() {
     })
   }
 
-  async function getAllFiles(filePath: string): Promise<MinioFile[]> {
+  async function getAllFiles(filePath: string, limit?: number): Promise<MinioFile[]> {
     // Check if user is logged in
     if (!user.value) {
       throw new Error(t('firebase.custom.noUserLoggedIn'))
     }
 
-    const limit = 100
     let offset = 0
-    let allFiles: MinioFile[] = [] // Update type to MinioFile[]
     let total = 0
+    let allFiles: MinioFile[] = []
 
     do {
       const response = await $fetch(`${apiBaseUrl}/files`, {
         method: 'GET',
-        params: { path: filePath, offset, limit },
+        params: { path: filePath, offset, limit: limit ? Math.min(limit - allFiles.length, 100) : 100 },
       })
 
       if (!response.success) {
@@ -74,7 +73,13 @@ export default function useFileServerApi() {
 
       // Update the offset and total
       offset = response.nextOffset
-      total = response.total
+      total = limit ? limit : response.total // Use the limit if provided, otherwise use the total from the response
+
+      // Stop fetching if the limit is reached
+      if (limit && allFiles.length >= limit) {
+        allFiles = allFiles.slice(0, limit) // Ensure the result does not exceed the limit
+        break
+      }
     } while (allFiles.length < total)
 
     return allFiles
