@@ -2,6 +2,9 @@
 import ShowGalleryLazy from '@/components/gallery/ShowGalleryLazy.vue'
 import { useFolderQuery } from '@/queries/useFolderQuery'
 
+const { refreshToken } = useFirebaseAuth()
+refreshToken()
+
 const galleryPath = ref('gallery/')
 const { data: filesData, isLoading: isLoadingFolder, isFetching: isFetchingFolder } = useFolderQuery(galleryPath)
 const loadingFolder = computed(() => isLoadingFolder.value || isFetchingFolder.value)

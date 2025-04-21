@@ -43,7 +43,7 @@ async function getAllFiles(filePath: string): Promise<Array<MinioFile>> {
   const recursive = false
 
   return new Promise((resolve, reject) => {
-    const objectsStream = MinioClient.listObjects(bucket, filePath || '', recursive, { IncludeVersion: true })
+    const objectsStream = MinioClient.listObjects(bucket, filePath || '', recursive)
     const metadataPromises: Promise<void>[] = [] // Array to track metadata fetch promises
 
     objectsStream.on('data', (obj: BucketItem) => {
