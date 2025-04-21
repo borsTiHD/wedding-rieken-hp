@@ -68,8 +68,8 @@ async function onUpload() {
   let errorCount = 0
 
   while (selectedFiles.value.length > 0) {
-    // Take up to 2 files at a time
-    const batch = selectedFiles.value.slice(0, 2)
+    const parallelUploads = 5
+    const batch = selectedFiles.value.slice(0, parallelUploads)
 
     const uploadPromises = batch.map(file =>
       uploadFile(file, 'gallery')
