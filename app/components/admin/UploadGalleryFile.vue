@@ -122,7 +122,6 @@ function onRemoveTemplatingFile(file: FileWithPreview, removeFileCallback: (inde
     URL.revokeObjectURL(file.objectURL)
   }
 
-  // Remove file from selectedFiles
   selectedFiles.value = selectedFiles.value.filter((f: FileWithPreview) => f !== file)
   uploadedFiles.value = uploadedFiles.value.filter((f: FileWithPreview) => f !== file)
   removeFileCallback(index)
