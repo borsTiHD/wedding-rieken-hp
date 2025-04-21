@@ -1,3 +1,5 @@
+import type { SerializeObject } from 'nitropack'
+import type { MinioFile } from '@@/shared/types/MinioFile'
 import { useUserStore } from '@/stores/user'
 
 export default function useFileServerApi() {
@@ -13,16 +15,69 @@ export default function useFileServerApi() {
   const user = computed(() => userStore.user)
   const userProfile = computed(() => userStore.userProfile)
 
-  async function getAllFiles(filePath: string) {
+  async function getAllFilesOld(filePath: string) {
     // Check if user is logged in
     if (!user.value) {
       throw new Error(t('firebase.custom.noUserLoggedIn'))
     }
 
+    const offset = 0
+    const limit = 100
+
     return $fetch(`${apiBaseUrl}/files`, {
       method: 'GET',
-      params: { path: filePath },
+      params: { path: filePath, offset, limit },
     })
+  }
+
+  async function getAllFiles(filePath: string): Promise<MinioFile[]> {
+    // Check if user is logged in
+    if (!user.value) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
+
+    const limit = 100
+    let offset = 0
+    let allFiles: MinioFile[] = [] // Update type to MinioFile[]
+    let total = 0
+
+    do {
+      const response = await $fetch(`${apiBaseUrl}/files`, {
+        method: 'GET',
+        params: { path: filePath, offset, limit },
+      })
+
+      if (!response.success) {
+        throw new Error(response.statusMessage || 'Failed to fetch files')
+      }
+
+      // Transform response.files to match MinioFile type
+      const transformedFiles = response.files.map((file: SerializeObject<MinioFile>) => ({
+        ...file,
+        metadata: {
+          ...file.metadata,
+          lastModified: new Date(file.metadata.lastModified), // Convert metadata.lastModified to Date
+        },
+        file: 'name' in file.file // Check if file.file has a name property
+          ? {
+              ...file.file,
+              lastModified: new Date(file.file.lastModified) // Convert lastModified to Date
+            }
+          : {
+              prefix: file.file.prefix,
+              lastModified: new Date(0), // Provide a fallback Date
+            },
+      })) as MinioFile[]
+
+      // Append the transformed files to the allFiles array
+      allFiles = allFiles.concat(transformedFiles)
+
+      // Update the offset and total
+      offset = response.nextOffset
+      total = response.total
+    } while (allFiles.length < total)
+
+    return allFiles
   }
 
   async function getPreviewUrl(fileId: string, thumbnail: boolean = false) {
@@ -175,6 +230,7 @@ export default function useFileServerApi() {
     deleteFile,
 
     // all users
+    getAllFilesOld,
     getAllFiles,
     getPreviewUrl,
     downloadFile,

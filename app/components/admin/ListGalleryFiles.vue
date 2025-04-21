@@ -12,7 +12,7 @@ interface FileRow {
   name: string
   path: string
   preview: string
-  lastModified: string
+  lastModified: Date
   size: number
   data: MinioFile // The original `MinioFile` type
 }
@@ -34,7 +34,7 @@ const selectedFiles = ref<FileRow[]>([])
 const files = computed<FileRow[]>(() => {
   if (!filesData.value)
     return []
-  const filteredFiles = filesData.value?.files.filter((file) => {
+  const filteredFiles = filesData.value?.filter((file) => {
     const fileString = JSON.stringify(file).toLowerCase()
     return fileString.includes(globalSearch.value.toLowerCase())
   })?.map((item) => {
@@ -44,9 +44,9 @@ const files = computed<FileRow[]>(() => {
         name: getFileName(item),
         path: item.file.name,
         preview: item.file.name, // Complete path for downloading preview
-        lastModified: item.file.lastModified,
+        lastModified: item.file.lastModified, // Convert Date to string
         size: item.file.size,
-        data: item as unknown as MinioFile,
+        data: item,
       } as FileRow
     }
     return null // Handle cases where 'name' doesn't exist

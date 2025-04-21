@@ -12,12 +12,14 @@ const loadingFolder = computed(() => isLoadingFolder.value || isFetchingFolder.v
 // Get only image paths
 // Sort by last modified date
 const imagePaths = computed(() => {
-  return filesData?.value?.files
+  return filesData?.value
     ?.slice()
     ?.sort((a, b) => {
       // Type guard to ensure 'item.file' has a 'name' property
       if ('lastModified' in a?.file && 'lastModified' in b?.file) {
-        return new Date(b?.file?.lastModified).getTime() - new Date(a?.file?.lastModified).getTime()
+        const aDate = a?.file?.lastModified || ''
+        const bDate = b?.file?.lastModified || ''
+        return new Date(bDate).getTime() - new Date(aDate).getTime()
       }
       return 0
     })
