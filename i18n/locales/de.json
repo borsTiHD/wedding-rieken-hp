@@ -67,6 +67,7 @@
     "infos": "Infos",
     "gallery": "Galerie",
     "user-management": "Users",
+    "file-management": "Dateien",
     "login": "Login",
     "logout": "Logout",
     "register": "Registrieren",
@@ -570,6 +571,42 @@
         "lastSignInTime": "Letzter Login",
         "actions": "Aktionen"
       }
+    },
+    "listGalleryFiles": {
+      "header": "Galerie",
+      "fileSearch": {
+        "placeholder": "Suche nach Bildern"
+      },
+      "downloadAll": "Alle herunterladen",
+      "downloadSelected": "Ausgewählte herunterladen",
+      "tableHeader": {
+        "preview": "Vorschau",
+        "name": "Dateiname",
+        "lastModified": "Zuletzt geändert",
+        "size": "Größe",
+        "actions": "Aktionen",
+        "download": "Herunterladen"
+      }
+    },
+    "uploadGalleryFile": {
+      "uploadLabel": "Neue Bilder hochladen",
+      "invalidFileSizeMessage": "Die Datei ist zu groß. Bitte wähle eine Datei mit maximal {maxFilesize} aus.",
+      "noFileSelected": "Keine Datei ausgewählt",
+      "noFileSelectedDetail": "Bitte wähle eine Datei aus, um sie hochzuladen",
+      "error": "Fehler beim Hochladen der Datei",
+      "errorDetail": "Fehler beim Hochladen der Datei '{fileName}'. Bitte überprüfen Sie die Dateigröße und den Dateityp.",
+      "success": "Datei hochgeladen",
+      "successDetail": "Die Datei wurde erfolgreich hochgeladen",
+      "uploadDescription": "JPG, GIF oder PNG. {maxFilesize} max."
+    },
+    "deleteGalleryFile": {
+      "label": "Dateien löschen",
+      "tooltip": "Datei löschen",
+      "confirmMessage": "Bist du dir sicher, dass du die Datei löschen möchtest?",
+      "noPath": "Kein Pfad angegeben",
+      "error": "Fehler beim Löschen der Datei",
+      "success": "Datei gelöscht",
+      "successDetail": "Die Datei wurde erfolgreich gelöscht"
     },
     "inviteToken": {
       "header": "Einladungs Token ändern",

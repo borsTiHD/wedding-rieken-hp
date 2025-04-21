@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import type { Image } from '@/types/Image'
 import ShowUnderline from '@/components/animations/ShowUnderline.vue'
-import ShowImage from '@/components/gallery/ShowImage.vue'
+import ShowImageLazy from '@/components/gallery/ShowImageLazy.vue'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-interface Props { images: Image[] }
+interface Props { imagePaths: string[], loading: boolean }
 const props = defineProps<Props>()
-const { images } = toRefs(props)
+const { imagePaths, loading } = toRefs(props)
+
+const onlyFirstTen = computed(() => {
+  // if (imagePaths.value.length > 10) {
+  //   return imagePaths.value.slice(0, 10)
+  // }
+  return imagePaths.value
+})
 
 const { t } = useI18n()
 
@@ -64,26 +70,18 @@ function imageClasses(index: number) {
     <Card>
       <template #content>
         <IconBackground icon="pi-image" />
-        <!-- <div class="flex flex-col items-center gap-4">
-          <div class="flex flex-col items-center">
-            <div v-if="images && images.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <ShowImage v-for="(picture, index) in images" :key="index" :image="picture" />
-            </div>
-            <p v-else>
-              {{ t('gallery.noImages') }}
-            </p>
-          </div>
-        </div> -->
-
         <div class="flex flex-col items-center">
-          <div v-if="images && images.length" class="grid md:grid-cols-4 gap-4">
+          <div v-if="loading" class="flex items-center justify-center">
+            <i class="pi pi-spin pi-spinner text-gray-500 text-2xl" />
+          </div>
+          <div v-else-if="imagePaths && imagePaths.length" class="grid md:grid-cols-4 gap-4">
             <div
-              v-for="(image, index) in images"
-              :key="`${index}-${image?.title}`"
+              v-for="(path, index) in onlyFirstTen"
+              :key="`${index}-${path}`"
               class="flex"
               :class="imageClasses(index)"
             >
-              <ShowImage :image="image" />
+              <ShowImageLazy :image-path="path" />
             </div>
           </div>
           <p v-else>

@@ -2,9 +2,9 @@
 import type { Image } from '@/types/Image'
 import { ref } from 'vue'
 
-interface Props { image: Image | undefined, roundedClass?: string }
+interface Props { image: Image | undefined, roundedClass?: string, mode?: 'single' }
 const props = defineProps<Props>()
-const { image, roundedClass } = toRefs(props)
+const { image, roundedClass, mode } = toRefs(props)
 
 const { t } = useI18n()
 
@@ -31,9 +31,10 @@ function onLeave() {
   <Image
     :alt="image?.alt"
     :pt="{
-      root: `${roundedClass || 'rounded-xl'} grow w-full overflow-hidden shadow-lg hover:shadow-xl cursor-pointer group`,
+      root: `${roundedClass || 'rounded-xl'} ${mode === 'single' ? '' : 'h-full'} grow w-full overflow-hidden shadow-lg hover:shadow-xl cursor-pointer group`,
       originalContainer: 'm-12 p-12',
     }"
+    :title="image?.title"
     preview
     @mouseenter="onEnter"
     @mouseleave="onLeave"
@@ -53,13 +54,17 @@ function onLeave() {
     </template>
     <template #image>
       <!-- This is the preview image - thumbnail -->
-      <div class="relative" :class="{ 'w-[300px] h-[400px]': loading }">
-        <div v-if="loading" class="absolute inset-0 flex items-center justify-center">
-          <ProgressSpinner class="size-12" />
+      <div class="relative w-full h-full">
+        <div v-if="loading" class="absolute inset-0 bg-gray-50 flex flex-col gap-4 items-center justify-center">
+          <div class="w-[300px] h-[400px] flex flex-col gap-4 items-center justify-center">
+            <i class="pi pi-image text-gray-300 text-8xl" />
+            <ProgressSpinner class="size-12" />
+          </div>
         </div>
         <NuxtImg
           :src="image?.thumbnailSrc"
           :alt="image?.alt"
+          :title="image?.title"
           loading="lazy"
           :placeholder="[300, 400, 75, 5]"
           quality="60"
@@ -79,6 +84,7 @@ function onLeave() {
       <NuxtImg
         :src="image?.src"
         :alt="image?.alt"
+        :title="image?.title"
         loading="lazy"
         :placeholder="[300, 400, 75, 5]"
         quality="80"

@@ -14,5 +14,5 @@ const getImage = computed(() => images[number.value ?? Math.floor(Math.random() 
 </script>
 
 <template>
-  <ShowImage :image="getImage" rounded-class="!rounded-3xl" />
+  <ShowImage :image="getImage" rounded-class="!rounded-3xl" mode="single" />
 </template>
