@@ -602,7 +602,7 @@
     "deleteGalleryFile": {
       "label": "Dateien löschen",
       "tooltip": "Datei löschen",
-      "confirmMessage": "Bist du dir sicher, dass du die Datei löschen möchtest?",
+      "confirmMessage": "Bist du dir sicher, dass du {count} Dateien löschen möchtest?",
       "noPath": "Kein Pfad angegeben",
       "error": "Fehler beim Löschen der Datei",
       "success": "Datei gelöscht",

@@ -22,7 +22,7 @@ const loading = ref(false)
 async function onClick(event: MouseEvent) {
   confirm.require({
     target: event.currentTarget as HTMLElement,
-    message: t('admin.deleteGalleryFile.confirmMessage'),
+    message: t('admin.deleteGalleryFile.confirmMessage', { count: props.paths.length }),
     icon: 'pi pi-info-circle',
     rejectProps: {
       label: 'Cancel',
