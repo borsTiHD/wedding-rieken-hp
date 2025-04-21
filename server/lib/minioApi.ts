@@ -1,4 +1,4 @@
-import type { File } from '@@/shared/types/File'
+import type { MinioFile } from '@@/shared/types/MinioFile'
 import type { EventHandlerRequest, H3Event } from 'h3'
 import type { BucketItem, ItemBucketMetadata } from 'minio'
 import type { Buffer } from 'node:buffer'
@@ -31,7 +31,7 @@ async function getMetadata(filePath: string) {
   }
 }
 
-async function getAllFiles(filePath: string): Promise<Array<File>> {
+async function getAllFiles(filePath: string): Promise<Array<MinioFile>> {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
 
@@ -39,7 +39,7 @@ async function getAllFiles(filePath: string): Promise<Array<File>> {
     throw new Error('Minio: Bucket does not exist')
   }
 
-  const objectsList: Array<File> = [] // Explicitly type the array
+  const objectsList: Array<MinioFile> = [] // Explicitly type the array
   const recursive = false
 
   return new Promise((resolve, reject) => {
@@ -124,7 +124,7 @@ async function downloadFile(event: H3Event<EventHandlerRequest>, filePath: strin
     // Stream the file from MinIO
     const stream = await MinioClient.getObject(bucket, filePath)
     if (!stream) {
-      throw createError({ statusCode: 404, statusMessage: 'File not found' })
+      throw createError({ statusCode: 404, statusMessage: 'MinioFile not found' })
     }
 
     // Set headers for file download

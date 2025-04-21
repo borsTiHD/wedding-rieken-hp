@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { File } from '@@/shared/types/File'
+import type { MinioFile } from '@@/shared/types/MinioFile'
 import { DataTable } from '#components'
 import DeleteFile from '@/components/admin/DeleteFile.vue'
 import UploadGalleryFile from '@/components/admin/UploadGalleryFile.vue'
@@ -14,7 +14,7 @@ interface FileRow {
   preview: string
   lastModified: string
   size: number
-  data: File // The original `File` type
+  data: MinioFile // The original `MinioFile` type
 }
 
 interface SlotProps {
@@ -46,7 +46,7 @@ const files = computed<FileRow[]>(() => {
         preview: item.file.name, // Complete path for downloading preview
         lastModified: item.file.lastModified,
         size: item.file.size,
-        data: item as unknown as File,
+        data: item as unknown as MinioFile,
       } as FileRow
     }
     return null // Handle cases where 'name' doesn't exist

@@ -1,6 +1,6 @@
 import type { BucketItem, BucketItemStat } from 'minio'
 
-export interface File {
+export interface MinioFile {
   metadata: BucketItemStat
   file: BucketItem
 }
