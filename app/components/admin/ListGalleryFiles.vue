@@ -96,13 +96,15 @@ async function downloadAll() {
           v-model:selection="selectedFiles"
           :value="files"
           :loading="loading"
-          paginator
           size="small"
           removable-sort
           sort-field="lastModified"
           :sort-order="-1"
           :rows="10"
           :rows-per-page-options="[5, 10, 20, 50]"
+          paginator
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} images"
         >
           <template #header>
             <div class="flex flex-wrap gap-2">
