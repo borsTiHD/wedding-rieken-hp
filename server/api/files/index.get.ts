@@ -1,5 +1,5 @@
 import checkUser from '@@/server/lib/checkUser'
-import { getAllFiles } from '@@/server/lib/minioApi'
+import { getListAllFiles, getAllFilesPaginated } from '@@/server/lib/minioApi'
 
 export default defineEventHandler(async (event) => {
   // Check if user is authenticated
@@ -9,15 +9,24 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const path = query.path || ''
 
-  // Get all files from Minio
-  const files = await getAllFiles(path as string)
+  const offset = Number(query.offset) || 0
+  const limit = Number(query.limit) || 100
+
+  // Get paginated files from Minio
+  const files = await getAllFilesPaginated(path as string, offset, limit)
+
+  const totalFiles = await getListAllFiles(path as string)
 
   // Return
   return {
     statusCode: 200,
     statusMessage: 'Files retrieved successfully',
     files,
-    total: files?.length,
+    count: files?.length,
+    total: totalFiles?.length,
+    offset,
+    limit,
+    nextOffset: offset + limit,
     success: true,
   }
 })

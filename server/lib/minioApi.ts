@@ -31,7 +31,37 @@ async function getMetadata(filePath: string) {
   }
 }
 
-async function getAllFiles(filePath: string): Promise<Array<MinioFile>> {
+async function getListAllFiles(filePath: string): Promise<Array<BucketItem>> {
+  // Check if bucket exists
+  const bucketExists = await checkBucketExists(bucket)
+
+  if (!bucketExists) {
+    throw new Error('Minio: Bucket does not exist')
+  }
+
+  const objectsList: Array<BucketItem> = [] // Explicitly type the array
+  const recursive = false
+
+  return new Promise((resolve, reject) => {
+    const objectsStream = MinioClient.listObjects(bucket, filePath || '', recursive)
+    const metadataPromises: Promise<void>[] = [] // Array to track metadata fetch promises
+
+    objectsStream.on('data', (obj: BucketItem) => {
+      objectsList.push(obj)
+    })
+
+    objectsStream.on('error', (e) => {
+      console.error('Error listing objects:', e)
+      reject(e) // Reject the promise on error
+    })
+
+    objectsStream.on('end', () => {
+      resolve(objectsList)
+    })
+  })
+}
+
+async function getAllFilesPaginated(filePath: string, offset: number = 0, limit: number = 10): Promise<Array<MinioFile>> {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
 
@@ -41,12 +71,39 @@ async function getAllFiles(filePath: string): Promise<Array<MinioFile>> {
 
   const objectsList: Array<MinioFile> = [] // Explicitly type the array
   const recursive = false
+  const maxPagination = limit + offset // Calculate the maximum limit for pagination
+  let currentIndex = 0 // Track the current index for pagination
 
   return new Promise((resolve, reject) => {
     const objectsStream = MinioClient.listObjects(bucket, filePath || '', recursive)
     const metadataPromises: Promise<void>[] = [] // Array to track metadata fetch promises
 
+    const cleanupStream = () => {
+      objectsStream.removeAllListeners('data')
+      objectsStream.removeAllListeners('error')
+      objectsStream.removeAllListeners('end')
+      objectsStream.destroy()
+    }
+
     objectsStream.on('data', (obj: BucketItem) => {
+      // Skip objects until the offset is reached
+      if (currentIndex < offset) {
+        currentIndex++
+        console.log(`Skipping object ${obj.name} at index ${currentIndex - 1}`)
+        return
+      }
+
+      // Stop processing if the limit is reached
+      if (currentIndex >= maxPagination) {
+        console.log(`Reached limit of ${maxPagination} objects`)
+        objectsStream.destroy() // Stop the stream
+        objectsStream.emit('end') // Manually emit the "end" event
+        cleanupStream() // Remove all listeners
+        return
+      }
+
+      console.log(`Processing object ${obj.name} at index ${currentIndex - 1}`)
+
       const metadataPromise = getMetadata(obj.name as string)
         .then((metadata) => {
           objectsList.push({ metadata, file: obj })
@@ -56,14 +113,18 @@ async function getAllFiles(filePath: string): Promise<Array<MinioFile>> {
         })
 
       metadataPromises.push(metadataPromise) // Add the promise to the array
+      currentIndex++
     })
 
     objectsStream.on('error', (e) => {
       console.error('Error listing objects:', e)
+      cleanupStream() // Remove all listeners
       reject(e) // Reject the promise on error
     })
 
     objectsStream.on('end', () => {
+      cleanupStream() // Remove all listeners
+
       // Wait for all metadata fetch promises to complete
       Promise.allSettled(metadataPromises)
         .then((results) => {
@@ -281,7 +342,8 @@ export {
   deleteFile,
   downloadFile,
   downloadFolder,
-  getAllFiles,
+  getListAllFiles,
+  getAllFilesPaginated,
   getMetadata,
   getPreviewUrl,
   uploadFile,
