@@ -7,13 +7,6 @@ interface Props { imagePaths: string[], loadingPrefetch: boolean, loading: boole
 const props = defineProps<Props>()
 const { imagePaths, loadingPrefetch, loading } = toRefs(props)
 
-const onlyFirstTen = computed(() => {
-  // if (imagePaths.value.length > 10) {
-  //   return imagePaths.value.slice(0, 10)
-  // }
-  return imagePaths.value
-})
-
 const { t } = useI18n()
 
 // Window size for mobile check
@@ -76,7 +69,7 @@ function imageClasses(index: number) {
           </div>
           <div v-else-if="imagePaths && imagePaths.length" class="grid md:grid-cols-4 gap-4">
             <div
-              v-for="(path, index) in onlyFirstTen"
+              v-for="(path, index) in imagePaths"
               :key="`${index}-${path}`"
               class="flex"
               :class="imageClasses(index)"
