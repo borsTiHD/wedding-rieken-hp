@@ -5,7 +5,7 @@ export function useFolderQuery(path: Ref<string | undefined>) {
   const { getAllFiles } = useFileServerApi()
 
   return useQuery({
-    queryKey: ['files', path],
+    queryKey: ['folder', path],
     queryFn: () => getAllFiles(path.value as string),
     staleTime: Number.POSITIVE_INFINITY,
     enabled: !!path.value,
