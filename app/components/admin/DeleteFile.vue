@@ -87,6 +87,7 @@ async function deleteFileHandling() {
     size="small"
     severity="danger"
     outlined
+    :loading="loading"
     :label="multiple ? t('admin.deleteGalleryFile.label') : undefined"
     @click="onClick($event)"
   />
