@@ -1,7 +1,7 @@
 import useFileServerApi from '@/composables/useFileServerApi'
 import { useQuery } from '@tanstack/vue-query'
 
-export function useFileQuery(path: Ref<string | undefined>, preview: Ref<boolean> = ref(false)) {
+export function useFileQuery(path: Ref<string | undefined>, preview: Ref<boolean> = ref(false), enabled: Ref<boolean> = ref(true)) {
   const { getPreviewUrl } = useFileServerApi()
 
   return useQuery({
@@ -14,6 +14,6 @@ export function useFileQuery(path: Ref<string | undefined>, preview: Ref<boolean
       return getPreviewUrl(path.value, preview.value)
     },
     staleTime: Number.POSITIVE_INFINITY,
-    enabled: !!path.value,
+    enabled: computed(() => enabled.value && !!path.value),
   })
 }
