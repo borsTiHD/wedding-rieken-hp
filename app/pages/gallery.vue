@@ -16,7 +16,7 @@ const {
   isFetching,
   isFetchingNextPage,
   isPending,
-} = useFolderInfiniteQuery(galleryPath, ref(10))
+} = useFolderInfiniteQuery(galleryPath, ref(5))
 const loadingData = computed(() => isFetching.value || isFetchingNextPage.value || isPending.value)
 
 function convertResults(items: SerializeObject<MinioFile>[]): string[] {
@@ -53,7 +53,13 @@ const imagePaths = computed(() => {
 
 function handleIsReady() {
   if (!isFetchingNextPage.value && hasNextPage.value) {
-    fetchNextPage()
+    // Save the current scroll position
+    const scrollTop = window.scrollY
+
+    fetchNextPage().then(() => {
+      // Restore the scroll position after fetching
+      window.scrollTo(0, scrollTop)
+    })
   }
 }
 </script>
