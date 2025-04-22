@@ -44,7 +44,6 @@ async function getListAllFiles(filePath: string): Promise<Array<BucketItem>> {
 
   return new Promise((resolve, reject) => {
     const objectsStream = MinioClient.listObjects(bucket, filePath || '', recursive)
-    const metadataPromises: Promise<void>[] = [] // Array to track metadata fetch promises
 
     objectsStream.on('data', (obj: BucketItem) => {
       objectsList.push(obj)
@@ -338,8 +337,8 @@ export {
   deleteFile,
   downloadFile,
   downloadFolder,
-  getListAllFiles,
   getAllFilesPaginated,
+  getListAllFiles,
   getMetadata,
   getPreviewUrl,
   uploadFile,

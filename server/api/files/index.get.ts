@@ -1,5 +1,5 @@
 import checkUser from '@@/server/lib/checkUser'
-import { getListAllFiles, getAllFilesPaginated } from '@@/server/lib/minioApi'
+import { getAllFilesPaginated, getListAllFiles } from '@@/server/lib/minioApi'
 
 export default defineEventHandler(async (event) => {
   // Check if user is authenticated

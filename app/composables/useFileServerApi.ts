@@ -1,5 +1,5 @@
-import type { SerializeObject } from 'nitropack'
 import type { MinioFile } from '@@/shared/types/MinioFile'
+import type { SerializeObject } from 'nitropack'
 import { useUserStore } from '@/stores/user'
 
 export default function useFileServerApi() {
@@ -60,7 +60,7 @@ export default function useFileServerApi() {
         file: 'name' in file.file // Check if file.file has a name property
           ? {
               ...file.file,
-              lastModified: new Date(file.file.lastModified) // Convert lastModified to Date
+              lastModified: new Date(file.file.lastModified), // Convert lastModified to Date
             }
           : {
               prefix: file.file.prefix,
@@ -73,7 +73,7 @@ export default function useFileServerApi() {
 
       // Update the offset and total
       offset = response.nextOffset
-      total = limit ? limit : response.total // Use the limit if provided, otherwise use the total from the response
+      total = limit || response.total // Use the limit if provided, otherwise use the total from the response
 
       // Stop fetching if the limit is reached
       if (limit && allFiles.length >= limit) {

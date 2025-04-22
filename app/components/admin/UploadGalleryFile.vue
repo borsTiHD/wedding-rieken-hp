@@ -45,8 +45,8 @@ function startTokenRefreshInterval() {
   tokenRefreshInterval.value = setInterval(async () => {
     try {
       await refreshToken()
-      console.log('Token refreshed')
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error refreshing token:', error)
     }
   }, 5 * 60 * 1000) // Refresh every 5 minutes
@@ -141,7 +141,8 @@ async function onUpload() {
     if (errorCount > 0) {
       console.error(`${errorCount} file(s) failed to upload.`)
     }
-  } finally {
+  }
+  finally {
     // Clear the token refresh interval when the upload is finished
     clearTokenRefreshInterval()
     loading.value = false
