@@ -41,10 +41,10 @@ watch(error, (err: any) => {
   <div ref="container" class="w-full h-full grow">
     <div
       v-if="loadingFile || imageLoading"
-      class="relative grow overflow-hidden shadow-lg hover:shadow-xl bg-gray-50 w-[300px] h-[400px]"
+      class="relative grow overflow-hidden shadow-lg hover:shadow-xl bg-gray-50 w-full h-[400px]"
       :class="[roundedClass || 'rounded-xl']"
     >
-      <div class="absolute inset-0 flex flex-col gap-4 items-center justify-center w-[300px] h-[400px]">
+      <div class="absolute inset-0 flex flex-col gap-4 items-center justify-center w-full h-[400px]">
         <i class="pi pi-image animate-pulse text-gray-300 text-8xl" />
       </div>
     </div>
