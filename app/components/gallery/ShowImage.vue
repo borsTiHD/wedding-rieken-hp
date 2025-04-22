@@ -8,6 +8,8 @@ const { image, roundedClass, mode } = toRefs(props)
 
 const { t } = useI18n()
 
+const showTools = ref(false)
+
 // Image loading and error handling
 const loading = ref(true)
 function onLoad() {
@@ -32,10 +34,12 @@ function onLeave() {
     :alt="image?.alt"
     :pt="{
       root: `${roundedClass || 'rounded-xl'} ${mode === 'single' ? '' : 'h-full'} grow w-full overflow-hidden shadow-lg hover:shadow-xl cursor-pointer group`,
-      originalContainer: 'm-12 p-12',
+      originalContainer: '',
     }"
     :title="image?.title"
     preview
+    @show="showTools = true"
+    @hide="showTools = false"
     @mouseenter="onEnter"
     @mouseleave="onLeave"
   >
@@ -80,17 +84,26 @@ function onLeave() {
     </template>
     <template #original="slotProps">
       <!-- This is the original image (fullscreen) -->
-      <NuxtImg
+      <img
+        :src="image?.src"
+        :alt="image?.alt"
+        :title="image?.title"
+        loading="lazy"
+        :class="slotProps.class"
+        :style="slotProps.style"
+        @click="slotProps.previewCallback"
+      >
+      <!-- <NuxtImg
         :src="image?.src"
         :alt="image?.alt"
         :title="image?.title"
         loading="lazy"
         :placeholder="[300, 400, 75, 5]"
         quality="80"
-        class="w-full h-full max-h-screen object-cover"
+        :class="slotProps.class"
         :style="slotProps.style"
         @click="slotProps.previewCallback"
-      />
+      /> -->
     </template>
   </Image>
 </template>
