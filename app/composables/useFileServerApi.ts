@@ -15,21 +15,6 @@ export default function useFileServerApi() {
   const user = computed(() => userStore.user)
   const userProfile = computed(() => userStore.userProfile)
 
-  async function getAllFilesOld(filePath: string) {
-    // Check if user is logged in
-    if (!user.value) {
-      throw new Error(t('firebase.custom.noUserLoggedIn'))
-    }
-
-    const offset = 0
-    const limit = 100
-
-    return $fetch(`${apiBaseUrl}/files`, {
-      method: 'GET',
-      params: { path: filePath, offset, limit },
-    })
-  }
-
   async function getAllFiles(filePath: string, limit?: number): Promise<MinioFile[]> {
     // Check if user is logged in
     if (!user.value) {
@@ -83,6 +68,17 @@ export default function useFileServerApi() {
     } while (allFiles.length < total)
 
     return allFiles
+  }
+
+  async function getAllFilesPaginated(filePath: string, offset: number, limit: number) { // Check if user is logged in
+    if (!user.value) {
+      throw new Error(t('firebase.custom.noUserLoggedIn'))
+    }
+
+    return $fetch(`${apiBaseUrl}/files`, {
+      method: 'GET',
+      params: { path: filePath, offset, limit },
+    })
   }
 
   async function getPreviewUrl(fileId: string, thumbnail: boolean = false) {
@@ -235,8 +231,8 @@ export default function useFileServerApi() {
     deleteFile,
 
     // all users
-    getAllFilesOld,
     getAllFiles,
+    getAllFilesPaginated,
     getPreviewUrl,
     downloadFile,
     downloadFolder,

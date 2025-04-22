@@ -1,20 +1,25 @@
 <script setup lang="ts">
 import type { MinioFile } from '@@/shared/types/MinioFile'
+import type { SerializeObject } from 'nitropack'
 import ShowGalleryLazy from '@/components/gallery/ShowGalleryLazy.vue'
-import { useFolderQuery } from '@/queries/useFolderQuery'
+import { useFolderInfiniteQuery } from '@/queries/useFolderInfiniteQuery'
 
 const { refreshToken } = useFirebaseAuth()
-refreshToken()
+refreshToken() // Refresh token to avoid 401 error
 
 const galleryPath = ref('gallery/')
 
-const { data: prefetchData, isLoading: isLoadingPrefetchFolder, isFetching: isFetchingPrefetchFolder } = useFolderQuery(galleryPath, ref(10))
-const loadingPrefetchFolder = computed(() => isLoadingPrefetchFolder.value || isFetchingPrefetchFolder.value)
+const {
+  data: filesData,
+  fetchNextPage,
+  hasNextPage,
+  isFetching,
+  isFetchingNextPage,
+  isPending,
+} = useFolderInfiniteQuery(galleryPath, ref(10))
+const loadingData = computed(() => isFetching.value || isFetchingNextPage.value || isPending.value)
 
-const { data: filesData, isLoading: isLoadingFolder, isFetching: isFetchingFolder } = useFolderQuery(galleryPath)
-const loadingFolder = computed(() => isLoadingFolder.value || isFetchingFolder.value)
-
-function convertResults(items: MinioFile[]): string[] {
+function convertResults(items: SerializeObject<MinioFile>[]): string[] {
   // Get only image paths
   // Sort by last modified date
   return items
@@ -33,25 +38,30 @@ function convertResults(items: MinioFile[]): string[] {
       if ('name' in item?.file) {
         return item.file.name // Complete path for downloading preview
       }
-      return null // Handle cases where 'name' doesn't exist
+      return null
     })
-    ?.filter(file => file !== null) as string[] // Remove null entries and assert type
+    ?.filter(file => file !== null)
 }
 
-// Returns prefetchData if complete folder is loading
-// Returns filesData if complete folder is loaded
 const imagePaths = computed(() => {
-  if (!filesData.value || loadingFolder.value) {
-    return convertResults(prefetchData.value || [])
-  }
-  return convertResults(filesData.value || [])
+  const paths = filesData.value?.pages?.map((page) => {
+    const files = page.files
+    return convertResults(files)
+  })?.flat() || []
+  return paths
 })
+
+function handleIsReady() {
+  if (!isFetchingNextPage.value && hasNextPage.value) {
+    fetchNextPage()
+  }
+}
 </script>
 
 <template>
   <main class="mx-auto flex flex-col">
     <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-      <ShowGalleryLazy :image-paths="imagePaths" :loadingPrefetch="loadingPrefetchFolder" :loading="loadingFolder" />
+      <ShowGalleryLazy :image-paths="imagePaths" :loading="loadingData" @is-ready="handleIsReady" />
     </div>
   </main>
 </template>

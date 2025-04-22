@@ -3,15 +3,18 @@ import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import ShowImageLazy from '@/components/gallery/ShowImageLazy.vue'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-interface Props { imagePaths: string[], loadingPrefetch: boolean, loading: boolean }
+interface Props { imagePaths: string[], loading: boolean }
 const props = defineProps<Props>()
-const { imagePaths, loadingPrefetch, loading } = toRefs(props)
-
+const emit = defineEmits(['isReady'])
+const { imagePaths, loading } = toRefs(props)
 const { t } = useI18n()
 
 // Window size for mobile check
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const smAndLarger = breakpoints.greaterOrEqual('sm') // sm and larger
+
+// Map to track the ready state of image paths
+const imageReadyState = ref(new Map<string, boolean>())
 
 function checkIndexSmallDevice(index: number): boolean {
   return Math.floor(index / 2) % 2 === 1
@@ -38,6 +41,26 @@ function imageClasses(index: number) {
     { 'col-span-1 row-span-1': !checkIndex(index) },
   ]
 }
+
+function handleIsReady(id: string) {
+  const index = Number.parseInt(id.split('-')[0] || '0')
+  const imagePath = imagePaths.value?.[index]
+  if (typeof imagePath === 'string') {
+    // Update the ready state of the image
+    imageReadyState.value.set(imagePath, true)
+  }
+}
+
+// Computed property to check if all images are ready
+const allImagesReady = computed(() => {
+  return imagePaths.value?.every(path => imageReadyState.value.get(path) === true)
+})
+
+watch(allImagesReady, (ready) => {
+  if (ready && imagePaths.value?.length > 0) {
+    emit('isReady', 'all-images-ready')
+  }
+})
 </script>
 
 <template>
@@ -46,7 +69,6 @@ function imageClasses(index: number) {
       <template #content>
         <IconBackground icon="pi-image" />
         <div class="flex flex-col items-center gap-4">
-          <!-- <ShowUnderline color="text-blue-400"> -->
           <ShowUnderline color="text-[#f2b69a]">
             <h2 class="font-great-vibes text-4xl md:text-6xl drop-shadow-sm">
               {{ t('gallery.header') }}
@@ -63,24 +85,24 @@ function imageClasses(index: number) {
     <Card>
       <template #content>
         <IconBackground icon="pi-image" />
-        <div class="flex flex-col items-center">
-          <div v-if="loadingPrefetch" class="flex items-center justify-center">
-            <i class="pi pi-spin pi-spinner text-gray-500 text-2xl" />
-          </div>
-          <div v-else-if="imagePaths && imagePaths.length" class="grid md:grid-cols-4 gap-4">
+        <div class="flex flex-col items-center gap-8">
+          <div v-if="imagePaths && imagePaths?.length > 0" class="grid md:grid-cols-4 gap-4">
             <div
               v-for="(path, index) in imagePaths"
               :key="`${index}-${path}`"
               class="flex"
               :class="imageClasses(index)"
             >
-              <ShowImageLazy :image-path="path" />
-            </div>
-            <div v-if="loading" class="flex items-center justify-center">
-              <i class="pi pi-spin pi-spinner text-gray-500 text-2xl" />
+              <ShowImageLazy :id="`${index}-${path}`" :image-path="path" @is-ready="handleIsReady" />
             </div>
           </div>
-          <p v-else>
+          <div v-if="loading" class="flex gap-2 items-center justify-center">
+            <i class="pi pi-spin pi-spinner text-4xl text-gray-500" />
+            <span class="text-gray-500 text-lg animate-pulse">
+              {{ imagePaths?.length > 0 ? t('gallery.loadingMore') : t('gallery.loading') }}
+            </span>
+          </div>
+          <p v-else-if="imagePaths?.length === 0" class="text-center text-md md:text-lg text-balance">
             {{ t('gallery.noImages') }}
           </p>
         </div>

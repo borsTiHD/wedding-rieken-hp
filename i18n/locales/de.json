@@ -108,6 +108,8 @@
     "header": "Galerie",
     "description": "Momente, die für immer in Erinnerung bleiben. Hier findet ihr nach der Hochzeit alle Fotos, welche an unserem großen Tag gemacht wurden.",
     "noImages": "Keine Bilder gefunden",
+    "loading": "Bilder werden geladen...",
+    "loadingMore": "Weitere Bilder werden geladen...",
     "showImage": {
       "preview": "Anschauen"
     }

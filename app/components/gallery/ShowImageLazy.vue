@@ -3,11 +3,13 @@ import type { Image } from '@/types/Image'
 import ShowImage from '@/components/gallery/ShowImage.vue'
 import { useFileQuery } from '@/queries/useFileQuery'
 import { useElementVisibility, useImage } from '@vueuse/core'
-import { ref, useTemplateRef } from 'vue'
+import { ref, useTemplateRef, watch } from 'vue'
 
-interface Props { imagePath: string, roundedClass?: string }
+interface Props { id: string, imagePath: string, roundedClass?: string }
 const props = defineProps<Props>()
-const { imagePath, roundedClass } = toRefs(props)
+const emit = defineEmits(['isReady'])
+
+const { id, imagePath, roundedClass } = toRefs(props)
 
 const containerRef = useTemplateRef<HTMLDivElement>('container')
 const containerIsVisible = useElementVisibility(containerRef)
@@ -33,6 +35,13 @@ const image = computed<Image>(() => ({
 watch(error, (err: any) => {
   if (err && imageOptions.value?.src) {
     console.error('Image loading error:', err)
+  }
+})
+
+// Watch for isReady and emit the event when it becomes true
+watch(isReady, (ready) => {
+  if (ready) {
+    emit('isReady', id.value)
   }
 })
 </script>
