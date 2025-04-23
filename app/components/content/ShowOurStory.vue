@@ -24,7 +24,7 @@ const dates = [
     event: t('general.ourStory.firstVacation'),
   },
   {
-    date: '2023-06-01',
+    date: '2023-07-01',
     event: t('general.ourStory.sheSaidYes'),
   },
   {
