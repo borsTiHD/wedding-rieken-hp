@@ -30,6 +30,30 @@ function onLeave() {
 </script>
 
 <template>
+  <!-- Toolbar -->
+  <!-- <div
+    v-if="showTools"
+    class="fixed top-10 left-0 w-full bg-gray-800 text-white py-2 px-4 flex items-center justify-between z-[9999999]"
+  >
+    <div class="flex items-center gap-4">
+      <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+        {{ t('gallery.showImage.action1') }}
+      </button>
+      <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+        {{ t('gallery.showImage.action2') }}
+      </button>
+      <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+        {{ t('gallery.showImage.action3') }}
+      </button>
+    </div>
+    <button
+      class="text-gray-400 hover:text-white"
+      @click="showTools = false"
+    >
+      ✕
+    </button>
+  </div> -->
+
   <Image
     :alt="image?.alt"
     :pt="{
