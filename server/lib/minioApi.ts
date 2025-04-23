@@ -139,7 +139,7 @@ async function getAllFilesPaginated(filePath: string, offset: number = 0, limit:
   })
 }
 
-async function getPreviewUrl(objectName: string, getThumbnail: boolean, expirySeconds: number = 3600): Promise<string> {
+async function getPreviewUrl(objectName: string, getThumbnail: boolean, expirySeconds: number = 3600 * 48): Promise<string> {
   const filePath = getThumbnail ? getThumbnailPath(objectName) : objectName
 
   // Check if the URL is already cached and still valid
