@@ -3,10 +3,10 @@ import ShowUnderline from '@/components/animations/ShowUnderline.vue'
 import ShowImageLazy from '@/components/gallery/ShowImageLazy.vue'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-interface Props { imagePaths: string[], loading: boolean }
+interface Props { imagePaths: string[], count: number, total: number, loading: boolean }
 const props = defineProps<Props>()
 const emit = defineEmits(['isReady'])
-const { imagePaths, loading } = toRefs(props)
+const { imagePaths, count, total, loading } = toRefs(props)
 const { t } = useI18n()
 
 // Window size for mobile check
@@ -96,11 +96,16 @@ watch(allImagesReady, (ready) => {
               <ShowImageLazy :id="`${index}-${path}`" :image-path="path" @is-ready="handleIsReady" />
             </div>
           </div>
-          <div v-if="loading" class="flex gap-2 items-center justify-center">
-            <i class="pi pi-spin pi-spinner text-4xl text-gray-500" />
-            <span class="text-gray-500 text-lg animate-pulse">
-              {{ imagePaths?.length > 0 ? t('gallery.loadingMore') : t('gallery.loading') }}
-            </span>
+          <div v-if="loading || (!allImagesReady && imagePaths?.length > 0)" class="flex flex-col gap-2 items-center justify-center">
+            <div class="flex gap-2 items-center justify-center">
+              <i class="pi pi-spin pi-spinner text-4xl text-gray-500" />
+              <span class="text-gray-500 text-lg animate-pulse">
+                {{ imagePaths?.length > 0 ? t('gallery.loadingMore') : t('gallery.loading') }}
+              </span>
+            </div>
+            <p v-if="count > 0 && total > 0" class="text-center text-md md:text-lg text-balance">
+              {{ t('gallery.loadingDescription', { count, total }) }}
+            </p>
           </div>
           <p v-else-if="imagePaths?.length === 0" class="text-center text-md md:text-lg text-balance">
             {{ t('gallery.noImages') }}

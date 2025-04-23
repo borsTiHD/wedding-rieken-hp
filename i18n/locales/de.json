@@ -110,6 +110,7 @@
     "noImages": "Keine Bilder gefunden",
     "loading": "Bilder werden geladen...",
     "loadingMore": "Weitere Bilder werden geladen...",
+    "loadingDescription": "Bitte warte einen Moment, während die Bilder geladen werden ({count} von {total} geladen).",
     "showImage": {
       "preview": "Anschauen"
     }

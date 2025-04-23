@@ -18,6 +18,7 @@ const {
   isPending,
 } = useFolderInfiniteQuery(galleryPath, ref(5))
 const loadingData = computed(() => isFetching.value || isFetchingNextPage.value || isPending.value)
+const totalImages = computed(() => filesData.value?.pages?.[0]?.total || 0)
 
 function convertResults(items: SerializeObject<MinioFile>[]): string[] {
   // Get only image paths
@@ -67,7 +68,7 @@ function handleIsReady() {
 <template>
   <main class="mx-auto flex flex-col">
     <div class="p-4 mx-auto sm:w-11/12 md:w-10/12 lg:w-8/12 flex flex-col gap-4">
-      <ShowGalleryLazy :image-paths="imagePaths" :loading="loadingData" @is-ready="handleIsReady" />
+      <ShowGalleryLazy :image-paths="imagePaths" :loading="loadingData" :count="imagePaths?.length" :total="totalImages" @is-ready="handleIsReady" />
     </div>
   </main>
 </template>
