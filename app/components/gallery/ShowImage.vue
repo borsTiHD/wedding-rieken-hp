@@ -22,10 +22,10 @@ const origImageOptions = computed(() => ({ src: origImageUrl.value }))
 const { isLoading: origImageLoading, isReady: isReadyOrigImage } = useImage(origImageOptions)
 
 const srcToUse = computed(() => {
-  if (!mediumImageLoading.value && isReadyOrigImage.value) {
+  if (!origImageLoading.value && isReadyOrigImage.value) {
     return origImageUrl.value
   }
-  else if (!origImageLoading.value && isReadyMediumImage.value) {
+  else if (!mediumImageLoading.value && isReadyMediumImage.value) {
     return mediumImageUrl.value
   }
   return image.value?.src
