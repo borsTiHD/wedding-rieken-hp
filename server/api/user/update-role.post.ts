@@ -39,6 +39,21 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  // Get user profile from database
+  const userDoc = await db.collection('users').doc(uid).get().catch(() => {
+    // Do nothing
+    return null
+  })
+
+  // Check if user profile exists and if role is admin
+  const userProfile = userDoc?.data()
+  if (userProfile && userProfile.role === 'admin') {
+    return {
+      result: 'success',
+      message: 'User is already an admin - no doing',
+    }
+  }
+
   // Update user profile
   const profile: PartialUserProfile = { role: 'invited' }
   await db.collection('users').doc(uid).update(profile).catch((error) => {
