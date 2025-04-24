@@ -18,11 +18,14 @@ export default defineEventHandler(async (event) => {
   // Get metadata from Minio
   const metadata = await getMetadata(decodedPath)
 
-  // Check if the request is for a preview
+  // Check if the request is for a thumbnail
   const getThumbnail = getQuery(event).thumbnail === 'true'
 
+  // Check if the request is for a medium size image
+  const getMedium = getQuery(event).medium === 'true'
+
   // Get preview URL from Minio
-  const previewUrl = await getPreviewUrl(decodedPath, getThumbnail)
+  const previewUrl = await getPreviewUrl(decodedPath, getThumbnail, getMedium)
   if (!previewUrl) {
     throw createError({ statusCode: 500, statusMessage: 'Failed to get preview URL' })
   }
@@ -36,6 +39,7 @@ export default defineEventHandler(async (event) => {
       name: metadata?.metaData?.['original-filename'] as string,
       path: decodedPath,
       isThumbnail: getThumbnail,
+      isMedium: getMedium,
       metadata,
     },
     success: true,

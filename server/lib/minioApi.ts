@@ -13,6 +13,11 @@ function getThumbnailPath(filePath: string): string {
   return `thumbnails/${filePath.replace(/\.[^/.]+$/, '.jpg')}`
 }
 
+function getMediumPath(filePath: string): string {
+  // Construct the medium path with a .jpg extension
+  return `medium/${filePath.replace(/\.[^/.]+$/, '.jpg')}`
+}
+
 async function getMetadata(filePath: string) {
   // Check if bucket exists
   const bucketExists = await checkBucketExists(bucket)
@@ -139,8 +144,12 @@ async function getAllFilesPaginated(filePath: string, offset: number = 0, limit:
   })
 }
 
-async function getPreviewUrl(objectName: string, getThumbnail: boolean, expirySeconds: number = 3600 * 48): Promise<string> {
-  const filePath = getThumbnail ? getThumbnailPath(objectName) : objectName
+async function getPreviewUrl(objectName: string, getThumbnail: boolean, getMedium: boolean, expirySeconds: number = 3600 * 48): Promise<string> {
+  const filePath = getMedium
+    ? getMediumPath(objectName)
+    : getThumbnail
+      ? getThumbnailPath(objectName)
+      : objectName
 
   // Check if the URL is already cached and still valid
   const cached = presignedUrlCache.get(filePath)
@@ -284,6 +293,13 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
   // Generate a thumbnail
   const thumbnailBuffer = await sharp(fileBuffer)
     .rotate() // Normalize orientation based on EXIF metadata
+    .resize({ width: 600, withoutEnlargement: true }) // Resize to 600px width while maintaining aspect ratio
+    .jpeg({ quality: 60 }) // Convert to JPEG with 60% quality
+    .toBuffer()
+
+  // Generate a medium image
+  const mediumBuffer = await sharp(fileBuffer)
+    .rotate() // Normalize orientation based on EXIF metadata
     .resize({ width: 1000, withoutEnlargement: true }) // Resize to 1000px width while maintaining aspect ratio
     .jpeg({ quality: 60 }) // Convert to JPEG with 60% quality
     .toBuffer()
@@ -298,6 +314,19 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
     {
       ...metaData,
       'X-Amz-Meta-Thumbnail': 'true',
+    } as ItemBucketMetadata,
+  )
+
+  // Upload the medium image
+  const mediumPath = getMediumPath(filePath) // Ensure medium image has .jpg extension
+  await MinioClient.putObject(
+    bucket,
+    mediumPath,
+    mediumBuffer,
+    mediumBuffer.length, // Optional size
+    {
+      ...metaData,
+      'X-Amz-Meta-Medium': 'true',
     } as ItemBucketMetadata,
   )
 
