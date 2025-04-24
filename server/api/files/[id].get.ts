@@ -1,3 +1,4 @@
+import type { ImageMode } from '@@/server/lib/minioApi'
 import checkUser from '@@/server/lib/checkUser'
 import { getMetadata, getPreviewUrl } from '@@/server/lib/minioApi'
 
@@ -18,14 +19,11 @@ export default defineEventHandler(async (event) => {
   // Get metadata from Minio
   const metadata = await getMetadata(decodedPath)
 
-  // Check if the request is for a thumbnail
-  const getThumbnail = getQuery(event).thumbnail === 'true'
-
-  // Check if the request is for a medium size image
-  const getMedium = getQuery(event).medium === 'true'
+  // Check which mode the user requested
+  const mode = getQuery(event).mode as ImageMode || 'thumbnail'
 
   // Get preview URL from Minio
-  const previewUrl = await getPreviewUrl(decodedPath, getThumbnail, getMedium)
+  const previewUrl = await getPreviewUrl(decodedPath, mode)
   if (!previewUrl) {
     throw createError({ statusCode: 500, statusMessage: 'Failed to get preview URL' })
   }
@@ -38,8 +36,7 @@ export default defineEventHandler(async (event) => {
     file: {
       name: metadata?.metaData?.['original-filename'] as string,
       path: decodedPath,
-      isThumbnail: getThumbnail,
-      isMedium: getMedium,
+      mode,
       metadata,
     },
     success: true,

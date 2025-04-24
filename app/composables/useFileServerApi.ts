@@ -2,6 +2,8 @@ import type { MinioFile } from '@@/shared/types/MinioFile'
 import type { SerializeObject } from 'nitropack'
 import { useUserStore } from '@/stores/user'
 
+export type ImageMode = 'thumbnail' | 'medium' | 'original'
+
 export default function useFileServerApi() {
   // Localisation
   const { $i18n } = useNuxtApp()
@@ -81,7 +83,7 @@ export default function useFileServerApi() {
     })
   }
 
-  async function getPreviewUrl(fileId: string, thumbnail: boolean = false) {
+  async function getPreviewUrl(fileId: string, mode: ImageMode) {
     // Check if user is logged in
     if (!user.value) {
       throw new Error(t('firebase.custom.noUserLoggedIn'))
@@ -91,7 +93,7 @@ export default function useFileServerApi() {
 
     return $fetch(`${apiBaseUrl}/files/${encodedPath}`, {
       method: 'GET',
-      params: { thumbnail },
+      params: { mode },
     })
   }
 

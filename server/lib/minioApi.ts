@@ -6,6 +6,8 @@ import { bucket, checkBucketExists, MinioClient } from '@@/server/lib/minioInit'
 import archiver from 'archiver'
 import sharp from 'sharp'
 
+export type ImageMode = 'thumbnail' | 'medium' | 'original'
+
 const presignedUrlCache = new Map<string, { url: string, expiresAt: number }>()
 
 function getThumbnailPath(filePath: string): string {
@@ -144,10 +146,10 @@ async function getAllFilesPaginated(filePath: string, offset: number = 0, limit:
   })
 }
 
-async function getPreviewUrl(objectName: string, getThumbnail: boolean, getMedium: boolean, expirySeconds: number = 3600 * 48): Promise<string> {
-  const filePath = getMedium
+async function getPreviewUrl(objectName: string, mode: ImageMode, expirySeconds: number = 3600 * 48): Promise<string> {
+  const filePath = mode === 'medium'
     ? getMediumPath(objectName)
-    : getThumbnail
+    : mode === 'thumbnail'
       ? getThumbnailPath(objectName)
       : objectName
 
@@ -293,7 +295,7 @@ async function uploadFile(fileName: string, filePath: string, fileType: string, 
   // Generate a thumbnail
   const thumbnailBuffer = await sharp(fileBuffer)
     .rotate() // Normalize orientation based on EXIF metadata
-    .resize({ width: 600, withoutEnlargement: true }) // Resize to 600px width while maintaining aspect ratio
+    .resize({ width: 400, withoutEnlargement: true }) // Resize to 400px width while maintaining aspect ratio
     .jpeg({ quality: 60 }) // Convert to JPEG with 60% quality
     .toBuffer()
 

@@ -14,11 +14,11 @@ const { id, imagePath, roundedClass } = toRefs(props)
 const containerRef = useTemplateRef<HTMLDivElement>('container')
 const containerIsVisible = useElementVisibility(containerRef)
 
-const { data: fileData, isLoading, isFetching } = useFileQuery(imagePath, ref(true), containerIsVisible)
-const loadingFile = computed(() => isLoading.value || isFetching.value)
-const previewUrl = computed(() => fileData.value?.previewUrl || '')
-const fileName = computed(() => fileData.value?.file?.name || 'No Name')
-const fileLastModified = computed(() => fileData.value?.file?.metadata?.lastModified || 'No Date')
+const { data: thumbnailData, isLoading: isLoadingThumbnail, isFetching: isFetchingThumbnail } = useFileQuery(imagePath, ref('thumbnail'), containerIsVisible)
+const loadingFile = computed(() => isLoadingThumbnail.value || isFetchingThumbnail.value)
+const previewUrl = computed(() => thumbnailData.value?.previewUrl || '')
+const fileName = computed(() => thumbnailData.value?.file?.name || 'No Name')
+const fileLastModified = computed(() => thumbnailData.value?.file?.metadata?.lastModified || 'No Date')
 
 const imageOptions = computed(() => ({ src: previewUrl.value }))
 const { isLoading: imageLoading, error, isReady } = useImage(imageOptions)
@@ -29,7 +29,7 @@ const image = computed<Image>(() => ({
   alt: fileName.value,
   title: fileName.value,
   lastModified: fileLastModified.value,
-  size: fileData.value?.file?.metadata?.size || 0,
+  size: thumbnailData.value?.file?.metadata?.size || 0,
 }))
 
 watch(error, (err: any) => {
@@ -58,7 +58,7 @@ watch(isReady, (ready) => {
       </div>
     </div>
     <template v-else-if="isReady">
-      <ShowImage :image="image" />
+      <ShowImage :image="image" :image-path="imagePath" full-res />
     </template>
   </div>
 </template>
