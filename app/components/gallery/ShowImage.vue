@@ -1,14 +1,35 @@
 <script setup lang="ts">
 import type { Image } from '@/types/Image'
+import { useFileQuery } from '@/queries/useFileQuery'
+import { useImage } from '@vueuse/core'
 import { ref } from 'vue'
 
-interface Props { image: Image | undefined, roundedClass?: string, mode?: 'single' }
+interface Props { image: Image | undefined, imagePath?: string, fullRes?: boolean, roundedClass?: string, mode?: 'single' }
 const props = defineProps<Props>()
-const { image, roundedClass, mode } = toRefs(props)
+const { image, imagePath, fullRes, roundedClass, mode } = toRefs(props)
 
 const { t } = useI18n()
 
-const showTools = ref(false)
+const enableFullRes = ref(false)
+const { data: mediumImageData } = useFileQuery(imagePath, ref('medium'), enableFullRes)
+const mediumImageUrl = computed(() => mediumImageData.value?.previewUrl || '')
+const mediumImageOptions = computed(() => ({ src: mediumImageUrl.value }))
+const { isLoading: mediumImageLoading, isReady: isReadyMediumImage } = useImage(mediumImageOptions)
+
+const { data: origImageData } = useFileQuery(imagePath, ref('original'), enableFullRes)
+const origImageUrl = computed(() => origImageData.value?.previewUrl || '')
+const origImageOptions = computed(() => ({ src: origImageUrl.value }))
+const { isLoading: origImageLoading, isReady: isReadyOrigImage } = useImage(origImageOptions)
+
+const srcToUse = computed(() => {
+  if (!mediumImageLoading.value && isReadyOrigImage.value) {
+    return origImageUrl.value
+  }
+  else if (!origImageLoading.value && isReadyMediumImage.value) {
+    return mediumImageUrl.value
+  }
+  return image.value?.src
+})
 
 // Image loading and error handling
 const loading = ref(true)
@@ -27,33 +48,21 @@ function onEnter() {
 function onLeave() {
   hovered.value = false
 }
+
+function onShowImage() {
+  // Enable full resolution image loading
+  if (fullRes?.value) {
+    enableFullRes.value = true
+  }
+}
+
+function onHideImage() {
+  // Disable full resolution image loading
+  enableFullRes.value = false
+}
 </script>
 
 <template>
-  <!-- Toolbar -->
-  <!-- <div
-    v-if="showTools"
-    class="fixed top-10 left-0 w-full bg-gray-800 text-white py-2 px-4 flex items-center justify-between z-[9999999]"
-  >
-    <div class="flex items-center gap-4">
-      <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-        {{ t('gallery.showImage.action1') }}
-      </button>
-      <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-        {{ t('gallery.showImage.action2') }}
-      </button>
-      <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-        {{ t('gallery.showImage.action3') }}
-      </button>
-    </div>
-    <button
-      class="text-gray-400 hover:text-white"
-      @click="showTools = false"
-    >
-      ✕
-    </button>
-  </div> -->
-
   <Image
     :alt="image?.alt"
     :pt="{
@@ -62,8 +71,8 @@ function onLeave() {
     }"
     :title="image?.title"
     preview
-    @show="showTools = true"
-    @hide="showTools = false"
+    @show="onShowImage"
+    @hide="onHideImage"
     @mouseenter="onEnter"
     @mouseleave="onLeave"
   >
@@ -108,26 +117,22 @@ function onLeave() {
     </template>
     <template #original="slotProps">
       <!-- This is the original image (fullscreen) -->
-      <img
-        :src="image?.src"
-        :alt="image?.alt"
-        :title="image?.title"
-        loading="lazy"
-        :class="slotProps.class"
-        :style="slotProps.style"
-        @click="slotProps.previewCallback"
-      >
-      <!-- <NuxtImg
-        :src="image?.src"
-        :alt="image?.alt"
-        :title="image?.title"
-        loading="lazy"
-        :placeholder="[300, 400, 75, 5]"
-        quality="80"
-        :class="slotProps.class"
-        :style="slotProps.style"
-        @click="slotProps.previewCallback"
-      /> -->
+      <div class="relative w-full h-full">
+        <!-- Loading spinner -->
+        <div v-if="mediumImageLoading || origImageLoading" class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+          <!-- <i class="pi pi-spin pi-spinner text-gray-300 text-8xl" /> -->
+          <ProgressSpinner />
+        </div>
+        <img
+          :src="srcToUse"
+          :alt="image?.alt"
+          :title="image?.title"
+          loading="lazy"
+          :class="slotProps.class"
+          :style="slotProps.style"
+          @click="slotProps.previewCallback"
+        >
+      </div>
     </template>
   </Image>
 </template>
