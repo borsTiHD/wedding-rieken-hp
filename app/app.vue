@@ -38,8 +38,15 @@ const isIndex = computed(() => routeName.value.includes('index'))
 const { loading, progress, startLoading, stoptLoading } = useLoadingSpinner()
 
 // Queries
-const { suspense: suspenseConfig } = useConfig()
-const { suspense: suspenseContent } = useContent()
+const { suspense: suspenseConfig, error: errorConfig } = useConfig()
+const { suspense: suspenseContent, error: errorContent } = useContent()
+
+watch([errorContent, errorConfig], ([errorContentValue, errorConfigValue]) => {
+  const error = errorContentValue || errorConfigValue
+  if (error) {
+    console.error('Error fetching content:', error.message)
+  }
+})
 
 // Stores
 const appStore = useAppStore() // App store
@@ -119,11 +126,29 @@ onNuxtReady(async () => {
   tokenStore.getInvitationToken()
 
   // Fetch data on page load
-  await Promise.allSettled([
+  const results = await Promise.allSettled([
     suspenseConfig(),
     suspenseContent(),
     userStore.fetchUserData(),
   ])
+
+  let error = false
+  results.forEach((result) => {
+    if (result.status === 'rejected') {
+      console.error('Error fetching data:', result.reason)
+      error = true
+    }
+  })
+
+  // Check if any of the promises were rejected
+  if (error) {
+    toast.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Es konnten nicht alle Inhalte geladen werden. Bitte versuche es später erneut.',
+      life: 10000,
+    })
+  }
 
   stoptLoading() // Stop loading spinner
 
