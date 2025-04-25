@@ -16,7 +16,7 @@ export function useConfigQuery() {
       if (error.code === 'permission-denied') {
         return false
       }
-      return failureCount < 3 // Retry up to 3 times for other errors
+      return failureCount < 2 // Retry up to 2 times for other errors
     },
     enabled: !!$firestore,
   })
