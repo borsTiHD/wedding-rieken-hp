@@ -81,6 +81,35 @@ async function downloadAll() {
     console.error('Error downloading folder:', error)
   })
 }
+
+const fileInput = ref<HTMLInputElement | null>(null)
+
+function triggerFileInput() {
+  fileInput.value?.click()
+}
+
+function onFileChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  const file = target.files && target.files[0]
+  // console.log('event:', event)
+  if (file) {
+    // hier kannst du das Bild an dein Backend schicken
+    uploadPhoto(file as File)
+  }
+}
+
+async function uploadPhoto(file: File) {
+  const formData = new FormData()
+  formData.append('photo', file)
+
+  // console.log('file:', file)
+  // console.log('Uploading photo:', file.name)
+  // console.log('Form data:', formData)
+  // await fetch('/api/upload', {
+  //   method: 'POST',
+  //   body: formData,
+  // });
+}
 </script>
 
 <template>
@@ -92,6 +121,18 @@ async function downloadAll() {
     </template>
     <template #content>
       <div class="flex flex-col gap-4">
+        <div>
+          <input
+            ref="fileInput"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            style="display: none"
+            @change="onFileChange"
+          >
+          <Button label="Foto aufnehmen" @click="triggerFileInput" />
+        </div>
+
         <DataTable
           v-model:selection="selectedFiles"
           :value="files"
@@ -103,8 +144,8 @@ async function downloadAll() {
           :rows="10"
           :rows-per-page-options="[5, 10, 20, 50]"
           paginator
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} images"
+          paginator-template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+          current-page-report-template="Showing {first} to {last} of {totalRecords} images"
         >
           <template #header>
             <div class="flex flex-wrap gap-2">
