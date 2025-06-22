@@ -119,7 +119,11 @@
   "gallery_user": {
     "header": "Fotos Hochladen",
     "description": "Hier könnt ihr eure Fotos von der Hochzeit hochladen. Wir freuen uns über jeden Beitrag, um die Erinnerungen an diesen besonderen Tag zu teilen.",
-    "uploadPhoto": "Foto hochladen"
+    "uploadPhoto": "Bild hochladen",
+    "error": "Fehler beim Hochladen des Bildes",
+    "errorUpload": "Fehler beim Hochladen des Bildes: {error}",
+    "success": "Bild erfolgreich hochgeladen",
+    "successDetail": "Das Bild wurde erfolgreich hochgeladen"
   },
   "login": {
     "header": "Einloggen",
@@ -599,6 +603,7 @@
     },
     "uploadGalleryFile": {
       "uploadLabel": "Neue Bilder hochladen",
+      "uploadLabelUser": "Mehrere Bilder hochladen",
       "invalidFileSizeMessage": "Die Datei ist zu groß. Bitte wähle eine Datei mit maximal {maxFilesize} aus.",
       "noFileSelected": "Keine Datei ausgewählt",
       "noFileSelectedDetail": "Bitte wähle eine Datei aus, um sie hochzuladen",
