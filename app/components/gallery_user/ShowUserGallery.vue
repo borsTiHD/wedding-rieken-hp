@@ -54,9 +54,7 @@ function handleIsReady(id: string) {
 }
 
 // Computed property to check if all images are ready
-const allImagesReady = computed(() => {
-  return imagePaths.value?.every(path => imageReadyState.value.get(path) === true)
-})
+const allImagesReady = computed(() => imagePaths.value?.every(path => imageReadyState.value.get(path) === true))
 
 watch(allImagesReady, (ready) => {
   if (ready && imagePaths.value?.length > 0) {
