@@ -1,4 +1,4 @@
-import type { ImageMode } from '@/composables/useFileServerApi'
+import type { ImageMode } from '@@/shared/types/ImageMode'
 import useUserFileServerApi from '@/composables/useUserFileServerApi'
 import { useQuery } from '@tanstack/vue-query'
 

@@ -1,8 +1,7 @@
 import type { ImageFile } from '@@/shared/types/ImageFile'
+import type { ImageMode } from '@@/shared/types/ImageMode'
 import type { SerializeObject } from 'nitropack'
 import { useUserStore } from '@/stores/user'
-
-export type ImageMode = 'thumbnail' | 'medium' | 'original'
 
 export default function useUserFileServerApi() {
   // Localisation

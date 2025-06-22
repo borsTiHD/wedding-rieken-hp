@@ -1,4 +1,4 @@
-import type { ImageMode } from '@@/server/lib/minioApi'
+import type { ImageMode } from '@@/shared/types/ImageMode'
 import checkUser from '@@/server/lib/checkUser'
 import { getMediumPath, getOriginalPath, getThumbnailPath, getUserPath } from '@@/server/lib/filesHelper'
 import getUser from '@@/server/lib/getUser'

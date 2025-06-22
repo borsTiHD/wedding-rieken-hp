@@ -1,3 +1,4 @@
+import type { ImageMode } from '@@/shared/types/ImageMode'
 import type { MinioFile } from '@@/shared/types/MinioFile'
 import type { EventHandlerRequest, H3Event } from 'h3'
 import type { BucketItem, ItemBucketMetadata } from 'minio'
@@ -5,8 +6,6 @@ import type { Buffer } from 'node:buffer'
 import { bucket, checkBucketExists, MinioClient } from '@@/server/lib/minioInit'
 import archiver from 'archiver'
 import sharp from 'sharp'
-
-export type ImageMode = 'thumbnail' | 'medium' | 'original'
 
 const presignedUrlCache = new Map<string, { url: string, expiresAt: number }>()
 
