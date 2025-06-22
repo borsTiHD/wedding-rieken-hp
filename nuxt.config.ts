@@ -33,6 +33,14 @@ function isValidEnvironment(): void {
   checkEnvironmentVariable('NUXT_MINIO_ACCESS_KEY')
   checkEnvironmentVariable('NUXT_MINIO_SECRET_KEY')
   checkEnvironmentVariable('NUXT_MINIO_BUCKET')
+
+  // SFTP Configuration
+  checkEnvironmentVariable('NUXT_SFTP_HOST')
+  checkEnvironmentVariable('NUXT_SFTP_PORT')
+  checkEnvironmentVariable('NUXT_SFTP_USERNAME')
+  checkEnvironmentVariable('NUXT_SFTP_PASSWORD')
+  checkEnvironmentVariable('NUXT_SFTP_PRIVATE_KEY')
+  checkEnvironmentVariable('NUXT_SFTP_PASSPHRASE')
 }
 
 // Check if all environment variables are set correctly
@@ -68,6 +76,15 @@ export default defineNuxtConfig({
       accessKey: process.env.NUXT_MINIO_ACCESS_KEY,
       secretKey: process.env.NUXT_MINIO_SECRET_KEY,
       bucket: process.env.NUXT_MINIO_BUCKET,
+    },
+    // SFTP Configuration
+    sftpConfig: {
+      host: process.env.NUXT_SFTP_HOST,
+      port: Number.parseInt(process.env.NUXT_SFTP_PORT || '22', 10), // Default to 22 if not set
+      username: process.env.NUXT_SFTP_USERNAME,
+      password: process.env.NUXT_SFTP_PASSWORD,
+      privateKey: process.env.NUXT_SFTP_PRIVATE_KEY,
+      passphrase: process.env.NUXT_SFTP_PASSPHRASE, // Optional passphrase for private key
     },
     // Client-side runtime config
     public: {
