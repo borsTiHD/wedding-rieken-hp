@@ -116,6 +116,11 @@
       "preview": "Anschauen"
     }
   },
+  "gallery_user": {
+    "header": "Fotos Hochladen",
+    "description": "Hier könnt ihr eure Fotos von der Hochzeit hochladen. Wir freuen uns über jeden Beitrag, um die Erinnerungen an diesen besonderen Tag zu teilen.",
+    "uploadPhoto": "Foto hochladen"
+  },
   "login": {
     "header": "Einloggen",
     "withoutPassword": "Ohne Passwort",
