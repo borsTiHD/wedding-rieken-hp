@@ -29,6 +29,7 @@ export const usePagesStore = defineStore('pages-store', () => {
         { name: t('pages.date'), to: { path: localePath('/'), hash: '#wedding' } },
         { name: t('pages.infos'), to: { path: localePath('/'), hash: '#infos' } },
         { name: t('pages.gallery'), to: { path: localePath('/gallery') } },
+        { name: t('pages.gallery_user'), to: { path: localePath('/gallery_user') } },
       )
     }
 
