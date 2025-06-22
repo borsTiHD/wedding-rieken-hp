@@ -78,19 +78,18 @@ export default function useUserFileServerApi() {
     return allFiles
   }
 
-  async function getAllFilesPaginated(filePath: string, offset: number, limit: number) { // Check if user is logged in
+  async function getAllFilesPaginated(offset: number, limit: number) { // Check if user is logged in
     if (!user.value) {
       throw new Error(t('firebase.custom.noUserLoggedIn'))
     }
 
-    return 'Not implemented yet'
-    // return $fetch(`${apiBaseUrl}/user/files`, {
-    //   method: 'GET',
-    //   params: { path: filePath, offset, limit },
-    // })
+    return $fetch(`${apiBaseUrl}/user/files`, {
+      method: 'GET',
+      params: { offset, limit },
+    })
   }
 
-  async function getPreviewUrl(fileId: string, mode: ImageMode) {
+  async function getPreviewBuffer(fileId: string, mode: ImageMode) {
     // Check if user is logged in
     if (!user.value) {
       throw new Error(t('firebase.custom.noUserLoggedIn'))
@@ -98,11 +97,10 @@ export default function useUserFileServerApi() {
 
     const encodedPath = encodeURIComponent(fileId)
 
-    return 'Not implemented yet'
-    // return $fetch(`${apiBaseUrl}/user/files/${encodedPath}`, {
-    //   method: 'GET',
-    //   params: { mode },
-    // })
+    return $fetch(`${apiBaseUrl}/user/files/${encodedPath}`, {
+      method: 'GET',
+      params: { mode },
+    })
   }
 
   async function downloadFile(fileId: string) {
@@ -232,7 +230,7 @@ export default function useUserFileServerApi() {
 
     getAllFiles,
     getAllFilesPaginated,
-    getPreviewUrl,
+    getPreviewBuffer,
     downloadFile,
     downloadFolder,
   }
