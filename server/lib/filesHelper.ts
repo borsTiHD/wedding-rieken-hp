@@ -1,6 +1,17 @@
 import type { Buffer } from 'node:buffer'
 import sharp from 'sharp'
 
+function getUserPath(userId: string): string {
+  // Construct the user path based on the user ID
+  return `/user/${userId}`
+}
+
+function getOriginalPath(userPath: string, fileName?: string): string {
+  return fileName
+    ? `${userPath}/original/${fileName}`
+    : `${userPath}/original`
+}
+
 function getThumbnailPath(userPath: string, fileName: string): string {
   // Construct the thumbnail path with a .jpg extension
   return `${userPath}/thumbnails/${fileName.replace(/\.[^/.]+$/, '.jpg')}`
@@ -32,5 +43,7 @@ export {
   generateThumbnail,
 
   getMediumPath,
+  getOriginalPath,
   getThumbnailPath,
+  getUserPath,
 }
