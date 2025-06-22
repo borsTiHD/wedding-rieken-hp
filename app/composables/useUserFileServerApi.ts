@@ -83,10 +83,11 @@ export default function useUserFileServerApi() {
       throw new Error(t('firebase.custom.noUserLoggedIn'))
     }
 
-    return $fetch(`${apiBaseUrl}/user/files`, {
-      method: 'GET',
-      params: { path: filePath, offset, limit },
-    })
+    return 'Not implemented yet'
+    // return $fetch(`${apiBaseUrl}/user/files`, {
+    //   method: 'GET',
+    //   params: { path: filePath, offset, limit },
+    // })
   }
 
   async function getPreviewUrl(fileId: string, mode: ImageMode) {
@@ -97,10 +98,11 @@ export default function useUserFileServerApi() {
 
     const encodedPath = encodeURIComponent(fileId)
 
-    return $fetch(`${apiBaseUrl}/user/files/${encodedPath}`, {
-      method: 'GET',
-      params: { mode },
-    })
+    return 'Not implemented yet'
+    // return $fetch(`${apiBaseUrl}/user/files/${encodedPath}`, {
+    //   method: 'GET',
+    //   params: { mode },
+    // })
   }
 
   async function downloadFile(fileId: string) {
@@ -217,9 +219,10 @@ export default function useUserFileServerApi() {
 
     const encodedPath = encodeURIComponent(fileId)
 
-    return $fetch(`${apiBaseUrl}/user/files/${encodedPath}`, {
-      method: 'DELETE',
-    })
+    return 'Not implemented yet'
+    // return $fetch(`${apiBaseUrl}/user/files/${encodedPath}`, {
+    //   method: 'DELETE',
+    // })
   }
 
   // Return functions
