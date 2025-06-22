@@ -80,7 +80,7 @@ watch(allImagesReady, (ready) => {
             <p class="text-center text-md md:text-lg text-balance">
               {{ t('gallery_user.description') }}
             </p>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 flex-col md:flex-row">
               <UploadSingleImage />
               <UploadMultipleImages />
             </div>
