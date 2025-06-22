@@ -20,7 +20,6 @@ const { refreshToken } = useFirebaseAuth()
 // User store
 const userStore = useUserStore()
 const user = computed(() => userStore.user)
-const userProfile = computed(() => userStore.userProfile)
 
 // Max file size for picture
 const maxFileSize = 10 * 1000 * 1000 // in bytes (10MB)
@@ -30,7 +29,7 @@ const maxFileSizeInMB = maxFileSize / 1000000
 const visible = ref(false)
 const loading = ref(false)
 const tokenRefreshInterval = ref<ReturnType<typeof setTimeout> | undefined>(undefined)
-const uploadLabel = t('admin.uploadGalleryFile.uploadLabel')
+const uploadLabel = t('admin.uploadGalleryFile.uploadLabelUser')
 const invalidFileSizeMessage = t('admin.uploadGalleryFile.invalidFileSizeMessage', { maxFilesize: `${maxFileSizeInMB}MB` })
 
 const selectedFiles = ref<FileWithPreview[]>([])
@@ -63,11 +62,6 @@ async function onUpload() {
   // Check if user is logged in
   if (!user.value) {
     throw new Error(t('firebase.custom.noUserLoggedIn'))
-  }
-
-  // Check if user is admin
-  if (userProfile.value && userProfile.value.role !== 'admin') {
-    throw new Error(t('admin.notAdminError'))
   }
 
   // Refresh token for upload
@@ -212,7 +206,7 @@ onUnmounted(() => {
 
 <template>
   <div class="flex flex-col">
-    <Button icon="pi pi-plus" :label="uploadLabel" type="button" class="w-full" @click="visible = true" />
+    <Button icon="pi pi-plus" :label="uploadLabel" type="button" class="w-full" outlined @click="visible = true" />
     <Dialog v-model:visible="visible" maximizable modal :draggable="false" :header="uploadLabel" class="w-full md:w-[42rem] lg:w-[66rem]">
       <FileUpload
         name="photo[]"
