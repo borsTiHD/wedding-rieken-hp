@@ -57,8 +57,8 @@ export class SftpClass {
     await this.client.put(file, filePath)
   }
 
-  async download(remotePath: string, localPath: string): Promise<void> {
-    await this.client.get(remotePath, localPath)
+  async download(remotePath: string): Promise<Buffer<ArrayBufferLike>> {
+    return this.client.get(remotePath) as Promise<Buffer<ArrayBufferLike>>
   }
 
   async delete(remotePath: string): Promise<void> {
