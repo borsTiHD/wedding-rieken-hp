@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import checkUser from '@@/server/lib/checkUser'
 import { uploadFile } from '@@/server/lib/filesApi'
+import { getUserPath } from '@@/server/lib/filesHelper'
 import getUser from '@@/server/lib/getUser'
 
 export default defineEventHandler(async (event) => {
@@ -8,6 +9,12 @@ export default defineEventHandler(async (event) => {
   await checkUser(event)
 
   const user = await getUser(event)
+  if (!user || !user.uid) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: 'You must be signed in to access.',
+    })
+  }
 
   // Form data to get uploaded file
   const formData = await readMultipartFormData(event)
@@ -17,7 +24,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Set path for user files
-  const userPath = `/user/${user.uid}`
+  const userPath = getUserPath(user.uid)
 
   // Get file from form data
   const file = formData.find(field => field?.name === 'file' && field?.type && field?.data && field?.data?.length > 0 && field?.filename)
