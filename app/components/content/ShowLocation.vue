@@ -50,7 +50,7 @@ const coordinates = [51.147440, 7.156428] // [51.146396, 7.1552614]
             <dd class="text-base text-gray-600">
               <i18n-t keypath="general.infos.approachText" tag="p" class="text-pretty">
                 <template #parking>
-                  <strong>Parkplatz P2</strong>
+                  <strong>Parkplatz 3</strong>
                 </template>
                 <template #location>
                   <strong>"Grotte"</strong>
